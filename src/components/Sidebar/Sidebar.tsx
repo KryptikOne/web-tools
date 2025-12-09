@@ -3,14 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-	WrenchScrewdriverIcon,
-	DocumentTextIcon,
-	SwatchIcon,
-	PhotoIcon,
-	CodeBracketIcon,
-	CalculatorIcon,
-} from "@heroicons/react/24/outline";
+import { WrenchScrewdriverIcon, DocumentTextIcon, SwatchIcon, PhotoIcon, CodeBracketIcon, CalculatorIcon } from "@heroicons/react/24/outline";
 import { CATEGORIES, getToolsByCategory } from "@/config/tools-registry";
 import { ToolCategory } from "@/types/tools";
 import styles from "./Sidebar.module.scss";
@@ -43,7 +36,7 @@ export default function Sidebar() {
 			<div className={styles.sidebarContent}>
 				<Link href="/" className={styles.logo}>
 					<WrenchScrewdriverIcon className={styles.logoIcon} />
-					<span className={styles.logoText}>BittBott.dev</span>
+					<span className={styles.logoText}>WebTools</span>
 				</Link>
 
 				<nav className={styles.navigation}>
