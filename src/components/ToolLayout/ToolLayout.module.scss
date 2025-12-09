@@ -1,0 +1,11 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+.container {
+  // Container for tool content
+}
+
+.content {
+  max-width: 90rem;
+  margin: 0 auto;
+}

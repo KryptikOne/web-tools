@@ -1,0 +1,131 @@
+@use 'variables' as *;
+
+// Glass Card Effect
+@mixin glass-card {
+  background: $bg-glass;
+  backdrop-filter: blur(10px);
+  border: 1px solid $border-subtle;
+  border-radius: $radius-xl;
+  padding: $spacing-xl;
+}
+
+// Button Styles
+@mixin btn-base {
+  padding: 10px 16px;
+  border-radius: $radius-md;
+  cursor: pointer;
+  transition: all $transition-base;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-sm;
+  font-size: 14px;
+  border: 1px solid transparent;
+}
+
+@mixin btn-primary {
+  @include btn-base;
+  background: $bg-glass;
+  border-color: $border-medium;
+  color: $text-primary;
+
+  &:hover {
+    background: $bg-glass-hover;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+@mixin btn-secondary {
+  @include btn-base;
+  background: $bg-glass;
+  border-color: $border-medium;
+  color: $text-primary;
+
+  &:hover {
+    background: $bg-glass-hover;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// Input Field
+@mixin input-field {
+  width: 100%;
+  padding: 12px;
+  background: $input-bg;
+  border: 1px solid $input-border;
+  border-radius: $radius-md;
+  color: $text-primary;
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  transition: background $transition-base, border-color $transition-base;
+
+  &:focus {
+    outline: none;
+    border-color: $input-border-focus;
+    background: $input-bg-focus;
+  }
+
+  &::placeholder {
+    color: $text-muted;
+  }
+}
+
+// Checkerboard Background
+@mixin checkerboard-bg {
+  background-image:
+    linear-gradient(45deg, #808080 25%, transparent 25%),
+    linear-gradient(-45deg, #808080 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #808080 75%),
+    linear-gradient(-45deg, transparent 75%, #808080 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+  background-color: #404040;
+}
+
+// Responsive Grid
+@mixin responsive-grid($cols-mobile: 1, $cols-tablet: 2, $cols-desktop: 3, $gap: $spacing-lg) {
+  display: grid;
+  gap: $gap;
+  grid-template-columns: repeat($cols-mobile, 1fr);
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat($cols-tablet, 1fr);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat($cols-desktop, 1fr);
+  }
+}
+
+// Hover Lift Effect
+@mixin hover-lift {
+  transition: transform $transition-base, box-shadow $transition-base;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-lg;
+  }
+}
+
+// Truncate Text
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Line Clamp
+@mixin line-clamp($lines: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

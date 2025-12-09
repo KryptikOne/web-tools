@@ -1,0 +1,531 @@
+"use client";
+
+import { useState, useEffect, useMemo, useCallback } from "react";
+import { ColorUtils } from "@/lib/colorUtils";
+import { ClipboardDocumentIcon, CheckIcon, ArrowPathIcon, SwatchIcon, BookmarkIcon, EyeIcon } from "@heroicons/react/24/outline";
+import styles from "./ColorPicker.module.scss";
+
+interface SavedColor {
+	hex: string;
+	oklch: { l: number; c: number; h: number };
+	alpha: number;
+	id: number;
+}
+
+type AccessibilityLevel = "none" | "aa" | "aaa";
+
+export default function ColorPicker() {
+	const [oklch, setOklch] = useState({ l: 0.919, c: 0.196, h: 131.1 });
+	const [alpha, setAlpha] = useState(1);
+	const [inputValue, setInputValue] = useState("");
+	const [copiedFormat, setCopiedFormat] = useState<string | null>(null);
+	const [showColorList, setShowColorList] = useState(false);
+	const [savedColors, setSavedColors] = useState<SavedColor[]>([]);
+	const [showAccessibility, setShowAccessibility] = useState(false);
+
+	// Contrast checker state
+	const [foregroundHex, setForegroundHex] = useState("#000000");
+	const [backgroundHex, setBackgroundHex] = useState("#ffffff");
+	const [showContrastChecker, setShowContrastChecker] = useState(false);
+	const [accessibilityLevel, setAccessibilityLevel] = useState<AccessibilityLevel>("none");
+
+	// Check for color parameter in URL
+	useEffect(() => {
+		const urlParams = new URLSearchParams(window.location.search);
+		const colorParam = urlParams.get("color");
+		if (colorParam) {
+			const parsed = ColorUtils.parseColor(colorParam);
+			if (parsed) {
+				const [r, g, b] = parsed.rgb;
+				const [l, c, h] = ColorUtils.rgbToOklch(r, g, b);
+				setOklch({ l, c, h });
+				if (parsed.alpha !== undefined) {
+					setAlpha(parsed.alpha);
+				}
+			}
+		}
+	}, []);
+
+	// Calculate RGB from OKLCH
+	const rgb = useMemo(() => {
+		return ColorUtils.oklchToRgb(oklch.l, oklch.c, oklch.h);
+	}, [oklch]);
+
+	// Calculate other formats
+	const colorFormats = useMemo(() => {
+		const [r, g, b] = rgb;
+		const [h, s, l] = ColorUtils.rgbToHsl(r, g, b);
+		const hex = ColorUtils.rgbToHex(r, g, b);
+
+		return {
+			hex: hex,
+			hexa:
+				hex +
+				Math.round(alpha * 255)
+					.toString(16)
+					.padStart(2, "0"),
+			rgb: `rgb(${r}, ${g}, ${b})`,
+			rgba: `rgba(${r}, ${g}, ${b}, ${alpha.toFixed(2)})`,
+			hsl: `hsl(${h}, ${s}%, ${l}%)`,
+			hsla: `hsla(${h}, ${s}%, ${l}%, ${alpha.toFixed(2)})`,
+			oklch: `oklch(${(oklch.l * 100).toFixed(1)}% ${oklch.c.toFixed(3)} ${oklch.h.toFixed(1)})`,
+			oklcha: `oklch(${(oklch.l * 100).toFixed(1)}% ${oklch.c.toFixed(3)} ${oklch.h.toFixed(1)} / ${alpha.toFixed(2)})`,
+		};
+	}, [rgb, oklch, alpha]);
+
+	// Handle input parsing
+	const handleInputChange = (value: string) => {
+		setInputValue(value);
+		const parsed = ColorUtils.parseColor(value);
+		if (parsed) {
+			const [r, g, b] = parsed.rgb;
+			const [l, c, h] = ColorUtils.rgbToOklch(r, g, b);
+			setOklch({ l, c, h });
+			if (parsed.alpha !== undefined) {
+				setAlpha(parsed.alpha);
+			}
+		}
+	};
+
+	// Generate random color (optionally accessible)
+	const generateRandomColor = () => {
+		if (accessibilityLevel !== "none") {
+			const newColor = generateAccessibleRandomColor(accessibilityLevel);
+			setOklch(newColor);
+		} else {
+			const l = Math.random() * 0.3 + 0.5;
+			const c = Math.random() * 0.25;
+			const h = Math.random() * 360;
+			setOklch({ l, c, h });
+		}
+		setAlpha(1);
+		setInputValue("");
+	};
+
+	// Copy to clipboard
+	const copyToClipboard = async (text: string, format: string) => {
+		try {
+			await navigator.clipboard.writeText(text);
+			setCopiedFormat(format);
+			setTimeout(() => setCopiedFormat(null), 2000);
+		} catch (err) {
+			console.error("Failed to copy:", err);
+		}
+	};
+
+	// Save color to palette
+	const saveColor = () => {
+		const newColor: SavedColor = {
+			hex: colorFormats.hex,
+			oklch: { ...oklch },
+			alpha,
+			id: Date.now(),
+		};
+		setSavedColors((prev) => [newColor, ...prev.slice(0, 23)]);
+	};
+
+	// Load saved color
+	const loadColor = (color: SavedColor) => {
+		setOklch(color.oklch);
+		setAlpha(color.alpha);
+		setInputValue("");
+	};
+
+	// Calculate relative luminance
+	const getLuminance = useCallback((r: number, g: number, b: number) => {
+		const [rs, gs, bs] = [r, g, b].map((c) => {
+			c = c / 255;
+			return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+		});
+		return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs;
+	}, []);
+
+	// Calculate contrast ratio
+	const calculateContrast = useCallback(
+		(rgb1: [number, number, number], rgb2: [number, number, number]) => {
+			const l1 = getLuminance(...rgb1);
+			const l2 = getLuminance(...rgb2);
+			const lighter = Math.max(l1, l2);
+			const darker = Math.min(l1, l2);
+
+			return (lighter + 0.05) / (darker + 0.05);
+		},
+		[getLuminance]
+	);
+
+	// Convert hex to RGB tuple
+	const hexToRgb = useCallback((hex: string): [number, number, number] => {
+		const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+		return result ? [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)] : [0, 0, 0];
+	}, []);
+
+	// Check if a color meets contrast requirements on both black and white
+	const meetsContrastOnBothBackgrounds = useCallback(
+		(testRgb: [number, number, number], level: AccessibilityLevel): boolean => {
+			if (level === "none") return true;
+			const minRatio = level === "aaa" ? 4.5 : 3; // Using large text requirements for flexibility
+			const contrastOnWhite = calculateContrast(testRgb, [255, 255, 255]);
+			const contrastOnBlack = calculateContrast(testRgb, [0, 0, 0]);
+			return contrastOnWhite >= minRatio && contrastOnBlack >= minRatio;
+		},
+		[calculateContrast]
+	);
+
+	// Generate accessible random color
+	const generateAccessibleRandomColor = useCallback(
+		(level: AccessibilityLevel) => {
+			const maxAttempts = 100;
+
+			for (let attempt = 0; attempt < maxAttempts; attempt++) {
+				// For accessible colors, we need to constrain lightness to mid-range
+				// Too light fails on white, too dark fails on black
+				const l =
+					level === "aaa"
+						? Math.random() * 0.2 + 0.45 // AAA: tighter range ~45-65%
+						: Math.random() * 0.3 + 0.4; // AA: slightly wider ~40-70%
+				const c = Math.random() * 0.25;
+				const h = Math.random() * 360;
+
+				const testRgb = ColorUtils.oklchToRgb(l, c, h);
+
+				if (meetsContrastOnBothBackgrounds(testRgb, level)) {
+					return { l, c, h };
+				}
+			}
+
+			// Fallback to a known accessible color (mid-gray with some saturation)
+			return { l: 0.55, c: 0.12, h: Math.random() * 360 };
+		},
+		[meetsContrastOnBothBackgrounds]
+	);
+
+	// Calculate contrast ratio between foreground and background
+	const fgBgContrastRatio = useMemo(() => {
+		const fgRgb = hexToRgb(foregroundHex);
+		const bgRgb = hexToRgb(backgroundHex);
+		return calculateContrast(fgRgb, bgRgb);
+	}, [foregroundHex, backgroundHex, hexToRgb, calculateContrast]);
+
+	// WCAG compliance levels for fg/bg contrast
+	const wcagLevels = useMemo(
+		() => [
+			{ level: "Normal Text AA", ratio: 4.5, passes: fgBgContrastRatio >= 4.5 },
+			{ level: "Normal Text AAA", ratio: 7, passes: fgBgContrastRatio >= 7 },
+			{ level: "Large Text AA", ratio: 3, passes: fgBgContrastRatio >= 3 },
+			{ level: "Large Text AAA", ratio: 4.5, passes: fgBgContrastRatio >= 4.5 },
+		],
+		[fgBgContrastRatio]
+	);
+
+	// Sync current color to foreground when it changes
+	const syncColorToForeground = () => {
+		setForegroundHex(colorFormats.hex);
+	};
+
+	// Sync current color to background
+	const syncColorToBackground = () => {
+		setBackgroundHex(colorFormats.hex);
+	};
+
+	// WCAG compliance check
+	const getWCAGRating = (contrast: number) => {
+		if (contrast >= 7) return { level: "AAA", className: styles.aaa };
+		if (contrast >= 4.5) return { level: "AA", className: styles.aa };
+		if (contrast >= 3) return { level: "AA Large", className: styles.aaLarge };
+		return { level: "Fail", className: styles.fail };
+	};
+
+	const contrastWhite = calculateContrast(rgb, [255, 255, 255]);
+	const contrastBlack = calculateContrast(rgb, [0, 0, 0]);
+
+	// Generate gradient for sliders
+	const getLightnessGradient = () => {
+		const steps = 10;
+		const colors = [];
+		for (let i = 0; i <= steps; i++) {
+			const l = i / steps;
+			const [r, g, b] = ColorUtils.oklchToRgb(l, oklch.c, oklch.h);
+			colors.push(ColorUtils.rgbToHex(r, g, b));
+		}
+		return `linear-gradient(to right, ${colors.join(", ")})`;
+	};
+
+	const getChromaGradient = () => {
+		const steps = 10;
+		const colors = [];
+		for (let i = 0; i <= steps; i++) {
+			const c = (i / steps) * 0.4;
+			const [r, g, b] = ColorUtils.oklchToRgb(oklch.l, c, oklch.h);
+			colors.push(ColorUtils.rgbToHex(r, g, b));
+		}
+		return `linear-gradient(to right, ${colors.join(", ")})`;
+	};
+
+	const getHueGradient = () => {
+		const steps = 12;
+		const colors = [];
+		for (let i = 0; i <= steps; i++) {
+			const h = (i / steps) * 360;
+			const [r, g, b] = ColorUtils.oklchToRgb(oklch.l, oklch.c, h);
+			colors.push(ColorUtils.rgbToHex(r, g, b));
+		}
+		return `linear-gradient(to right, ${colors.join(", ")})`;
+	};
+
+	return (
+		<div className={styles.container}>
+			<div className={styles.grid}>
+				<div>
+					{/* Color Preview */}
+					<div className={styles.glassCard} style={{ marginBottom: "1.5rem" }}>
+						<div className={styles.colorPreview}>
+							<div className={styles.swatch} style={{ backgroundColor: colorFormats.rgba }}>
+								<div className={styles.previewOverlay}>
+									<div className={styles.hexDisplay}>
+										<p>{colorFormats.hex}</p>
+									</div>
+									<button onClick={generateRandomColor} className={styles.btnPrimary} title="Random Color">
+										<ArrowPathIcon className="w-5 h-5" />
+									</button>
+								</div>
+							</div>
+						</div>
+
+						<div className={styles.buttonGroup}>
+							<button onClick={saveColor} className={styles.btnSecondary}>
+								<BookmarkIcon className="w-4 h-4" />
+								Save
+							</button>
+							<button onClick={() => setShowColorList(!showColorList)} className={styles.btnSecondary}>
+								<SwatchIcon className="w-4 h-4" />
+								Saved ({savedColors.length})
+							</button>
+							<button onClick={() => setShowAccessibility(!showAccessibility)} className={styles.btnSecondary}>
+								<EyeIcon className="w-4 h-4" />
+								WCAG
+							</button>
+						</div>
+
+						{/* Accessibility Level Toggle for Random Colors */}
+						<div className={styles.accessibilityToggle}>
+							<span className={styles.toggleLabel}>Random Color Accessibility:</span>
+							<div className={styles.toggleButtons}>
+								<button onClick={() => setAccessibilityLevel("none")} className={`${styles.toggleBtn} ${accessibilityLevel === "none" ? styles.active : ""}`}>
+									Any
+								</button>
+								<button onClick={() => setAccessibilityLevel("aa")} className={`${styles.toggleBtn} ${accessibilityLevel === "aa" ? styles.active : ""}`}>
+									AA+
+								</button>
+								<button onClick={() => setAccessibilityLevel("aaa")} className={`${styles.toggleBtn} ${accessibilityLevel === "aaa" ? styles.active : ""}`}>
+									AAA+
+								</button>
+							</div>
+						</div>
+					</div>
+
+					{/* OKLCH Sliders */}
+					<div className={styles.glassCard}>
+						<h3 className={styles.sectionTitle}>OKLCH Color Space</h3>
+
+						<div className={styles.sliderGroup}>
+							<div className={styles.sliderHeader}>
+								<label className={styles.label}>Lightness</label>
+								<span className={styles.valueDisplay}>{(oklch.l * 100).toFixed(1)}%</span>
+							</div>
+							<input type="range" min="0" max="100" step="0.1" value={oklch.l * 100} onChange={(e) => setOklch({ ...oklch, l: parseFloat(e.target.value) / 100 })} className={styles.slider} style={{ background: getLightnessGradient() }} />
+						</div>
+
+						<div className={styles.sliderGroup}>
+							<div className={styles.sliderHeader}>
+								<label className={styles.label}>Chroma</label>
+								<span className={styles.valueDisplay}>{oklch.c.toFixed(3)}</span>
+							</div>
+							<input type="range" min="0" max="0.4" step="0.001" value={oklch.c} onChange={(e) => setOklch({ ...oklch, c: parseFloat(e.target.value) })} className={styles.slider} style={{ background: getChromaGradient() }} />
+						</div>
+
+						<div className={styles.sliderGroup}>
+							<div className={styles.sliderHeader}>
+								<label className={styles.label}>Hue</label>
+								<span className={styles.valueDisplay}>{oklch.h.toFixed(1)}°</span>
+							</div>
+							<input type="range" min="0" max="360" step="0.1" value={oklch.h} onChange={(e) => setOklch({ ...oklch, h: parseFloat(e.target.value) })} className={styles.slider} style={{ background: getHueGradient() }} />
+						</div>
+
+						<div className={styles.sliderGroup}>
+							<div className={styles.sliderHeader}>
+								<label className={styles.label}>Alpha</label>
+								<span className={styles.valueDisplay}>{(alpha * 100).toFixed(0)}%</span>
+							</div>
+							<input type="range" min="0" max="100" step="1" value={alpha * 100} onChange={(e) => setAlpha(parseFloat(e.target.value) / 100)} className={styles.slider} style={{ background: `linear-gradient(to right, transparent, ${colorFormats.hex})` }} />
+						</div>
+					</div>
+
+					{/* Accessibility Panel */}
+					{showAccessibility && (
+						<div className={`${styles.glassCard} ${styles.accessibilityPanel}`}>
+							<h3 className={styles.sectionTitle}>Accessibility & Contrast</h3>
+
+							<div className={`${styles.contrastBox} ${styles.white}`}>
+								<div className={styles.contrastInfo}>
+									<span>White Background</span>
+									<div>
+										<span className={styles.contrastRatio}>{contrastWhite.toFixed(2)}:1</span>
+										<span className={`${styles.wcagBadge} ${getWCAGRating(contrastWhite).className}`}>{getWCAGRating(contrastWhite).level}</span>
+									</div>
+								</div>
+							</div>
+
+							<div className={`${styles.contrastBox} ${styles.black}`}>
+								<div className={styles.contrastInfo}>
+									<span>Black Background</span>
+									<div>
+										<span className={styles.contrastRatio}>{contrastBlack.toFixed(2)}:1</span>
+										<span className={`${styles.wcagBadge} ${getWCAGRating(contrastBlack).className}`}>{getWCAGRating(contrastBlack).level}</span>
+									</div>
+								</div>
+							</div>
+
+							<div className={styles.wcagGuidelines}>
+								<p>WCAG Guidelines:</p>
+								<ul>
+									<li>• AA: 4.5:1 for normal text</li>
+									<li>• AA: 3:1 for large text (18pt+)</li>
+									<li>• AAA: 7:1 for normal text</li>
+									<li>• AAA: 4.5:1 for large text</li>
+								</ul>
+							</div>
+						</div>
+					)}
+				</div>
+
+				<div>
+					{/* Input Field */}
+					<div className={styles.glassCard} style={{ marginBottom: "1.5rem" }}>
+						<h3 className={styles.sectionTitle}>Color Input</h3>
+						<input type="text" value={inputValue} onChange={(e) => handleInputChange(e.target.value)} placeholder="Enter any color format..." className={styles.inputField} />
+						<p className={styles.inputHint}>Supports: HEX (#RGB, #RRGGBB, #RRGGBBAA), RGB(A), HSL(A), OKLCH</p>
+					</div>
+
+					{/* Color Formats */}
+					<div className={styles.glassCard}>
+						<h3 className={styles.sectionTitle}>All Formats</h3>
+
+						{Object.entries(colorFormats).map(([format, value]) => (
+							<div key={format} className={styles.formatItem}>
+								<span className={styles.formatLabel}>{format}</span>
+								<span className={styles.formatValue}>{value}</span>
+								<button onClick={() => copyToClipboard(value, format)} className={`${styles.copyBtn} ${copiedFormat === format ? styles.copied : ""}`} title="Copy to clipboard">
+									{copiedFormat === format ? <CheckIcon className="w-4 h-4" /> : <ClipboardDocumentIcon className="w-4 h-4" />}
+								</button>
+							</div>
+						))}
+					</div>
+				</div>
+			</div>
+
+			{/* Saved Colors Palette */}
+			{showColorList && savedColors.length > 0 && (
+				<div className={styles.glassCard} style={{ marginTop: "1.5rem" }}>
+					<h3 className={styles.sectionTitle}>Saved Colors</h3>
+					<div className={styles.savedColorsGrid}>
+						{savedColors.map((color) => (
+							<button key={color.id} onClick={() => loadColor(color)} className={styles.colorSwatch} style={{ backgroundColor: color.hex }} title={color.hex} />
+						))}
+					</div>
+				</div>
+			)}
+
+			{/* Contrast Checker Section */}
+			<div className={styles.contrastSection}>
+				<div className={styles.contrastHeader} onClick={() => setShowContrastChecker(!showContrastChecker)}>
+					<h3 className={styles.sectionTitle} style={{ marginBottom: 0 }}>
+						Contrast Checker
+					</h3>
+					<span className={styles.expandIcon}>{showContrastChecker ? "−" : "+"}</span>
+				</div>
+
+				{showContrastChecker && (
+					<>
+						{/* Foreground / Background Inputs */}
+						<div className={styles.contrastInputs}>
+							<div className={styles.contrastInputGroup}>
+								<label className={styles.contrastLabel}>Foreground</label>
+								<div className={styles.colorInputRow}>
+									<input type="color" value={foregroundHex} onChange={(e) => setForegroundHex(e.target.value)} className={styles.colorInput} />
+									<input type="text" value={foregroundHex} onChange={(e) => setForegroundHex(e.target.value)} className={styles.hexInputSmall} maxLength={7} />
+									<button onClick={syncColorToForeground} className={styles.syncBtn} title="Use current color as foreground">
+										← Use Current
+									</button>
+								</div>
+							</div>
+
+							<div className={styles.contrastInputGroup}>
+								<label className={styles.contrastLabel}>Background</label>
+								<div className={styles.colorInputRow}>
+									<input type="color" value={backgroundHex} onChange={(e) => setBackgroundHex(e.target.value)} className={styles.colorInput} />
+									<input type="text" value={backgroundHex} onChange={(e) => setBackgroundHex(e.target.value)} className={styles.hexInputSmall} maxLength={7} />
+									<button onClick={syncColorToBackground} className={styles.syncBtn} title="Use current color as background">
+										← Use Current
+									</button>
+								</div>
+							</div>
+						</div>
+
+						{/* Preview Area */}
+						<div className={styles.contrastPreview} style={{ backgroundColor: backgroundHex, color: foregroundHex }}>
+							<p className={styles.previewNormal}>Normal text (16px)</p>
+							<p className={styles.previewLarge}>Large text (24px bold)</p>
+						</div>
+
+						{/* Contrast Ratio Display */}
+						<div className={styles.contrastRatioDisplay}>
+							<span className={styles.ratioValue}>{fgBgContrastRatio.toFixed(2)}:1</span>
+							<span className={styles.ratioLabel}>Contrast Ratio</span>
+						</div>
+
+						{/* WCAG Compliance Cards */}
+						<div className={styles.wcagCards}>
+							{wcagLevels.map((item) => (
+								<div key={item.level} className={`${styles.wcagCard} ${item.passes ? styles.wcagPass : styles.wcagFail}`}>
+									<div className={styles.wcagCardHeader}>
+										<span className={styles.wcagCardLevel}>{item.level}</span>
+										<span className={styles.wcagCardStatus}>{item.passes ? "✓ PASS" : "✗ FAIL"}</span>
+									</div>
+									<div className={styles.wcagCardRatio}>Required: {item.ratio}:1</div>
+								</div>
+							))}
+						</div>
+					</>
+				)}
+			</div>
+
+			{/* WCAG Requirements Info */}
+			<div className={styles.glassCard} style={{ marginTop: "1.5rem" }}>
+				<h3 className={styles.infoTitle}>WCAG Contrast Requirements</h3>
+				<div className={styles.infoGrid}>
+					<div>
+						<h4 className={styles.infoSubtitle}>Level AA (Minimum)</h4>
+						<ul className={styles.infoList}>
+							<li>Normal text: 4.5:1 minimum</li>
+							<li>Large text: 3:1 minimum</li>
+							<li>Large text is 18pt+ or 14pt+ bold</li>
+						</ul>
+					</div>
+					<div>
+						<h4 className={styles.infoSubtitle}>Level AAA (Enhanced)</h4>
+						<ul className={styles.infoList}>
+							<li>Normal text: 7:1 minimum</li>
+							<li>Large text: 4.5:1 minimum</li>
+							<li>Best for maximum accessibility</li>
+						</ul>
+					</div>
+				</div>
+				<div className={styles.noteBox}>
+					<p>
+						<strong>Tip:</strong> Use the accessibility toggle above to generate random colors that automatically meet AA or AAA contrast requirements on both light and dark backgrounds.
+					</p>
+				</div>
+			</div>
+		</div>
+	);
+}

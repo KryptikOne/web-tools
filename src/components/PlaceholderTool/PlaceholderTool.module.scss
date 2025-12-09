@@ -1,0 +1,48 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+.placeholder {
+  @include glass-card;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto $spacing-lg;
+  color: $text-tertiary;
+  opacity: 0.5;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: $text-primary;
+  margin-bottom: $spacing-md;
+}
+
+.message {
+  font-size: 1rem;
+  color: $text-tertiary;
+  margin-bottom: $spacing-xl;
+  line-height: 1.6;
+}
+
+.badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: $radius-md;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  background: rgba(99, 102, 241, 0.2);
+  color: #6366f1;
+  margin-bottom: $spacing-lg;
+}
+
+.backButton {
+  @include btn-primary;
+  text-decoration: none;
+}

@@ -1,0 +1,214 @@
+@import '@/styles/variables';
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 280px;
+  background: $bg-overlay;
+  backdrop-filter: blur(20px);
+  border-right: 1px solid $border-subtle;
+  z-index: 100;
+  overflow: hidden;
+  transition: background 0.3s ease, border-color 0.3s ease;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.sidebarContent {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  /* Custom scrollbar */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $scrollbar-track;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $scrollbar-thumb;
+    border-radius: 3px;
+
+    &:hover {
+      background: $scrollbar-thumb-hover;
+    }
+  }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 1.25rem;
+  height: 4rem;
+  color: $text-primary;
+  text-decoration: none;
+  border-bottom: 1px solid $border-subtle;
+  transition: all 0.2s ease;
+
+  background: linear-gradient(135deg, #ff6b6b 5%, #feca57 33%, #48dbfb 66%, #1dd1a1 100%);
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+
+  &:hover {
+    // background: $bg-glass;
+    background: linear-gradient(135deg, #ff6b6b 5%, #feca57 33%, #48dbfb 66%, #1dd1a1 100%);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-fill-color: transparent;
+  }
+}
+
+.logoIcon {
+  width: 1.75rem;
+  height: 1.75rem;
+  flex-shrink: 0;
+  color: $color-green-base;
+}
+
+.logoText {
+  font-size: 1.25rem;
+  font-weight: 700;
+  white-space: nowrap;
+  color: $color-green-base;
+}
+
+.navigation {
+  flex: 1;
+  padding: 1rem 0;
+}
+
+.categorySection {
+  margin-bottom: 0.5rem;
+}
+
+.categoryHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: none;
+  border: none;
+  color: $text-tertiary;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: $text-secondary;
+    background: $bg-glass;
+  }
+}
+
+.categoryIcon {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex-shrink: 0;
+  color: $color-green-base;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+
+  .categoryHeader:hover & {
+    opacity: 1;
+  }
+}
+
+.categoryName {
+  flex: 1;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.toolsList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0 0.5rem;
+}
+
+.toolLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  color: $text-secondary;
+  text-decoration: none;
+  border-radius: $radius-md;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  position: relative;
+
+  &:hover:not(.disabled) {
+    // background: $bg-glass-hover;
+    background: linear-gradient(135deg, oklch(62.7% 0.164 159.0 / 0.20) 0%, oklch(50.1% 0.138 304.7 / 0.20) 100%);
+    color: $text-primary;
+    // transform: translateX(2px);
+  }
+
+  &.active {
+    background: linear-gradient(135deg, oklch(62.7% 0.164 159.0 / 0.40) 0%, oklch(50.1% 0.138 304.7 / 0.40) 100%);
+    color: $text-primary;
+    font-weight: 500;
+
+    // &::before {
+    //   content: '';
+    //   position: absolute;
+    //   left: 0;
+    //   top: 0;
+    //   bottom: 0;
+    //   width: 3px;
+    //   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    //   border-radius: 3px 0 0 3px;
+    // }
+
+    &:hover:not(.disabled) {
+      background: linear-gradient(135deg, oklch(62.7% 0.164 159.0 / 0.50) 0%, oklch(50.1% 0.138 304.7 / 0.50) 100%);
+    }
+  }
+
+  &.disabled {
+    color: $text-muted;
+    cursor: not-allowed;
+    opacity: 0.5;
+
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
+.toolName {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.comingSoon {
+  padding: 0.125rem 0.5rem;
+  background: rgba(255, 193, 7, 0.2);
+  color: #ffc107;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}

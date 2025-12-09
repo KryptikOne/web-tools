@@ -1,0 +1,24 @@
+@import '@/styles/variables';
+
+.appLayout {
+  min-height: 100vh;
+  position: relative;
+}
+
+.mainWrapper {
+  margin-left: 280px;
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+  }
+}
+
+.mainContent {
+  margin-top: 4rem;
+  padding: 2rem;
+  min-height: calc(100vh - 4rem);
+
+  @media (max-width: 768px) {
+    padding: 1.5rem 1rem;
+  }
+}

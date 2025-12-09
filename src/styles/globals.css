@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+@theme inline {
+	--font-sans: var(--font-geist-sans);
+	--font-mono: var(--font-geist-mono);
+	--ease-bezier: cubic-bezier(0.44, 0.31, 0.26, 0.95);
+
+	--color-white: #ffffff;
+	--color-black: #000000;
+	--color-green-base: oklch(0.6548 0.1977 138.91);
+	--color-green-base-dark: oklch(50% 0.198 138.9);
+
+	--color-3vue-green-1: oklch(0.18 0.049 150.4);
+	--color-3vue-green-2: oklch(0.276 0.075 150.4);
+	--color-3vue-green-3: oklch(0.372 0.102 150.4);
+	--color-3vue-green-4: oklch(0.469 0.128 150.4);
+	--color-3vue-green-5: oklch(0.565 0.154 150.4);
+	--color-3vue-green-6: oklch(0.661 0.18 150.4);
+	--color-3vue-green-7: oklch(0.757 0.207 150.4);
+	--color-3vue-green-8: oklch(0.854 0.233 150.4);
+	--color-3vue-green-9: oklch(0.95 0.083 150.4);
+}
+
+html[data-theme="dark"],
+html:not([data-theme]) {
+	/* Background Colors */
+	/* --bg-primary: oklch(0.18 0.049 150.4); */
+	--bg-primary: oklch(25.2% 0 89.9 / 1);
+	--bg-secondary: #1a1a1a;
+	--bg-tertiary: #2a2a2a;
+	/* --bg-grid: oklch(27.3% 0.171 142.5 / 40%); */
+	--bg-grid: oklch(29.4% 0 89.9 / 1);
+
+	/* Glass Effects */
+	--bg-glass: rgba(255, 255, 255, 0.05);
+	--bg-glass-hover: rgba(255, 255, 255, 0.1);
+	--bg-glass-active: rgba(255, 255, 255, 0.15);
+	--bg-overlay: rgba(0, 0, 0, 0.4);
+	--bg-overlay-light: rgba(0, 0, 0, 0.2);
+	--bg-overlay-dark: rgba(0, 0, 0, 0.5);
+
+	/* Text Colors */
+	--text-primary: #ffffff;
+	--text-secondary: #e5e7eb;
+	--text-tertiary: #9ca3af;
+	--text-muted: #6b7280;
+
+	/* Border Colors */
+	--border-subtle: rgba(255, 255, 255, 0.1);
+	--border-medium: rgba(255, 255, 255, 0.2);
+	--border-strong: rgba(255, 255, 255, 0.3);
+
+	/* Shadows */
+	--shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+	--shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+	--shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+	--shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+
+	/* Input/Form Elements */
+	--input-bg: rgba(0, 0, 0, 0.3);
+	--input-bg-focus: rgba(0, 0, 0, 0.4);
+	--input-border: rgba(255, 255, 255, 0.1);
+	--input-border-focus: #667eea;
+
+	/* Scrollbar */
+	--scrollbar-track: rgba(255, 255, 255, 0.05);
+	--scrollbar-thumb: rgba(255, 255, 255, 0.2);
+	--scrollbar-thumb-hover: rgba(255, 255, 255, 0.3);
+}
+
+html[data-theme="light"] {
+	/* Background Colors */
+	--bg-primary: oklch(0.98 0.005 150.4);
+	--bg-secondary: #f5f5f5;
+	--bg-tertiary: #e8e8e8;
+	--bg-grid: oklch(80% 0.05 142.5 / 30%);
+
+	/* Glass Effects */
+	--bg-glass: rgba(0, 0, 0, 0.03);
+	--bg-glass-hover: rgba(0, 0, 0, 0.06);
+	--bg-glass-active: rgba(0, 0, 0, 0.1);
+	--bg-overlay: rgba(255, 255, 255, 0.85);
+	--bg-overlay-light: rgba(255, 255, 255, 0.5);
+	--bg-overlay-dark: rgba(0, 0, 0, 0.1);
+
+	/* Text Colors */
+	--text-primary: #1a1a1a;
+	--text-secondary: #4a4a4a;
+	--text-tertiary: #6b7280;
+	--text-muted: #9ca3af;
+
+	/* Border Colors */
+	--border-subtle: rgba(0, 0, 0, 0.1);
+	--border-medium: rgba(0, 0, 0, 0.15);
+	--border-strong: rgba(0, 0, 0, 0.25);
+
+	/* Shadows */
+	--shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+	--shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+	--shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+	--shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+
+	/* Input/Form Elements */
+	--input-bg: rgba(0, 0, 0, 0.03);
+	--input-bg-focus: rgba(0, 0, 0, 0.05);
+	--input-border: rgba(0, 0, 0, 0.15);
+	--input-border-focus: #667eea;
+
+	/* Scrollbar */
+	--scrollbar-track: rgba(0, 0, 0, 0.05);
+	--scrollbar-thumb: rgba(0, 0, 0, 0.2);
+	--scrollbar-thumb-hover: rgba(0, 0, 0, 0.3);
+}
+
+body {
+	color: var(--text-primary);
+	font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+	background-image: linear-gradient(var(--bg-grid) 1px, transparent 1px), linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
+	background-size: 40px 40px;
+	background-color: var(--bg-primary);
+	margin: 0;
+	padding: 0;
+	transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+* {
+	box-sizing: border-box;
+}
