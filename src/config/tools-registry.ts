@@ -326,6 +326,14 @@ export const TOOLS_REGISTRY: Tool[] = [
 		route: "/tools/invisible-character-remover",
 		implemented: true,
 	},
+	{
+		id: "html-entities",
+		name: "HTML Entities Reference",
+		description: "Comprehensive HTML entities reference with Unicode, Entity, CSS, and HTML codes",
+		category: ToolCategory.TEXT_DATA,
+		route: "/tools/html-entities",
+		implemented: true,
+	},
 	// {
 	// 	id: "sql-formatter",
 	// 	name: "SQL Formatter",
