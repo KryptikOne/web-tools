@@ -83,7 +83,7 @@ export default function HomePage() {
 
 			<section className={styles.getStarted}>
 				<h2>☄️ Incoming</h2>
-				<p>What you see in the sidebar is what currently exists, but there's is more on the roadmap... Bookmark and Stay Tuned for additional tools!</p>
+				<p>What you see in the sidebar is what currently exists, but there is more on the roadmap... Bookmark and Stay Tuned for additional tools!</p>
 			</section>
 		</div>
 	);
