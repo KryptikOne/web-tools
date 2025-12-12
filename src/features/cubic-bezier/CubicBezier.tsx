@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { ClipboardDocumentIcon, CheckIcon, ArrowPathIcon } from "@heroicons/react/24/outline";
+import { Button } from "@/components/ui/button";
 import styles from "./CubicBezier.module.scss";
 
 interface BezierPoint {
@@ -45,12 +46,18 @@ export default function CubicBezier() {
 	const [p2, setP2] = useState<BezierPoint>({ x: 0.25, y: 1 });
 	const [duration, setDuration] = useState(1);
 	const [isAnimating, setIsAnimating] = useState(false);
+	const [ballPosition, setBallPosition] = useState<"left" | "right">("left");
 	const [copied, setCopied] = useState(false);
 	const [draggingPoint, setDraggingPoint] = useState<1 | 2 | null>(null);
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const animationRef = useRef<number>(undefined);
 
 	const cssValue = `cubic-bezier(${p1.x.toFixed(2)}, ${p1.y.toFixed(2)}, ${p2.x.toFixed(2)}, ${p2.y.toFixed(2)})`;
+
+	// Extended Y range for more vertical drag space
+	const yMin = -0.5;
+	const yMax = 1.5;
+	const yRange = yMax - yMin;
 
 	// Draw the bezier curve on canvas
 	useEffect(() => {
@@ -74,7 +81,7 @@ export default function CubicBezier() {
 		ctx.lineWidth = 1;
 		ctx.setLineDash([5, 5]);
 
-		// Vertical grid lines
+		// Vertical grid lines (4 divisions for x: 0, 0.25, 0.5, 0.75, 1)
 		for (let i = 0; i <= 4; i++) {
 			const x = padding + (graphWidth / 4) * i;
 			ctx.beginPath();
@@ -83,9 +90,9 @@ export default function CubicBezier() {
 			ctx.stroke();
 		}
 
-		// Horizontal grid lines
-		for (let i = 0; i <= 4; i++) {
-			const y = padding + (graphHeight / 4) * i;
+		// Horizontal grid lines (8 divisions for extended y range: -0.5 to 1.5)
+		for (let i = 0; i <= 8; i++) {
+			const y = padding + (graphHeight / 8) * i;
 			ctx.beginPath();
 			ctx.moveTo(padding, y);
 			ctx.lineTo(width - padding, y);
@@ -94,18 +101,23 @@ export default function CubicBezier() {
 
 		ctx.setLineDash([]);
 
-		// Draw axes
+		// Convert normalized coordinates to canvas coordinates
+		const toCanvasX = (x: number) => padding + x * graphWidth;
+		const toCanvasY = (y: number) => height - padding - ((y - yMin) / yRange) * graphHeight;
+
+		// Draw axes at y=0 and x=0
 		ctx.strokeStyle = "#555";
 		ctx.lineWidth = 2;
+		// Y axis (left side)
 		ctx.beginPath();
 		ctx.moveTo(padding, padding);
 		ctx.lineTo(padding, height - padding);
-		ctx.lineTo(width - padding, height - padding);
 		ctx.stroke();
-
-		// Convert normalized coordinates to canvas coordinates
-		const toCanvasX = (x: number) => padding + x * graphWidth;
-		const toCanvasY = (y: number) => height - padding - y * graphHeight;
+		// X axis at y=0
+		ctx.beginPath();
+		ctx.moveTo(padding, toCanvasY(0));
+		ctx.lineTo(width - padding, toCanvasY(0));
+		ctx.stroke();
 
 		// Draw control lines
 		ctx.strokeStyle = "#666";
@@ -156,11 +168,13 @@ export default function CubicBezier() {
 		// Draw labels
 		ctx.fillStyle = "#999";
 		ctx.font = "12px monospace";
-		ctx.fillText("(0, 0)", padding - 30, height - padding + 20);
-		ctx.fillText("(1, 1)", width - padding - 10, padding - 10);
+		ctx.fillText("0", padding - 15, toCanvasY(0) + 4);
+		ctx.fillText("1", padding - 15, toCanvasY(1) + 4);
+		ctx.fillText("0", padding - 4, height - padding + 15);
+		ctx.fillText("1", width - padding - 4, height - padding + 15);
 		ctx.fillText(`P1 (${p1.x.toFixed(2)}, ${p1.y.toFixed(2)})`, toCanvasX(p1.x) + 12, toCanvasY(p1.y) - 8);
 		ctx.fillText(`P2 (${p2.x.toFixed(2)}, ${p2.y.toFixed(2)})`, toCanvasX(p2.x) + 12, toCanvasY(p2.y) - 8);
-	}, [p1, p2]);
+	}, [p1, p2, yMin, yRange]);
 
 	// Handle mouse events for dragging
 	const handleCanvasMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
@@ -179,7 +193,7 @@ export default function CubicBezier() {
 		const graphHeight = canvas.height - padding * 2;
 
 		const toCanvasX = (x: number) => padding + x * graphWidth;
-		const toCanvasY = (y: number) => canvas.height - padding - y * graphHeight;
+		const toCanvasY = (y: number) => canvas.height - padding - ((y - yMin) / yRange) * graphHeight;
 
 		// Check if clicking on P1
 		const p1Distance = Math.sqrt(Math.pow(mouseX - toCanvasX(p1.x), 2) + Math.pow(mouseY - toCanvasY(p1.y), 2));
@@ -213,14 +227,14 @@ export default function CubicBezier() {
 		const graphWidth = canvas.width - padding * 2;
 		const graphHeight = canvas.height - padding * 2;
 
-		// Convert canvas coordinates to normalized coordinates
+		// Convert canvas coordinates to normalized coordinates (using extended Y range)
 		let x = (mouseX - padding) / graphWidth;
-		let y = 1 - (mouseY - padding) / graphHeight;
+		let y = yMin + (1 - (mouseY - padding) / graphHeight) * yRange;
 
 		// Clamp x to [0, 1]
 		x = Math.max(0, Math.min(1, x));
-		// Allow y to go beyond [0, 1] for advanced easing
-		y = Math.max(-2, Math.min(2, y));
+		// Clamp y to extended range
+		y = Math.max(yMin, Math.min(yMax, y));
 
 		if (draggingPoint === 1) {
 			setP1({ x, y });
@@ -235,7 +249,9 @@ export default function CubicBezier() {
 
 	// Animation control
 	const toggleAnimation = () => {
-		setIsAnimating(!isAnimating);
+		if (!isAnimating) {
+			setIsAnimating(true);
+		}
 	};
 
 	useEffect(() => {
@@ -245,6 +261,8 @@ export default function CubicBezier() {
 				const elapsed = (Date.now() - startTime) / 1000;
 				if (elapsed >= duration) {
 					setIsAnimating(false);
+					// Toggle position after animation completes
+					setBallPosition((prev) => (prev === "left" ? "right" : "left"));
 					return;
 				}
 				animationRef.current = requestAnimationFrame(animate);
@@ -283,11 +301,11 @@ export default function CubicBezier() {
 	const randomCurve = () => {
 		setP1({
 			x: Math.random(),
-			y: Math.random() * 2 - 0.5,
+			y: yMin + Math.random() * yRange,
 		});
 		setP2({
 			x: Math.random(),
-			y: Math.random() * 2 - 0.5,
+			y: yMin + Math.random() * yRange,
 		});
 	};
 
@@ -298,66 +316,23 @@ export default function CubicBezier() {
 				<div className={styles.glassCard}>
 					<h3 className={styles.sectionTitle}>Curve Editor</h3>
 					<div className={styles.canvasContainer}>
-						<canvas ref={canvasRef} width={500} height={500} className={styles.canvas} onMouseDown={handleCanvasMouseDown} onMouseMove={handleCanvasMouseMove} onMouseUp={handleCanvasMouseUp} onMouseLeave={handleCanvasMouseUp} />
+						<canvas ref={canvasRef} width={500} height={700} className={styles.canvas} onMouseDown={handleCanvasMouseDown} onMouseMove={handleCanvasMouseMove} onMouseUp={handleCanvasMouseUp} onMouseLeave={handleCanvasMouseUp} />
 					</div>
 					<p className={styles.hint}>Drag the control points to adjust the curve</p>
 				</div>
 
 				{/* Controls Section */}
 				<div>
-					{/* CSS Output */}
-					<div className={styles.glassCard} style={{ marginBottom: "1.5rem" }}>
-						<h3 className={styles.sectionTitle}>CSS Output</h3>
-						<div className={styles.outputBox}>
-							<code>{cssValue}</code>
-						</div>
-						<button onClick={copyToClipboard} className={styles.btnPrimary}>
-							{copied ? (
-								<>
-									<CheckIcon className="w-5 h-5" />
-									Copied!
-								</>
-							) : (
-								<>
-									<ClipboardDocumentIcon className="w-5 h-5" />
-									Copy
-								</>
-							)}
-						</button>
-					</div>
-
-					{/* Animation Preview */}
-					<div className={styles.glassCard} style={{ marginBottom: "1.5rem" }}>
-						<h3 className={styles.sectionTitle}>Animation Preview</h3>
-						<div className={styles.animationTrack}>
-							<div
-								className={`${styles.animationBall} ${isAnimating ? styles.animating : ""}`}
-								style={{
-									animationDuration: `${duration}s`,
-									animationTimingFunction: cssValue,
-								}}
-							/>
-						</div>
-						<div className={styles.animationControls}>
-							<div className={styles.inputGroup}>
-								<label>Duration (s)</label>
-								<input type="number" step="0.1" min="0.1" max="10" value={duration} onChange={(e) => setDuration(parseFloat(e.target.value) || 1)} className={styles.input} />
-							</div>
-							<button onClick={toggleAnimation} className={styles.btnSecondary}>
-								{isAnimating ? "Stop" : "Play"}
-							</button>
-						</div>
-					</div>
-
 					{/* Control Points */}
-					<div className={styles.glassCard}>
+					<div className={`${styles.glassCard} mb-6`}>
 						<h3 className={styles.sectionTitle}>Control Points</h3>
 
 						<div className={styles.controlGroup}>
 							<label className={styles.controlLabel}>
 								<span className={styles.pointBadge} style={{ backgroundColor: "#ff6b6b" }}>
 									P1
-								</span>
+								</span>{" "}
+								Time
 							</label>
 							<div className={styles.inputRow}>
 								<div className={styles.inputGroup}>
@@ -375,7 +350,8 @@ export default function CubicBezier() {
 							<label className={styles.controlLabel}>
 								<span className={styles.pointBadge} style={{ backgroundColor: "#4ecdc4" }}>
 									P2
-								</span>
+								</span>{" "}
+								Progression
 							</label>
 							<div className={styles.inputRow}>
 								<div className={styles.inputGroup}>
@@ -389,10 +365,54 @@ export default function CubicBezier() {
 							</div>
 						</div>
 
-						<button onClick={randomCurve} className={styles.btnSecondary} style={{ width: "100%" }}>
+						<Button onClick={randomCurve} className={styles.btnSecondary} style={{ width: "100%" }}>
 							<ArrowPathIcon className="w-4 h-4" />
 							Random Curve
-						</button>
+						</Button>
+					</div>
+
+					{/* Animation Preview */}
+					<div className={`${styles.glassCard} mb-6`}>
+						<h3 className={styles.sectionTitle}>Animation Preview</h3>
+						<div className={styles.animationTrack}>
+							<div
+								className={`${styles.animationBall} ${ballPosition === "right" ? styles.atRight : ""} ${isAnimating ? (ballPosition === "left" ? styles.animatingRight : styles.animatingLeft) : ""}`}
+								style={{
+									animationDuration: `${duration}s`,
+									animationTimingFunction: cssValue,
+								}}
+							/>
+						</div>
+						<div className={styles.animationControls}>
+							<div className={styles.inputGroup}>
+								<label>Duration (s)</label>
+								<input type="number" step="0.1" min="0.1" max="10" value={duration} onChange={(e) => setDuration(parseFloat(e.target.value) || 1)} className={styles.input} />
+							</div>
+							<Button onClick={toggleAnimation} className={styles.btnSecondary}>
+								{isAnimating ? "Stop" : "Play"}
+							</Button>
+						</div>
+					</div>
+
+					{/* CSS Output */}
+					<div className={styles.glassCard}>
+						<h3 className={styles.sectionTitle}>CSS Output</h3>
+						<div className={styles.outputBox}>
+							<code>{cssValue}</code>
+						</div>
+						<Button onClick={copyToClipboard} className={styles.btnPrimary}>
+							{copied ? (
+								<>
+									<CheckIcon className="w-5 h-5" />
+									Copied!
+								</>
+							) : (
+								<>
+									<ClipboardDocumentIcon className="w-5 h-5" />
+									Copy
+								</>
+							)}
+						</Button>
 					</div>
 				</div>
 			</div>
@@ -402,16 +422,16 @@ export default function CubicBezier() {
 				<h3 className={styles.sectionTitle}>Presets</h3>
 				<div className={styles.presetsGrid}>
 					{PRESETS.map((preset) => (
-						<button key={preset.name} onClick={() => loadPreset(preset)} className={styles.presetBtn} title={`cubic-bezier(${preset.value.join(", ")})`}>
+						<Button key={preset.name} onClick={() => loadPreset(preset)} className={styles.presetBtn} title={`cubic-bezier(${preset.value.join(", ")})`}>
 							<span className={styles.presetName}>{preset.name}</span>
 							<span className={styles.presetValue}>({preset.value.map((v) => v.toFixed(2)).join(", ")})</span>
-						</button>
+						</Button>
 					))}
 				</div>
 			</div>
 
 			{/* Usage Guide */}
-			<div className={styles.glassCard} style={{ marginTop: "1.5rem" }}>
+			<div className={`${styles.glassCard} mt-6`} style={{ marginTop: "1.5rem" }}>
 				<h3 className={styles.sectionTitle}>Usage in CSS</h3>
 				<div className={styles.codeBlock}>
 					<code>

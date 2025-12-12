@@ -21,6 +21,11 @@
   gap: $spacing-sm;
   font-size: 14px;
   border: 1px solid transparent;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
 
 @mixin btn-primary {
@@ -31,11 +36,6 @@
 
   &:hover {
     background: $bg-glass-hover;
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
   }
 }
 
@@ -49,10 +49,6 @@
     background: $bg-glass-hover;
   }
 
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
 }
 
 // Input Field

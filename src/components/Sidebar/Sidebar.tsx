@@ -36,7 +36,7 @@ export default function Sidebar() {
 			<div className={styles.sidebarContent}>
 				<Link href="/" className={styles.logo}>
 					<WrenchScrewdriverIcon className={styles.logoIcon} />
-					<span className={styles.logoText}>WebTools</span>
+					<span className={styles.logoText}>BittBott.dev</span>
 				</Link>
 
 				<nav className={styles.navigation}>
