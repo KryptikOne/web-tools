@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { ColorUtils } from "@/lib/colorUtils";
 import { ClipboardDocumentIcon, CheckIcon, ArrowPathIcon, SwatchIcon, BookmarkIcon, EyeIcon } from "@heroicons/react/24/outline";
+import { Button } from "@/components/ui/button";
 import styles from "./ColorPicker.module.scss";
 
 interface SavedColor {
@@ -26,7 +27,6 @@ export default function ColorPicker() {
 	// Contrast checker state
 	const [foregroundHex, setForegroundHex] = useState("#000000");
 	const [backgroundHex, setBackgroundHex] = useState("#ffffff");
-	const [showContrastChecker, setShowContrastChecker] = useState(false);
 	const [accessibilityLevel, setAccessibilityLevel] = useState<AccessibilityLevel>("none");
 
 	// Check for color parameter in URL
@@ -284,41 +284,41 @@ export default function ColorPicker() {
 									<div className={styles.hexDisplay}>
 										<p>{colorFormats.hex}</p>
 									</div>
-									<button onClick={generateRandomColor} className={styles.btnPrimary} title="Random Color">
+									<Button onClick={generateRandomColor} className={styles.btnPrimary} title="Random Color">
 										<ArrowPathIcon className="w-5 h-5" />
-									</button>
+									</Button>
 								</div>
 							</div>
 						</div>
 
 						<div className={styles.buttonGroup}>
-							<button onClick={saveColor} className={styles.btnSecondary}>
+							<Button onClick={saveColor} className={styles.btnSecondary}>
 								<BookmarkIcon className="w-4 h-4" />
 								Save
-							</button>
-							<button onClick={() => setShowColorList(!showColorList)} className={styles.btnSecondary}>
+							</Button>
+							<Button onClick={() => setShowColorList(!showColorList)} className={styles.btnSecondary}>
 								<SwatchIcon className="w-4 h-4" />
 								Saved ({savedColors.length})
-							</button>
-							<button onClick={() => setShowAccessibility(!showAccessibility)} className={styles.btnSecondary}>
+							</Button>
+							<Button onClick={() => setShowAccessibility(!showAccessibility)} className={styles.btnSecondary}>
 								<EyeIcon className="w-4 h-4" />
 								WCAG
-							</button>
+							</Button>
 						</div>
 
 						{/* Accessibility Level Toggle for Random Colors */}
 						<div className={styles.accessibilityToggle}>
 							<span className={styles.toggleLabel}>Random Color Accessibility:</span>
 							<div className={styles.toggleButtons}>
-								<button onClick={() => setAccessibilityLevel("none")} className={`${styles.toggleBtn} ${accessibilityLevel === "none" ? styles.active : ""}`}>
+								<Button onClick={() => setAccessibilityLevel("none")} className={`${styles.toggleBtn} ${accessibilityLevel === "none" ? styles.active : ""}`}>
 									Any
-								</button>
-								<button onClick={() => setAccessibilityLevel("aa")} className={`${styles.toggleBtn} ${accessibilityLevel === "aa" ? styles.active : ""}`}>
+								</Button>
+								<Button onClick={() => setAccessibilityLevel("aa")} className={`${styles.toggleBtn} ${accessibilityLevel === "aa" ? styles.active : ""}`}>
 									AA+
-								</button>
-								<button onClick={() => setAccessibilityLevel("aaa")} className={`${styles.toggleBtn} ${accessibilityLevel === "aaa" ? styles.active : ""}`}>
+								</Button>
+								<Button onClick={() => setAccessibilityLevel("aaa")} className={`${styles.toggleBtn} ${accessibilityLevel === "aaa" ? styles.active : ""}`}>
 									AAA+
-								</button>
+								</Button>
 							</div>
 						</div>
 					</div>
@@ -414,9 +414,9 @@ export default function ColorPicker() {
 							<div key={format} className={styles.formatItem}>
 								<span className={styles.formatLabel}>{format}</span>
 								<span className={styles.formatValue}>{value}</span>
-								<button onClick={() => copyToClipboard(value, format)} className={`${styles.copyBtn} ${copiedFormat === format ? styles.copied : ""}`} title="Copy to clipboard">
+								<Button onClick={() => copyToClipboard(value, format)} className={`${styles.copyBtn} ${copiedFormat === format ? styles.copied : ""}`} title="Copy to clipboard">
 									{copiedFormat === format ? <CheckIcon className="w-4 h-4" /> : <ClipboardDocumentIcon className="w-4 h-4" />}
-								</button>
+								</Button>
 							</div>
 						))}
 					</div>
@@ -437,66 +437,57 @@ export default function ColorPicker() {
 
 			{/* Contrast Checker Section */}
 			<div className={styles.contrastSection}>
-				<div className={styles.contrastHeader} onClick={() => setShowContrastChecker(!showContrastChecker)}>
-					<h3 className={styles.sectionTitle} style={{ marginBottom: 0 }}>
-						Contrast Checker
-					</h3>
-					<span className={styles.expandIcon}>{showContrastChecker ? "−" : "+"}</span>
+				<h3 className={styles.sectionTitle}>Contrast Checker</h3>
+
+				{/* Foreground / Background Inputs */}
+				<div className={styles.contrastInputs}>
+					<div className={styles.contrastInputGroup}>
+						<label className={styles.contrastLabel}>Foreground</label>
+						<div className={styles.colorInputRow}>
+							<input type="color" value={foregroundHex} onChange={(e) => setForegroundHex(e.target.value)} className={styles.colorInput} />
+							<input type="text" value={foregroundHex} onChange={(e) => setForegroundHex(e.target.value)} className={styles.hexInputSmall} maxLength={7} />
+							<Button onClick={syncColorToForeground} className={styles.syncBtn} title="Use current color as foreground">
+								← Use Current
+							</Button>
+						</div>
+					</div>
+
+					<div className={styles.contrastInputGroup}>
+						<label className={styles.contrastLabel}>Background</label>
+						<div className={styles.colorInputRow}>
+							<input type="color" value={backgroundHex} onChange={(e) => setBackgroundHex(e.target.value)} className={styles.colorInput} />
+							<input type="text" value={backgroundHex} onChange={(e) => setBackgroundHex(e.target.value)} className={styles.hexInputSmall} maxLength={7} />
+							<Button onClick={syncColorToBackground} className={styles.syncBtn} title="Use current color as background">
+								← Use Current
+							</Button>
+						</div>
+					</div>
 				</div>
 
-				{showContrastChecker && (
-					<>
-						{/* Foreground / Background Inputs */}
-						<div className={styles.contrastInputs}>
-							<div className={styles.contrastInputGroup}>
-								<label className={styles.contrastLabel}>Foreground</label>
-								<div className={styles.colorInputRow}>
-									<input type="color" value={foregroundHex} onChange={(e) => setForegroundHex(e.target.value)} className={styles.colorInput} />
-									<input type="text" value={foregroundHex} onChange={(e) => setForegroundHex(e.target.value)} className={styles.hexInputSmall} maxLength={7} />
-									<button onClick={syncColorToForeground} className={styles.syncBtn} title="Use current color as foreground">
-										← Use Current
-									</button>
-								</div>
+				{/* Preview Area */}
+				<div className={styles.contrastPreview} style={{ backgroundColor: backgroundHex, color: foregroundHex }}>
+					<p className={styles.previewNormal}>Normal text (16px)</p>
+					<p className={styles.previewLarge}>Large text (24px bold)</p>
+				</div>
+
+				{/* Contrast Ratio Display */}
+				<div className={styles.contrastRatioDisplay}>
+					<span className={styles.ratioValue}>{fgBgContrastRatio.toFixed(2)}:1</span>
+					<span className={styles.ratioLabel}>Contrast Ratio</span>
+				</div>
+
+				{/* WCAG Compliance Cards */}
+				<div className={styles.wcagCards}>
+					{wcagLevels.map((item) => (
+						<div key={item.level} className={`${styles.wcagCard} ${item.passes ? styles.wcagPass : styles.wcagFail}`}>
+							<div className={styles.wcagCardHeader}>
+								<span className={styles.wcagCardLevel}>{item.level}</span>
+								<span className={styles.wcagCardStatus}>{item.passes ? "✓ PASS" : "✗ FAIL"}</span>
 							</div>
-
-							<div className={styles.contrastInputGroup}>
-								<label className={styles.contrastLabel}>Background</label>
-								<div className={styles.colorInputRow}>
-									<input type="color" value={backgroundHex} onChange={(e) => setBackgroundHex(e.target.value)} className={styles.colorInput} />
-									<input type="text" value={backgroundHex} onChange={(e) => setBackgroundHex(e.target.value)} className={styles.hexInputSmall} maxLength={7} />
-									<button onClick={syncColorToBackground} className={styles.syncBtn} title="Use current color as background">
-										← Use Current
-									</button>
-								</div>
-							</div>
+							<div className={styles.wcagCardRatio}>Required: {item.ratio}:1</div>
 						</div>
-
-						{/* Preview Area */}
-						<div className={styles.contrastPreview} style={{ backgroundColor: backgroundHex, color: foregroundHex }}>
-							<p className={styles.previewNormal}>Normal text (16px)</p>
-							<p className={styles.previewLarge}>Large text (24px bold)</p>
-						</div>
-
-						{/* Contrast Ratio Display */}
-						<div className={styles.contrastRatioDisplay}>
-							<span className={styles.ratioValue}>{fgBgContrastRatio.toFixed(2)}:1</span>
-							<span className={styles.ratioLabel}>Contrast Ratio</span>
-						</div>
-
-						{/* WCAG Compliance Cards */}
-						<div className={styles.wcagCards}>
-							{wcagLevels.map((item) => (
-								<div key={item.level} className={`${styles.wcagCard} ${item.passes ? styles.wcagPass : styles.wcagFail}`}>
-									<div className={styles.wcagCardHeader}>
-										<span className={styles.wcagCardLevel}>{item.level}</span>
-										<span className={styles.wcagCardStatus}>{item.passes ? "✓ PASS" : "✗ FAIL"}</span>
-									</div>
-									<div className={styles.wcagCardRatio}>Required: {item.ratio}:1</div>
-								</div>
-							))}
-						</div>
-					</>
-				)}
+					))}
+				</div>
 			</div>
 
 			{/* WCAG Requirements Info */}

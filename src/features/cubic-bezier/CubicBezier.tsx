@@ -168,8 +168,11 @@ export default function CubicBezier() {
 		if (!canvas) return;
 
 		const rect = canvas.getBoundingClientRect();
-		const mouseX = e.clientX - rect.left;
-		const mouseY = e.clientY - rect.top;
+		// Scale mouse coordinates to match canvas internal dimensions
+		const scaleX = canvas.width / rect.width;
+		const scaleY = canvas.height / rect.height;
+		const mouseX = (e.clientX - rect.left) * scaleX;
+		const mouseY = (e.clientY - rect.top) * scaleY;
 
 		const padding = 40;
 		const graphWidth = canvas.width - padding * 2;
@@ -180,14 +183,14 @@ export default function CubicBezier() {
 
 		// Check if clicking on P1
 		const p1Distance = Math.sqrt(Math.pow(mouseX - toCanvasX(p1.x), 2) + Math.pow(mouseY - toCanvasY(p1.y), 2));
-		if (p1Distance < 15) {
+		if (p1Distance < 20) {
 			setDraggingPoint(1);
 			return;
 		}
 
 		// Check if clicking on P2
 		const p2Distance = Math.sqrt(Math.pow(mouseX - toCanvasX(p2.x), 2) + Math.pow(mouseY - toCanvasY(p2.y), 2));
-		if (p2Distance < 15) {
+		if (p2Distance < 20) {
 			setDraggingPoint(2);
 			return;
 		}
@@ -200,8 +203,11 @@ export default function CubicBezier() {
 		if (!canvas) return;
 
 		const rect = canvas.getBoundingClientRect();
-		const mouseX = e.clientX - rect.left;
-		const mouseY = e.clientY - rect.top;
+		// Scale mouse coordinates to match canvas internal dimensions
+		const scaleX = canvas.width / rect.width;
+		const scaleY = canvas.height / rect.height;
+		const mouseX = (e.clientX - rect.left) * scaleX;
+		const mouseY = (e.clientY - rect.top) * scaleY;
 
 		const padding = 40;
 		const graphWidth = canvas.width - padding * 2;
