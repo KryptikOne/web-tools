@@ -1,11 +1,11 @@
-// import { TOOLS_REGISTRY, CATEGORIES } from "@/config/tools-registry";
+import { TOOLS_REGISTRY, CATEGORIES } from "@/config/tools-registry";
 import { SparklesIcon, RocketLaunchIcon, BeakerIcon } from "@heroicons/react/24/outline";
 import styles from "./page.module.scss";
 
 export default function HomePage() {
-	// const totalTools = TOOLS_REGISTRY.length;
-	// const implementedTools = TOOLS_REGISTRY.filter((tool) => tool.implemented).length;
-	// const categories = Object.keys(CATEGORIES).length;
+	const totalTools = TOOLS_REGISTRY.length;
+	const implementedTools = TOOLS_REGISTRY.filter((tool) => tool.implemented).length;
+	const categories = Object.keys(CATEGORIES).length;
 
 	return (
 		<div className={styles.container}>
@@ -15,10 +15,10 @@ export default function HomePage() {
 						<SparklesIcon className={styles.titleIcon} />
 						Welcome to Web Tools
 					</h1>
-					<p className={styles.subtitle}>A collection of free, browser-based tools for developers and designers. Choose a tool from the sidebar to get started.</p>
+					<p className={styles.subtitle}>A comprehensive collection of free, browser-based tools for developers and designers. Choose a tool from the sidebar to get started.</p>
 				</div>
 
-				{/* <div className={styles.statsGrid}>
+				<div className={styles.statsGrid}>
 					<div className={styles.statCard}>
 						<div className={styles.statIcon}>
 							<BeakerIcon />
@@ -48,10 +48,10 @@ export default function HomePage() {
 							<span className={styles.statLabel}>Categories</span>
 						</div>
 					</div>
-				</div> */}
+				</div>
 			</section>
 
-			{/* <section className={styles.features}>
+			<section className={styles.features}>
 				<h2 className={styles.featuresTitle}>Features</h2>
 				<div className={styles.featuresGrid}>
 					<div className={styles.featureCard}>
@@ -84,7 +84,7 @@ export default function HomePage() {
 			<section className={styles.getStarted}>
 				<h2>☄️ Incoming</h2>
 				<p>What you see in the sidebar is what currently exists, but there is more on the roadmap... Bookmark and Stay Tuned for additional tools!</p>
-			</section> */}
+			</section>
 		</div>
 	);
 }
