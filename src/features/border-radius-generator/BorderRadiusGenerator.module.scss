@@ -37,6 +37,7 @@
   font-weight: 600;
   color: $text-primary;
   margin: 0 0 1rem 0;
+  font-family: $font-family-display;
 }
 
 .previewContainer {
@@ -76,7 +77,7 @@
 
 .valueLabel {
   font-size: 0.8rem;
-  font-family: 'Monaco', 'Courier New', monospace;
+  font-family: $font-family-mono;
   color: $text-muted;
   text-align: right;
 }
@@ -244,7 +245,7 @@
   border-radius: $radius-sm;
   color: $text-primary;
   font-size: 0.875rem;
-  font-family: 'Monaco', 'Courier New', monospace;
+  font-family: $font-family-mono;
   text-align: center;
   transition: all 0.2s ease;
 
@@ -285,8 +286,8 @@
 .outputCode {
   display: block;
   font-size: 0.95rem;
-  font-family: 'Monaco', 'Courier New', monospace;
-  color: $color-green-base;
+  font-family: $font-family-mono;
+  color: #00d4ff;
   word-break: break-all;
 }
 
@@ -385,7 +386,7 @@
     padding: 0.125rem 0.375rem;
     background: $bg-glass;
     border-radius: $radius-sm;
-    font-family: 'Monaco', 'Courier New', monospace;
+    font-family: $font-family-mono;
     font-size: 0.8rem;
     color: $color-green-base;
   }

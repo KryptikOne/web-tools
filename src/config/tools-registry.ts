@@ -54,14 +54,14 @@ export const TOOLS_REGISTRY: Tool[] = [
 	// 	route: "/tools/palette-generator",
 	// 	implemented: false,
 	// },
-	// {
-	// 	id: "gradient-generator",
-	// 	name: "CSS Gradient Generator",
-	// 	description: "Create CSS gradients visually",
-	// 	category: ToolCategory.COLOR_DESIGN,
-	// 	route: "/tools/gradient-generator",
-	// 	implemented: false,
-	// },
+	{
+		id: "gradient-generator",
+		name: "CSS Gradient Generator",
+		description: "Create CSS gradients visually with linear and radial options",
+		category: ToolCategory.COLOR_DESIGN,
+		route: "/tools/gradient-generator",
+		implemented: true,
+	},
 	{
 		id: "box-shadow-generator",
 		name: "Box Shadow Generator",

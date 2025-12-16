@@ -37,6 +37,7 @@
   font-weight: 600;
   color: $text-primary;
   margin: 0 0 1rem 0;
+  font-family: $font-family-display;
 }
 
 .converterGrid {
@@ -77,7 +78,7 @@
   color: $text-primary;
   font-size: 1.25rem;
   font-weight: 600;
-  font-family: 'Monaco', 'Courier New', monospace;
+  font-family: $font-family-mono;
   transition: all 0.2s ease;
 
   &:focus {
@@ -252,7 +253,7 @@
 .quickRem {
   font-size: 0.75rem;
   color: $text-muted;
-  font-family: 'Monaco', 'Courier New', monospace;
+  font-family: $font-family-mono;
 }
 
 .tableWrapper {
@@ -278,7 +279,7 @@
 
   td {
     color: $text-primary;
-    font-family: 'Monaco', 'Courier New', monospace;
+    font-family: $font-family-mono;
   }
 
   tbody tr {
@@ -334,7 +335,7 @@
   padding: 0.25rem 0.5rem;
   background: $bg-glass;
   border-radius: $radius-sm;
-  font-family: 'Monaco', 'Courier New', monospace;
+  font-family: $font-family-mono;
   font-size: 0.8rem;
   color: $color-green-base;
   margin: 0.25rem 0;

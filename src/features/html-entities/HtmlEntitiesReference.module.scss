@@ -191,7 +191,7 @@
 }
 
 .codeValue {
-  font-family: 'Monaco', 'Courier New', monospace;
+  font-family: $font-family-mono;
   font-size: 0.8rem;
   color: $text-secondary;
   background: rgba(102, 126, 234, 0.1);

@@ -49,7 +49,7 @@
 
   p {
     color: $text-primary;
-    font-family: 'Courier New', monospace;
+    font-family: $font-family-mono;
     font-size: 14px;
   }
 }
@@ -74,6 +74,7 @@
   font-size: 18px;
   font-weight: 600;
   margin-bottom: $spacing-lg;
+  font-family: $font-family-display;
 }
 
 .sliderGroup {
@@ -97,7 +98,7 @@
 
 .valueDisplay {
   color: $text-primary;
-  font-family: 'Courier New', monospace;
+  font-family: $font-family-mono;
   font-size: 14px;
 }
 
@@ -167,8 +168,8 @@
 }
 
 .formatValue {
-  color: $text-primary;
-  font-family: 'Courier New', monospace;
+  color: $text-code;
+  font-family: $font-family-mono;
   font-size: 1rem;
   flex: 1;
   margin: 0 $spacing-md;
@@ -221,7 +222,7 @@
 }
 
 .contrastRatio {
-  font-family: 'Courier New', monospace;
+  font-family: $font-family-mono;
   font-size: 16px;
   font-weight: bold;
 }
@@ -423,7 +424,7 @@
   border: 1px solid $input-border;
   border-radius: $radius-md;
   color: $text-primary;
-  font-family: 'Courier New', monospace;
+  font-family: $font-family-mono;
   font-size: 14px;
   text-transform: uppercase;
   transition: all $transition-base;
@@ -577,7 +578,7 @@
 .wcagCardRatio {
   font-size: 11px;
   color: $text-tertiary;
-  font-family: 'Courier New', monospace;
+  font-family: $font-family-mono;
 }
 
 // Info Section

@@ -1,0 +1,684 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+.container {
+  width: 100%;
+  max-width: 90rem;
+  margin: 0 auto;
+}
+
+.grid {
+  @include responsive-grid(1, 1, 2, $spacing-lg);
+}
+
+.glassCard {
+  @include glass-card;
+}
+
+.sectionTitle {
+  color: $text-primary;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: $spacing-lg;
+  font-family: $font-family-display;
+}
+
+// Preview Section
+.previewSection {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+}
+
+.previewBox {
+  width: 100%;
+  height: 200px;
+  border-radius: $radius-xl;
+  box-shadow: $shadow-xl;
+  border: 1px solid $border-subtle;
+  margin-bottom: $spacing-lg;
+
+  @media (min-width: 768px) {
+    height: 250px;
+  }
+}
+
+.buttonGroup {
+  display: flex;
+  gap: $spacing-sm;
+  margin-top: $spacing-sm;
+  margin-bottom: $spacing-md;
+}
+
+.btnPrimary {
+  @include btn-primary;
+}
+
+.btnSecondary {
+  @include btn-secondary;
+  flex: 1;
+}
+
+// CSS Output
+.codeBlock {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-md;
+  background: $input-bg;
+  border: 1px solid $input-border;
+  border-radius: $radius-md;
+  overflow-x: auto;
+
+  code {
+    flex: 1;
+    color: #00d4ff;
+    font-family: $font-family-mono;
+    font-size: 14px;
+    white-space: pre-wrap;
+  }
+}
+
+.copyBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  transition: color $transition-base;
+  color: $text-tertiary;
+  flex-shrink: 0;
+
+  &:hover {
+    color: $text-primary;
+  }
+
+  &.copied {
+    color: #22c55e;
+  }
+}
+
+// Controls Section
+.controlsSection {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+}
+
+// Type Toggle
+.typeToggle {
+  display: flex;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-lg;
+}
+
+.toggleBtn {
+  flex: 1;
+  padding: $spacing-sm $spacing-md;
+  background: $input-bg;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-md;
+  color: $text-tertiary;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all $transition-base;
+
+  &:hover {
+    background: $bg-glass-hover;
+    color: $text-secondary;
+  }
+
+  &.active {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%);
+    border-color: #667eea;
+    color: $text-primary;
+  }
+}
+
+// Angle Control
+.angleControl {
+  margin-top: $spacing-md;
+}
+
+.sliderHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: $spacing-sm;
+}
+
+.label {
+  color: $text-secondary;
+  font-size: 14px;
+}
+
+.valueDisplay {
+  color: $text-primary;
+  font-family: $font-family-mono;
+  font-size: 14px;
+}
+
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: linear-gradient(to right,
+    rgba(102, 126, 234, 0.3) 0%,
+    rgba(118, 75, 162, 0.3) 50%,
+    rgba(102, 126, 234, 0.3) 100%
+  );
+  cursor: pointer;
+  width: 100%;
+  height: 8px;
+  border-radius: $radius-sm;
+  outline: none;
+  margin-bottom: $spacing-md;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    background: #ffffff;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    border: 2px solid #667eea;
+    box-shadow: $shadow-md;
+    cursor: pointer;
+  }
+
+  &::-moz-range-thumb {
+    background: #ffffff;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    border: 2px solid #667eea;
+    box-shadow: $shadow-md;
+    cursor: pointer;
+  }
+}
+
+.presetAngles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xs;
+}
+
+.angleBtn {
+  padding: $spacing-xs $spacing-sm;
+  background: $input-bg;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-sm;
+  color: $text-tertiary;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all $transition-base;
+
+  &:hover {
+    background: $bg-glass-hover;
+    color: $text-secondary;
+  }
+
+  &.active {
+    background: rgba(102, 126, 234, 0.2);
+    border-color: #667eea;
+    color: #667eea;
+  }
+}
+
+// Shape Control
+.shapeControl {
+  margin-top: $spacing-md;
+}
+
+.shapeToggle {
+  display: flex;
+  gap: $spacing-sm;
+  margin-top: $spacing-sm;
+}
+
+// Color Stops
+.colorStopsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-lg;
+
+  .sectionTitle {
+    margin-bottom: 0;
+  }
+}
+
+.addBtn {
+  @include btn-primary;
+  padding: $spacing-xs $spacing-sm;
+  font-size: 12px;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.colorStopsList {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.colorInput {
+  width: 40px;
+  height: 40px;
+  border: 2px solid $border-medium;
+  border-radius: $radius-md;
+  cursor: pointer;
+  transition: all $transition-base;
+  flex-shrink: 0;
+
+  &::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+
+  &::-webkit-color-swatch {
+    border: none;
+    border-radius: $radius-sm;
+  }
+
+  &:hover {
+    border-color: $border-strong;
+    transform: scale(1.05);
+  }
+}
+
+.hexInput {
+  flex: 1;
+  min-width: 80px;
+  padding: $spacing-sm;
+  background: $input-bg;
+  border: 1px solid $input-border;
+  border-radius: $radius-md;
+  color: $text-primary;
+  font-family: $font-family-mono;
+  font-size: 14px;
+  text-transform: uppercase;
+  transition: all $transition-base;
+
+  &:focus {
+    outline: none;
+    border-color: $input-border-focus;
+    background: $input-bg-focus;
+  }
+}
+
+.positionInput {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.numberInput {
+  width: 50px;
+  padding: $spacing-sm;
+  background: $input-bg;
+  border: 1px solid $input-border;
+  border-radius: $radius-md;
+  color: $text-primary;
+  font-family: $font-family-mono;
+  font-size: 14px;
+  text-align: center;
+  transition: all $transition-base;
+
+  &:focus {
+    outline: none;
+    border-color: $input-border-focus;
+    background: $input-bg-focus;
+  }
+
+  // Hide spin buttons
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  -moz-appearance: textfield;
+}
+
+.percentSign {
+  color: $text-tertiary;
+  font-size: 12px;
+}
+
+.removeBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: $spacing-xs;
+  color: $text-tertiary;
+  transition: color $transition-base;
+
+  &:hover:not(:disabled) {
+    color: #ef4444;
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+}
+
+// Gradient Bar
+.gradientBar {
+  height: 12px;
+  border-radius: $radius-md;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+// Presets Grid
+.presetsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-md;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(8, 1fr);
+  }
+}
+
+.presetBtn {
+  aspect-ratio: 1.5;
+  border-radius: $radius-lg;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all $transition-base;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    border-color: #667eea;
+    transform: scale(1.05);
+  }
+}
+
+.presetName {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: $spacing-xs;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  color: white;
+  font-size: 11px;
+  text-align: center;
+  font-weight: 500;
+}
+
+// Info Section
+.infoTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: $text-primary;
+  margin: 0 0 $spacing-md 0;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-lg;
+  margin-bottom: $spacing-md;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.infoSubtitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: $text-secondary;
+  margin: 0 0 $spacing-sm 0;
+}
+
+.infoText {
+  font-size: 12px;
+  color: $text-tertiary;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.noteBox {
+  padding: $spacing-md;
+  background: rgba(102, 126, 234, 0.1);
+  border: 1px solid rgba(102, 126, 234, 0.3);
+  border-radius: $radius-md;
+
+  p {
+    margin: 0;
+    font-size: 12px;
+    color: #667eea;
+
+    strong {
+      font-weight: 700;
+    }
+  }
+}
+
+// Interactive Gradient Slider
+.interactiveSlider {
+  position: relative;
+  height: 32px;
+  margin-bottom: $spacing-sm;
+  cursor: crosshair;
+}
+
+.sliderTrack {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 16px;
+  transform: translateY(-50%);
+  border-radius: $radius-md;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+  border: 1px solid $border-subtle;
+}
+
+.stopHandle {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  cursor: grab;
+  z-index: 10;
+  touch-action: none;
+
+  &:active {
+    cursor: grabbing;
+  }
+
+  &.selected {
+    z-index: 20;
+
+    .stopColor {
+      border-color: #667eea;
+      box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.4), $shadow-md;
+    }
+  }
+
+  &.dragging {
+    z-index: 30;
+
+    .stopColor {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.stopColor {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: $shadow-md;
+  transition: transform $transition-fast, box-shadow $transition-fast;
+}
+
+.stopArrow {
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid white;
+  margin: 0 auto;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2));
+}
+
+.deleteIndicator {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ef4444;
+  color: white;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.sliderHint {
+  color: $text-muted;
+  font-size: 11px;
+  text-align: center;
+  margin: 0 0 $spacing-md 0;
+}
+
+// Color Stop List Item - Selected State
+.colorStopItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: $spacing-sm;
+  background: $bg-overlay-light;
+  border-radius: $radius-md;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all $transition-base;
+
+  &:hover {
+    background: $bg-glass-hover;
+  }
+
+  &.selected {
+    border-color: #667eea;
+    background: rgba(102, 126, 234, 0.1);
+  }
+}
+
+// Color Picker Panel (inline)
+.colorPickerPanel {
+  &.disabled {
+    opacity: 0.6;
+
+    .colorCanvas,
+    .hueCanvas {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.pickerHint {
+  color: $text-muted;
+  font-size: 12px;
+  text-align: center;
+  margin-bottom: $spacing-md;
+  font-style: italic;
+}
+
+.canvasContainer {
+  position: relative;
+  margin-bottom: $spacing-md;
+}
+
+.colorCanvas {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 280 / 180;
+  border-radius: $radius-md;
+  cursor: crosshair;
+  display: block;
+}
+
+.canvasCursor {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 2px solid white;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(0, 0, 0, 0.3);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.hueContainer {
+  position: relative;
+  margin-bottom: $spacing-md;
+}
+
+.hueCanvas {
+  width: 100%;
+  height: 20px;
+  border-radius: $radius-sm;
+  cursor: crosshair;
+  display: block;
+}
+
+.hueCursor {
+  position: absolute;
+  top: -2px;
+  width: 6px;
+  height: 20px;
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 2px;
+  box-shadow: $shadow-sm;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.pickerFooter {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.colorPreviewSmall {
+  width: 32px;
+  height: 32px;
+  border-radius: $radius-md;
+  border: 2px solid $border-medium;
+  flex-shrink: 0;
+}
+
+.hexInputSmall {
+  flex: 1;
+  padding: $spacing-sm;
+  background: $input-bg;
+  border: 1px solid $input-border;
+  border-radius: $radius-md;
+  color: $text-primary;
+  font-family: $font-family-mono;
+  font-size: 14px;
+  text-transform: uppercase;
+
+  &:focus {
+    outline: none;
+    border-color: $input-border-focus;
+    background: $input-bg-focus;
+  }
+}

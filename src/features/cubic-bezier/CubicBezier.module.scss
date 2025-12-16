@@ -38,6 +38,7 @@
   font-weight: 600;
   color: $text-primary;
   margin: 0 0 1rem 0;
+  font-family: $font-family-display;
 }
 
 .canvasContainer {
@@ -69,7 +70,7 @@
   border-radius: 0.5rem;
   padding: 1rem;
   margin-bottom: 1rem;
-  font-family: 'Monaco', 'Courier New', monospace;
+  font-family: $font-family-mono;
 
   code {
     color: #00d4ff;
@@ -180,7 +181,7 @@
   border-radius: 0.5rem;
   color: $text-primary;
   font-size: 0.9rem;
-  font-family: 'Monaco', 'Courier New', monospace;
+  font-family: $font-family-mono;
   transition: all 0.2s ease;
 
   &:focus {
@@ -292,7 +293,7 @@
 .presetValue {
   font-size: 0.75rem;
   color: $text-muted;
-  font-family: 'Monaco', 'Courier New', monospace;
+  font-family: $font-family-mono;
 }
 
 .codeBlock {
@@ -306,7 +307,7 @@
     color: $text-secondary;
     font-size: 0.875rem;
     line-height: 1.7;
-    font-family: 'Monaco', 'Courier New', monospace;
+    font-family: $font-family-mono;
     white-space: pre;
   }
 }

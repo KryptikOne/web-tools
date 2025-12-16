@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { WrenchScrewdriverIcon, DocumentTextIcon, SwatchIcon, PhotoIcon, CodeBracketIcon, CalculatorIcon } from "@heroicons/react/24/outline";
 import { CATEGORIES, getToolsByCategory } from "@/config/tools-registry";
 import { ToolCategory } from "@/types/tools";
+import { scrambleText } from "@/lib/textEffects";
 import styles from "./Sidebar.module.scss";
 
 // Map categories to their icons
@@ -30,6 +31,15 @@ export default function Sidebar() {
 		}
 		setExpandedCategories(newExpanded);
 	};
+
+	// Use a Map to store refs by tool ID for uniqueness across categories
+	const textRefs = useRef<Map<string, HTMLSpanElement>>(new Map());
+
+	const handleHover = useCallback((toolId: string, toolName: string) => {
+		const el = textRefs.current.get(toolId);
+		if (!el) return;
+		scrambleText(el, toolName);
+	}, []);
 
 	return (
 		<aside className={styles.sidebar}>
@@ -63,8 +73,15 @@ export default function Sidebar() {
 										{tools.map((tool) => {
 											const isActive = pathname === tool.route;
 											return (
-												<Link key={tool.id} href={tool.implemented ? tool.route : "#"} className={`${styles.toolLink} ${isActive ? styles.active : ""} ${!tool.implemented ? styles.disabled : ""}`} title={tool.description}>
-													<span className={styles.toolName}>{tool.name}</span>
+												<Link onMouseEnter={() => handleHover(tool.id, tool.name)} key={tool.id} href={tool.implemented ? tool.route : "#"} className={`${styles.toolLink} ${isActive ? styles.active : ""} ${!tool.implemented ? styles.disabled : ""}`} title={tool.description}>
+													<span
+														className={styles.toolName}
+														ref={(el) => {
+															if (el) textRefs.current.set(tool.id, el);
+														}}
+													>
+														{tool.name}
+													</span>
 													{!tool.implemented && <span className={styles.comingSoon}>Soon</span>}
 												</Link>
 											);

@@ -13,7 +13,7 @@ export default function HomePage() {
 				<div className={styles.heroContent}>
 					<h1 className={styles.title}>
 						<SparklesIcon className={styles.titleIcon} />
-						Welcome to Web Tools
+						Welcome to BittBott.dev
 					</h1>
 					<p className={styles.subtitle}>A comprehensive collection of free, browser-based tools for developers and designers. Choose a tool from the sidebar to get started.</p>
 				</div>

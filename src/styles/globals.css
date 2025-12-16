@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme inline {
+	--font-display: var(--font-michroma);
 	--font-sans: var(--font-geist-sans);
 	--font-mono: var(--font-geist-mono);
 	--ease-bezier: cubic-bezier(0.44, 0.31, 0.26, 0.95);
@@ -9,16 +10,6 @@
 	--color-black: #000000;
 	--color-green-base: oklch(0.6548 0.1977 138.91);
 	--color-green-base-dark: oklch(50% 0.198 138.9);
-
-	--color-3vue-green-1: oklch(0.18 0.049 150.4);
-	--color-3vue-green-2: oklch(0.276 0.075 150.4);
-	--color-3vue-green-3: oklch(0.372 0.102 150.4);
-	--color-3vue-green-4: oklch(0.469 0.128 150.4);
-	--color-3vue-green-5: oklch(0.565 0.154 150.4);
-	--color-3vue-green-6: oklch(0.661 0.18 150.4);
-	--color-3vue-green-7: oklch(0.757 0.207 150.4);
-	--color-3vue-green-8: oklch(0.854 0.233 150.4);
-	--color-3vue-green-9: oklch(0.95 0.083 150.4);
 }
 
 html[data-theme="dark"],
@@ -44,6 +35,7 @@ html:not([data-theme]) {
 	--text-secondary: #e5e7eb;
 	--text-tertiary: #9ca3af;
 	--text-muted: #6b7280;
+	--text-code: #00d4ff;
 
 	/* Border Colors */
 	--border-subtle: rgba(255, 255, 255, 0.1);
@@ -88,6 +80,7 @@ html[data-theme="light"] {
 	--text-secondary: #4a4a4a;
 	--text-tertiary: #6b7280;
 	--text-muted: #9ca3af;
+	--text-code: var(--text-primary);
 
 	/* Border Colors */
 	--border-subtle: rgba(0, 0, 0, 0.1);
