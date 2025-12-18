@@ -341,8 +341,9 @@
   }
 
   &.active {
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%);
-    border-color: #667eea;
+    // background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%);
+    background: $color-primary-50;
+    border-color: $color-primary;
     color: $text-primary;
   }
 }
@@ -438,10 +439,10 @@
 
 .syncBtn {
   padding: $spacing-sm $spacing-md;
-  background: rgba(102, 126, 234, 0.15);
-  border: 1px solid rgba(102, 126, 234, 0.3);
+  background: $color-primary-50;
+  border: 1px solid $color-primary;
   border-radius: $radius-md;
-  color: #667eea;
+  color: $text-primary;
   font-size: 11px;
   font-weight: 500;
   cursor: pointer;

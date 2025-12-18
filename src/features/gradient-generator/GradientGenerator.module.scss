@@ -72,7 +72,7 @@
 
   code {
     flex: 1;
-    color: #00d4ff;
+    color: $text-code;
     font-family: $font-family-mono;
     font-size: 14px;
     white-space: pre-wrap;
@@ -294,7 +294,7 @@
   background: $input-bg;
   border: 1px solid $input-border;
   border-radius: $radius-md;
-  color: $text-primary;
+  color: $text-code;
   font-family: $font-family-mono;
   font-size: 14px;
   text-transform: uppercase;
@@ -575,7 +575,7 @@
   }
 
   &.selected {
-    border-color: #667eea;
+    border-color: $color-primary;
     background: rgba(102, 126, 234, 0.1);
   }
 }
@@ -671,7 +671,7 @@
   background: $input-bg;
   border: 1px solid $input-border;
   border-radius: $radius-md;
-  color: $text-primary;
+  color: $text-code;
   font-family: $font-family-mono;
   font-size: 14px;
   text-transform: uppercase;

@@ -21,6 +21,13 @@ const PRESET_ANGLES = [0, 45, 90, 135, 180, 225, 270, 315];
 const DEFAULT_COLOR_STOPS: ColorStop[] = [
 	{ id: 1, color: "#b5fe67", position: 0 },
 	{ id: 2, color: "#00ccad", position: 100 },
+	// { id: 1, color: "#ff0000", position: 0 },
+	// { id: 2, color: "#ff8000", position: 17 },
+	// { id: 3, color: "#ffff00", position: 33 },
+	// { id: 4, color: "#00ff00", position: 50 },
+	// { id: 5, color: "#0080ff", position: 67 },
+	// { id: 6, color: "#8000ff", position: 83 },
+	// { id: 7, color: "#ff00ff", position: 100 },
 ];
 
 const PRESET_GRADIENTS = [

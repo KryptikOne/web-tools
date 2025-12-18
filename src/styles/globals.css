@@ -21,6 +21,7 @@ html:not([data-theme]) {
 	--bg-tertiary: #2a2a2a;
 	/* --bg-grid: oklch(27.3% 0.171 142.5 / 40%); */
 	--bg-grid: oklch(29.4% 0 89.9 / 1);
+	--bg-gradient-primary: linear-gradient(135deg, #b5fe67 0%, #00ccad 100%);
 
 	/* Glass Effects */
 	--bg-glass: rgba(255, 255, 255, 0.05);
@@ -52,7 +53,7 @@ html:not([data-theme]) {
 	--input-bg: rgba(0, 0, 0, 0.3);
 	--input-bg-focus: rgba(0, 0, 0, 0.4);
 	--input-border: rgba(255, 255, 255, 0.1);
-	--input-border-focus: #667eea;
+	--input-border-focus: oklch(91.9% 0.196 131.1 / 1);
 
 	/* Scrollbar */
 	--scrollbar-track: rgba(255, 255, 255, 0.05);
@@ -97,7 +98,7 @@ html[data-theme="light"] {
 	--input-bg: rgba(0, 0, 0, 0.03);
 	--input-bg-focus: rgba(0, 0, 0, 0.05);
 	--input-border: rgba(0, 0, 0, 0.15);
-	--input-border-focus: #667eea;
+	--input-border-focus: rgba(0, 0, 0, 0.3);
 
 	/* Scrollbar */
 	--scrollbar-track: rgba(0, 0, 0, 0.05);
