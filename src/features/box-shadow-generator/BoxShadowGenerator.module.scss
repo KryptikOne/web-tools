@@ -19,17 +19,14 @@
 }
 
 .glassCard {
-  background: $bg-glass;
-  backdrop-filter: blur(10px);
-  border: 1px solid $border-subtle;
-  border-radius: 1rem;
-  padding: 1.5rem;
-  transition: all 0.3s ease;
+  @include glass-card;
+  // background: $bg-glass;
+  // backdrop-filter: blur(10px);
+  // border: 1px solid $border-subtle;
+  // border-radius: 1rem;
+  // padding: 1.5rem;
+  // transition: all 0.3s ease;
 
-  &:hover {
-    background: $bg-glass-hover;
-    border-color: $border-medium;
-  }
 }
 
 .sectionTitle {

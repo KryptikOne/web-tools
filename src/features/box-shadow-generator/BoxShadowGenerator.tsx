@@ -313,7 +313,7 @@ export default function BoxShadowGenerator() {
 			</div>
 
 			{/* Info Section */}
-			<div className={styles.glassCard}>
+			<div className={styles.glassCard} style={{ marginTop: "1.5rem" }}>
 				<h2 className={styles.sectionTitle}>About Box Shadow</h2>
 				<div className={styles.infoGrid}>
 					<div className={styles.infoItem}>
