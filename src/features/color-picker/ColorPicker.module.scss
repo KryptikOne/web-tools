@@ -50,12 +50,18 @@
   p {
     color: $text-primary;
     font-family: $font-family-mono;
-    font-size: 14px;
+    font-size: 1.5rem;
   }
 }
 
-.btnPrimary {
+.btnRandom {
   @include btn-primary;
+  background: $bg-overlay-dark;
+  padding: $spacing-sm $spacing-md;
+  border-radius: $radius-md;
+  color: $text-primary;
+  backdrop-filter: blur(4px);
+
 }
 
 .btnSecondary {
@@ -119,7 +125,7 @@
     border-radius: 50%;
     height: 20px;
     width: 20px;
-    border: 2px solid #6366f1;
+    border: 2px solid var(--color-white);
     box-shadow: $shadow-md;
     cursor: pointer;
   }
@@ -129,7 +135,7 @@
     border-radius: 50%;
     height: 20px;
     width: 20px;
-    border: 2px solid #6366f1;
+    border: 2px solid var(--color-white);
     box-shadow: $shadow-md;
     cursor: pointer;
   }

@@ -284,7 +284,7 @@ export default function ColorPicker() {
 									<div className={styles.hexDisplay}>
 										<p>{colorFormats.hex}</p>
 									</div>
-									<Button onClick={generateRandomColor} className={styles.btnPrimary} title="Random Color">
+									<Button onClick={generateRandomColor} className={styles.btnRandom} title="Random Color">
 										<ArrowPathIcon className="w-5 h-5" />
 									</Button>
 								</div>

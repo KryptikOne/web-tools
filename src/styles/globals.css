@@ -120,3 +120,15 @@ body {
 * {
 	box-sizing: border-box;
 }
+
+/* Text Selection Styles */
+html[data-theme="dark"] ::selection,
+html:not([data-theme]) ::selection {
+	background: oklch(91.9% 0.196 131.1 / 1);
+	color: #000000;
+}
+
+html[data-theme="light"] ::selection {
+	background: oklch(91.9% 0.196 131.1 / 0.8);
+	color: var(--color-black);
+}
