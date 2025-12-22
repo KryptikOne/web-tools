@@ -5,23 +5,7 @@ import { ClipboardDocumentIcon, CheckIcon, ArrowPathIcon, BookmarkIcon, LockClos
 import { Button } from "@/components/ui/button";
 import { ColorUtils } from "@/lib/colorUtils";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import {
-	hydrateFromStorage,
-	setPalette,
-	setHarmony,
-	setBaseHue,
-	setSaturation,
-	setLightness,
-	toggleLock,
-	updateColor,
-	addColor,
-	removeLastColor,
-	savePalette,
-	loadSavedPalette,
-	loadPreset,
-	HarmonyType,
-	PaletteColor,
-} from "@/store/slices/paletteSlice";
+import { hydrateFromStorage, setPalette, setHarmony, setBaseHue, setSaturation, setLightness, toggleLock, updateColor, addColor, removeLastColor, savePalette, loadSavedPalette, loadPreset, HarmonyType, PaletteColor } from "@/store/slices/paletteSlice";
 import styles from "./PaletteGenerator.module.scss";
 
 const HARMONY_INFO: Record<HarmonyType, { name: string; description: string; angles: number[] }> = {
@@ -80,6 +64,25 @@ const PRESET_PALETTES = [
 	{ id: 15, name: "Ocean Serenity", colors: ["#01161e", "#124559", "#598392", "#aec3b0", "#eff6e0"] },
 	{ id: 16, name: "Autumn Harvest", colors: ["#6f1d1b", "#bb9457", "#432818", "#99582a", "#ffe6a7"] },
 	{ id: 17, name: "Muted Wine Night", colors: ["#e1cfb6", "#c79b68", "#47596f", "#671827", "#3d2832"] },
+	{ id: 18, name: "Olive Crush", colors: ["#c9cba3", "#ffe1a8", "#e26d5c", "#723d46", "#472d30"] },
+	{ id: 19, name: "Forest Walk", colors: ["#2b3a42", "#506266", "#a7c4bc", "#e6ebe0", "#f4f1de"] },
+	{ id: 20, name: "Crispy", colors: ["#fffcf2", "#ccc5b9", "#403d39", "#252422", "#eb5e28"] },
+	{ id: 21, name: "Dusk", colors: ["#0b132b", "#1c2541", "#3a506b", "#5bc0be", "#6fffe9"] },
+	{ id: 22, name: "Soft Neopolitan", colors: ["#463f3a", "#8a817c", "#bcb8b1", "#f4f3ee", "#e0afa0"] },
+	{ id: 23, name: "Desert Sunset", colors: ["#2e1f27", "#7d5a5f", "#c9ada7", "#f2e9e4", "#f7882f"] },
+	{ id: 24, name: "Calm Ocean", colors: ["#dbe9ee", "#a9c5d8", "#6b8ea3", "#395870", "#1b2a41"] },
+	{ id: 25, name: "Casual Cadence", colors: ["#0a0908", "#22333b", "#eae0d5", "#c6ac8f", "#5e503f"] },
+	{ id: 26, name: "Vibrant Fiesta", colors: ["#ff595e", "#ffca3a", "#8ac926", "#1982c4", "#6a4c93"] },
+	{ id: 27, name: "Boldness", colors: ["#001524", "#15616d", "#ffecd1", "#ff7d00", "#78290f"] },
+	{ id: 28, name: "On Brand", colors: ["#d9ed92", "#b5e48c", "#99d98c", "#76c893", "#52b69a", "#34a0a4", "#168aad", "#1a759f", "#1e6091", "#184e77"] },
+	{ id: 29, name: "Soft Pastels", colors: ["#f6d6ad", "#f4a261", "#e76f51", "#2a9d8f", "#264653"] },
+	{ id: 30, name: "Nautical Dreams", colors: ["#01161e", "#124559", "#598392", "#aec3b0", "#eff6e0"] },
+	{ id: 31, name: "Dark Wine Night", colors: ["#11151c", "#212d40", "#364156", "#7d4e57", "#d66853"] },
+	{ id: 32, name: "Gotham Moonrise", colors: ["#f1dac4", "#a69cac", "#474973", "#161b33", "#0d0c1d"] },
+	{ id: 33, name: "Grimmace", colors: ["#bfc3ba", "#a9aca9", "#60495a", "#3f3244", "#2f2235"] },
+	{ id: 34, name: "Soft Nautical Dreams", colors: ["#4c5760", "#93a8ac", "#d7ceb2", "#a59e8c", "#66635b"] },
+	{ id: 35, name: "Sunset Boulevard", colors: ["#3f0d12", "#a71d31", "#f1f0cc", "#d5bf86", "#8d775f"] },
+	{ id: 36, name: "Solar Flare Meets Grimmace", colors: ["#44355b", "#31263e", "#221e22", "#eca72c", "#ee5622"] },
 ];
 
 // Generate a color with specific OKLCH values
@@ -200,7 +203,7 @@ export default function PaletteGenerator() {
 	};
 
 	// Handle loading saved palette
-	const handleLoadSavedPalette = (saved: typeof savedPalettes[0]) => {
+	const handleLoadSavedPalette = (saved: (typeof savedPalettes)[0]) => {
 		skipRegenerateRef.current = true;
 		dispatch(loadSavedPalette(saved));
 
@@ -212,7 +215,7 @@ export default function PaletteGenerator() {
 	};
 
 	// Handle loading preset
-	const handleLoadPreset = (preset: typeof PRESET_PALETTES[0]) => {
+	const handleLoadPreset = (preset: (typeof PRESET_PALETTES)[0]) => {
 		skipRegenerateRef.current = true;
 		dispatch(loadPreset(preset.colors));
 	};
@@ -322,7 +325,14 @@ export default function PaletteGenerator() {
 						<h3 className={styles.sectionTitle}>Color Harmony</h3>
 						<div className={styles.harmonyGrid}>
 							{(Object.keys(HARMONY_INFO) as HarmonyType[]).map((type) => (
-								<button key={type} className={`${styles.harmonyBtn} ${harmony === type ? styles.active : ""}`} onClick={() => { skipRegenerateRef.current = false; dispatch(setHarmony(type)); }}>
+								<button
+									key={type}
+									className={`${styles.harmonyBtn} ${harmony === type ? styles.active : ""}`}
+									onClick={() => {
+										skipRegenerateRef.current = false;
+										dispatch(setHarmony(type));
+									}}
+								>
 									<span className={styles.harmonyName}>{HARMONY_INFO[type].name}</span>
 								</button>
 							))}
@@ -338,7 +348,19 @@ export default function PaletteGenerator() {
 								<label className={styles.label}>Base Hue</label>
 								<span className={styles.valueDisplay}>{Math.round(baseHue)}°</span>
 							</div>
-							<input type="range" min="0" max="360" step="1" value={baseHue} onChange={(e) => { skipRegenerateRef.current = false; dispatch(setBaseHue(parseFloat(e.target.value))); }} className={styles.slider} style={{ background: hueGradient }} />
+							<input
+								type="range"
+								min="0"
+								max="360"
+								step="1"
+								value={baseHue}
+								onChange={(e) => {
+									skipRegenerateRef.current = false;
+									dispatch(setBaseHue(parseFloat(e.target.value)));
+								}}
+								className={styles.slider}
+								style={{ background: hueGradient }}
+							/>
 						</div>
 
 						<div className={styles.sliderGroup}>
@@ -346,7 +368,18 @@ export default function PaletteGenerator() {
 								<label className={styles.label}>Saturation</label>
 								<span className={styles.valueDisplay}>{Math.round(saturation * 100)}%</span>
 							</div>
-							<input type="range" min="0.05" max="0.3" step="0.01" value={saturation} onChange={(e) => { skipRegenerateRef.current = false; dispatch(setSaturation(parseFloat(e.target.value))); }} className={styles.slider} />
+							<input
+								type="range"
+								min="0.05"
+								max="0.3"
+								step="0.01"
+								value={saturation}
+								onChange={(e) => {
+									skipRegenerateRef.current = false;
+									dispatch(setSaturation(parseFloat(e.target.value)));
+								}}
+								className={styles.slider}
+							/>
 						</div>
 
 						<div className={styles.sliderGroup}>
@@ -354,7 +387,18 @@ export default function PaletteGenerator() {
 								<label className={styles.label}>Lightness</label>
 								<span className={styles.valueDisplay}>{Math.round(lightness * 100)}%</span>
 							</div>
-							<input type="range" min="0.3" max="0.85" step="0.01" value={lightness} onChange={(e) => { skipRegenerateRef.current = false; dispatch(setLightness(parseFloat(e.target.value))); }} className={styles.slider} />
+							<input
+								type="range"
+								min="0.3"
+								max="0.85"
+								step="0.01"
+								value={lightness}
+								onChange={(e) => {
+									skipRegenerateRef.current = false;
+									dispatch(setLightness(parseFloat(e.target.value)));
+								}}
+								className={styles.slider}
+							/>
 						</div>
 					</div>
 				</div>
