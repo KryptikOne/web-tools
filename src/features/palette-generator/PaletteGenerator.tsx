@@ -112,7 +112,11 @@ export default function PaletteGenerator() {
 	// Hydrate from localStorage on mount
 	useEffect(() => {
 		dispatch(hydrateFromStorage());
-		setIsHydrated(true);
+		// Use a small delay to allow Redux state to settle before marking as hydrated
+		// This prevents the regeneration effect from firing during hydration
+		requestAnimationFrame(() => {
+			setIsHydrated(true);
+		});
 	}, [dispatch]);
 
 	// Generate palette based on harmony settings

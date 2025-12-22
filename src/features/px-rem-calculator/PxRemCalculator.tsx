@@ -1,16 +1,34 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { ClipboardDocumentIcon, CheckIcon, ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { hydrateUserPreferences, setBaseFontSize } from "@/store/slices/userPreferencesSlice";
 import styles from "./PxRemCalculator.module.scss";
 
 const COMMON_SIZES = [8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36, 40, 48, 56, 64, 72, 80, 96];
 
 export default function PxRemCalculator() {
+	const dispatch = useAppDispatch();
+	const baseSize = useAppSelector((state) => state.userPreferences.baseFontSize);
+
 	const [pxValue, setPxValue] = useState<string>("16");
 	const [remValue, setRemValue] = useState<string>("1");
-	const [baseSize, setBaseSize] = useState<number>(16);
 	const [copiedField, setCopiedField] = useState<string | null>(null);
+
+	// Hydrate user preferences from localStorage on mount
+	useEffect(() => {
+		dispatch(hydrateUserPreferences());
+	}, [dispatch]);
+
+	// Update rem value when base size changes (after hydration)
+	useEffect(() => {
+		const numPx = parseFloat(pxValue);
+		if (!isNaN(numPx)) {
+			const rem = numPx / baseSize;
+			setRemValue(formatNumber(rem));
+		}
+	}, [baseSize]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const pxToRem = useCallback((px: number, base: number): number => {
 		return px / base;
@@ -43,12 +61,7 @@ export default function PxRemCalculator() {
 	};
 
 	const handleBaseSizeChange = (newBase: number) => {
-		setBaseSize(newBase);
-		const numPx = parseFloat(pxValue);
-		if (!isNaN(numPx)) {
-			const rem = pxToRem(numPx, newBase);
-			setRemValue(formatNumber(rem));
-		}
+		dispatch(setBaseFontSize(newBase));
 	};
 
 	const formatNumber = (num: number): string => {

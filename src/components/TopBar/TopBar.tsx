@@ -1,9 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { SunIcon, MoonIcon, LanguageIcon, SwatchIcon, ArrowTrendingUpIcon, EyeSlashIcon, ClockIcon, CalculatorIcon, Square2StackIcon, PaintBrushIcon, CubeIcon, FunnelIcon, Squares2X2Icon } from "@heroicons/react/24/outline";
+import { SunIcon, MoonIcon, SwatchIcon, ArrowTrendingUpIcon, EyeSlashIcon, ClockIcon, CalculatorIcon, Square2StackIcon, PaintBrushIcon, CubeIcon, FunnelIcon, Squares2X2Icon, TableCellsIcon } from "@heroicons/react/24/outline";
 import { TOOLS_REGISTRY } from "@/config/tools-registry";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { hydrateTheme, toggleTheme } from "@/store/slices/themeSlice";
 import styles from "./TopBar.module.scss";
 
 // Map tool IDs to their icons
@@ -21,40 +23,25 @@ const TOOL_ICONS: Record<string, React.ComponentType<React.SVGProps<SVGSVGElemen
 	"px-rem-calculator": CalculatorIcon,
 	"aspect-ratio-calculator": CalculatorIcon,
 	"percentage-calculator": CalculatorIcon,
+	"html-entities": TableCellsIcon,
 };
 
 export default function TopBar() {
-	const [theme, setTheme] = useState<"light" | "dark">("dark");
-	const [language, setLanguage] = useState("en");
+	const dispatch = useAppDispatch();
+	const theme = useAppSelector((state) => state.theme.mode);
 	const pathname = usePathname();
 
 	// Find the current tool based on pathname
 	const currentTool = TOOLS_REGISTRY.find((tool) => tool.route === pathname);
 	const ToolIcon = currentTool ? TOOL_ICONS[currentTool.id] : null;
 
+	// Hydrate theme from localStorage on mount
 	useEffect(() => {
-		// Check for saved theme preference or default to dark
-		const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
-		if (savedTheme) {
-			setTheme(savedTheme);
-			document.documentElement.setAttribute("data-theme", savedTheme);
-		} else {
-			document.documentElement.setAttribute("data-theme", "dark");
-		}
-	}, []);
+		dispatch(hydrateTheme());
+	}, [dispatch]);
 
-	const toggleTheme = () => {
-		const newTheme = theme === "dark" ? "light" : "dark";
-		setTheme(newTheme);
-		localStorage.setItem("theme", newTheme);
-		document.documentElement.setAttribute("data-theme", newTheme);
-	};
-
-	const toggleLanguage = () => {
-		// For now, just toggle between en and es as an example
-		const newLang = language === "en" ? "es" : "en";
-		setLanguage(newLang);
-		// In a real app, you would integrate with i18n here
+	const handleToggleTheme = () => {
+		dispatch(toggleTheme());
 	};
 
 	return (
@@ -69,17 +56,7 @@ export default function TopBar() {
 			</div>
 
 			<div className={styles.rightSection}>
-				{/* <button
-          className={styles.iconButton}
-          onClick={toggleLanguage}
-          aria-label="Change language"
-          title={`Language: ${language.toUpperCase()}`}
-        >
-          <LanguageIcon />
-          <span className={styles.langText}>{language.toUpperCase()}</span>
-        </button> */}
-
-				<button className={styles.iconButton} onClick={toggleTheme} aria-label="Toggle theme">
+				<button className={styles.iconButton} onClick={handleToggleTheme} aria-label="Toggle theme">
 					{theme === "dark" ? <SunIcon /> : <MoonIcon />}
 				</button>
 			</div>

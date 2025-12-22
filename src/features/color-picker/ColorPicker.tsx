@@ -2,32 +2,33 @@
 
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { ColorUtils } from "@/lib/colorUtils";
-import { ClipboardDocumentIcon, CheckIcon, ArrowPathIcon, SwatchIcon, BookmarkIcon, EyeIcon } from "@heroicons/react/24/outline";
+import { ClipboardDocumentIcon, CheckIcon, ArrowPathIcon, SwatchIcon, BookmarkIcon, EyeIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { Button } from "@/components/ui/button";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { hydrateColorPicker, setOklch, setAlpha, saveColor, loadColor, clearSavedColors, SavedColor } from "@/store/slices/colorPickerSlice";
 import styles from "./ColorPicker.module.scss";
-
-interface SavedColor {
-	hex: string;
-	oklch: { l: number; c: number; h: number };
-	alpha: number;
-	id: number;
-}
 
 type AccessibilityLevel = "none" | "aa" | "aaa";
 
 export default function ColorPicker() {
-	const [oklch, setOklch] = useState({ l: 0.919, c: 0.196, h: 131.1 });
-	const [alpha, setAlpha] = useState(1);
+	const dispatch = useAppDispatch();
+	const { oklch, alpha, savedColors } = useAppSelector((state) => state.colorPicker);
+
+	// Local UI state (not persisted)
 	const [inputValue, setInputValue] = useState("");
 	const [copiedFormat, setCopiedFormat] = useState<string | null>(null);
 	const [showColorList, setShowColorList] = useState(false);
-	const [savedColors, setSavedColors] = useState<SavedColor[]>([]);
 	const [showAccessibility, setShowAccessibility] = useState(false);
+	const [accessibilityLevel, setAccessibilityLevel] = useState<AccessibilityLevel>("none");
 
-	// Contrast checker state
+	// Contrast checker state (local, not persisted)
 	const [foregroundHex, setForegroundHex] = useState("#000000");
 	const [backgroundHex, setBackgroundHex] = useState("#ffffff");
-	const [accessibilityLevel, setAccessibilityLevel] = useState<AccessibilityLevel>("none");
+
+	// Hydrate from localStorage on mount
+	useEffect(() => {
+		dispatch(hydrateColorPicker());
+	}, [dispatch]);
 
 	// Check for color parameter in URL
 	useEffect(() => {
@@ -38,13 +39,13 @@ export default function ColorPicker() {
 			if (parsed) {
 				const [r, g, b] = parsed.rgb;
 				const [l, c, h] = ColorUtils.rgbToOklch(r, g, b);
-				setOklch({ l, c, h });
+				dispatch(setOklch({ l, c, h }));
 				if (parsed.alpha !== undefined) {
-					setAlpha(parsed.alpha);
+					dispatch(setAlpha(parsed.alpha));
 				}
 			}
 		}
-	}, []);
+	}, [dispatch]);
 
 	// Calculate RGB from OKLCH
 	const rgb = useMemo(() => {
@@ -80,55 +81,11 @@ export default function ColorPicker() {
 		if (parsed) {
 			const [r, g, b] = parsed.rgb;
 			const [l, c, h] = ColorUtils.rgbToOklch(r, g, b);
-			setOklch({ l, c, h });
+			dispatch(setOklch({ l, c, h }));
 			if (parsed.alpha !== undefined) {
-				setAlpha(parsed.alpha);
+				dispatch(setAlpha(parsed.alpha));
 			}
 		}
-	};
-
-	// Generate random color (optionally accessible)
-	const generateRandomColor = () => {
-		if (accessibilityLevel !== "none") {
-			const newColor = generateAccessibleRandomColor(accessibilityLevel);
-			setOklch(newColor);
-		} else {
-			const l = Math.random() * 0.3 + 0.5;
-			const c = Math.random() * 0.25;
-			const h = Math.random() * 360;
-			setOklch({ l, c, h });
-		}
-		setAlpha(1);
-		setInputValue("");
-	};
-
-	// Copy to clipboard
-	const copyToClipboard = async (text: string, format: string) => {
-		try {
-			await navigator.clipboard.writeText(text);
-			setCopiedFormat(format);
-			setTimeout(() => setCopiedFormat(null), 2000);
-		} catch (err) {
-			console.error("Failed to copy:", err);
-		}
-	};
-
-	// Save color to palette
-	const saveColor = () => {
-		const newColor: SavedColor = {
-			hex: colorFormats.hex,
-			oklch: { ...oklch },
-			alpha,
-			id: Date.now(),
-		};
-		setSavedColors((prev) => [newColor, ...prev.slice(0, 23)]);
-	};
-
-	// Load saved color
-	const loadColor = (color: SavedColor) => {
-		setOklch(color.oklch);
-		setAlpha(color.alpha);
-		setInputValue("");
 	};
 
 	// Calculate relative luminance
@@ -153,17 +110,11 @@ export default function ColorPicker() {
 		[getLuminance]
 	);
 
-	// Convert hex to RGB tuple
-	const hexToRgb = useCallback((hex: string): [number, number, number] => {
-		const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-		return result ? [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)] : [0, 0, 0];
-	}, []);
-
 	// Check if a color meets contrast requirements on both black and white
 	const meetsContrastOnBothBackgrounds = useCallback(
 		(testRgb: [number, number, number], level: AccessibilityLevel): boolean => {
 			if (level === "none") return true;
-			const minRatio = level === "aaa" ? 4.5 : 3; // Using large text requirements for flexibility
+			const minRatio = level === "aaa" ? 4.5 : 3;
 			const contrastOnWhite = calculateContrast(testRgb, [255, 255, 255]);
 			const contrastOnBlack = calculateContrast(testRgb, [0, 0, 0]);
 			return contrastOnWhite >= minRatio && contrastOnBlack >= minRatio;
@@ -177,12 +128,10 @@ export default function ColorPicker() {
 			const maxAttempts = 100;
 
 			for (let attempt = 0; attempt < maxAttempts; attempt++) {
-				// For accessible colors, we need to constrain lightness to mid-range
-				// Too light fails on white, too dark fails on black
 				const l =
 					level === "aaa"
-						? Math.random() * 0.2 + 0.45 // AAA: tighter range ~45-65%
-						: Math.random() * 0.3 + 0.4; // AA: slightly wider ~40-70%
+						? Math.random() * 0.2 + 0.45
+						: Math.random() * 0.3 + 0.4;
 				const c = Math.random() * 0.25;
 				const h = Math.random() * 360;
 
@@ -193,11 +142,59 @@ export default function ColorPicker() {
 				}
 			}
 
-			// Fallback to a known accessible color (mid-gray with some saturation)
 			return { l: 0.55, c: 0.12, h: Math.random() * 360 };
 		},
 		[meetsContrastOnBothBackgrounds]
 	);
+
+	// Generate random color (optionally accessible)
+	const generateRandomColor = () => {
+		if (accessibilityLevel !== "none") {
+			const newColor = generateAccessibleRandomColor(accessibilityLevel);
+			dispatch(setOklch(newColor));
+		} else {
+			const l = Math.random() * 0.3 + 0.5;
+			const c = Math.random() * 0.25;
+			const h = Math.random() * 360;
+			dispatch(setOklch({ l, c, h }));
+		}
+		dispatch(setAlpha(1));
+		setInputValue("");
+	};
+
+	// Copy to clipboard
+	const copyToClipboard = async (text: string, format: string) => {
+		try {
+			await navigator.clipboard.writeText(text);
+			setCopiedFormat(format);
+			setTimeout(() => setCopiedFormat(null), 2000);
+		} catch (err) {
+			console.error("Failed to copy:", err);
+		}
+	};
+
+	// Save color to palette
+	const handleSaveColor = () => {
+		const newColor: SavedColor = {
+			hex: colorFormats.hex,
+			oklch: { ...oklch },
+			alpha,
+			id: Date.now(),
+		};
+		dispatch(saveColor(newColor));
+	};
+
+	// Load saved color
+	const handleLoadColor = (color: SavedColor) => {
+		dispatch(loadColor(color));
+		setInputValue("");
+	};
+
+	// Convert hex to RGB tuple
+	const hexToRgb = useCallback((hex: string): [number, number, number] => {
+		const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+		return result ? [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)] : [0, 0, 0];
+	}, []);
 
 	// Calculate contrast ratio between foreground and background
 	const fgBgContrastRatio = useMemo(() => {
@@ -292,7 +289,7 @@ export default function ColorPicker() {
 						</div>
 
 						<div className={styles.buttonGroup}>
-							<Button onClick={saveColor} className={styles.btnSecondary}>
+							<Button onClick={handleSaveColor} className={styles.btnSecondary}>
 								<BookmarkIcon className="w-4 h-4" />
 								Save
 							</Button>
@@ -332,7 +329,7 @@ export default function ColorPicker() {
 								<label className={styles.label}>Lightness</label>
 								<span className={styles.valueDisplay}>{(oklch.l * 100).toFixed(1)}%</span>
 							</div>
-							<input type="range" min="0" max="100" step="0.1" value={oklch.l * 100} onChange={(e) => setOklch({ ...oklch, l: parseFloat(e.target.value) / 100 })} className={styles.slider} style={{ background: getLightnessGradient() }} />
+							<input type="range" min="0" max="100" step="0.1" value={oklch.l * 100} onChange={(e) => dispatch(setOklch({ ...oklch, l: parseFloat(e.target.value) / 100 }))} className={styles.slider} style={{ background: getLightnessGradient() }} />
 						</div>
 
 						<div className={styles.sliderGroup}>
@@ -340,7 +337,7 @@ export default function ColorPicker() {
 								<label className={styles.label}>Chroma</label>
 								<span className={styles.valueDisplay}>{oklch.c.toFixed(3)}</span>
 							</div>
-							<input type="range" min="0" max="0.4" step="0.001" value={oklch.c} onChange={(e) => setOklch({ ...oklch, c: parseFloat(e.target.value) })} className={styles.slider} style={{ background: getChromaGradient() }} />
+							<input type="range" min="0" max="0.4" step="0.001" value={oklch.c} onChange={(e) => dispatch(setOklch({ ...oklch, c: parseFloat(e.target.value) }))} className={styles.slider} style={{ background: getChromaGradient() }} />
 						</div>
 
 						<div className={styles.sliderGroup}>
@@ -348,7 +345,7 @@ export default function ColorPicker() {
 								<label className={styles.label}>Hue</label>
 								<span className={styles.valueDisplay}>{oklch.h.toFixed(1)}°</span>
 							</div>
-							<input type="range" min="0" max="360" step="0.1" value={oklch.h} onChange={(e) => setOklch({ ...oklch, h: parseFloat(e.target.value) })} className={styles.slider} style={{ background: getHueGradient() }} />
+							<input type="range" min="0" max="360" step="0.1" value={oklch.h} onChange={(e) => dispatch(setOklch({ ...oklch, h: parseFloat(e.target.value) }))} className={styles.slider} style={{ background: getHueGradient() }} />
 						</div>
 
 						<div className={styles.sliderGroup}>
@@ -356,7 +353,7 @@ export default function ColorPicker() {
 								<label className={styles.label}>Alpha</label>
 								<span className={styles.valueDisplay}>{(alpha * 100).toFixed(0)}%</span>
 							</div>
-							<input type="range" min="0" max="100" step="1" value={alpha * 100} onChange={(e) => setAlpha(parseFloat(e.target.value) / 100)} className={styles.slider} style={{ background: `linear-gradient(to right, transparent, ${colorFormats.hex})` }} />
+							<input type="range" min="0" max="100" step="1" value={alpha * 100} onChange={(e) => dispatch(setAlpha(parseFloat(e.target.value) / 100))} className={styles.slider} style={{ background: `linear-gradient(to right, transparent, ${colorFormats.hex})` }} />
 						</div>
 					</div>
 
@@ -426,10 +423,16 @@ export default function ColorPicker() {
 			{/* Saved Colors Palette */}
 			{showColorList && savedColors.length > 0 && (
 				<div className={styles.glassCard} style={{ marginTop: "1.5rem" }}>
-					<h3 className={styles.sectionTitle}>Saved Colors</h3>
+					<div className={styles.savedColorsHeader}>
+						<h3 className={styles.sectionTitle}>Saved Colors</h3>
+						<Button onClick={() => dispatch(clearSavedColors())} className={styles.clearBtn} title="Clear all saved colors">
+							<TrashIcon className="w-4 h-4" />
+							Clear All
+						</Button>
+					</div>
 					<div className={styles.savedColorsGrid}>
 						{savedColors.map((color) => (
-							<button key={color.id} onClick={() => loadColor(color)} className={styles.colorSwatch} style={{ backgroundColor: color.hex }} title={color.hex} />
+							<button key={color.id} onClick={() => handleLoadColor(color)} className={styles.colorSwatch} style={{ backgroundColor: color.hex }} title={color.hex} />
 						))}
 					</div>
 				</div>
