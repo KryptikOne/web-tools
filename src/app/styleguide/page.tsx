@@ -1,26 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {
-	SwatchIcon,
-	DocumentTextIcon,
-	PhotoIcon,
-	CodeBracketIcon,
-	CalculatorIcon,
-	ClipboardDocumentIcon,
-	CheckIcon,
-	ArrowPathIcon,
-	TrashIcon,
-	PlusIcon,
-	SunIcon,
-	MoonIcon,
-	Bars3Icon,
-	XMarkIcon,
-	LinkIcon,
-	ClockIcon,
-	EyeIcon,
-	BookmarkIcon,
-} from "@heroicons/react/24/outline";
+import { SwatchIcon, DocumentTextIcon, PhotoIcon, CodeBracketIcon, CalculatorIcon, ClipboardDocumentIcon, CheckIcon, ArrowPathIcon, TrashIcon, PlusIcon, SunIcon, MoonIcon, Bars3Icon, XMarkIcon, LinkIcon, ClockIcon, EyeIcon, BookmarkIcon } from "@heroicons/react/24/outline";
 import { Button } from "@/components/ui/button";
 import styles from "./styleguide.module.scss";
 
@@ -38,7 +19,7 @@ export default function StyleguidePage() {
 			{/* Header */}
 			<header className={styles.header}>
 				<h1 className={styles.title}>Styleguide</h1>
-				<p className={styles.subtitle}>Design system documentation for BittBott.dev Web Tools</p>
+				<p className={styles.subtitle}>Design system documentation for BittBott.dev</p>
 			</header>
 
 			{/* Table of Contents */}
@@ -46,7 +27,10 @@ export default function StyleguidePage() {
 				<h2 className={styles.tocTitle}>Contents</h2>
 				<ul className={styles.tocList}>
 					<li>
-						<a href="#colors">Colors</a>
+						<a href="#color-system">Color System</a>
+					</li>
+					<li>
+						<a href="#colors">Current Colors</a>
 					</li>
 					<li>
 						<a href="#typography">Typography</a>
@@ -84,9 +68,219 @@ export default function StyleguidePage() {
 				</ul>
 			</nav>
 
+			{/* Color System Proposal */}
+			<section id="color-system" className={styles.section}>
+				<h2 className={styles.sectionTitle}>Color System</h2>
+				<p className={styles.sectionDescription}>Our color system is built around a vibrant lime green primary color. The accent colors have been carefully selected using color theory to complement the primary while maintaining excellent contrast and accessibility.</p>
+
+				{/* Color Philosophy */}
+				<div className={styles.subsection}>
+					<h3 className={styles.subsectionTitle}>Color Philosophy</h3>
+					<div className={styles.philosophyGrid}>
+						<div className={styles.philosophyCard}>
+							<div className={styles.philosophyIcon} style={{ background: "oklch(91.9% 0.196 131.1)" }} />
+							<h4>Primary - Lime Green</h4>
+							<p>The foundation of our brand. A vibrant, energetic lime green that represents growth, technology, and innovation. Used for primary actions, highlights, and key UI elements.</p>
+							<code>oklch(91.9% 0.196 131.1)</code>
+						</div>
+						<div className={styles.philosophyCard}>
+							<div className={styles.philosophyIcon} style={{ background: "oklch(75% 0.15 180)" }} />
+							<h4>Accent - Teal</h4>
+							<p>An analogous teal that harmonizes with the primary green. Used for secondary actions, links, and interactive elements. Creates visual cohesion while providing contrast.</p>
+							<code>oklch(75% 0.15 180)</code>
+						</div>
+						<div className={styles.philosophyCard}>
+							<div className={styles.philosophyIcon} style={{ background: "oklch(85% 0.18 85)" }} />
+							<h4>Accent Secondary - Amber</h4>
+							<p>A warm amber/gold that provides complementary warmth against the cool greens. Used for warnings, highlights, and drawing attention to important elements.</p>
+							<code>oklch(85% 0.18 85)</code>
+						</div>
+					</div>
+				</div>
+
+				{/* Dark Theme Palette */}
+				<div className={styles.subsection}>
+					<h3 className={styles.subsectionTitle}>Dark Theme Palette</h3>
+					<div className={styles.paletteShowcase}>
+						<div className={styles.palettePreview} style={{ background: "oklch(25.2% 0 89.9)" }}>
+							<div className={styles.paletteSwatches}>
+								<div className={styles.paletteSwatch} style={{ background: "oklch(91.9% 0.196 131.1)" }} title="Primary" />
+								<div className={styles.paletteSwatch} style={{ background: "oklch(75% 0.15 180)" }} title="Accent" />
+								<div className={styles.paletteSwatch} style={{ background: "oklch(85% 0.18 85)" }} title="Accent Secondary" />
+								<div className={styles.paletteSwatch} style={{ background: "oklch(65% 0.12 160)" }} title="Muted Green" />
+							</div>
+							<span className={styles.paletteLabel}>Dark Theme</span>
+						</div>
+						<div className={styles.paletteDetails}>
+							<div className={styles.paletteColor}>
+								<div className={styles.paletteColorSwatch} style={{ background: "oklch(91.9% 0.196 131.1)" }} />
+								<div className={styles.paletteColorInfo}>
+									<span>Primary</span>
+									<code>oklch(91.9% 0.196 131.1)</code>
+								</div>
+							</div>
+							<div className={styles.paletteColor}>
+								<div className={styles.paletteColorSwatch} style={{ background: "oklch(75% 0.15 180)" }} />
+								<div className={styles.paletteColorInfo}>
+									<span>Accent (Teal)</span>
+									<code>oklch(75% 0.15 180)</code>
+								</div>
+							</div>
+							<div className={styles.paletteColor}>
+								<div className={styles.paletteColorSwatch} style={{ background: "oklch(85% 0.18 85)" }} />
+								<div className={styles.paletteColorInfo}>
+									<span>Accent Secondary (Amber)</span>
+									<code>oklch(85% 0.18 85)</code>
+								</div>
+							</div>
+							<div className={styles.paletteColor}>
+								<div className={styles.paletteColorSwatch} style={{ background: "oklch(65% 0.12 160)" }} />
+								<div className={styles.paletteColorInfo}>
+									<span>Muted Green</span>
+									<code>oklch(65% 0.12 160)</code>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				{/* Light Theme Palette */}
+				<div className={styles.subsection}>
+					<h3 className={styles.subsectionTitle}>Light Theme Palette</h3>
+					<div className={styles.paletteShowcase}>
+						<div className={styles.palettePreview} style={{ background: "oklch(0.98 0.005 150.4)" }}>
+							<div className={styles.paletteSwatches}>
+								<div className={styles.paletteSwatch} style={{ background: "oklch(55% 0.2 145)" }} title="Primary Dark" />
+								<div className={styles.paletteSwatch} style={{ background: "oklch(50% 0.12 180)" }} title="Accent Dark" />
+								<div className={styles.paletteSwatch} style={{ background: "oklch(55% 0.15 85)" }} title="Accent Secondary Dark" />
+								<div className={styles.paletteSwatch} style={{ background: "oklch(45% 0.1 160)" }} title="Muted Dark" />
+							</div>
+							<span className={styles.paletteLabelDark}>Light Theme</span>
+						</div>
+						<div className={styles.paletteDetails}>
+							<div className={styles.paletteColor}>
+								<div className={styles.paletteColorSwatch} style={{ background: "oklch(55% 0.2 145)" }} />
+								<div className={styles.paletteColorInfo}>
+									<span>Primary (Darker)</span>
+									<code>oklch(55% 0.2 145)</code>
+								</div>
+							</div>
+							<div className={styles.paletteColor}>
+								<div className={styles.paletteColorSwatch} style={{ background: "oklch(50% 0.12 180)" }} />
+								<div className={styles.paletteColorInfo}>
+									<span>Accent (Teal Dark)</span>
+									<code>oklch(50% 0.12 180)</code>
+								</div>
+							</div>
+							<div className={styles.paletteColor}>
+								<div className={styles.paletteColorSwatch} style={{ background: "oklch(55% 0.15 85)" }} />
+								<div className={styles.paletteColorInfo}>
+									<span>Accent Secondary (Amber Dark)</span>
+									<code>oklch(55% 0.15 85)</code>
+								</div>
+							</div>
+							<div className={styles.paletteColor}>
+								<div className={styles.paletteColorSwatch} style={{ background: "oklch(45% 0.1 160)" }} />
+								<div className={styles.paletteColorInfo}>
+									<span>Muted (Dark Green)</span>
+									<code>oklch(45% 0.1 160)</code>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				{/* Semantic Colors */}
+				<div className={styles.subsection}>
+					<h3 className={styles.subsectionTitle}>Semantic Colors</h3>
+					<div className={styles.semanticGrid}>
+						<div className={styles.semanticCard}>
+							<div className={styles.semanticSwatch} style={{ background: "oklch(70% 0.18 145)" }} />
+							<span className={styles.semanticName}>Success</span>
+							<code>oklch(70% 0.18 145)</code>
+						</div>
+						<div className={styles.semanticCard}>
+							<div className={styles.semanticSwatch} style={{ background: "oklch(75% 0.15 85)" }} />
+							<span className={styles.semanticName}>Warning</span>
+							<code>oklch(75% 0.15 85)</code>
+						</div>
+						<div className={styles.semanticCard}>
+							<div className={styles.semanticSwatch} style={{ background: "oklch(65% 0.2 25)" }} />
+							<span className={styles.semanticName}>Error</span>
+							<code>oklch(65% 0.2 25)</code>
+						</div>
+						<div className={styles.semanticCard}>
+							<div className={styles.semanticSwatch} style={{ background: "oklch(70% 0.12 230)" }} />
+							<span className={styles.semanticName}>Info</span>
+							<code>oklch(70% 0.12 230)</code>
+						</div>
+					</div>
+				</div>
+
+				{/* Color Harmony Explanation */}
+				<div className={styles.subsection}>
+					<h3 className={styles.subsectionTitle}>Color Harmony</h3>
+					<div className={styles.harmonyNote}>
+						<p>
+							<strong>Why these colors work together:</strong>
+						</p>
+						<ul>
+							<li>
+								<strong>Primary (Lime Green - Hue 131):</strong> Our anchor color, vibrant and distinctive
+							</li>
+							<li>
+								<strong>Teal (Hue 180):</strong> Analogous to green, creates smooth visual flow
+							</li>
+							<li>
+								<strong>Amber (Hue 85):</strong> Split-complementary, provides warm contrast without clashing
+							</li>
+							<li>All colors use OKLCH for perceptually uniform lightness and saturation</li>
+						</ul>
+					</div>
+				</div>
+
+				{/* Interactive Demo */}
+				<div className={styles.subsection}>
+					<h3 className={styles.subsectionTitle}>In Context</h3>
+					<div className={styles.contextDemo}>
+						<div className={styles.demoCard}>
+							<div className={styles.demoHeader}>
+								<div className={styles.demoIcon} style={{ color: "oklch(91.9% 0.196 131.1)" }}>
+									<SwatchIcon />
+								</div>
+								<span className={styles.demoBadge} style={{ background: "oklch(75% 0.15 180 / 0.2)", color: "oklch(75% 0.15 180)" }}>
+									Active
+								</span>
+							</div>
+							<h4 className={styles.demoTitle}>Example Tool Card</h4>
+							<p className={styles.demoDescription}>This demonstrates how the new color system works in context with our UI components.</p>
+							<div className={styles.demoActions}>
+								<button className={styles.demoBtnPrimary}>Primary Action</button>
+								<button className={styles.demoBtnSecondary}>Secondary</button>
+							</div>
+						</div>
+						<div className={styles.demoCard}>
+							<div className={styles.demoSliders}>
+								<div className={styles.demoSlider}>
+									<span>Hue</span>
+									<div className={styles.demoSliderTrack} style={{ background: "linear-gradient(to right, oklch(75% 0.15 180) 0%, oklch(91.9% 0.196 131.1) 100%)" }} />
+								</div>
+								<div className={styles.demoSlider}>
+									<span>Saturation</span>
+									<div className={styles.demoSliderTrack} style={{ background: "linear-gradient(to right, oklch(75% 0 131.1) 0%, oklch(91.9% 0.196 131.1) 100%)" }} />
+								</div>
+							</div>
+							<div className={styles.demoCode}>
+								<code style={{ color: "oklch(75% 0.15 180)" }}>background: linear-gradient(135deg, #b5fe67 0%, #00ccad 100%);</code>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
 			{/* Colors Section */}
 			<section id="colors" className={styles.section}>
-				<h2 className={styles.sectionTitle}>Colors</h2>
+				<h2 className={styles.sectionTitle}>Current Colors</h2>
 
 				{/* Brand Colors */}
 				<div className={styles.subsection}>

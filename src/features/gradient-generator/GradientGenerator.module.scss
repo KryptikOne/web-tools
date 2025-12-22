@@ -93,7 +93,7 @@
   }
 
   &.copied {
-    color: #22c55e;
+    color: $color-success;
   }
 }
 
@@ -129,8 +129,8 @@
   }
 
   &.active {
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%);
-    border-color: #667eea;
+    background: $color-accent-20;
+    border-color: $color-accent;
     color: $text-primary;
   }
 }
@@ -161,9 +161,9 @@
   -webkit-appearance: none;
   appearance: none;
   background: linear-gradient(to right,
-    rgba(102, 126, 234, 0.3) 0%,
-    rgba(118, 75, 162, 0.3) 50%,
-    rgba(102, 126, 234, 0.3) 100%
+    $color-accent-20 0%,
+    $color-primary-50 50%,
+    $color-accent-20 100%
   );
   cursor: pointer;
   width: 100%;
@@ -179,7 +179,7 @@
     border-radius: 50%;
     height: 20px;
     width: 20px;
-    border: 2px solid #667eea;
+    border: 2px solid $color-accent;
     box-shadow: $shadow-md;
     cursor: pointer;
   }
@@ -189,7 +189,7 @@
     border-radius: 50%;
     height: 20px;
     width: 20px;
-    border: 2px solid #667eea;
+    border: 2px solid $color-accent;
     box-shadow: $shadow-md;
     cursor: pointer;
   }
@@ -217,9 +217,9 @@
   }
 
   &.active {
-    background: rgba(102, 126, 234, 0.2);
-    border-color: #667eea;
-    color: #667eea;
+    background: $color-accent-20;
+    border-color: $color-accent;
+    color: $color-accent;
   }
 }
 
@@ -354,7 +354,7 @@
   transition: color $transition-base;
 
   &:hover:not(:disabled) {
-    color: #ef4444;
+    color: $color-error;
   }
 
   &:disabled {
@@ -395,7 +395,7 @@
   overflow: hidden;
 
   &:hover {
-    border-color: #667eea;
+    border-color: $color-accent;
     transform: scale(1.05);
   }
 }
@@ -449,14 +449,14 @@
 
 .noteBox {
   padding: $spacing-md;
-  background: rgba(102, 126, 234, 0.1);
-  border: 1px solid rgba(102, 126, 234, 0.3);
+  background: $color-accent-20;
+  border: 1px solid $color-accent-50;
   border-radius: $radius-md;
 
   p {
     margin: 0;
     font-size: 12px;
-    color: #667eea;
+    color: $color-accent;
 
     strong {
       font-weight: 700;
@@ -500,8 +500,8 @@
     z-index: 20;
 
     .stopColor {
-      border-color: #667eea;
-      box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.4), $shadow-md;
+      border-color: $color-accent;
+      box-shadow: 0 0 0 2px $color-accent-50, $shadow-md;
     }
   }
 
@@ -538,7 +538,7 @@
   top: -20px;
   left: 50%;
   transform: translateX(-50%);
-  background: #ef4444;
+  background: $color-error;
   color: white;
   width: 18px;
   height: 18px;
@@ -575,8 +575,8 @@
   }
 
   &.selected {
-    border-color: $color-primary;
-    background: rgba(102, 126, 234, 0.1);
+    border-color: $color-accent;
+    background: $color-accent-20;
   }
 }
 

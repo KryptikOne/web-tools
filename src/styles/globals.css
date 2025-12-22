@@ -15,13 +15,27 @@
 html[data-theme="dark"],
 html:not([data-theme]) {
 	/* Background Colors */
-	/* --bg-primary: oklch(0.18 0.049 150.4); */
 	--bg-primary: oklch(25.2% 0 89.9 / 1);
 	--bg-secondary: #1a1a1a;
 	--bg-tertiary: #2a2a2a;
-	/* --bg-grid: oklch(27.3% 0.171 142.5 / 40%); */
 	--bg-grid: oklch(29.4% 0 89.9 / 1);
-	--bg-gradient-primary: linear-gradient(135deg, #b5fe67 0%, #00ccad 100%);
+	--bg-gradient-primary: linear-gradient(135deg, oklch(91.9% 0.196 131.1) 0%, oklch(75% 0.15 180) 100%);
+
+	/* Brand/Accent Colors */
+	--color-primary: oklch(91.9% 0.196 131.1);
+	--color-primary-50: oklch(91.9% 0.196 131.1 / 0.5);
+	--color-accent: oklch(75% 0.15 180);
+	--color-accent-50: oklch(75% 0.15 180 / 0.5);
+	--color-accent-20: oklch(75% 0.15 180 / 0.2);
+	--color-accent-secondary: oklch(85% 0.18 85);
+	--color-accent-secondary-50: oklch(85% 0.18 85 / 0.5);
+	--color-muted: oklch(65% 0.12 160);
+
+	/* Semantic Colors */
+	--color-success: oklch(70% 0.18 145);
+	--color-warning: oklch(75% 0.15 85);
+	--color-error: oklch(65% 0.2 25);
+	--color-info: oklch(70% 0.12 230);
 
 	/* Glass Effects */
 	--bg-glass: rgba(255, 255, 255, 0.05);
@@ -67,6 +81,23 @@ html[data-theme="light"] {
 	--bg-secondary: #f5f5f5;
 	--bg-tertiary: #e8e8e8;
 	--bg-grid: oklch(80% 0.05 142.5 / 30%);
+	--bg-gradient-primary: linear-gradient(135deg, oklch(55% 0.2 145) 0%, oklch(50% 0.12 180) 100%);
+
+	/* Brand/Accent Colors - Darker for light backgrounds */
+	--color-primary: oklch(55% 0.2 145);
+	--color-primary-50: oklch(55% 0.2 145 / 0.5);
+	--color-accent: oklch(50% 0.12 180);
+	--color-accent-50: oklch(50% 0.12 180 / 0.5);
+	--color-accent-20: oklch(50% 0.12 180 / 0.2);
+	--color-accent-secondary: oklch(55% 0.15 85);
+	--color-accent-secondary-50: oklch(55% 0.15 85 / 0.5);
+	--color-muted: oklch(45% 0.1 160);
+
+	/* Semantic Colors - Adjusted for light backgrounds */
+	--color-success: oklch(50% 0.15 145);
+	--color-warning: oklch(55% 0.15 85);
+	--color-error: oklch(50% 0.18 25);
+	--color-info: oklch(50% 0.1 230);
 
 	/* Glass Effects */
 	--bg-glass: rgba(0, 0, 0, 0.03);

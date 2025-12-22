@@ -46,6 +46,31 @@
   font-family: $font-family-display;
 }
 
+.liveDisplayGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.liveDisplayItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.liveDisplayLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: $text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
 .liveDisplay {
   display: flex;
   align-items: center;
@@ -53,14 +78,18 @@
 }
 
 .epochValue {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 700;
   font-family: $font-family-mono;
   color: $color-green-base;
   letter-spacing: 0.02em;
 
+  @media (max-width: 600px) {
+    font-size: 1.5rem;
+  }
+
   @media (max-width: 480px) {
-    font-size: 1.75rem;
+    font-size: 1.25rem;
   }
 }
 
@@ -193,7 +222,7 @@
 .errorText {
   margin: 0.5rem 0 0 0;
   font-size: 0.8rem;
-  color: #ef4444;
+  color: $color-error;
 }
 
 .buttonRow {
@@ -220,7 +249,7 @@
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 8px 20px $color-accent-50;
   }
 
   &:active {

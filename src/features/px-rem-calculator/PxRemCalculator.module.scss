@@ -183,7 +183,7 @@
     border-radius: 50%;
     background: linear-gradient(135deg, $color-accent 0%, $color-accent-secondary 100%);
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 2px 8px $color-accent-50;
     transition: transform 0.2s ease;
 
     &:hover {
@@ -198,7 +198,7 @@
     border-radius: 50%;
     background: linear-gradient(135deg, $color-accent 0%, $color-accent-secondary 100%);
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 2px 8px $color-accent-50;
   }
 }
 

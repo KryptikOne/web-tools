@@ -162,29 +162,31 @@
 
   &:hover:not(.disabled) {
     // background: $bg-glass-hover;
-    background: linear-gradient(135deg, oklch(62.7% 0.164 159.0 / 0.20) 0%, oklch(50.1% 0.138 304.7 / 0.20) 100%);
+    background: linear-gradient(135deg, $color-accent-20 0%, $color-primary-20 100%);
     color: $text-primary;
     // transform: translateX(2px);
   }
 
   &.active {
-    background: linear-gradient(135deg, oklch(62.7% 0.164 159.0 / 0.40) 0%, oklch(50.1% 0.138 304.7 / 0.40) 100%);
+    background: linear-gradient(135deg, $color-accent-50 0%, $color-primary-50 100%);
     color: $text-primary;
     font-weight: 500;
+    border-top-left-radius: 0.1875rem;
+    border-bottom-left-radius: 0.1875rem;
 
-    // &::before {
-    //   content: '';
-    //   position: absolute;
-    //   left: 0;
-    //   top: 0;
-    //   bottom: 0;
-    //   width: 3px;
-    //   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    //   border-radius: 3px 0 0 3px;
-    // }
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(135deg, $color-accent 0%, $color-primary 100%);
+      border-radius: 3px 0 0 3px;
+    }
 
     &:hover:not(.disabled) {
-      background: linear-gradient(135deg, oklch(62.7% 0.164 159.0 / 0.50) 0%, oklch(50.1% 0.138 304.7 / 0.50) 100%);
+      background: linear-gradient(135deg, $color-accent 0%, $color-primary 100%);
     }
   }
 
@@ -213,8 +215,8 @@
 
 .comingSoon {
   padding: 0.125rem 0.5rem;
-  background: rgba(255, 193, 7, 0.2);
-  color: #ffc107;
+  background: $color-warning;
+  color: #000000;
   border-radius: 0.25rem;
   font-size: 0.75rem;
   font-weight: 600;
