@@ -70,14 +70,14 @@ export const TOOLS_REGISTRY: Tool[] = [
 		route: "/tools/cubic-bezier",
 		implemented: true,
 	},
-	// {
-	// 	id: "palette-generator",
-	// 	name: "Palette Generator",
-	// 	description: "Generate color palettes and schemes",
-	// 	category: ToolCategory.COLOR_DESIGN,
-	// 	route: "/tools/palette-generator",
-	// 	implemented: false,
-	// },
+	{
+		id: "palette-generator",
+		name: "Color Palette Generator",
+		description: "Generate color palettes with harmony rules like analogous, complementary, and triadic",
+		category: ToolCategory.COLOR_DESIGN,
+		route: "/tools/palette-generator",
+		implemented: true,
+	},
 	// {
 	// 	id: "css-filter-generator",
 	// 	name: "CSS Filter Generator",
