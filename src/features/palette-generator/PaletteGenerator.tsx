@@ -1,11 +1,11 @@
 "use client";
 
 import { useState, useMemo, useEffect, useRef } from "react";
-import { ClipboardDocumentIcon, CheckIcon, ArrowPathIcon, BookmarkIcon, LockClosedIcon, LockOpenIcon, PlusIcon, MinusIcon, AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
+import { ClipboardDocumentIcon, CheckIcon, ArrowPathIcon, BookmarkIcon, LockClosedIcon, LockOpenIcon, PlusIcon, MinusIcon, AdjustmentsHorizontalIcon, TrashIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Button } from "@/components/ui/button";
 import { ColorUtils } from "@/lib/colorUtils";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { hydrateFromStorage, setPalette, setHarmony, setBaseHue, setSaturation, setLightness, toggleLock, updateColor, addColor, removeLastColor, savePalette, loadSavedPalette, loadPreset, HarmonyType, PaletteColor } from "@/store/slices/paletteSlice";
+import { hydrateFromStorage, setPalette, setHarmony, setBaseHue, setSaturation, setLightness, toggleLock, updateColor, addColor, removeLastColor, savePalette, loadSavedPalette, loadPreset, removeSavedPalette, clearSavedPalettes, HarmonyType, PaletteColor } from "@/store/slices/paletteSlice";
 import styles from "./PaletteGenerator.module.scss";
 
 const HARMONY_INFO: Record<HarmonyType, { name: string; description: string; angles: number[] }> = {
@@ -407,16 +407,34 @@ export default function PaletteGenerator() {
 			{/* Saved Palettes */}
 			{savedPalettes.length > 0 && (
 				<div className={styles.glassCard}>
-					<h3 className={styles.sectionTitle}>Saved Palettes</h3>
+					<div className={styles.savedHeader}>
+						<h3 className={styles.sectionTitle}>Saved Palettes</h3>
+						<Button onClick={() => dispatch(clearSavedPalettes())} className={styles.clearAllBtn} title="Clear all saved palettes">
+							<TrashIcon className="w-4 h-4" />
+							Clear All
+						</Button>
+					</div>
 					<div className={styles.savedGrid}>
 						{savedPalettes.map((saved) => (
-							<button key={saved.id} className={styles.savedPalette} onClick={() => handleLoadSavedPalette(saved)}>
-								<div className={styles.savedColors}>
-									{saved.colors.map((color, i) => (
-										<div key={i} className={styles.savedColor} style={{ backgroundColor: color }} />
-									))}
-								</div>
-							</button>
+							<div key={saved.id} className={styles.savedPaletteWrapper}>
+								<button className={styles.savedPalette} onClick={() => handleLoadSavedPalette(saved)}>
+									<div className={styles.savedColors}>
+										{saved.colors.map((color, i) => (
+											<div key={i} className={styles.savedColor} style={{ backgroundColor: color }} />
+										))}
+									</div>
+								</button>
+								<button
+									className={styles.deletePaletteBtn}
+									onClick={(e) => {
+										e.stopPropagation();
+										dispatch(removeSavedPalette(saved.id));
+									}}
+									title="Delete palette"
+								>
+									<XMarkIcon className="w-3.5 h-3.5" />
+								</button>
+							</div>
 						))}
 					</div>
 				</div>

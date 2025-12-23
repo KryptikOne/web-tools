@@ -171,6 +171,16 @@ const paletteSlice = createSlice({
 			}));
 			saveStateToStorage(state);
 		},
+
+		removeSavedPalette: (state, action: PayloadAction<number>) => {
+			state.savedPalettes = state.savedPalettes.filter((p) => p.id !== action.payload);
+			saveStateToStorage(state);
+		},
+
+		clearSavedPalettes: (state) => {
+			state.savedPalettes = [];
+			saveStateToStorage(state);
+		},
 	},
 });
 
@@ -188,6 +198,8 @@ export const {
 	savePalette,
 	loadSavedPalette,
 	loadPreset,
+	removeSavedPalette,
+	clearSavedPalettes,
 } = paletteSlice.actions;
 
 export default paletteSlice.reducer;
