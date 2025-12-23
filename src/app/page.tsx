@@ -39,7 +39,7 @@ export default function HomePage() {
 						</div>
 					</div>
 
-					<div className={styles.statCard}>
+					{/* <div className={styles.statCard}>
 						<div className={styles.statIcon}>
 							<SparklesIcon />
 						</div>
@@ -47,14 +47,14 @@ export default function HomePage() {
 							<span className={styles.statNumber}>{categories}</span>
 							<span className={styles.statLabel}>Categories</span>
 						</div>
-					</div>
+					</div> */}
 				</div>
 			</section>
 
 			<section className={styles.features}>
-				<h2 className={styles.featuresTitle}>Features</h2>
+				{/* <h2 className={styles.featuresTitle}>Features</h2> */}
 				<div className={styles.featuresGrid}>
-					<div className={styles.featureCard}>
+					{/* <div className={styles.featureCard}>
 						<h3>🎨 Design Tools</h3>
 						<p>Color pickers, gradient generators, CSS utilities and more</p>
 					</div>
@@ -69,7 +69,7 @@ export default function HomePage() {
 					<div className={styles.featureCard}>
 						<h3>🔧 Developer Utilities</h3>
 						<p>JWT decoders, encoders, and web development helpers</p>
-					</div>
+					</div> */}
 					<div className={styles.featureCard}>
 						<h3>⚡ Fast & Private</h3>
 						<p>All tools run locally in your browser</p>
@@ -83,7 +83,7 @@ export default function HomePage() {
 
 			<section className={styles.getStarted}>
 				<h2>☄️ Incoming</h2>
-				<p>What you see in the sidebar is what currently exists, but there is more on the roadmap... Bookmark and Stay Tuned for additional tools!</p>
+				<p>What you see in the sidebar is what currently exists, but there is more on the roadmap... Bookmark and Stay Tuned!</p>
 			</section>
 		</div>
 	);

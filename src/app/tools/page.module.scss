@@ -1,0 +1,72 @@
+@use "@/styles/variables" as *;
+
+.container {
+	width: 100%;
+	max-width: 1400px;
+	margin: 0 auto;
+}
+
+.header {
+	margin-bottom: 2rem;
+}
+
+.headerContent {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.headerIcon {
+	width: 48px;
+	height: 48px;
+	color: $color-accent;
+	flex-shrink: 0;
+}
+
+.title {
+	font-size: 1.75rem;
+	font-weight: 700;
+	color: $text-primary;
+	margin: 0 0 0.25rem 0;
+	font-family: $font-family-display;
+}
+
+.subtitle {
+	font-size: 0.95rem;
+	color: $text-secondary;
+	margin: 0;
+}
+
+.categorySection {
+	margin-bottom: 2.5rem;
+}
+
+.categoryHeader {
+	margin-bottom: 1.25rem;
+	padding-bottom: 0.75rem;
+	border-bottom: 1px solid $border-subtle;
+}
+
+.categoryTitle {
+	font-size: 1.25rem;
+	font-weight: 600;
+	color: $text-primary;
+	margin: 0 0 0.25rem 0;
+	font-family: $font-family-display;
+}
+
+.categoryDescription {
+	font-size: 0.875rem;
+	color: $text-muted;
+	margin: 0;
+}
+
+.toolsGrid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+	gap: 1.25rem;
+
+	@media (max-width: 640px) {
+		grid-template-columns: 1fr;
+	}
+}
