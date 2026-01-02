@@ -26,6 +26,11 @@ export const CATEGORIES: Record<ToolCategory, CategoryInfo> = {
 		name: "Text & Data Tools",
 		description: "Text processing, formatting, and data conversion utilities",
 	},
+	[ToolCategory.FUN_RANDOM]: {
+		id: ToolCategory.FUN_RANDOM,
+		name: "Fun & Random",
+		description: "Random generators, games, and fun utilities",
+	},
 };
 
 export const TOOLS_REGISTRY: Tool[] = [
@@ -342,6 +347,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 	// 	route: "/tools/sql-formatter",
 	// 	implemented: false,
 	// },
+
+	// FUN & RANDOM TOOLS
+	{
+		id: "dice-roller",
+		name: "Dice Roller",
+		description: "Roll virtual dice with D4, D6, D8, D10, D12, D20, and D100 options",
+		category: ToolCategory.FUN_RANDOM,
+		route: "/tools/dice-roller",
+		implemented: true,
+	},
 ];
 
 export function getToolsByCategory(category: ToolCategory): Tool[] {

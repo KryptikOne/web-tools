@@ -13,7 +13,8 @@ export enum ToolCategory {
   COLOR_DESIGN = 'color-design',
   IMAGE_VISUAL = 'image-visual',
   CODE_WEB = 'code-web',
-  UTILITY_CONVERSION = 'utility-conversion'
+  UTILITY_CONVERSION = 'utility-conversion',
+  FUN_RANDOM = 'fun-random'
 }
 
 export interface CategoryInfo {

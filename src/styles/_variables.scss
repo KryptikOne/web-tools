@@ -27,8 +27,7 @@ $color-warning: oklch(75% 0.15 85);
 $color-error: oklch(65% 0.2 25);
 $color-info: oklch(70% 0.12 230);
 
-
-// Theme-aware colors (use CSS custom properties)
+// Colors (use CSS custom properties) (THEME-AWARE)
 $bg-primary: var(--bg-primary);
 $bg-secondary: var(--bg-secondary);
 $bg-tertiary: var(--bg-tertiary);
@@ -41,7 +40,7 @@ $bg-overlay-dark: var(--bg-overlay-dark);
 $bg-gradient-primary: var(--bg-gradient-primary);
 $bg-gradient-secondary: var(--bg-gradient-secondary);
 
-// Theme-aware accent colors (use CSS custom properties)
+// Accent Colors (use CSS custom properties) (THEME-AWARE)
 $theme-color-primary: var(--color-primary);
 $theme-color-primary-50: var(--color-primary-50);
 $theme-color-accent: var(--color-accent);
@@ -51,48 +50,48 @@ $theme-color-accent-secondary: var(--color-accent-secondary);
 $theme-color-accent-secondary-50: var(--color-accent-secondary-50);
 $theme-color-muted: var(--color-muted);
 
-// Theme-aware semantic colors
+// Semantic Colors (THEME-AWARE)
 $theme-color-success: var(--color-success);
 $theme-color-warning: var(--color-warning);
 $theme-color-error: var(--color-error);
 $theme-color-info: var(--color-info);
 
-// Border Colors (theme-aware)
+// Border Colors (THEME-AWARE)
 $border-subtle: var(--border-subtle);
 $border-medium: var(--border-medium);
 $border-strong: var(--border-strong);
 
-// Text Colors (theme-aware)
+// Text Colors (THEME-AWARE)
 $text-primary: var(--text-primary);
 $text-secondary: var(--text-secondary);
 $text-tertiary: var(--text-tertiary);
 $text-muted: var(--text-muted);
 $text-code: var(--text-code);
 
-// Input/Form Elements (theme-aware)
+// Input/Form Elements (THEME-AWARE)
 $input-bg: var(--input-bg);
 $input-bg-focus: var(--input-bg-focus);
 $input-border: var(--input-border);
 $input-border-focus: var(--input-border-focus);
 
-// Scrollbar (theme-aware)
+// Scrollbar (THEME-AWARE)
 $scrollbar-track: var(--scrollbar-track);
 $scrollbar-thumb: var(--scrollbar-thumb);
 $scrollbar-thumb-hover: var(--scrollbar-thumb-hover);
 
-// Shadows (theme-aware)
+// Shadows (THEME-AWARE)
 $shadow-sm: var(--shadow-sm);
 $shadow-md: var(--shadow-md);
 $shadow-lg: var(--shadow-lg);
 $shadow-xl: var(--shadow-xl);
 
 // Spacing (static)
-$spacing-xs: 0.25rem;
-$spacing-sm: 0.5rem;
-$spacing-md: 1rem;
-$spacing-lg: 1.5rem;
-$spacing-xl: 2rem;
-$spacing-2xl: 3rem;
+$spacing-xs: 0.25rem; // 4px
+$spacing-sm: 0.5rem; // 8px
+$spacing-md: 1rem; // 16px
+$spacing-lg: 1.5rem; // 24px
+$spacing-xl: 2rem; // 32px
+$spacing-2xl: 3rem; // 48px
 
 // Border Radius (static)
 $radius-sm: 0.375rem;
@@ -116,6 +115,7 @@ $z-modal: 1050;
 $z-popover: 1060;
 $z-tooltip: 1070;
 
+// Font Families (static)
 $font-family-display: 'Michroma', Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif;
 $font-family-sans: 'Geist Sans', Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif;
 $font-family-mono: 'Ubuntu Mono', ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
