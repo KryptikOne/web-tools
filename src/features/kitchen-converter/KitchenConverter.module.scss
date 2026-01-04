@@ -1,0 +1,391 @@
+@use "@/styles/variables" as *;
+
+.container {
+	width: 100%;
+	max-width: 1400px;
+	margin: 0 auto;
+}
+
+.glassCard {
+	background: $bg-glass;
+	backdrop-filter: blur(10px);
+	border: 1px solid $border-subtle;
+	border-radius: $radius-lg;
+	padding: 1.5rem;
+	margin-bottom: 1.5rem;
+	transition: all 0.3s ease;
+
+	&:hover {
+		background: $bg-glass-hover;
+		border-color: $border-medium;
+	}
+}
+
+.sectionTitle {
+	font-size: 1.125rem;
+	font-weight: 600;
+	color: $text-primary;
+	margin: 0 0 1.25rem 0;
+	font-family: $font-family-display;
+}
+
+.chartTitle {
+	font-size: 1rem;
+	font-weight: 600;
+	color: $text-primary;
+	margin: 0 0 0.75rem 0;
+	font-family: $font-family-display;
+}
+
+.chartSubtitle {
+	font-size: 0.85rem;
+	color: $text-muted;
+	margin: 0 0 1rem 0;
+}
+
+// Category Tabs
+.categoryTabs {
+	display: flex;
+	gap: 0.5rem;
+	margin-bottom: 1.5rem;
+	padding: 0.25rem;
+	background: $input-bg;
+	border-radius: $radius-md;
+	width: fit-content;
+}
+
+.categoryTab {
+	padding: 0.625rem 1.25rem;
+	background: transparent;
+	border: none;
+	border-radius: $radius-sm;
+	font-size: 0.9rem;
+	font-weight: 500;
+	color: $text-secondary;
+	cursor: pointer;
+	transition: all 0.2s ease;
+
+	&:hover {
+		color: $text-primary;
+	}
+
+	&.active {
+		background: $bg-glass;
+		color: $text-primary;
+		box-shadow: $shadow-sm;
+	}
+}
+
+// Converter Grid
+.converterGrid {
+	display: grid;
+	grid-template-columns: 1fr auto 1fr;
+	gap: 1rem;
+	align-items: end;
+
+	@media (max-width: 768px) {
+		grid-template-columns: 1fr;
+		gap: 0.75rem;
+	}
+}
+
+.converterInput {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.inputLabel {
+	font-size: 0.8rem;
+	font-weight: 600;
+	color: $text-muted;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+
+.inputRow {
+	display: flex;
+	gap: 0.5rem;
+
+	@media (max-width: 480px) {
+		flex-direction: column;
+	}
+}
+
+.numberInput {
+	flex: 1;
+	padding: 0.75rem 1rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: $radius-md;
+	font-size: 1.25rem;
+	font-weight: 600;
+	color: $text-primary;
+	font-family: $font-family-mono;
+
+	&:focus {
+		outline: none;
+		border-color: $color-accent;
+	}
+
+	&::placeholder {
+		color: $text-muted;
+		font-weight: 400;
+	}
+}
+
+.resultDisplay {
+	flex: 1;
+	padding: 0.75rem 1rem;
+	background: $input-bg;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	font-size: 1.25rem;
+	font-weight: 600;
+	color: $color-accent;
+	font-family: $font-family-mono;
+	min-height: 52px;
+	display: flex;
+	align-items: center;
+}
+
+.unitSelect {
+	min-width: 160px;
+	padding: 0.75rem 1rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: $radius-md;
+	font-size: 0.9rem;
+	color: $text-primary;
+	cursor: pointer;
+
+	&:focus {
+		outline: none;
+		border-color: $color-accent;
+	}
+
+	@media (max-width: 480px) {
+		min-width: 100%;
+	}
+}
+
+.swapButton {
+	padding: 0.75rem;
+	background: $bg-glass;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	color: $text-secondary;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	align-self: end;
+	margin-bottom: 0.25rem;
+
+	&:hover {
+		background: $bg-glass-hover;
+		color: $text-primary;
+		border-color: $color-accent;
+	}
+
+	@media (max-width: 768px) {
+		align-self: center;
+		transform: rotate(90deg);
+	}
+}
+
+.resultSummary {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.75rem;
+	margin-top: 1.5rem;
+	padding: 1rem;
+	background: $input-bg;
+	border-radius: $radius-md;
+}
+
+.resultText {
+	font-size: 1.1rem;
+	color: $text-secondary;
+
+	strong {
+		color: $text-primary;
+	}
+}
+
+.copyResultBtn {
+	padding: 0.5rem;
+	background: transparent;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-sm;
+	color: $text-muted;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	display: flex;
+
+	&:hover {
+		background: $bg-glass-hover;
+		color: $text-primary;
+	}
+}
+
+// Charts Grid
+.chartsGrid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 1.5rem;
+
+	@media (max-width: 900px) {
+		grid-template-columns: 1fr;
+	}
+}
+
+// Reference Tables
+.tableWrapper {
+	overflow-x: auto;
+}
+
+.referenceTable {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 0.9rem;
+
+	th {
+		text-align: left;
+		padding: 0.625rem 0.75rem;
+		background: $input-bg;
+		color: $text-secondary;
+		font-weight: 600;
+		font-size: 0.8rem;
+		text-transform: uppercase;
+		letter-spacing: 0.03em;
+		border-bottom: 1px solid $border-subtle;
+
+		&:first-child {
+			border-radius: $radius-sm 0 0 0;
+		}
+
+		&:last-child {
+			border-radius: 0 $radius-sm 0 0;
+		}
+	}
+
+	td {
+		padding: 0.5rem 0.75rem;
+		border-bottom: 1px solid $border-subtle;
+		color: $text-primary;
+	}
+
+	tr:last-child td {
+		border-bottom: none;
+	}
+
+	tr:hover td {
+		background: rgba(255, 255, 255, 0.02);
+	}
+}
+
+.clickableCell {
+	cursor: pointer;
+	position: relative;
+	font-weight: 500;
+	color: $color-accent;
+	transition: all 0.2s ease;
+
+	&:hover {
+		background: $color-accent-20;
+	}
+}
+
+.copiedIcon {
+	width: 14px;
+	height: 14px;
+	margin-left: 0.5rem;
+	color: $color-success;
+	display: inline;
+	vertical-align: middle;
+}
+
+.mutedCell {
+	color: $text-muted;
+	font-size: 0.85rem;
+}
+
+// Ingredients Grid
+.ingredientsGrid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	gap: 0.75rem;
+}
+
+.ingredientCard {
+	padding: 0.875rem 1rem;
+	background: $input-bg;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	position: relative;
+
+	&:hover {
+		border-color: $color-accent;
+		background: $color-accent-20;
+	}
+}
+
+.ingredientName {
+	font-size: 0.85rem;
+	font-weight: 500;
+	color: $text-primary;
+}
+
+.ingredientValue {
+	font-size: 0.8rem;
+	color: $text-muted;
+
+	strong {
+		color: $color-accent;
+	}
+}
+
+.ingredientCopied {
+	position: absolute;
+	top: 0.5rem;
+	right: 0.5rem;
+	width: 16px;
+	height: 16px;
+	color: $color-success;
+}
+
+// Tips
+.tipsGrid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	gap: 1rem;
+}
+
+.tipCard {
+	padding: 1rem;
+	background: $input-bg;
+	border-radius: $radius-md;
+	border: 1px solid $border-subtle;
+
+	h4 {
+		font-size: 0.9rem;
+		font-weight: 600;
+		color: $text-primary;
+		margin: 0 0 0.5rem 0;
+	}
+
+	p {
+		font-size: 0.85rem;
+		color: $text-secondary;
+		line-height: 1.5;
+		margin: 0;
+	}
+}

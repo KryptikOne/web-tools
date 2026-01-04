@@ -357,6 +357,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		route: "/tools/dice-roller",
 		implemented: true,
 	},
+
+	// UTILITY & CONVERSION (additional)
+	{
+		id: "kitchen-converter",
+		name: "Kitchen Converter",
+		description: "Convert cooking measurements between imperial and metric, with handy reference charts",
+		category: ToolCategory.UTILITY_CONVERSION,
+		route: "/tools/kitchen-converter",
+		implemented: true,
+	},
 ];
 
 export function getToolsByCategory(category: ToolCategory): Tool[] {
