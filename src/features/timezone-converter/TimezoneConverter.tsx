@@ -64,6 +64,41 @@ const TIMEZONE_GROUPS = TIMEZONES.reduce((acc, tz) => {
 	return acc;
 }, {} as Record<string, TimezoneInfo[]>);
 
+// Detect user's local timezone and map to our timezone list
+function detectUserTimezone(): string {
+	try {
+		const now = new Date();
+		const offsetMinutes = now.getTimezoneOffset(); // Minutes from UTC (negative for east of UTC)
+		const offsetHours = -offsetMinutes / 60; // Convert to hours (positive for east of UTC)
+
+		// Try to find a matching timezone by offset
+		const matchingZone = TIMEZONES.find((tz) => tz.offset === offsetHours);
+		if (matchingZone) return matchingZone.id;
+
+		// If no exact match, try to find the closest one
+		let closestZone = TIMEZONES[0];
+		let closestDiff = Math.abs(TIMEZONES[0].offset - offsetHours);
+
+		for (const tz of TIMEZONES) {
+			const diff = Math.abs(tz.offset - offsetHours);
+			if (diff < closestDiff) {
+				closestDiff = diff;
+				closestZone = tz;
+			}
+		}
+
+		return closestZone.id;
+	} catch {
+		return "est"; // Fallback to EST
+	}
+}
+
+// Get initial time values from current local time
+function getInitialTime(): { hours: number; minutes: number } {
+	const now = new Date();
+	return { hours: now.getHours(), minutes: now.getMinutes() };
+}
+
 function formatOffset(offset: number): string {
 	const sign = offset >= 0 ? "+" : "";
 	const absOffset = Math.abs(offset);
@@ -102,17 +137,29 @@ function getTimeCategory(hour: number): "night" | "early" | "morning" | "afterno
 }
 
 export default function TimezoneConverter() {
-	const [fromTimezone, setFromTimezone] = useState<string>("est");
+	// Initialize with defaults that will be updated on mount to avoid hydration mismatch
+	const [fromTimezone, setFromTimezone] = useState<string>("utc");
 	const [toTimezone, setToTimezone] = useState<string>("pst");
 	const [inputHours, setInputHours] = useState<number>(12);
 	const [inputMinutes, setInputMinutes] = useState<number>(0);
 	const [useCurrentTime, setUseCurrentTime] = useState<boolean>(true);
 	const [use24Hour, setUse24Hour] = useState<boolean>(false);
 	const [timelineZones, setTimelineZones] = useState<string[]>(["pst", "cst", "est", "utc"]);
+	const [isInitialized, setIsInitialized] = useState<boolean>(false);
+
+	// Initialize with user's local timezone and current time on mount (client-side only)
+	useEffect(() => {
+		const userTimezone = detectUserTimezone();
+		setFromTimezone(userTimezone);
+		const { hours, minutes } = getInitialTime();
+		setInputHours(hours);
+		setInputMinutes(minutes);
+		setIsInitialized(true);
+	}, []);
 
 	// Update time if using current time
 	useEffect(() => {
-		if (useCurrentTime) {
+		if (useCurrentTime && isInitialized) {
 			const updateTime = () => {
 				const now = new Date();
 				setInputHours(now.getHours());
@@ -122,7 +169,7 @@ export default function TimezoneConverter() {
 			const interval = setInterval(updateTime, 1000);
 			return () => clearInterval(interval);
 		}
-	}, [useCurrentTime]);
+	}, [useCurrentTime, isInitialized]);
 
 	// Get timezone info
 	const fromTz = useMemo(() => TIMEZONES.find((tz) => tz.id === fromTimezone), [fromTimezone]);
