@@ -277,8 +277,13 @@ export default function TimezoneConverter() {
 						</select>
 
 						<div className={styles.timeDisplay}>
-							<input type="time" value={formatTime24(inputHours, inputMinutes)} onChange={handleTimeChange} className={styles.timeInput} />
-							<div className={styles.largeTime}>{formatTimeDisplay(inputHours, inputMinutes)}</div>
+							{useCurrentTime ? (
+								<div className={styles.largeTime} onClick={() => setUseCurrentTime(false)} title="Click to set custom time">
+									{formatTimeDisplay(inputHours, inputMinutes)}
+								</div>
+							) : (
+								<input type="time" value={formatTime24(inputHours, inputMinutes)} onChange={handleTimeChange} className={styles.timeInputLarge} autoFocus />
+							)}
 							<div className={styles.offsetLabel}>{fromTz && formatOffset(fromTz.offset)}</div>
 						</div>
 					</div>
