@@ -367,6 +367,14 @@ export const TOOLS_REGISTRY: Tool[] = [
 		route: "/tools/kitchen-converter",
 		implemented: true,
 	},
+	{
+		id: "timezone-converter",
+		name: "Timezone Converter",
+		description: "Convert times between timezones with visual timeline comparison",
+		category: ToolCategory.UTILITY_CONVERSION,
+		route: "/tools/timezone-converter",
+		implemented: true,
+	},
 ];
 
 export function getToolsByCategory(category: ToolCategory): Tool[] {
