@@ -128,10 +128,10 @@ export const TOOLS_REGISTRY: Tool[] = [
 	{
 		id: "dummy-image-generator",
 		name: "Dummy Image Generator",
-		description: "Generate placeholder images",
+		description: "Generate placeholder images with custom dimensions, colors, and formats (PNG, JPEG, WebP)",
 		category: ToolCategory.IMAGE_VISUAL,
 		route: "/tools/dummy-image-generator",
-		implemented: false,
+		implemented: true,
 	},
 	// {
 	// 	id: "qr-code-generator",

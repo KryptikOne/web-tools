@@ -1,0 +1,361 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+.container {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 450px 1fr;
+  gap: 1.5rem;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.settingsPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.previewPanel {
+  display: flex;
+  flex-direction: column;
+}
+
+.glassCard {
+  background: $bg-glass;
+  backdrop-filter: blur(10px);
+  border: 1px solid $border-subtle;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: $bg-glass-hover;
+    border-color: $border-medium;
+  }
+}
+
+.sectionTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: $text-primary;
+  margin: 0 0 1.25rem 0;
+  font-family: $font-family-display;
+}
+
+// Size Presets
+.presetsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.presetBtn {
+  padding: 0.75rem 1rem;
+  background: $bg-glass;
+  border: 1px solid $border-subtle;
+  border-radius: 0.5rem;
+  color: $text-secondary;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: $bg-glass-hover;
+    border-color: $border-medium;
+    color: $text-primary;
+  }
+
+  &.active {
+    background: linear-gradient(135deg, $color-accent 0%, $color-accent-secondary 100%);
+    border-color: $color-accent;
+    color: white;
+    font-weight: 600;
+  }
+}
+
+// Custom Dimensions
+.dimensionsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.inputGroup {
+  margin-bottom: 0;
+}
+
+.inputLabel {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: $text-secondary;
+  margin-bottom: 0.5rem;
+}
+
+.inputHint {
+  font-size: 0.75rem;
+  color: $text-muted;
+  font-weight: 400;
+  margin-left: 0.5rem;
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: $input-bg;
+  border: 1px solid $input-border;
+  border-radius: 0.5rem;
+  color: $text-primary;
+  font-size: 1rem;
+  font-family: $font-family-mono;
+  transition: all 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: $input-border-focus;
+    background: $input-bg-focus;
+  }
+
+  &::placeholder {
+    color: $text-muted;
+  }
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    opacity: 1;
+  }
+}
+
+// Colors
+.colorsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.colorInputWrapper {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.colorInput {
+  width: 60px;
+  height: 42px;
+  padding: 0.25rem;
+  background: $input-bg;
+  border: 1px solid $input-border;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+
+  &::-webkit-color-swatch {
+    border: none;
+    border-radius: 0.375rem;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $input-border-focus;
+  }
+}
+
+.colorTextInput {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  background: $input-bg;
+  border: 1px solid $input-border;
+  border-radius: 0.5rem;
+  color: $text-primary;
+  font-size: 0.875rem;
+  font-family: $font-family-mono;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: $input-border-focus;
+    background: $input-bg-focus;
+  }
+}
+
+// Format Buttons
+.formatButtons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.formatBtn {
+  padding: 0.75rem 1rem;
+  background: $bg-glass;
+  border: 1px solid $border-subtle;
+  border-radius: 0.5rem;
+  color: $text-secondary;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: $bg-glass-hover;
+    border-color: $border-medium;
+    color: $text-primary;
+  }
+
+  &.active {
+    background: linear-gradient(135deg, $color-accent 0%, $color-accent-secondary 100%);
+    border-color: $color-accent;
+    color: white;
+    font-weight: 600;
+  }
+}
+
+// Slider
+.slider {
+  width: 100%;
+  height: 6px;
+  background: $input-bg;
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: linear-gradient(135deg, $color-accent 0%, $color-accent-secondary 100%);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+
+  &::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: linear-gradient(135deg, $color-accent 0%, $color-accent-secondary 100%);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+}
+
+// Preview
+.previewHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
+}
+
+.previewInfo {
+  margin: 0.25rem 0 0 0;
+  font-size: 0.875rem;
+  color: $text-muted;
+  font-family: $font-family-mono;
+}
+
+.downloadBtn {
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, $color-accent 0%, $color-accent-secondary 100%);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px $color-accent-50;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.downloadIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.previewContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  padding: 2rem;
+  background: $input-bg;
+  border-radius: 0.75rem;
+  border: 2px dashed $border-subtle;
+  margin-bottom: 1.5rem;
+
+  @media (max-width: 768px) {
+    min-height: 300px;
+    padding: 1rem;
+  }
+}
+
+.previewCanvas {
+  max-width: 100%;
+  max-height: 600px;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  image-rendering: crisp-edges;
+}
+
+.infoBox {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  background: $input-bg;
+  border-radius: 0.5rem;
+  border: 1px solid $border-subtle;
+}
+
+.infoIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: $color-accent;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+.infoText {
+  font-size: 0.875rem;
+  color: $text-secondary;
+  line-height: 1.6;
+  margin: 0;
+}
