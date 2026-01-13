@@ -1,10 +1,10 @@
 @use '@/styles/variables' as *;
 @use '@/styles/mixins' as *;
+@use '@/styles/utilities' as util;
 
+// Layout
 .container {
-  width: 100%;
-  max-width: 90rem;
-  margin: 0 auto;
+  @extend .container-narrow;
 }
 
 .grid {
@@ -50,6 +50,7 @@
   margin-bottom: $spacing-md;
 }
 
+// Shared Utilities
 .btnPrimary {
   @include btn-primary;
 }
@@ -250,11 +251,6 @@
   @include btn-primary;
   padding: $spacing-xs $spacing-sm;
   font-size: 12px;
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
 }
 
 .colorStopsList {

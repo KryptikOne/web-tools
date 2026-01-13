@@ -1,35 +1,20 @@
 @use '@/styles/variables' as *;
 @use '@/styles/mixins' as *;
+@use '@/styles/utilities' as util;
 
+// Layout
 .container {
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
+  @extend .container;
 }
 
 .grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
+  @extend .grid-2col;
   margin-bottom: 1.5rem;
-
-  @media (max-width: 1024px) {
-    grid-template-columns: 1fr;
-  }
 }
 
+// Shared Utilities
 .glassCard {
-  background: $bg-glass;
-  backdrop-filter: blur(10px);
-  border: 1px solid $border-subtle;
-  border-radius: 1rem;
-  padding: 1.5rem;
-  transition: all 0.3s ease;
-
-  &:hover {
-    background: $bg-glass-hover;
-    border-color: $border-medium;
-  }
+  @extend .glass-card;
 }
 
 .cardHeader {
@@ -55,18 +40,9 @@
 }
 
 .btnPrimary {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  @include btn-primary;
   padding: 0.5rem 1rem;
-  background: linear-gradient(135deg, $color-primary 0%, $color-accent 100%);
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  font-weight: 500;
   font-size: 0.875rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
 
   svg {
     width: 1rem;
@@ -76,12 +52,6 @@
   &:hover:not(:disabled) {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px $color-accent-50;
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none;
   }
 }
 

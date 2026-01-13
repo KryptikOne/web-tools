@@ -1,32 +1,19 @@
 @use "@/styles/variables" as *;
+@use "@/styles/utilities" as util;
 
+// Layout
 .container {
-	width: 100%;
-	max-width: 1400px;
-	margin: 0 auto;
+	@extend .container;
 }
 
+// Shared Utilities
 .glassCard {
-	background: $bg-glass;
-	backdrop-filter: blur(10px);
-	border: 1px solid $border-subtle;
-	border-radius: $radius-lg;
-	padding: 1.5rem;
+	@extend .glass-card;
 	margin-bottom: 1.5rem;
-	transition: all 0.3s ease;
-
-	&:hover {
-		background: $bg-glass-hover;
-		border-color: $border-medium;
-	}
 }
 
 .sectionTitle {
-	font-size: 1.125rem;
-	font-weight: 600;
-	color: $text-primary;
-	margin: 0 0 1.25rem 0;
-	font-family: $font-family-display;
+	@extend .section-title;
 }
 
 .chartTitle {

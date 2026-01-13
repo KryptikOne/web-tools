@@ -144,71 +144,73 @@ export default function DiceRoller() {
 
 	return (
 		<div className={styles.container}>
-			{/* Dice Selection */}
-			<div className={styles.glassCard}>
-				<h2 className={styles.sectionTitle}>Select Dice</h2>
-				<div className={styles.diceSelector}>
-					{DICE_TYPES.map((die) => {
-						const count = getDieCount(die);
-						return (
-							<div key={die.id} className={styles.dieOption}>
-								<button className={`${styles.dieButton} ${count > 0 ? styles.active : ""}`} style={{ "--die-color": die.color } as React.CSSProperties} onClick={() => addDieGroup(die)}>
-									<span className={styles.dieName}>{die.name}</span>
-									{count > 0 && <span className={styles.dieCount}>{count}</span>}
-								</button>
-								{count > 0 && (
-									<div className={styles.dieControls}>
-										<button className={styles.controlBtn} onClick={() => removeDieGroup(die)} title="Remove one">
-											<MinusIcon className="w-3.5 h-3.5" />
-										</button>
-										<button className={styles.controlBtn} onClick={() => addDieGroup(die)} title="Add one">
-											<PlusIcon className="w-3.5 h-3.5" />
-										</button>
+			<div className={styles.mainGrid}>
+				{/* Dice Selection */}
+				<div className={styles.glassCard}>
+					<h2 className={styles.sectionTitle}>Select Dice</h2>
+					<div className={styles.diceSelector}>
+						{DICE_TYPES.map((die) => {
+							const count = getDieCount(die);
+							return (
+								<div key={die.id} className={styles.dieOption}>
+									<button className={`${styles.dieButton} ${count > 0 ? styles.active : ""}`} style={{ "--die-color": die.color } as React.CSSProperties} onClick={() => addDieGroup(die)}>
+										<span className={styles.dieName}>{die.name}</span>
+										{count > 0 && <span className={styles.dieCount}>{count}</span>}
+									</button>
+									{count > 0 && (
+										<div className={styles.dieControls}>
+											<button className={styles.controlBtn} onClick={() => removeDieGroup(die)} title="Remove one">
+												<MinusIcon className="w-3.5 h-3.5" />
+											</button>
+											<button className={styles.controlBtn} onClick={() => addDieGroup(die)} title="Add one">
+												<PlusIcon className="w-3.5 h-3.5" />
+											</button>
+										</div>
+									)}
+								</div>
+							);
+						})}
+					</div>
+
+					{totalDice > 0 && (
+						<div className={styles.selectionInfo}>
+							<span className={styles.notation}>{diceNotation}</span>
+							<Button onClick={clearDice} className={styles.clearBtn}>
+								<TrashIcon className="w-4 h-4" />
+								Clear
+							</Button>
+						</div>
+					)}
+				</div>
+
+				{/* Roll Button & Results */}
+				<div className={styles.glassCard}>
+					<div className={styles.rollSection}>
+						<Button onClick={rollDice} disabled={totalDice === 0 || isRolling} className={styles.rollButton}>
+							<ArrowPathIcon className={`w-6 h-6 ${isRolling ? styles.spinning : ""}`} />
+							{isRolling ? "Rolling..." : "Roll Dice"}
+						</Button>
+
+						{rolls.length > 0 && (
+							<div className={styles.resultsArea}>
+								<div className={styles.diceResults}>
+									{rolls.map((roll) => (
+										<div key={roll.id} className={`${styles.dieResult} ${roll.isRolling ? styles.rolling : ""}`} style={{ "--die-color": roll.dieType.color } as React.CSSProperties}>
+											<span className={styles.resultValue}>{roll.value}</span>
+											<span className={styles.resultLabel}>{roll.dieType.name}</span>
+										</div>
+									))}
+								</div>
+
+								{rolls.length > 1 && (
+									<div className={styles.totalDisplay}>
+										<span className={styles.totalLabel}>Total</span>
+										<span className={styles.totalValue}>{currentTotal}</span>
 									</div>
 								)}
 							</div>
-						);
-					})}
-				</div>
-
-				{totalDice > 0 && (
-					<div className={styles.selectionInfo}>
-						<span className={styles.notation}>{diceNotation}</span>
-						<Button onClick={clearDice} className={styles.clearBtn}>
-							<TrashIcon className="w-4 h-4" />
-							Clear
-						</Button>
+						)}
 					</div>
-				)}
-			</div>
-
-			{/* Roll Button & Results */}
-			<div className={styles.glassCard}>
-				<div className={styles.rollSection}>
-					<Button onClick={rollDice} disabled={totalDice === 0 || isRolling} className={styles.rollButton}>
-						<ArrowPathIcon className={`w-6 h-6 ${isRolling ? styles.spinning : ""}`} />
-						{isRolling ? "Rolling..." : "Roll Dice"}
-					</Button>
-
-					{rolls.length > 0 && (
-						<div className={styles.resultsArea}>
-							<div className={styles.diceResults}>
-								{rolls.map((roll) => (
-									<div key={roll.id} className={`${styles.dieResult} ${roll.isRolling ? styles.rolling : ""}`} style={{ "--die-color": roll.dieType.color } as React.CSSProperties}>
-										<span className={styles.resultValue}>{roll.value}</span>
-										<span className={styles.resultLabel}>{roll.dieType.name}</span>
-									</div>
-								))}
-							</div>
-
-							{rolls.length > 1 && (
-								<div className={styles.totalDisplay}>
-									<span className={styles.totalLabel}>Total</span>
-									<span className={styles.totalValue}>{currentTotal}</span>
-								</div>
-							)}
-						</div>
-					)}
 				</div>
 			</div>
 
@@ -244,7 +246,7 @@ export default function DiceRoller() {
 			<div className={styles.glassCard}>
 				<h2 className={styles.sectionTitle}>About Dice</h2>
 				<div className={styles.infoGrid}>
-					<div className={styles.infoItem}>
+					{/* <div className={styles.infoItem}>
 						<h3 className={styles.infoSubtitle}>Standard Polyhedral Dice</h3>
 						<p className={styles.infoText}>These are the dice commonly used in tabletop role-playing games like Dungeons & Dragons. The number indicates how many sides each die has.</p>
 					</div>
@@ -255,7 +257,7 @@ export default function DiceRoller() {
 					<div className={styles.infoItem}>
 						<h3 className={styles.infoSubtitle}>D100 - Percentile</h3>
 						<p className={styles.infoText}>Also called a percentile die, the D100 generates numbers from 1-100 and is often used for probability-based events.</p>
-					</div>
+					</div> */}
 					<div className={styles.infoItem}>
 						<h3 className={styles.infoSubtitle}>Dice Notation</h3>
 						<p className={styles.infoText}>Written as NdX where N is the number of dice and X is the sides. For example, 2d6 means &quot;roll two six-sided dice.&quot;</p>

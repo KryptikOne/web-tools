@@ -39,7 +39,7 @@ export default function Sidebar() {
 	const handleHover = useCallback((toolId: string, toolName: string) => {
 		const el = textRefs.current.get(toolId);
 		if (!el) return;
-		scrambleText(el, toolName);
+		// scrambleText(el, toolName); // I'll add this back in later just wanted to visually keep it simple for now
 	}, []);
 
 	return (
