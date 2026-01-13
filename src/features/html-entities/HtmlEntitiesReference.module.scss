@@ -1,10 +1,10 @@
 @use '@/styles/variables' as *;
 @use '@/styles/mixins' as *;
+@use '@/styles/utilities' as util;
 
+// Layout
 .container {
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
+  @extend .container;
 }
 
 .controlsBar {

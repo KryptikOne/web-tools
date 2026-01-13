@@ -1,44 +1,25 @@
 @use '@/styles/variables' as *;
 @use '@/styles/mixins' as *;
+@use '@/styles/utilities' as util;
 
+// Layout
 .container {
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
+  @extend .container;
 }
 
 .mainSection {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
+  @extend .grid-2col;
   margin-bottom: 1.5rem;
-
-  @media (max-width: 1024px) {
-    grid-template-columns: 1fr;
-  }
 }
 
 .glassCard {
   @include glass-card;
-  // background: $bg-glass;
-  // backdrop-filter: blur(10px);
-  // border: 1px solid $border-subtle;
-  // border-radius: 1rem;
-  // padding: 1.5rem;
-  // transition: all 0.3s ease;
-
-  // &:hover {
-  //   background: $bg-glass-hover;
-  //   border-color: $border-medium;
-  // }
 }
 
+// Shared Utilities
 .sectionTitle {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: $text-primary;
-  margin: 0 0 1rem 0;
-  font-family: $font-family-display;
+  @extend .section-title;
+  margin-bottom: 1rem;
 }
 
 .converterGrid {
@@ -59,9 +40,7 @@
 }
 
 .inputLabel {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: $text-secondary;
+  @extend .input-label;
 }
 
 .inputWrapper {
@@ -110,20 +89,9 @@
 }
 
 .copyBtn {
+  @include btn-icon;
   position: absolute;
   right: 0.5rem;
-  padding: 0.5rem;
-  background: transparent;
-  border: none;
-  color: $text-muted;
-  cursor: pointer;
-  border-radius: $radius-sm;
-  transition: all 0.2s ease;
-
-  &:hover {
-    color: $text-primary;
-    background: $bg-glass-hover;
-  }
 }
 
 .copyIcon {

@@ -3,15 +3,19 @@
 // Glass Card Effect
 @mixin glass-card {
   background: $bg-glass;
-  backdrop-filter: blur(10px);
   border: 1px solid $border-subtle;
   border-radius: $radius-xl;
   padding: $spacing-xl;
 }
 
+@mixin glass-card-frosted {
+  @include glass-card;
+  backdrop-filter: blur(10px);
+}
+
 // Button Styles
 @mixin btn-base {
-  padding: 10px 16px;
+  padding: .625rem 1rem;
   border-radius: $radius-md;
   cursor: pointer;
   transition: all $transition-base;
@@ -31,11 +35,13 @@
 @mixin btn-primary {
   @include btn-base;
   background: $bg-glass;
-  border-color: $border-medium;
+  border-color: $border-subtle;
   color: $text-primary;
+  font-weight: 500;
 
-  &:hover {
+  &:hover:not(:disabled) {
     background: $bg-glass-hover;
+    border-color: $border-medium;
   }
 }
 
@@ -48,7 +54,52 @@
   &:hover {
     background: $bg-glass-hover;
   }
+}
 
+@mixin btn-icon {
+  padding: 0.5rem;
+  background: transparent;
+  border: none;
+  color: $text-muted;
+  cursor: pointer;
+  border-radius: $radius-sm;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    color: $text-primary;
+    background: $bg-glass-hover;
+  }
+}
+
+@mixin btn-preset {
+  padding: 0.75rem 1rem;
+  background: $bg-glass;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-md;
+  color: $text-secondary;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: $bg-glass-hover;
+    border-color: $border-medium;
+    color: $text-primary;
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &.active {
+    background: $bg-glass-hover;
+    border-color: $color-accent;
+    color: $color-accent;
+    font-weight: 600;
+  }
 }
 
 // Input Field
@@ -124,4 +175,44 @@
   -webkit-line-clamp: $lines;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+// Custom Scrollbar
+@mixin custom-scrollbar($width: 6px, $track-radius: 3px) {
+  &::-webkit-scrollbar {
+    width: $width;
+    height: $width;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $scrollbar-track;
+    border-radius: $track-radius;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $scrollbar-thumb;
+    border-radius: $track-radius;
+
+    &:hover {
+      background: $scrollbar-thumb-hover;
+    }
+  }
+}
+
+// Input Group (label + input combo)
+@mixin input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+// Two Column Layout
+@mixin two-column-grid($breakpoint: 1024px, $gap: 1.5rem) {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $gap;
+
+  @media (max-width: $breakpoint) {
+    grid-template-columns: 1fr;
+  }
 }

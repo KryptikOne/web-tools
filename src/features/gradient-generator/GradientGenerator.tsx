@@ -841,7 +841,7 @@ export default function GradientGenerator() {
 			</div>
 
 			{/* Info Section */}
-			<div className={styles.glassCard} style={{ marginTop: "1.5rem" }}>
+			{/* <div className={styles.glassCard} style={{ marginTop: "1.5rem" }}>
 				<h3 className={styles.infoTitle}>About CSS Gradients</h3>
 				<div className={styles.infoGrid}>
 					<div>
@@ -858,7 +858,7 @@ export default function GradientGenerator() {
 						<strong>Tip:</strong> Click on the gradient slider to add color stops. Drag stops to reposition them, or drag outside the slider to remove them.
 					</p>
 				</div>
-			</div>
+			</div> */}
 		</div>
 	);
 }

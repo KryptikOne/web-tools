@@ -128,10 +128,7 @@ export default function ColorPicker() {
 			const maxAttempts = 100;
 
 			for (let attempt = 0; attempt < maxAttempts; attempt++) {
-				const l =
-					level === "aaa"
-						? Math.random() * 0.2 + 0.45
-						: Math.random() * 0.3 + 0.4;
+				const l = level === "aaa" ? Math.random() * 0.2 + 0.45 : Math.random() * 0.3 + 0.4;
 				const c = Math.random() * 0.25;
 				const h = Math.random() * 360;
 
@@ -299,7 +296,7 @@ export default function ColorPicker() {
 							</Button>
 							<Button onClick={() => setShowAccessibility(!showAccessibility)} className={styles.btnSecondary}>
 								<EyeIcon className="w-4 h-4" />
-								WCAG
+								WCAG Accessibility
 							</Button>
 						</div>
 
@@ -319,9 +316,26 @@ export default function ColorPicker() {
 							</div>
 						</div>
 					</div>
+					{/* Saved Colors Palette */}
+					{showColorList && savedColors.length > 0 && (
+						<div className={styles.glassCard} style={{ marginTop: "1.5rem" }}>
+							<div className={styles.savedColorsHeader}>
+								<h3 className={styles.sectionTitle}>Saved Colors</h3>
+								<Button onClick={() => dispatch(clearSavedColors())} className={styles.clearBtn} title="Clear all saved colors">
+									<TrashIcon className="w-4 h-4" />
+									Clear All
+								</Button>
+							</div>
+							<div className={styles.savedColorsGrid}>
+								{savedColors.map((color) => (
+									<button key={color.id} onClick={() => handleLoadColor(color)} className={styles.colorSwatch} style={{ backgroundColor: color.hex }} title={color.hex} />
+								))}
+							</div>
+						</div>
+					)}
 
 					{/* OKLCH Sliders */}
-					<div className={styles.glassCard}>
+					<div className={styles.glassCard} style={{ marginTop: "1.5rem" }}>
 						<h3 className={styles.sectionTitle}>OKLCH Color Space</h3>
 
 						<div className={styles.sliderGroup}>
@@ -356,43 +370,6 @@ export default function ColorPicker() {
 							<input type="range" min="0" max="100" step="1" value={alpha * 100} onChange={(e) => dispatch(setAlpha(parseFloat(e.target.value) / 100))} className={styles.slider} style={{ background: `linear-gradient(to right, transparent, ${colorFormats.hex})` }} />
 						</div>
 					</div>
-
-					{/* Accessibility Panel */}
-					{showAccessibility && (
-						<div className={`${styles.glassCard} ${styles.accessibilityPanel}`}>
-							<h3 className={styles.sectionTitle}>Accessibility & Contrast</h3>
-
-							<div className={`${styles.contrastBox} ${styles.white}`}>
-								<div className={styles.contrastInfo}>
-									<span>White Background</span>
-									<div>
-										<span className={styles.contrastRatio}>{contrastWhite.toFixed(2)}:1</span>
-										<span className={`${styles.wcagBadge} ${getWCAGRating(contrastWhite).className}`}>{getWCAGRating(contrastWhite).level}</span>
-									</div>
-								</div>
-							</div>
-
-							<div className={`${styles.contrastBox} ${styles.black}`}>
-								<div className={styles.contrastInfo}>
-									<span>Black Background</span>
-									<div>
-										<span className={styles.contrastRatio}>{contrastBlack.toFixed(2)}:1</span>
-										<span className={`${styles.wcagBadge} ${getWCAGRating(contrastBlack).className}`}>{getWCAGRating(contrastBlack).level}</span>
-									</div>
-								</div>
-							</div>
-
-							<div className={styles.wcagGuidelines}>
-								<p>WCAG Guidelines:</p>
-								<ul>
-									<li>• AA: 4.5:1 for normal text</li>
-									<li>• AA: 3:1 for large text (18pt+)</li>
-									<li>• AAA: 7:1 for normal text</li>
-									<li>• AAA: 4.5:1 for large text</li>
-								</ul>
-							</div>
-						</div>
-					)}
 				</div>
 
 				<div>
@@ -420,106 +397,121 @@ export default function ColorPicker() {
 				</div>
 			</div>
 
-			{/* Saved Colors Palette */}
-			{showColorList && savedColors.length > 0 && (
-				<div className={styles.glassCard} style={{ marginTop: "1.5rem" }}>
-					<div className={styles.savedColorsHeader}>
-						<h3 className={styles.sectionTitle}>Saved Colors</h3>
-						<Button onClick={() => dispatch(clearSavedColors())} className={styles.clearBtn} title="Clear all saved colors">
-							<TrashIcon className="w-4 h-4" />
-							Clear All
-						</Button>
+			{/* Contrast Checker Section */}
+			{showAccessibility && (
+				<div className={styles.contrastCheckerContent}>
+					<h3 className={styles.sectionTitle}>Contrast Checker</h3>
+
+					{/* Current Color Contrast on White/Black */}
+					<div className={styles.currentColorContrast}>
+						<h4 className={styles.subsectionTitle}>Current Color Contrast</h4>
+						<div className={styles.contrastBoxes}>
+							<div className={`${styles.contrastBox} ${styles.white}`}>
+								<div className={styles.contrastInfo}>
+									<span>On White</span>
+									<div>
+										<span className={styles.contrastRatio}>{contrastWhite.toFixed(2)}:1</span>
+										<span className={`${styles.wcagBadge} ${getWCAGRating(contrastWhite).className}`}>{getWCAGRating(contrastWhite).level}</span>
+									</div>
+								</div>
+							</div>
+
+							<div className={`${styles.contrastBox} ${styles.black}`}>
+								<div className={styles.contrastInfo}>
+									<span>On Black</span>
+									<div>
+										<span className={styles.contrastRatio}>{contrastBlack.toFixed(2)}:1</span>
+										<span className={`${styles.wcagBadge} ${getWCAGRating(contrastBlack).className}`}>{getWCAGRating(contrastBlack).level}</span>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div className={styles.savedColorsGrid}>
-						{savedColors.map((color) => (
-							<button key={color.id} onClick={() => handleLoadColor(color)} className={styles.colorSwatch} style={{ backgroundColor: color.hex }} title={color.hex} />
-						))}
+
+					{/* Custom Color Contrast Checker */}
+					<div className={styles.customContrastChecker}>
+						<h4 className={styles.subsectionTitle}>Custom Color Checker</h4>
+
+						{/* Foreground / Background Inputs */}
+						<div className={styles.contrastInputs}>
+							<div className={styles.contrastInputGroup}>
+								<label className={styles.contrastLabel}>Foreground</label>
+								<div className={styles.colorInputRow}>
+									<input type="color" value={foregroundHex} onChange={(e) => setForegroundHex(e.target.value)} className={styles.colorInput} />
+									<input type="text" value={foregroundHex} onChange={(e) => setForegroundHex(e.target.value)} className={styles.hexInputSmall} maxLength={7} />
+									<Button onClick={syncColorToForeground} className={styles.syncBtn} title="Use current color as foreground">
+										← Use Current
+									</Button>
+								</div>
+							</div>
+
+							<div className={styles.contrastInputGroup}>
+								<label className={styles.contrastLabel}>Background</label>
+								<div className={styles.colorInputRow}>
+									<input type="color" value={backgroundHex} onChange={(e) => setBackgroundHex(e.target.value)} className={styles.colorInput} />
+									<input type="text" value={backgroundHex} onChange={(e) => setBackgroundHex(e.target.value)} className={styles.hexInputSmall} maxLength={7} />
+									<Button onClick={syncColorToBackground} className={styles.syncBtn} title="Use current color as background">
+										← Use Current
+									</Button>
+								</div>
+							</div>
+						</div>
+
+						{/* Preview Area */}
+						<div className={styles.contrastPreview} style={{ backgroundColor: backgroundHex, color: foregroundHex }}>
+							<p className={styles.previewNormal}>Normal text (16px)</p>
+							<p className={styles.previewLarge}>Large text (24px bold)</p>
+						</div>
+
+						{/* Contrast Ratio Display */}
+						<div className={styles.contrastRatioDisplay}>
+							<span className={styles.ratioValue}>{fgBgContrastRatio.toFixed(2)}:1</span>
+							<span className={styles.ratioLabel}>Contrast Ratio</span>
+						</div>
+
+						{/* WCAG Compliance Cards */}
+						<div className={styles.wcagCards}>
+							{wcagLevels.map((item) => (
+								<div key={item.level} className={`${styles.wcagCard} ${item.passes ? styles.wcagPass : styles.wcagFail}`}>
+									<div className={styles.wcagCardHeader}>
+										<span className={styles.wcagCardLevel}>{item.level}</span>
+										<span className={styles.wcagCardStatus}>{item.passes ? "✓ PASS" : "✗ FAIL"}</span>
+									</div>
+									<div className={styles.wcagCardRatio}>Required: {item.ratio}:1</div>
+								</div>
+							))}
+						</div>
+					</div>
+
+					{/* WCAG Requirements Info */}
+					<div className={styles.wcagInfo}>
+						<h4 className={styles.subsectionTitle}>WCAG Contrast Requirements</h4>
+						<div className={styles.infoGrid}>
+							<div>
+								<h5 className={styles.infoSubtitle}>Level AA (Minimum)</h5>
+								<ul className={styles.infoList}>
+									<li>Normal text: 4.5:1 minimum</li>
+									<li>Large text: 3:1 minimum</li>
+									<li>Large text is 18pt+ or 14pt+ bold</li>
+								</ul>
+							</div>
+							<div>
+								<h5 className={styles.infoSubtitle}>Level AAA (Enhanced)</h5>
+								<ul className={styles.infoList}>
+									<li>Normal text: 7:1 minimum</li>
+									<li>Large text: 4.5:1 minimum</li>
+									<li>Best for maximum accessibility</li>
+								</ul>
+							</div>
+						</div>
+						<div className={styles.noteBox}>
+							<p>
+								<strong>Tip:</strong> Use the accessibility toggle above to generate random colors that automatically meet AA or AAA contrast requirements on both light and dark backgrounds.
+							</p>
+						</div>
 					</div>
 				</div>
 			)}
-
-			{/* Contrast Checker Section */}
-			<div className={styles.contrastSection}>
-				<h3 className={styles.sectionTitle}>Contrast Checker</h3>
-
-				{/* Foreground / Background Inputs */}
-				<div className={styles.contrastInputs}>
-					<div className={styles.contrastInputGroup}>
-						<label className={styles.contrastLabel}>Foreground</label>
-						<div className={styles.colorInputRow}>
-							<input type="color" value={foregroundHex} onChange={(e) => setForegroundHex(e.target.value)} className={styles.colorInput} />
-							<input type="text" value={foregroundHex} onChange={(e) => setForegroundHex(e.target.value)} className={styles.hexInputSmall} maxLength={7} />
-							<Button onClick={syncColorToForeground} className={styles.syncBtn} title="Use current color as foreground">
-								← Use Current
-							</Button>
-						</div>
-					</div>
-
-					<div className={styles.contrastInputGroup}>
-						<label className={styles.contrastLabel}>Background</label>
-						<div className={styles.colorInputRow}>
-							<input type="color" value={backgroundHex} onChange={(e) => setBackgroundHex(e.target.value)} className={styles.colorInput} />
-							<input type="text" value={backgroundHex} onChange={(e) => setBackgroundHex(e.target.value)} className={styles.hexInputSmall} maxLength={7} />
-							<Button onClick={syncColorToBackground} className={styles.syncBtn} title="Use current color as background">
-								← Use Current
-							</Button>
-						</div>
-					</div>
-				</div>
-
-				{/* Preview Area */}
-				<div className={styles.contrastPreview} style={{ backgroundColor: backgroundHex, color: foregroundHex }}>
-					<p className={styles.previewNormal}>Normal text (16px)</p>
-					<p className={styles.previewLarge}>Large text (24px bold)</p>
-				</div>
-
-				{/* Contrast Ratio Display */}
-				<div className={styles.contrastRatioDisplay}>
-					<span className={styles.ratioValue}>{fgBgContrastRatio.toFixed(2)}:1</span>
-					<span className={styles.ratioLabel}>Contrast Ratio</span>
-				</div>
-
-				{/* WCAG Compliance Cards */}
-				<div className={styles.wcagCards}>
-					{wcagLevels.map((item) => (
-						<div key={item.level} className={`${styles.wcagCard} ${item.passes ? styles.wcagPass : styles.wcagFail}`}>
-							<div className={styles.wcagCardHeader}>
-								<span className={styles.wcagCardLevel}>{item.level}</span>
-								<span className={styles.wcagCardStatus}>{item.passes ? "✓ PASS" : "✗ FAIL"}</span>
-							</div>
-							<div className={styles.wcagCardRatio}>Required: {item.ratio}:1</div>
-						</div>
-					))}
-				</div>
-			</div>
-
-			{/* WCAG Requirements Info */}
-			<div className={styles.glassCard} style={{ marginTop: "1.5rem" }}>
-				<h3 className={styles.infoTitle}>WCAG Contrast Requirements</h3>
-				<div className={styles.infoGrid}>
-					<div>
-						<h4 className={styles.infoSubtitle}>Level AA (Minimum)</h4>
-						<ul className={styles.infoList}>
-							<li>Normal text: 4.5:1 minimum</li>
-							<li>Large text: 3:1 minimum</li>
-							<li>Large text is 18pt+ or 14pt+ bold</li>
-						</ul>
-					</div>
-					<div>
-						<h4 className={styles.infoSubtitle}>Level AAA (Enhanced)</h4>
-						<ul className={styles.infoList}>
-							<li>Normal text: 7:1 minimum</li>
-							<li>Large text: 4.5:1 minimum</li>
-							<li>Best for maximum accessibility</li>
-						</ul>
-					</div>
-				</div>
-				<div className={styles.noteBox}>
-					<p>
-						<strong>Tip:</strong> Use the accessibility toggle above to generate random colors that automatically meet AA or AAA contrast requirements on both light and dark backgrounds.
-					</p>
-				</div>
-			</div>
 		</div>
 	);
 }
