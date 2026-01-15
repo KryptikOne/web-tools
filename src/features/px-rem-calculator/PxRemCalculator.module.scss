@@ -149,9 +149,10 @@
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: linear-gradient(135deg, $color-accent 0%, $color-accent-secondary 100%);
+    background: #ffffff;
+    border: 2px solid var(--color-white);
     cursor: pointer;
-    box-shadow: 0 2px 8px $color-accent-50;
+    box-shadow: $shadow-md;
     transition: transform 0.2s ease;
 
     &:hover {
@@ -162,11 +163,11 @@
   &::-moz-range-thumb {
     width: 20px;
     height: 20px;
-    border: none;
+    border: 2px solid var(--color-white);
     border-radius: 50%;
-    background: linear-gradient(135deg, $color-accent 0%, $color-accent-secondary 100%);
+    background: #ffffff;
     cursor: pointer;
-    box-shadow: 0 2px 8px $color-accent-50;
+    box-shadow: $shadow-md;
   }
 }
 
