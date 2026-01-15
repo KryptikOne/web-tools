@@ -298,7 +298,7 @@
 .presetPreview {
   width: 50px;
   height: 35px;
-  background: linear-gradient(135deg, $color-accent 0%, $color-accent-secondary 100%);
+  background: $color-accent;
   transition: border-radius 0.2s ease;
 }
 
