@@ -399,20 +399,10 @@ export default function CubicBezier() {
 						<h3 className={styles.sectionTitle}>CSS Output</h3>
 						<div className={styles.outputBox}>
 							<code>{cssValue}</code>
+							<button onClick={copyToClipboard} className={`${styles.copyBtn} ${copied ? styles.copied : ""}`} title="Copy to clipboard">
+								{copied ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
+							</button>
 						</div>
-						<Button onClick={copyToClipboard} className={styles.btnPrimary}>
-							{copied ? (
-								<>
-									<CheckIcon className="w-5 h-5" />
-									Copied!
-								</>
-							) : (
-								<>
-									<ClipboardDocumentIcon className="w-5 h-5" />
-									Copy
-								</>
-							)}
-						</Button>
 					</div>
 				</div>
 			</div>

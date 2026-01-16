@@ -178,7 +178,7 @@ export default function EpochConverter() {
 							<span className={styles.liveDisplayLabel}>Seconds</span>
 							<div className={styles.liveDisplay}>
 								<span className={styles.epochValue}>{formatEpoch(currentEpochSeconds)}</span>
-								<button className={styles.copyBtn} onClick={() => copyToClipboard(currentEpochSeconds.toString(), "liveSeconds")} title="Copy current epoch (seconds)">
+								<button className={`${styles.copyBtn} ${copiedField === "liveSeconds" ? styles.copied : ""}`} onClick={() => copyToClipboard(currentEpochSeconds.toString(), "liveSeconds")} title="Copy to clipboard">
 									{copiedField === "liveSeconds" ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
 								</button>
 							</div>
@@ -187,7 +187,7 @@ export default function EpochConverter() {
 							<span className={styles.liveDisplayLabel}>Milliseconds</span>
 							<div className={styles.liveDisplay}>
 								<span className={styles.epochValue}>{formatEpoch(currentEpochMs)}</span>
-								<button className={styles.copyBtn} onClick={() => copyToClipboard(currentEpochMs.toString(), "liveMs")} title="Copy current epoch (milliseconds)">
+								<button className={`${styles.copyBtn} ${copiedField === "liveMs" ? styles.copied : ""}`} onClick={() => copyToClipboard(currentEpochMs.toString(), "liveMs")} title="Copy to clipboard">
 									{copiedField === "liveMs" ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
 								</button>
 							</div>
@@ -247,7 +247,7 @@ export default function EpochConverter() {
 						<div className={styles.resultBox}>
 							<div className={styles.resultHeader}>
 								<span className={styles.resultLabel}>Result:</span>
-								<button className={styles.copyBtn} onClick={() => copyToClipboard(dateResult, "dateResult")}>
+								<button className={`${styles.copyBtn} ${copiedField === "dateResult" ? styles.copied : ""}`} onClick={() => copyToClipboard(dateResult, "dateResult")} title="Copy to clipboard">
 									{copiedField === "dateResult" ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
 								</button>
 							</div>
@@ -304,7 +304,7 @@ export default function EpochConverter() {
 						<div className={styles.resultBox}>
 							<div className={styles.resultHeader}>
 								<span className={styles.resultLabel}>Result:</span>
-								<button className={styles.copyBtn} onClick={() => copyToClipboard(epochResult, "epochResult")}>
+								<button className={`${styles.copyBtn} ${copiedField === "epochResult" ? styles.copied : ""}`} onClick={() => copyToClipboard(epochResult, "epochResult")} title="Copy to clipboard">
 									{copiedField === "epochResult" ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
 								</button>
 							</div>

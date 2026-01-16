@@ -248,11 +248,11 @@ export default function InvisibleCharacterRemover() {
                 className={`${styles.btnSecondary} ${showInvisible ? styles.active : ""}`}
                 title="Toggle visibility of invisible characters"
               >
-                {showInvisible ? <EyeIcon className="w-4 h-4" /> : <EyeSlashIcon className="w-4 h-4" />}
+                {showInvisible ? <EyeIcon className={styles.copyIcon} /> : <EyeSlashIcon className={styles.copyIcon} />}
                 {showInvisible ? "Showing" : "Show"}
               </button>
               <label className={styles.btnSecondary}>
-                <ArrowUpTrayIcon className="w-4 h-4" />
+                <ArrowUpTrayIcon className={styles.copyIcon} />
                 Upload
                 <input
                   type="file"
@@ -262,7 +262,7 @@ export default function InvisibleCharacterRemover() {
                 />
               </label>
               <button onClick={handleClear} className={styles.btnSecondary}>
-                <TrashIcon className="w-4 h-4" />
+                <TrashIcon className={styles.copyIcon} />
                 Clear
               </button>
             </div>
@@ -299,12 +299,12 @@ export default function InvisibleCharacterRemover() {
               >
                 {copied ? (
                   <>
-                    <CheckIcon className="w-4 h-4" />
+                    <CheckIcon className={styles.copyIcon} />
                     Copied!
                   </>
                 ) : (
                   <>
-                    <ClipboardDocumentIcon className="w-4 h-4" />
+                    <ClipboardDocumentIcon className={styles.copyIcon} />
                     Copy
                   </>
                 )}
@@ -314,7 +314,7 @@ export default function InvisibleCharacterRemover() {
                 disabled={!outputText}
                 className={styles.btnSecondary}
               >
-                <ArrowDownTrayIcon className="w-4 h-4" />
+                <ArrowDownTrayIcon className={styles.copyIcon} />
                 Download
               </button>
             </div>

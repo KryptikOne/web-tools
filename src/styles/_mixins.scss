@@ -87,11 +87,6 @@
     background: $bg-glass-hover;
     border-color: $border-medium;
     color: $text-primary;
-    transform: translateY(-2px);
-  }
-
-  &:active {
-    transform: translateY(0);
   }
 
   &.active {

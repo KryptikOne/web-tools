@@ -812,9 +812,9 @@ export default function GradientGenerator() {
 						<h3 className={styles.sectionTitle}>CSS Output</h3>
 						<div className={styles.codeBlock}>
 							<code>{fullCSS}</code>
-							<Button onClick={() => copyToClipboard(fullCSS, "css")} className={`${styles.copyBtn} ${copiedFormat === "css" ? styles.copied : ""}`} title="Copy CSS">
-								{copiedFormat === "css" ? <CheckIcon className="w-4 h-4" /> : <ClipboardDocumentIcon className="w-4 h-4" />}
-							</Button>
+							<button onClick={() => copyToClipboard(fullCSS, "css")} className={`${styles.copyBtn} ${copiedFormat === "css" ? styles.copied : ""}`} title="Copy to clipboard">
+								{copiedFormat === "css" ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
+							</button>
 						</div>
 					</div>
 				</div>

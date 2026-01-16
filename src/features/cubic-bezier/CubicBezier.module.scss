@@ -46,11 +46,12 @@
 }
 
 .outputBox {
+  position: relative;
   background: $input-bg;
   border: 1px solid $border-subtle;
   border-radius: 0.5rem;
   padding: 1rem;
-  margin-bottom: 1rem;
+  padding-right: 3rem;
   font-family: $font-family-mono;
 
   code {
@@ -60,10 +61,15 @@
   }
 }
 
-.btnPrimary {
-  @include btn-primary;
-  width: 100%;
-  padding: 0.75rem 1.5rem;
+.copyBtn {
+  @extend .copy-btn;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+}
+
+.copyIcon {
+  @extend .copy-icon;
 }
 
 .btnSecondary {
@@ -236,11 +242,6 @@
   &:hover {
     background: $bg-glass-hover;
     border-color: $border-medium;
-    transform: translateY(-2px);
-  }
-
-  &:active {
-    transform: translateY(0);
   }
 }
 

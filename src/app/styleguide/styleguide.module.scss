@@ -624,45 +624,13 @@
 }
 
 .slider {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
+  @extend .slider;
   height: 8px;
   background: linear-gradient(to right,
     $color-accent-50 0%,
     $color-primary-50 50%,
     $color-accent-50 100%
   );
-  border-radius: $radius-sm;
-  outline: none;
-  cursor: pointer;
-
-  &::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    background: #ffffff;
-    border: 2px solid $color-accent;
-    border-radius: 50%;
-    box-shadow: $shadow-md;
-    cursor: pointer;
-    transition: transform $transition-fast;
-
-    &:hover {
-      transform: scale(1.1);
-    }
-  }
-
-  &::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    background: #ffffff;
-    border: 2px solid $color-accent;
-    border-radius: 50%;
-    box-shadow: $shadow-md;
-    cursor: pointer;
-  }
 }
 
 .selectInput {

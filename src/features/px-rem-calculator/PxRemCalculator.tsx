@@ -99,7 +99,7 @@ export default function PxRemCalculator() {
 							<div className={styles.inputWrapper}>
 								<input type="number" value={pxValue} onChange={(e) => handlePxChange(e.target.value)} className={styles.input} placeholder="Enter pixels" />
 								<span className={styles.unitLabel}>px</span>
-								<button className={styles.copyBtn} onClick={() => copyToClipboard(pxValue, "px", "px")} title="Copy px value">
+								<button className={`${styles.copyBtn} ${copiedField === "px" ? styles.copied : ""}`} onClick={() => copyToClipboard(pxValue, "px", "px")} title="Copy to clipboard">
 									{copiedField === "px" ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
 								</button>
 							</div>
@@ -116,7 +116,7 @@ export default function PxRemCalculator() {
 							<div className={styles.inputWrapper}>
 								<input type="number" value={remValue} onChange={(e) => handleRemChange(e.target.value)} className={styles.input} placeholder="Enter rem" step="0.0625" />
 								<span className={styles.unitLabel}>rem</span>
-								<button className={styles.copyBtn} onClick={() => copyToClipboard(remValue, "rem", "rem")} title="Copy rem value">
+								<button className={`${styles.copyBtn} ${copiedField === "rem" ? styles.copied : ""}`} onClick={() => copyToClipboard(remValue, "rem", "rem")} title="Copy to clipboard">
 									{copiedField === "rem" ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
 								</button>
 							</div>

@@ -388,9 +388,9 @@ export default function ColorPicker() {
 							<div key={format} className={styles.formatItem}>
 								<span className={styles.formatLabel}>{format}</span>
 								<span className={styles.formatValue}>{value}</span>
-								<Button onClick={() => copyToClipboard(value, format)} className={`${styles.copyBtn} ${copiedFormat === format ? styles.copied : ""}`} title="Copy to clipboard">
-									{copiedFormat === format ? <CheckIcon className="w-4 h-4" /> : <ClipboardDocumentIcon className="w-4 h-4" />}
-								</Button>
+								<button onClick={() => copyToClipboard(value, format)} className={`${styles.copyBtn} ${copiedFormat === format ? styles.copied : ""}`} title="Copy to clipboard">
+									{copiedFormat === format ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
+								</button>
 							</div>
 						))}
 					</div>

@@ -106,6 +106,7 @@ export default function PaletteGenerator() {
 	const [isHydrated, setIsHydrated] = useState(false);
 	const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 	const [copiedAll, setCopiedAll] = useState(false);
+	const [copiedCss, setCopiedCss] = useState(false);
 	const [showSettings, setShowSettings] = useState(false);
 	// Track if we should skip regeneration (after loading preset/saved palette or on initial hydration)
 	const skipRegenerateRef = useRef(true); // Start as true to skip first regeneration after hydration
@@ -462,15 +463,17 @@ export default function PaletteGenerator() {
 				<h3 className={styles.sectionTitle}>CSS Variables</h3>
 				<div className={styles.codeBlock}>
 					<pre>{cssOutput}</pre>
-					<Button
+					<button
 						onClick={async () => {
 							await navigator.clipboard.writeText(cssOutput);
+							setCopiedCss(true);
+							setTimeout(() => setCopiedCss(false), 2000);
 						}}
-						className={styles.copyBtn}
-						title="Copy CSS"
+						className={`${styles.copyBtn} ${copiedCss ? styles.copied : ""}`}
+						title="Copy to clipboard"
 					>
-						<ClipboardDocumentIcon className="w-4 h-4" />
-					</Button>
+						{copiedCss ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
+					</button>
 				</div>
 			</div>
 

@@ -283,7 +283,7 @@ export default function BoxShadowGenerator() {
 					<div className={styles.outputSection}>
 						<div className={styles.outputHeader}>
 							<span className={styles.outputLabel}>CSS</span>
-							<button className={styles.copyBtn} onClick={() => copyToClipboard(getCssCode(), "css")}>
+							<button className={`${styles.copyBtn} ${copiedField === "css" ? styles.copied : ""}`} onClick={() => copyToClipboard(getCssCode(), "css")} title="Copy to clipboard">
 								{copiedField === "css" ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
 							</button>
 						</div>

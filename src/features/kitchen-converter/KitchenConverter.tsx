@@ -250,8 +250,8 @@ export default function KitchenConverter() {
 						<span className={styles.resultText}>
 							{inputValue} {units.find((u) => u.id === fromUnit)?.abbrev} = <strong>{result} {units.find((u) => u.id === toUnit)?.abbrev}</strong>
 						</span>
-						<button className={styles.copyResultBtn} onClick={() => copyToClipboard(`${result} ${units.find((u) => u.id === toUnit)?.abbrev}`, "result")}>
-							{copiedCell === "result" ? <CheckIcon className="w-4 h-4" /> : <ClipboardDocumentIcon className="w-4 h-4" />}
+						<button className={`${styles.copyBtn} ${copiedCell === "result" ? styles.copied : ""}`} onClick={() => copyToClipboard(`${result} ${units.find((u) => u.id === toUnit)?.abbrev}`, "result")} title="Copy to clipboard">
+							{copiedCell === "result" ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
 						</button>
 					</div>
 				)}

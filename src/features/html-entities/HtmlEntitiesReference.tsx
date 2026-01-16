@@ -300,9 +300,9 @@ export default function HtmlEntitiesReference() {
         title={`Copy ${value}`}
       >
         {isCopied ? (
-          <CheckIcon className={styles.icon} />
+          <CheckIcon className={styles.copyIcon} />
         ) : (
-          <ClipboardDocumentIcon className={styles.icon} />
+          <ClipboardDocumentIcon className={styles.copyIcon} />
         )}
       </button>
     );

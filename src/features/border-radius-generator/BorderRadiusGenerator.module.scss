@@ -257,13 +257,11 @@
 }
 
 .copyBtn {
-  @include btn-icon;
-  padding: 0.375rem;
+  @extend .copy-btn;
 }
 
 .copyIcon {
-  width: 1.125rem;
-  height: 1.125rem;
+  @extend .copy-icon;
 }
 
 .presetsGrid {
@@ -287,11 +285,6 @@
   &:hover {
     background: $bg-glass-hover;
     border-color: $border-medium;
-    transform: translateY(-2px);
-  }
-
-  &:active {
-    transform: translateY(0);
   }
 }
 

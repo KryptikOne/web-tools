@@ -244,12 +244,11 @@
 }
 
 .copyBtn {
-  @include btn-icon;
+  @extend .copy-btn;
 }
 
 .copyIcon {
-  width: 1.25rem;
-  height: 1.25rem;
+  @extend .copy-icon;
 }
 
 // Info Section

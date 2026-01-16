@@ -1,4 +1,5 @@
 @use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
 @use "@/styles/utilities" as util;
 
 // Layout
@@ -202,20 +203,12 @@
 	}
 }
 
-.copyResultBtn {
-	padding: 0.5rem;
-	background: transparent;
-	border: 1px solid $border-subtle;
-	border-radius: $radius-sm;
-	color: $text-muted;
-	cursor: pointer;
-	transition: all 0.2s ease;
-	display: flex;
+.copyBtn {
+	@extend .copy-btn;
+}
 
-	&:hover {
-		background: $bg-glass-hover;
-		color: $text-primary;
-	}
+.copyIcon {
+	@extend .copy-icon;
 }
 
 // Charts Grid
