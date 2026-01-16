@@ -1,5 +1,12 @@
 # Things I would like to add to this..
 
--   Add a time based font switchero that loads different fonts for different times of year, like Haloween-y fonts for October OR Christmas-y fonts for December, etc.
--   I'd like to clean up the stylesheets for each of the tools and make things a little more variableized.
-    -   .glass-card for example... It's not consistent throughout the application and it's implementation varies yet it's the thing that should be mosit consistent and simply be used with an "@include".
+## Pending
+
+-   Add a time based font switcher that loads different fonts for different times of year, like Halloween-y fonts for October OR Christmas-y fonts for December, etc.
+
+## Completed
+
+-   [x] Clean up the stylesheets for each of the tools and make things more centralized.
+    -   `.glass-card` is now consistent throughout the application using `@extend` or `@include`
+    -   `.slider` thumb styles are centralized in `_utilities.scss`
+    -   Redundant CSS rules removed from component stylesheets

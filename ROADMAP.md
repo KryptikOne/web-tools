@@ -20,6 +20,7 @@ A collection of utility tools, converters, and generators planned for developmen
 ### Text & Data
 - [x] **Invisible Character Remover** - Strip invisible and problematic Unicode characters
 - [x] **HTML Entities Reference** - Comprehensive HTML entities reference
+- [x] **Text/Binary Converter** - Convert text to binary and binary to text with encoding options
 
 ### Utility & Conversion
 - [x] **Epoch Converter** - Convert Unix timestamps to dates
@@ -32,54 +33,75 @@ A collection of utility tools, converters, and generators planned for developmen
 
 ---
 
-## In Registry (Not Yet Implemented)
+## Planned Tools (Commented Out in Registry)
+
+### Color & Design
+- [ ] **CSS Filter Generator** - Generate CSS filter effects
+- [ ] **Background Pattern Generator** - Create CSS background patterns
+- [ ] **Color Blindness Simulator** - Preview designs for different types of color blindness
+- [ ] **Color Palette from Image** - Extract color palettes from uploaded images
+- [ ] **SVG Pattern Generator** - Create repeating SVG patterns for backgrounds
+- [ ] **Icon Generator** - Generate simple icons and favicons
+
+### Image & Visual
+- [ ] **Image Resizer** - Resize images to specific dimensions
+- [ ] **Image Format Converter** - Convert images between formats (PNG, JPG, WebP)
+- [ ] **Image Compressor** - Compress images to reduce file size
+- [ ] **Base64 Image Encoder** - Convert images to Base64 strings
+- [ ] **QR Code Generator** - Generate QR codes from text or URLs
+- [ ] **QR Code Reader** - Scan and decode QR codes
+- [ ] **Favicon Generator** - Generate favicons from images
+- [ ] **Screenshot Beautifier** - Add backgrounds and frames to screenshots
+- [ ] **SVG Optimizer** - Optimize and minify SVG files
+- [ ] **Image Color Extractor** - Extract dominant colors from images
 
 ### Code & Web Development
 - [ ] **URL Encoder/Decoder** - Encode and decode URLs
+- [ ] **JWT Decoder** - Decode and inspect JSON Web Tokens
+- [ ] **CSP Parser** - Parse and validate Content Security Policy headers
+- [ ] **OGP Tag Generator** - Generate Open Graph Protocol meta tags
+- [ ] **OGP Checker** - Check Open Graph meta tags on websites
+- [ ] **Code Formatter** - Format JS/TS/HTML/CSS code
+- [ ] **Code Minifier** - Minify HTML, CSS, JavaScript
+- [ ] **API Response Formatter** - Format and prettify API responses
+- [ ] **HTTP Status Code Reference** - Quick reference for HTTP status codes
+- [ ] **Meta Tag Generator** - Generate HTML meta tags
+- [ ] **CSS Unit Converter** - Convert between CSS units
+- [ ] **SQL Formatter** - Format and beautify SQL queries
+- [ ] **Cron Expression Generator** - Build and explain cron schedules
+- [ ] **.gitignore Generator** - Generate .gitignore files for various projects
+- [ ] **Package.json Generator** - Generate package.json files
 
 ### Utility & Conversion
 - [ ] **Aspect Ratio Calculator** - Calculate aspect ratios and dimensions
 - [ ] **Percentage Calculator** - Calculate percentages and ratios
+- [ ] **Password Generator** - Generate secure random passwords
+- [ ] **Number Base Converter** - Convert between number bases (binary, octal, decimal, hex)
+- [ ] **IP Address Checker** - Check your IP address and location
+- [ ] **File Size Calculator** - Calculate and convert file sizes
 
 ### Text & Data
 - [ ] **Base64 Encoder/Decoder** - Encode and decode Base64 strings
 - [ ] **Character Counter** - Count characters, words, and lines in text
 - [ ] **CSV to JSON** - Convert CSV data to JSON format
-
----
-
-## Planned Tools (From Registry - Commented Out)
-
-### Color & Design
-- [ ] **CSS Filter Generator** - Generate CSS filter effects
-- [ ] **Background Pattern Generator** - Create CSS background patterns
-
-### Image & Visual
-- [ ] **Image Resizer** - Resize images to specific dimensions
-- [ ] **Image Format Converter** - Convert images between formats (PNG, JPG, WebP)
-- [ ] **Base64 Image Encoder** - Convert images to Base64 strings
-- [ ] **QR Code Generator** - Generate QR codes from text or URLs
-- [ ] **QR Code Reader** - Scan and decode QR codes
-
-### Code & Web Development
-- [ ] **JWT Decoder** - Decode and inspect JSON Web Tokens
-- [ ] **CSP Parser** - Parse and validate Content Security Policy headers
-- [ ] **OGP Tag Generator** - Generate Open Graph Protocol meta tags
-- [ ] **OGP Checker** - Check Open Graph meta tags on websites
-
-### Utility & Conversion
-- [ ] **Password Generator** - Generate secure random passwords
-- [ ] **Number Base Converter** - Convert between number bases (binary, octal, decimal, hex)
-- [ ] **IP Address Checker** - Check your IP address and location
-
-### Text & Data
 - [ ] **ASCII to Hex** - Convert ASCII text to hexadecimal format
 - [ ] **JSON Formatter** - Format and validate JSON data
 - [ ] **JSON to CSV** - Convert JSON data to CSV format
 - [ ] **JSON to YAML** - Convert JSON to YAML format
 - [ ] **HTML Escape/Unescape** - Escape and unescape HTML entities
 - [ ] **HTML Tag Remover** - Remove HTML tags from text
-- [ ] **SQL Formatter** - Format and beautify SQL queries
+- [ ] **Text Case Converter** - Convert text between cases (upper, lower, title, etc.)
+- [ ] **Barcode Generator** - Generate barcodes from text
+- [ ] **Lorem Ipsum Generator** - Generate placeholder text
+- [ ] **Markdown Preview** - Live markdown editor with preview
+- [ ] **Diff Checker** - Compare two texts and highlight differences
+- [ ] **RegEx Tester** - Test and debug regular expressions
+- [ ] **Hash Generator** - Generate MD5, SHA-1, SHA-256 hashes
+
+### Fun & Random
+- [ ] **UUID Generator** - Generate UUIDs (v1, v4, etc.)
+- [ ] **Random Number Generator** - Generate random numbers with constraints
+- [ ] **Lorem Pixel** - Generate random placeholder images
 
 ---
 
@@ -205,25 +227,14 @@ Calculate time differences and durations.
 
 ---
 
-## Additional Future Tool Ideas
+## Future Enhancements
 
-### Generators
-- [ ] **Lorem Ipsum Generator** - Placeholder text generator with various styles
-- [ ] **Hash Generator** - MD5, SHA-1, SHA-256 hash generation
-- [ ] **UUID Generator** - Generate UUIDs (v1, v4, etc.)
-- [ ] **Favicon Generator** - Generate favicons from images
+Planned improvements for existing tools:
 
-### Visual Tools
-- [ ] **Color Blindness Simulator** - Preview designs for different types of color blindness
-- [ ] **SVG Optimizer** - Optimize and minify SVG files
-- [ ] **Screenshot Mockup Generator** - Place screenshots in device frames
-
-### Developer Tools
-- [ ] **Regex Tester** - Test and debug regular expressions
-- [ ] **Cron Expression Builder** - Build and explain cron schedules
-- [ ] **Markdown Preview** - Live markdown editor with preview
-- [ ] **Diff Checker** - Compare two texts and highlight differences
-- [ ] **Code Minifier** - Minify HTML, CSS, JavaScript
+### Text/Binary Converter
+- [ ] File upload support (.txt files)
+- [ ] File download (save as .txt or .bin)
+- [ ] Custom delimiter input
 
 ---
 

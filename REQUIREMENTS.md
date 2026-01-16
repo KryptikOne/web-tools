@@ -20,70 +20,9 @@ A comprehensive, privacy-focused collection of free browser-based utilities. All
     -   Module-scoped SCSS file (if needed)
     -   Entry in appropriate category
 
-#### 1.1.2 Planned Tools by Category
+#### 1.1.2 Planned Tools
 
-**Color & Design** (6/10 implemented)
-
--   [ ] Color Blindness Simulator
--   [ ] Color Palette from Image
--   [ ] SVG Pattern Generator
--   [ ] Icon Generator
-
-**Text & Data** (2/15 implemented)
-
--   [ ] Base64 Encoder/Decoder
--   [ ] Character Counter
--   [ ] CSV to JSON Converter
--   [ ] JSON Formatter/Validator
--   [ ] Markdown Preview
--   [ ] Lorem Ipsum Generator
--   [ ] Text Case Converter
--   [ ] URL Encoder/Decoder
--   [ ] Hash Generator (MD5, SHA)
--   [ ] Diff Checker
--   [ ] RegEx Tester
--   [ ] QR Code Generator
--   [ ] Barcode Generator
-
-**Image & Visual** (0/8 implemented)
-
--   [ ] Image Compressor
--   [ ] Image Format Converter
--   [ ] Image Resizer
--   [ ] Favicon Generator
--   [ ] Screenshot Beautifier
--   [ ] SVG Optimizer
--   [ ] Placeholder Image Generator
--   [ ] Image Color Extractor
-
-**Code & Web Development** (0/12 implemented)
-
--   [ ] Code Formatter (JS/TS/HTML/CSS)
--   [ ] Minifier (JS/CSS)
--   [ ] JWT Decoder
--   [ ] API Response Formatter
--   [ ] HTTP Status Code Reference
--   [ ] Meta Tag Generator
--   [ ] Open Graph Preview
--   [ ] CSS Unit Converter
--   [ ] SQL Formatter
--   [ ] Cron Expression Generator
--   [ ] .gitignore Generator
--   [ ] Package.json Generator
-
-**Utility & Conversion** (4/8 implemented)
-
--   [ ] Temperature Converter
--   [ ] Currency Converter (with API option)
--   [ ] File Size Calculator
--   [ ] Percentage Calculator
-
-**Fun & Random** (1/5 implemented)
-
--   [ ] Password Generator
--   [ ] Random Number Generator
--   [ ] UUID Generator
--   [ ] Lorem Pixel (Random Images)
+See [ROADMAP.md](./ROADMAP.md) for the complete list of planned tools organized by category.
 
 ### 1.2 Core Features
 
@@ -135,6 +74,7 @@ A comprehensive, privacy-focused collection of free browser-based utilities. All
 -   OKLCH color space for all color definitions
 -   CSS custom properties for theming
 -   No inline styles in components (prefer Tailwind or modules)
+-   Try to centralize things in utilities and either @extend or @include as much as possible, keep styles D.R.Y.
 
 #### 2.1.4 Code Organization
 
