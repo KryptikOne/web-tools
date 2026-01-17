@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import colorPickerReducer from "./slices/colorPickerSlice";
 import paletteReducer from "./slices/paletteSlice";
 import themeReducer from "./slices/themeSlice";
+import uiReducer from "./slices/uiSlice";
 import userPreferencesReducer from "./slices/userPreferencesSlice";
 
 export const store = configureStore({
@@ -9,6 +10,7 @@ export const store = configureStore({
 		colorPicker: colorPickerReducer,
 		palette: paletteReducer,
 		theme: themeReducer,
+		ui: uiReducer,
 		userPreferences: userPreferencesReducer,
 	},
 });

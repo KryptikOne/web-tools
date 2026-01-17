@@ -94,3 +94,90 @@
     display: none;
   }
 }
+
+// Hamburger Menu Button (adapted from jonsuh/hamburgers - spin variation)
+.hamburger {
+  display: none;
+  padding: 0.5rem;
+  background: $bg-glass;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-md;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+
+  @media (max-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &:hover {
+    background: $bg-glass-hover;
+    border-color: $border-medium;
+  }
+}
+
+.hamburgerBox {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  position: relative;
+}
+
+.hamburgerInner {
+  display: block;
+  top: 50%;
+  margin-top: -1px;
+  transition-duration: 0.22s;
+  transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+
+  &,
+  &::before,
+  &::after {
+    width: 20px;
+    height: 2px;
+    background-color: $text-secondary;
+    border-radius: 2px;
+    position: absolute;
+    transition: transform 0.22s ease, background-color 0.2s ease;
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    display: block;
+  }
+
+  &::before {
+    top: -6px;
+    transition: top 0.1s 0.25s ease-in, opacity 0.1s ease-in;
+  }
+
+  &::after {
+    bottom: -6px;
+    transition: bottom 0.1s 0.25s ease-in, transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  }
+}
+
+// Active state (when menu is open)
+.hamburgerActive {
+  .hamburgerInner {
+    transform: rotate(225deg);
+    transition-delay: 0.12s;
+    transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    background-color: $color-green-base;
+
+    &::before {
+      top: 0;
+      opacity: 0;
+      transition: top 0.1s ease-out, opacity 0.1s 0.12s ease-out;
+    }
+
+    &::after {
+      bottom: 0;
+      transform: rotate(-90deg);
+      transition: bottom 0.1s ease-out, transform 0.22s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
+      background-color: $color-green-base;
+    }
+  }
+}

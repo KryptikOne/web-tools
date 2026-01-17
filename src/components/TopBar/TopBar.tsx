@@ -6,6 +6,7 @@ import { SunIcon, MoonIcon, SwatchIcon, ArrowTrendingUpIcon, EyeSlashIcon, Clock
 import { TOOLS_REGISTRY } from "@/config/tools-registry";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { hydrateTheme, toggleTheme } from "@/store/slices/themeSlice";
+import { toggleMobileMenu } from "@/store/slices/uiSlice";
 import styles from "./TopBar.module.scss";
 
 // Map tool IDs to their icons
@@ -29,6 +30,7 @@ const TOOL_ICONS: Record<string, React.ComponentType<React.SVGProps<SVGSVGElemen
 export default function TopBar() {
 	const dispatch = useAppDispatch();
 	const theme = useAppSelector((state) => state.theme.mode);
+	const mobileMenuOpen = useAppSelector((state) => state.ui.mobileMenuOpen);
 	const pathname = usePathname();
 
 	// Find the current tool based on pathname
@@ -42,6 +44,10 @@ export default function TopBar() {
 
 	const handleToggleTheme = () => {
 		dispatch(toggleTheme());
+	};
+
+	const handleToggleMobileMenu = () => {
+		dispatch(toggleMobileMenu());
 	};
 
 	return (
@@ -58,6 +64,16 @@ export default function TopBar() {
 			<div className={styles.rightSection}>
 				<button className={styles.iconButton} onClick={handleToggleTheme} aria-label="Toggle theme">
 					{theme === "dark" ? <SunIcon /> : <MoonIcon />}
+				</button>
+				<button
+					className={`${styles.hamburger} ${mobileMenuOpen ? styles.hamburgerActive : ""}`}
+					onClick={handleToggleMobileMenu}
+					aria-label="Toggle menu"
+					aria-expanded={mobileMenuOpen}
+				>
+					<span className={styles.hamburgerBox}>
+						<span className={styles.hamburgerInner}></span>
+					</span>
 				</button>
 			</div>
 		</header>

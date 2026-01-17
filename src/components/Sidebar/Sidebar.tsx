@@ -7,6 +7,8 @@ import { WrenchScrewdriverIcon, DocumentTextIcon, SwatchIcon, PhotoIcon, CodeBra
 import { CATEGORIES, getToolsByCategory } from "@/config/tools-registry";
 import { ToolCategory } from "@/types/tools";
 import { scrambleText } from "@/lib/textEffects";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { closeMobileMenu } from "@/store/slices/uiSlice";
 import styles from "./Sidebar.module.scss";
 
 // Map categories to their icons
@@ -22,6 +24,8 @@ const CATEGORY_ICONS: Record<ToolCategory, React.ComponentType<React.SVGProps<SV
 export default function Sidebar() {
 	const [expandedCategories, setExpandedCategories] = useState<Set<ToolCategory>>(new Set(Object.keys(CATEGORIES) as ToolCategory[]));
 	const pathname = usePathname();
+	const dispatch = useAppDispatch();
+	const mobileMenuOpen = useAppSelector((state) => state.ui.mobileMenuOpen);
 
 	const toggleCategory = (category: ToolCategory) => {
 		const newExpanded = new Set(expandedCategories);
@@ -31,6 +35,10 @@ export default function Sidebar() {
 			newExpanded.add(category);
 		}
 		setExpandedCategories(newExpanded);
+	};
+
+	const handleCloseMobileMenu = () => {
+		dispatch(closeMobileMenu());
 	};
 
 	// Use a Map to store refs by tool ID for uniqueness across categories
@@ -43,7 +51,11 @@ export default function Sidebar() {
 	}, []);
 
 	return (
-		<aside className={styles.sidebar}>
+		<>
+			{/* Mobile overlay */}
+			{mobileMenuOpen && <div className={styles.overlay} onClick={handleCloseMobileMenu} />}
+
+			<aside className={`${styles.sidebar} ${mobileMenuOpen ? styles.sidebarOpen : ""}`}>
 			<div className={styles.sidebarContent}>
 				<Link href="/" className={styles.logo}>
 					<WrenchScrewdriverIcon className={styles.logoIcon} />
@@ -76,6 +88,7 @@ export default function Sidebar() {
 											return (
 												<Link
 													onMouseEnter={() => handleHover(tool.id, tool.name)}
+													onClick={tool.implemented ? handleCloseMobileMenu : undefined}
 													key={tool.id}
 													href={tool.implemented ? tool.route : "#"}
 													className={`${styles.toolLink} ${isActive ? styles.active : ""} ${!tool.implemented ? styles.disabled : ""}`}
@@ -101,5 +114,6 @@ export default function Sidebar() {
 				</nav>
 			</div>
 		</aside>
+		</>
 	);
 }

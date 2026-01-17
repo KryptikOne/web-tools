@@ -1,6 +1,30 @@
 @use '@/styles/variables' as *;
 @use '@/styles/mixins' as *;
 
+// Mobile overlay
+.overlay {
+  display: none;
+
+  @media (max-width: 768px) {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 99;
+    animation: fadeIn 0.3s ease;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .sidebar {
   position: fixed;
   left: 0;
@@ -12,10 +36,16 @@
   border-right: 1px solid $border-subtle;
   z-index: 100;
   overflow: hidden;
-  transition: background 0.3s ease, border-color 0.3s ease;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 
   @media (max-width: 768px) {
-    display: none;
+    transform: translateX(-100%);
+  }
+}
+
+.sidebarOpen {
+  @media (max-width: 768px) {
+    transform: translateX(0);
   }
 }
 
