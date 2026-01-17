@@ -74,7 +74,13 @@ export default function Sidebar() {
 										{tools.map((tool) => {
 											const isActive = pathname === tool.route;
 											return (
-												<Link onMouseEnter={() => handleHover(tool.id, tool.name)} key={tool.id} href={tool.implemented ? tool.route : "#"} className={`${styles.toolLink} ${isActive ? styles.active : ""} ${!tool.implemented ? styles.disabled : ""}`} title={tool.description}>
+												<Link
+													onMouseEnter={() => handleHover(tool.id, tool.name)}
+													key={tool.id}
+													href={tool.implemented ? tool.route : "#"}
+													className={`${styles.toolLink} ${isActive ? styles.active : ""} ${!tool.implemented ? styles.disabled : ""}`}
+													title={tool.description}
+												>
 													<span
 														className={styles.toolName}
 														ref={(el) => {
