@@ -86,6 +86,7 @@ Avoid premature optimization and over-engineering.
 Use a balanced combination of Tailwind utility classes and SCSS modules:
 
 **Use Tailwind classes for:**
+
 - Layout: `flex`, `grid`, `gap-*`, `p-*`, `m-*`
 - Typography: `text-*`, `font-*`
 - Common utilities: `rounded-*`, `shadow-*`, `opacity-*`
@@ -93,6 +94,7 @@ Use a balanced combination of Tailwind utility classes and SCSS modules:
 - States: `hover:`, `focus:`, `active:` variants
 
 **Use SCSS modules (`.module.scss`) for:**
+
 - Complex animations and transitions
 - Pseudo-elements (`::before`, `::after`)
 - Multi-property hover states
@@ -100,29 +102,28 @@ Use a balanced combination of Tailwind utility classes and SCSS modules:
 - Styles requiring SCSS variables or mixins
 
 **Pattern example:**
+
 ```tsx
 // Component.tsx - Tailwind for layout, SCSS for custom styles
 <div className={`flex gap-4 p-6 ${styles.glassCard}`}>
-  <button className={`px-4 py-2 rounded-lg ${styles.primaryBtn}`}>
-    Click me
-  </button>
+	<button className={`px-4 py-2 rounded-lg ${styles.primaryBtn}`}>Click me</button>
 </div>
 ```
 
 ```scss
 // Component.module.scss - Only what Tailwind can't do
 .glassCard {
-  @extend .glass-card; // From _utilities.scss
+	@extend .glass-card; // From _utilities.scss
 }
 
 .primaryBtn {
-  background: $color-accent;
-  transition: all 0.2s ease;
+	background: $color-accent;
+	transition: all 0.2s ease;
 
-  &:hover {
-    background: $color-accent-hover;
-    transform: translateY(-1px);
-  }
+	&:hover {
+		background: $color-accent-hover;
+		transform: translateY(-1px);
+	}
 }
 ```
 
@@ -153,3 +154,91 @@ When creating new utilities:
 - Add them to the appropriate location (`src/lib/` for pure functions, `src/hooks/` for React hooks)
 - Document them in the styleguide if they're reusable patterns
 - Ensure they're exported and discoverable
+
+---
+
+## Pending Migration: Tailwind + SCSS Hybrid
+
+The codebase needs to be migrated to the hybrid Tailwind + SCSS approach. This should be done in phases to manage scope.
+
+### Migration Phases
+
+**Phase 1: Core Components** (do first)
+
+- `src/components/ColorPickerPanel/`
+- `src/components/ColorPickerPopover/`
+- `src/components/Navigation/`
+- `src/components/Sidebar/`
+
+**Phase 2: Text/Data Tools**
+
+- `src/features/text-binary-converter/`
+- `src/features/invisible-character-remover/`
+- `src/features/html-entities/`
+- `src/features/epoch-converter/`
+
+**Phase 3: Design Tools**
+
+- `src/features/color-picker/`
+- `src/features/palette-generator/`
+- `src/features/gradient-generator/`
+- `src/features/box-shadow-generator/`
+- `src/features/border-radius-generator/`
+
+**Phase 4: Utility Tools**
+
+- `src/features/px-rem-calculator/`
+- `src/features/cubic-bezier/`
+- `src/features/timezone-converter/`
+- `src/features/kitchen-converter/`
+- `src/features/dice-roller/`
+- `src/features/dummy-image-generator/`
+
+### Per-File Migration Process
+
+For each feature/component:
+
+1. **Read the SCSS file** - Identify styles that Tailwind can replace:
+    - `display: flex/grid` → `flex`, `grid`
+    - `gap: *` → `gap-*`
+    - `padding: *` → `p-*`, `px-*`, `py-*`
+    - `margin: *` → `m-*`, `mx-*`, `my-*`
+    - `border-radius: *` → `rounded-*`
+    - `font-size: *` → `text-*`
+    - `font-weight: *` → `font-*`
+    - `text-align: *` → `text-left/center/right`
+    - `width/height: 100%` → `w-full`, `h-full`
+
+2. **Read the TSX file** - Note current className usage
+
+3. **Edit the TSX file** - Add Tailwind classes alongside existing SCSS module classes:
+
+    ```tsx
+    // Before
+    <div className={styles.container}>
+
+    // After
+    <div className={`flex flex-col gap-6 ${styles.container}`}>
+    ```
+
+4. **Edit the SCSS file** - Remove properties now handled by Tailwind
+
+5. **Verify** - Run `npm run build` to ensure no breakage
+
+### What to Keep in SCSS
+
+- `@extend .glass-card` and other utility extensions
+- Complex `&:hover` states with multiple properties
+- Animations and keyframes
+- `::before`, `::after` pseudo-elements
+- Styles using SCSS variables (`$color-accent`, etc.)
+- Media queries with custom breakpoints
+
+### Resume Instructions
+
+When starting a new session to continue migration:
+
+1. Check git status to see which files have been modified
+2. Ask user which phase to work on
+3. Process one feature at a time, committing after each
+4. Run build after each file to catch errors early
