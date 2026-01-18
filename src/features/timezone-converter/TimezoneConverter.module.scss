@@ -164,19 +164,45 @@
 	font-family: $font-family-display;
 	line-height: 1.1;
 	letter-spacing: -0.02em;
-	cursor: pointer;
-	transition: color 0.2s ease;
 	border-radius: $radius-md;
 	padding: 0.25rem 0.5rem;
 	margin: -0.25rem -0.5rem;
 
-	&:hover {
-		color: $color-accent;
-	}
-
 	@media (max-width: 480px) {
 		font-size: 2.25rem;
 	}
+}
+
+// Editable time (left side) - shows edit affordance
+.largeTimeEditable {
+	@extend .largeTime;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	border: 1px dashed transparent;
+
+	&:hover {
+		color: $color-accent;
+		border-color: $color-accent;
+		background: $color-accent-20;
+	}
+}
+
+// Active editing state wrapper
+.largeTimeEditing {
+	border: 1px solid $color-accent;
+	background: $color-accent-20;
+	border-radius: $radius-md;
+	padding: 0.25rem 0.5rem;
+	margin: -0.25rem -0.5rem;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+// Read-only time (right side) - no interaction
+.largeTimeReadonly {
+	@extend .largeTime;
+	cursor: default;
 }
 
 .offsetLabel {

@@ -325,11 +325,13 @@ export default function TimezoneConverter() {
 
 						<div className={styles.timeDisplay}>
 							{useCurrentTime ? (
-								<div className={styles.largeTime} onClick={() => setUseCurrentTime(false)} title="Click to set custom time">
+								<div className={styles.largeTimeEditable} onClick={() => setUseCurrentTime(false)} title="Click to set custom time">
 									{formatTimeDisplay(inputHours, inputMinutes)}
 								</div>
 							) : (
-								<input type="time" value={formatTime24(inputHours, inputMinutes)} onChange={handleTimeChange} className={styles.timeInputLarge} autoFocus />
+								<div className={styles.largeTimeEditing}>
+									<input type="time" value={formatTime24(inputHours, inputMinutes)} onChange={handleTimeChange} className={styles.timeInputLarge} autoFocus />
+								</div>
 							)}
 							<div className={styles.offsetLabel}>{fromTz && formatOffset(fromTz.offset)}</div>
 						</div>
@@ -361,7 +363,7 @@ export default function TimezoneConverter() {
 						</select>
 
 						<div className={styles.timeDisplay}>
-							<div className={styles.largeTime}>{formatTimeDisplay(convertedTime.hours, convertedTime.minutes)}</div>
+							<div className={styles.largeTimeReadonly}>{formatTimeDisplay(convertedTime.hours, convertedTime.minutes)}</div>
 							{convertedTime.dayOffset !== 0 && <div className={styles.dayOffset}>{convertedTime.dayOffset > 0 ? `+${convertedTime.dayOffset} day` : `${convertedTime.dayOffset} day`}</div>}
 							<div className={styles.offsetLabel}>{toTz && formatOffset(toTz.offset)}</div>
 						</div>
