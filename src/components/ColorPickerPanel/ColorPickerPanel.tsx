@@ -95,6 +95,13 @@ function DesktopColorPicker({
 	});
 	const [isDraggingCanvas, setIsDraggingCanvas] = useState(false);
 	const [isDraggingHue, setIsDraggingHue] = useState(false);
+	// Track raw input for multi-format support
+	const [hexInputValue, setHexInputValue] = useState(color);
+
+	// Sync input value when external color changes (but not when user is typing)
+	useEffect(() => {
+		setHexInputValue(color);
+	}, [color]);
 
 	// Sync HSV when external color changes
 	useEffect(() => {
@@ -201,6 +208,38 @@ function DesktopColorPicker({
 		[hsv, disabled, updateColorFromHsv]
 	);
 
+	// Parse multi-format color input (hex, rgb, hsl, oklch)
+	const handleColorInputCommit = useCallback(() => {
+		if (disabled) return;
+		const input = hexInputValue.trim();
+
+		// Try parsing with ColorUtils (supports hex, rgb, hsl, oklch)
+		const parsed = ColorUtils.parseColor(input);
+		if (parsed) {
+			const newHex = ColorUtils.rgbToHex(...parsed.rgb);
+			onChange(newHex);
+			setHsv(ColorUtils.rgbToHsv(...parsed.rgb));
+			setHexInputValue(newHex);
+			return;
+		}
+
+		// Also try adding # prefix if it looks like a hex without it
+		if (/^[0-9A-Fa-f]{3,6}$/.test(input)) {
+			const withHash = '#' + input;
+			const parsedHex = ColorUtils.parseColor(withHash);
+			if (parsedHex) {
+				const newHex = ColorUtils.rgbToHex(...parsedHex.rgb);
+				onChange(newHex);
+				setHsv(ColorUtils.rgbToHsv(...parsedHex.rgb));
+				setHexInputValue(newHex);
+				return;
+			}
+		}
+
+		// Invalid input - revert to current color
+		setHexInputValue(color);
+	}, [hexInputValue, color, onChange, disabled]);
+
 	return (
 		<div className={`${styles.panel} ${disabled ? styles.disabled : ""} ${className ?? ""}`}>
 			{/* Saturation/Value Canvas */}
@@ -257,18 +296,17 @@ function DesktopColorPicker({
 						hexEditable ? (
 							<input
 								type="text"
-								value={color}
-								onChange={(e) => {
-									if (disabled) return;
-									const val = e.target.value;
-									if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
-										onChange(val);
-										const rgb = ColorUtils.hexToRgb(val, FALLBACK_RGB);
-										setHsv(ColorUtils.rgbToHsv(...rgb));
+								value={hexInputValue}
+								onChange={(e) => setHexInputValue(e.target.value)}
+								onBlur={handleColorInputCommit}
+								onKeyDown={(e) => {
+									if (e.key === 'Enter') {
+										handleColorInputCommit();
+										(e.target as HTMLInputElement).blur();
 									}
 								}}
 								className={styles.hexInput}
-								maxLength={7}
+								placeholder="#hex, rgb(), hsl(), oklch()"
 								disabled={disabled}
 							/>
 						) : (

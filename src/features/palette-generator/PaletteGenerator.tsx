@@ -311,7 +311,7 @@ export default function PaletteGenerator() {
 								<button className={`${styles.actionBtn} ${copiedIndex === index ? styles.copied : ""}`} onClick={() => copyColor(color.hex, index)} title="Copy color">
 									{copiedIndex === index ? <CheckIcon className="w-4 h-4" /> : <ClipboardDocumentIcon className="w-4 h-4" />}
 								</button>
-								<ColorPickerPopover color={color.hex} onChange={(hex) => dispatch(updateColor({ id: color.id, hex }))} swatchSize="lg" showHex={false} />
+								<ColorPickerPopover color={color.hex} onChange={(hex) => dispatch(updateColor({ id: color.id, hex }))} swatchSize="lg" showHex={true} />
 							</div>
 						</div>
 					</div>

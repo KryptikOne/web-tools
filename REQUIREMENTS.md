@@ -69,24 +69,82 @@ See [ROADMAP.md](./ROADMAP.md) for the complete list of planned tools organized 
 
 #### 2.1.3 Styling
 
--   Tailwind CSS v4 for utility classes
--   SCSS modules for component-specific styles
--   OKLCH color space for all color definitions
--   CSS custom properties for theming
--   No inline styles in components (prefer Tailwind or modules)
--   Try to centralize things in utilities and either @extend or @include as much as possible, keep styles D.R.Y.
+**Hybrid Tailwind + SCSS Approach:**
+
+Use a balanced combination of Tailwind utility classes in markup and SCSS modules for complex/custom styles:
+
+1. **Tailwind First** - Use Tailwind classes for:
+   - Layout (flex, grid, spacing, positioning)
+   - Typography (font sizes, weights, colors)
+   - Common utilities (rounded, shadow, opacity)
+   - Responsive breakpoints
+   - State variants (hover, focus, active)
+
+2. **SCSS Modules When** - Use `[Component].module.scss` for:
+   - Complex animations/transitions
+   - Pseudo-elements (::before, ::after)
+   - Multi-property hover states
+   - Component-specific custom styles
+   - Styles requiring SCSS variables/mixins
+
+3. **Utility Classes** - Extend via `@extend` from `_utilities.scss`:
+   - `.glass-card` - Glassmorphism card style
+   - `.container` - Standard content container
+   - `.copy-btn`, `.copy-icon` - Clipboard button patterns
+   - `.section-title` - Consistent section headers
+
+**Core Principles:**
+- OKLCH color space for all color definitions
+- CSS custom properties for theming
+- No inline styles in components
+- Keep styles D.R.Y. - centralize in utilities, use `@extend` or `@include`
+- Tailwind for structure, SCSS for polish
 
 #### 2.1.4 Code Organization
 
 ```
 src/
-├── app/tools/[tool-name]/page.tsx    # Route definition
+├── app/
+│   ├── tools/[tool-name]/page.tsx     # Route definition
+│   └── styleguide/page.tsx            # Component/pattern documentation
+├── components/                         # Reusable UI components
+│   ├── ColorPickerPanel/              # HSV color picker with multi-format input
+│   ├── ColorPickerPopover/            # Viewport-aware popover wrapper
+│   └── [Component]/                   # Pattern: Component.tsx + Component.module.scss
 ├── features/[tool-name]/              # Tool implementation
 │   ├── ToolName.tsx                   # Main component
 │   └── ToolName.module.scss           # Styles (if needed)
+├── hooks/                             # Custom React hooks
+│   ├── useIsMobile.ts                 # SSR-safe mobile detection
+│   └── useClipboard.ts                # Clipboard operations with feedback
+├── lib/                               # Pure utility functions
+│   └── colorUtils.ts                  # Color parsing/conversion (hex, RGB, HSL, HSV, OKLCH)
 ├── store/slices/[tool]Slice.ts        # Redux state (if needed)
-└── lib/[tool]Utils.ts                 # Utility functions (if needed)
+└── styles/                            # Global styles and utilities
+    ├── _variables.scss                # Design tokens
+    ├── _mixins.scss                   # Reusable SCSS mixins
+    └── _utilities.scss                # Extendable utility classes
 ```
+
+#### 2.1.5 Reusable Components & Utilities
+
+**Components** (`src/components/`):
+- `ColorPickerPanel` - Canvas-based HSV picker with multi-format input (hex, RGB, HSL, OKLCH)
+- `ColorPickerPopover` - Viewport-aware popover with mobile fallback to native input
+
+**Hooks** (`src/hooks/`):
+- `useIsMobile` - SSR-safe mobile detection with hydration handling
+- `useClipboard` - Clipboard write with success/error feedback state
+
+**Utilities** (`src/lib/`):
+- `colorUtils.ts` - Color space conversions and parsing:
+  - `parseColor()` - Parse any format to RGB
+  - `hexToRgb()`, `rgbToHex()` - Hex conversions
+  - `rgbToHsl()`, `hslToRgb()` - HSL conversions
+  - `rgbToHsv()`, `hsvToRgb()` - HSV conversions
+  - `rgbToOklch()`, `oklchToRgb()` - OKLCH conversions
+
+**Principle:** Always check existing utilities before implementing new functionality. Extend rather than duplicate.
 
 ### 2.2 Performance
 
@@ -154,11 +212,17 @@ src/
 
 #### 3.1.3 Component Consistency
 
--   All tools use `ToolLayout` wrapper component
--   Consistent input styles (text fields, selects, buttons)
+-   All tools use consistent layout patterns via utility classes:
+    - `.container` for page-level content wrapper
+    - `.glass-card` for elevated content sections
+    - `.section-title` for consistent headings
+-   Consistent input styles via Tailwind + SCSS modules
 -   Standardized button variants (primary, secondary, tertiary)
--   Uniform card styling for tool options
 -   Glass morphism effects for elevated surfaces
+-   Editable state pattern: readonly → editable (hover) → editing (active)
+-   Viewport-aware popovers that adjust positioning automatically
+
+**Styleguide:** Reference `/styleguide` for live examples of all patterns and components.
 
 ### 3.2 Layout & Navigation
 
@@ -363,4 +427,5 @@ src/
 
 ## Revision History
 
+-   **v1.1** - Added reusable components, hybrid Tailwind+SCSS approach, styleguide reference (2026-01-18)
 -   **v1.0** - Initial requirements document (2026-01-10)

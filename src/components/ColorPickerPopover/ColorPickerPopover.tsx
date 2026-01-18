@@ -19,6 +19,8 @@ export interface ColorPickerPopoverProps {
 	swatchSize?: "sm" | "md" | "lg";
 	/** Show hex value in popover (default: true) */
 	showHex?: boolean;
+	/** Make hex value editable as input (default: true) */
+	hexEditable?: boolean;
 	/** Optional className for the trigger swatch */
 	className?: string;
 }
@@ -40,6 +42,7 @@ export function ColorPickerPopover({
 	disabled = false,
 	swatchSize = "md",
 	showHex = true,
+	hexEditable = true,
 	className,
 }: ColorPickerPopoverProps) {
 	const [isOpen, setIsOpen] = useState(false);
@@ -140,7 +143,7 @@ export function ColorPickerPopover({
 					ref={popoverRef}
 					className={`${styles.popover} ${styles[position.h]} ${styles[position.v]}`}
 				>
-					<ColorPickerPanel color={color} onChange={onChange} showHex={showHex} />
+					<ColorPickerPanel color={color} onChange={onChange} showHex={showHex} hexEditable={hexEditable} />
 				</div>
 			)}
 		</div>
