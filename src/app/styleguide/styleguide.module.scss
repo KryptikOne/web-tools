@@ -1403,3 +1403,206 @@
     gap: $spacing-sm;
   }
 }
+
+// Component Documentation
+.componentDescription {
+  font-size: 0.9375rem;
+  color: $text-secondary;
+  line-height: 1.6;
+  margin: 0 0 $spacing-lg 0;
+  max-width: 700px;
+}
+
+.componentDemo {
+  @include glass-card;
+  margin-bottom: $spacing-lg;
+}
+
+.componentDemoRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xl;
+
+  & + & {
+    margin-top: $spacing-lg;
+    padding-top: $spacing-lg;
+    border-top: 1px solid $border-subtle;
+  }
+}
+
+.componentDemoItem {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $spacing-sm;
+
+  code {
+    font-family: $font-family-mono;
+    font-size: 0.75rem;
+    color: $text-code;
+  }
+}
+
+.componentDemoLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: $text-tertiary;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.propsTable {
+  margin-bottom: $spacing-lg;
+
+  h4 {
+    font-family: $font-family-display;
+    font-size: 1rem;
+    font-weight: 600;
+    color: $text-primary;
+    margin: 0 0 $spacing-md 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+
+    th, td {
+      padding: $spacing-sm $spacing-md;
+      text-align: left;
+      border-bottom: 1px solid $border-subtle;
+    }
+
+    th {
+      background: $bg-glass;
+      color: $text-secondary;
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    td {
+      color: $text-primary;
+
+      code {
+        font-family: $font-family-mono;
+        font-size: 0.8125rem;
+        color: $text-code;
+        background: $input-bg;
+        padding: 2px 6px;
+        border-radius: $radius-sm;
+      }
+    }
+
+    td:nth-child(2) {
+      color: $text-tertiary;
+      font-family: $font-family-mono;
+      font-size: 0.8125rem;
+    }
+
+    td:nth-child(3) {
+      color: $text-muted;
+      font-family: $font-family-mono;
+      font-size: 0.8125rem;
+    }
+  }
+}
+
+.featureList {
+  h4 {
+    font-family: $font-family-display;
+    font-size: 1rem;
+    font-weight: 600;
+    color: $text-primary;
+    margin: 0 0 $spacing-md 0;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: $spacing-lg;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+
+    li {
+      font-size: 0.875rem;
+      color: $text-secondary;
+      line-height: 1.5;
+
+      strong {
+        color: $text-primary;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+// Editable State Pattern Demo
+.statePatternDemo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: $spacing-lg;
+  margin-bottom: $spacing-lg;
+}
+
+.stateExample {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+
+  code {
+    font-family: $font-family-mono;
+    font-size: 0.7rem;
+    color: $text-muted;
+  }
+}
+
+.stateLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: $text-tertiary;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stateReadonly {
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: $font-family-display;
+  color: $text-primary;
+  padding: $spacing-sm $spacing-md;
+  cursor: default;
+}
+
+.stateEditable {
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: $font-family-display;
+  color: $color-accent;
+  padding: $spacing-sm $spacing-md;
+  border: 1px dashed $color-accent;
+  border-radius: $radius-md;
+  background: $color-accent-20;
+  cursor: pointer;
+}
+
+.stateEditing {
+  padding: $spacing-sm $spacing-md;
+  border: 1px solid $color-accent;
+  border-radius: $radius-md;
+  background: $color-accent-20;
+  display: inline-flex;
+  align-items: center;
+}
+
+.stateInput {
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: $font-family-display;
+  color: $text-primary;
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100px;
+}

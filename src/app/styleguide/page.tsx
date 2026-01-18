@@ -1,12 +1,36 @@
 "use client";
 
 import { useState } from "react";
-import { SwatchIcon, DocumentTextIcon, PhotoIcon, CodeBracketIcon, CalculatorIcon, ClipboardDocumentIcon, CheckIcon, ArrowPathIcon, TrashIcon, PlusIcon, SunIcon, MoonIcon, Bars3Icon, XMarkIcon, LinkIcon, ClockIcon, EyeIcon, BookmarkIcon } from "@heroicons/react/24/outline";
+import {
+	SwatchIcon,
+	DocumentTextIcon,
+	PhotoIcon,
+	CodeBracketIcon,
+	CalculatorIcon,
+	ClipboardDocumentIcon,
+	CheckIcon,
+	ArrowPathIcon,
+	TrashIcon,
+	PlusIcon,
+	SunIcon,
+	MoonIcon,
+	Bars3Icon,
+	XMarkIcon,
+	LinkIcon,
+	ClockIcon,
+	EyeIcon,
+	BookmarkIcon,
+	PencilIcon,
+} from "@heroicons/react/24/outline";
 import { Button } from "@/components/ui/button";
+import { ColorPickerPopover } from "@/components/ColorPickerPopover";
 import styles from "./styleguide.module.scss";
 
 export default function StyleguidePage() {
 	const [copiedItem, setCopiedItem] = useState<string | null>(null);
+	const [demoColor1, setDemoColor1] = useState("#667eea");
+	const [demoColor2, setDemoColor2] = useState("#22c55e");
+	const [demoColor3, setDemoColor3] = useState("#f59e0b");
 
 	const copyToClipboard = async (text: string, id: string) => {
 		await navigator.clipboard.writeText(text);
@@ -51,6 +75,9 @@ export default function StyleguidePage() {
 						<a href="#inputs">Inputs</a>
 					</li>
 					<li>
+						<a href="#components">Components</a>
+					</li>
+					<li>
 						<a href="#cards">Cards</a>
 					</li>
 					<li>
@@ -65,13 +92,19 @@ export default function StyleguidePage() {
 					<li>
 						<a href="#patterns">Common Patterns</a>
 					</li>
+					<li>
+						<a href="#hooks">Hooks</a>
+					</li>
 				</ul>
 			</nav>
 
 			{/* Color System Proposal */}
 			<section id="color-system" className={styles.section}>
 				<h2 className={styles.sectionTitle}>Color System</h2>
-				<p className={styles.sectionDescription}>Our color system is built around a vibrant lime green primary color. The accent colors have been carefully selected using color theory to complement the primary while maintaining excellent contrast and accessibility.</p>
+				<p className={styles.sectionDescription}>
+					Our color system is built around a vibrant lime green primary color. The accent colors have been carefully selected using color theory to complement the primary while maintaining
+					excellent contrast and accessibility.
+				</p>
 
 				{/* Color Philosophy */}
 				<div className={styles.subsection}>
@@ -80,13 +113,18 @@ export default function StyleguidePage() {
 						<div className={styles.philosophyCard}>
 							<div className={styles.philosophyIcon} style={{ background: "oklch(91.9% 0.196 131.1)" }} />
 							<h4>Primary - Lime Green</h4>
-							<p>The foundation of our brand. A vibrant, energetic lime green that represents growth, technology, and innovation. Used for primary actions, highlights, and key UI elements.</p>
+							<p>
+								The foundation of our brand. A vibrant, energetic lime green that represents growth, technology, and innovation. Used for primary actions, highlights, and key UI
+								elements.
+							</p>
 							<code>oklch(91.9% 0.196 131.1)</code>
 						</div>
 						<div className={styles.philosophyCard}>
 							<div className={styles.philosophyIcon} style={{ background: "oklch(75% 0.15 180)" }} />
 							<h4>Accent - Teal</h4>
-							<p>An analogous teal that harmonizes with the primary green. Used for secondary actions, links, and interactive elements. Creates visual cohesion while providing contrast.</p>
+							<p>
+								An analogous teal that harmonizes with the primary green. Used for secondary actions, links, and interactive elements. Creates visual cohesion while providing contrast.
+							</p>
 							<code>oklch(75% 0.15 180)</code>
 						</div>
 						<div className={styles.philosophyCard}>
@@ -755,6 +793,200 @@ export default function StyleguidePage() {
 				</div>
 			</section>
 
+			{/* Components Section */}
+			<section id="components" className={styles.section}>
+				<h2 className={styles.sectionTitle}>Components</h2>
+
+				<div className={styles.subsection}>
+					<h3 className={styles.subsectionTitle}>ColorPickerPopover</h3>
+					<p className={styles.componentPath}>
+						<code>src/components/ColorPickerPopover/ColorPickerPopover.tsx</code>
+					</p>
+					<p className={styles.componentDescription}>
+						A popover-based color picker that shows a swatch trigger. On desktop, clicking opens an HSV color picker panel. On mobile, falls back to the native color input. Automatically
+						adjusts position to stay within viewport.
+					</p>
+					<div className={styles.componentDemo}>
+						<div className={styles.componentDemoRow}>
+							<div className={styles.componentDemoItem}>
+								<span className={styles.componentDemoLabel}>Small (sm)</span>
+								<ColorPickerPopover color={demoColor1} onChange={setDemoColor1} swatchSize="sm" />
+								<code>{demoColor1}</code>
+							</div>
+							<div className={styles.componentDemoItem}>
+								<span className={styles.componentDemoLabel}>Medium (md)</span>
+								<ColorPickerPopover color={demoColor2} onChange={setDemoColor2} swatchSize="md" />
+								<code>{demoColor2}</code>
+							</div>
+							<div className={styles.componentDemoItem}>
+								<span className={styles.componentDemoLabel}>Large (lg)</span>
+								<ColorPickerPopover color={demoColor3} onChange={setDemoColor3} swatchSize="lg" />
+								<code>{demoColor3}</code>
+							</div>
+						</div>
+						<div className={styles.componentDemoRow}>
+							<div className={styles.componentDemoItem}>
+								<span className={styles.componentDemoLabel}>Without hex display</span>
+								<ColorPickerPopover color={demoColor1} onChange={setDemoColor1} swatchSize="md" showHex={false} />
+							</div>
+							<div className={styles.componentDemoItem}>
+								<span className={styles.componentDemoLabel}>Disabled</span>
+								<ColorPickerPopover color="#999999" onChange={() => {}} swatchSize="md" disabled />
+							</div>
+						</div>
+					</div>
+					<div className={styles.propsTable}>
+						<h4>Props</h4>
+						<table>
+							<thead>
+								<tr>
+									<th>Prop</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th>Description</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<code>color</code>
+									</td>
+									<td>string</td>
+									<td>required</td>
+									<td>Current color as hex string (e.g., &quot;#ff0000&quot;)</td>
+								</tr>
+								<tr>
+									<td>
+										<code>onChange</code>
+									</td>
+									<td>(color: string) =&gt; void</td>
+									<td>required</td>
+									<td>Callback when color changes</td>
+								</tr>
+								<tr>
+									<td>
+										<code>swatchSize</code>
+									</td>
+									<td>&quot;sm&quot; | &quot;md&quot; | &quot;lg&quot;</td>
+									<td>&quot;md&quot;</td>
+									<td>Size of the trigger swatch (24px, 32px, 40px)</td>
+								</tr>
+								<tr>
+									<td>
+										<code>showHex</code>
+									</td>
+									<td>boolean</td>
+									<td>true</td>
+									<td>Show hex value in popover</td>
+								</tr>
+								<tr>
+									<td>
+										<code>disabled</code>
+									</td>
+									<td>boolean</td>
+									<td>false</td>
+									<td>Disable the picker</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div className={styles.featureList}>
+						<h4>Features</h4>
+						<ul>
+							<li>
+								<strong>Viewport-aware positioning:</strong> Automatically flips to top/right when near edges
+							</li>
+							<li>
+								<strong>Mobile fallback:</strong> Uses native color input on mobile devices
+							</li>
+							<li>
+								<strong>HSV color model:</strong> Intuitive saturation/value picker with hue slider
+							</li>
+							<li>
+								<strong>Keyboard support:</strong> Press Escape to close
+							</li>
+							<li>
+								<strong>Click outside:</strong> Closes popover when clicking outside
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div className={styles.subsection}>
+					<h3 className={styles.subsectionTitle}>ColorPickerPanel</h3>
+					<p className={styles.componentPath}>
+						<code>src/components/ColorPickerPanel/ColorPickerPanel.tsx</code>
+					</p>
+					<p className={styles.componentDescription}>
+						The underlying HSV color picker panel used by ColorPickerPopover. Can be used directly for embedded color pickers (like in the Gradient Generator). Shows a loading skeleton
+						during SSR hydration.
+					</p>
+					<div className={styles.propsTable}>
+						<h4>Props</h4>
+						<table>
+							<thead>
+								<tr>
+									<th>Prop</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th>Description</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<code>color</code>
+									</td>
+									<td>string</td>
+									<td>required</td>
+									<td>Current color as hex string</td>
+								</tr>
+								<tr>
+									<td>
+										<code>onChange</code>
+									</td>
+									<td>(color: string) =&gt; void</td>
+									<td>required</td>
+									<td>Callback when color changes</td>
+								</tr>
+								<tr>
+									<td>
+										<code>showHex</code>
+									</td>
+									<td>boolean</td>
+									<td>true</td>
+									<td>Show hex value display</td>
+								</tr>
+								<tr>
+									<td>
+										<code>hexEditable</code>
+									</td>
+									<td>boolean</td>
+									<td>false</td>
+									<td>Make hex value an editable input</td>
+								</tr>
+								<tr>
+									<td>
+										<code>showPreview</code>
+									</td>
+									<td>boolean</td>
+									<td>true</td>
+									<td>Show color preview swatch in footer</td>
+								</tr>
+								<tr>
+									<td>
+										<code>disabled</code>
+									</td>
+									<td>boolean</td>
+									<td>false</td>
+									<td>Disable the picker</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</section>
+
 			{/* Cards Section */}
 			<section id="cards" className={styles.section}>
 				<h2 className={styles.sectionTitle}>Cards</h2>
@@ -1047,6 +1279,48 @@ export default function StyleguidePage() {
 				</div>
 
 				<div className={styles.subsection}>
+					<h3 className={styles.subsectionTitle}>Editable State Pattern</h3>
+					<p className={styles.componentDescription}>
+						Use distinct visual styles to communicate editability. This pattern shows three states: default (non-interactive), hover (affordance), and editing (active).
+					</p>
+					<div className={styles.statePatternDemo}>
+						<div className={styles.stateExample}>
+							<div className={styles.stateLabel}>Default (Read-only)</div>
+							<div className={styles.stateReadonly}>3:45 PM</div>
+							<code>cursor: default, no effects</code>
+						</div>
+						<div className={styles.stateExample}>
+							<div className={styles.stateLabel}>Hover (Editable)</div>
+							<div className={styles.stateEditable}>3:45 PM</div>
+							<code>cursor: pointer, dashed border, tint</code>
+						</div>
+						<div className={styles.stateExample}>
+							<div className={styles.stateLabel}>Editing (Active)</div>
+							<div className={styles.stateEditing}>
+								<input type="text" defaultValue="15:45" className={styles.stateInput} />
+							</div>
+							<code>solid border, tint background</code>
+						</div>
+					</div>
+					<div className={styles.harmonyNote}>
+						<p>
+							<strong>Pattern usage:</strong>
+						</p>
+						<ul>
+							<li>
+								<strong>Read-only:</strong> Default cursor, no hover effects - indicates output/display only
+							</li>
+							<li>
+								<strong>Editable hover:</strong> Pointer cursor, dashed border + subtle tint on hover - indicates &quot;click to edit&quot;
+							</li>
+							<li>
+								<strong>Editing:</strong> Solid border + tint background - indicates active editing mode
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div className={styles.subsection}>
 					<h3 className={styles.subsectionTitle}>Z-Index Scale</h3>
 					<div className={styles.zIndexList}>
 						<div className={styles.zIndexItem}>
@@ -1085,76 +1359,60 @@ export default function StyleguidePage() {
 				</div>
 			</section>
 
-			{/* File Locations */}
-			<section id="files" className={styles.section}>
-				<h2 className={styles.sectionTitle}>File Locations</h2>
+			{/* Hooks Section */}
+			<section id="hooks" className={styles.section}>
+				<h2 className={styles.sectionTitle}>Hooks</h2>
 
-				<div className={styles.fileList}>
-					<h3 className={styles.subsectionTitle}>Style Files</h3>
-					<ul>
-						<li>
-							<code>src/styles/_variables.scss</code> - All SCSS variables
-						</li>
-						<li>
-							<code>src/styles/_mixins.scss</code> - Reusable mixins
-						</li>
-						<li>
-							<code>src/styles/globals.css</code> - Global CSS & theme definitions
-						</li>
-					</ul>
-
-					<h3 className={styles.subsectionTitle}>Core Components</h3>
-					<ul>
-						<li>
-							<code>src/components/ui/button.tsx</code> - Button primitive
-						</li>
-						<li>
-							<code>src/components/AppLayout/</code> - Main layout wrapper
-						</li>
-						<li>
-							<code>src/components/Sidebar/</code> - Navigation sidebar
-						</li>
-						<li>
-							<code>src/components/TopBar/</code> - Header with theme toggle
-						</li>
-						<li>
-							<code>src/components/ToolCard/</code> - Tool preview cards
-						</li>
-						<li>
-							<code>src/components/ToolLayout/</code> - Tool page wrapper
-						</li>
-					</ul>
-
-					<h3 className={styles.subsectionTitle}>Feature Components</h3>
-					<ul>
-						<li>
-							<code>src/features/color-picker/</code>
-						</li>
-						<li>
-							<code>src/features/gradient-generator/</code>
-						</li>
-						<li>
-							<code>src/features/box-shadow-generator/</code>
-						</li>
-						<li>
-							<code>src/features/border-radius-generator/</code>
-						</li>
-						<li>
-							<code>src/features/cubic-bezier/</code>
-						</li>
-						<li>
-							<code>src/features/epoch-converter/</code>
-						</li>
-						<li>
-							<code>src/features/px-rem-calculator/</code>
-						</li>
-						<li>
-							<code>src/features/html-entities/</code>
-						</li>
-						<li>
-							<code>src/features/invisible-character-remover/</code>
-						</li>
-					</ul>
+				<div className={styles.subsection}>
+					<h3 className={styles.subsectionTitle}>useIsMobile</h3>
+					<p className={styles.componentPath}>
+						<code>src/hooks/useIsMobile.ts</code>
+					</p>
+					<p className={styles.componentDescription}>
+						A hook for detecting mobile viewport. Returns <code>null</code> during SSR to prevent hydration mismatches, then the actual boolean value after hydration.
+					</p>
+					<div className={styles.codeBlock}>
+						<code>{`const isMobile = useIsMobile(); // null | boolean`}</code>
+					</div>
+					<div className={styles.propsTable}>
+						<h4>Parameters</h4>
+						<table>
+							<thead>
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th>Description</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<code>breakpoint</code>
+									</td>
+									<td>number</td>
+									<td>768</td>
+									<td>Width threshold for mobile detection</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div className={styles.harmonyNote}>
+						<p>
+							<strong>Usage pattern:</strong>
+						</p>
+						<ul>
+							<li>
+								Returns <code>null</code> during SSR - render loading skeleton or neutral UI
+							</li>
+							<li>
+								Returns <code>true</code> on mobile - show mobile-optimized UI (e.g., native inputs)
+							</li>
+							<li>
+								Returns <code>false</code> on desktop - show desktop UI (e.g., custom color picker)
+							</li>
+						</ul>
+					</div>
 				</div>
 			</section>
 		</div>
