@@ -1,5 +1,31 @@
 // Color conversion utilities for OKLCH color space
 
+// HEX to RGB with overloads for proper type inference
+// Supports #RGB, #RRGGBB, #RGBA, #RRGGBBAA formats
+function hexToRgb(hex: string, fallback: [number, number, number]): [number, number, number];
+function hexToRgb(hex: string): [number, number, number] | null;
+function hexToRgb(hex: string, fallback?: [number, number, number]): [number, number, number] | null {
+  // Remove # if present
+  hex = hex.replace(/^#/, '');
+
+  // Handle 3-digit hex (#RGB)
+  if (hex.length === 3) {
+    hex = hex.split('').map(char => char + char).join('');
+  }
+
+  // Handle 4-digit hex (#RGBA)
+  if (hex.length === 4) {
+    hex = hex.split('').map(char => char + char).join('');
+  }
+
+  // Extract RGB values (ignore alpha channel if present)
+  const result = /^([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})?$/i.exec(hex);
+  if (result) {
+    return [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)];
+  }
+  return fallback ?? null;
+}
+
 export const ColorUtils = {
   // OKLCH to RGB
   oklchToRgb(l: number, c: number, h: number): [number, number, number] {
@@ -67,6 +93,70 @@ export const ColorUtils = {
     return [L, C, H];
   },
 
+  // HSV to RGB
+  hsvToRgb(h: number, s: number, v: number): [number, number, number] {
+    const c = v * s;
+    const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+    const m = v - c;
+
+    let r = 0,
+      g = 0,
+      b = 0;
+
+    if (h < 60) {
+      r = c;
+      g = x;
+    } else if (h < 120) {
+      r = x;
+      g = c;
+    } else if (h < 180) {
+      g = c;
+      b = x;
+    } else if (h < 240) {
+      g = x;
+      b = c;
+    } else if (h < 300) {
+      r = x;
+      b = c;
+    } else {
+      r = c;
+      b = x;
+    }
+
+    return [Math.round((r + m) * 255), Math.round((g + m) * 255), Math.round((b + m) * 255)];
+  },
+
+  // RGB to HSV
+  rgbToHsv(r: number, g: number, b: number): [number, number, number] {
+    r /= 255;
+    g /= 255;
+    b /= 255;
+
+    const max = Math.max(r, g, b);
+    const min = Math.min(r, g, b);
+    const d = max - min;
+
+    let h = 0;
+    const s = max === 0 ? 0 : d / max;
+    const v = max;
+
+    if (max !== min) {
+      switch (max) {
+        case r:
+          h = ((g - b) / d + (g < b ? 6 : 0)) * 60;
+          break;
+        case g:
+          h = ((b - r) / d + 2) * 60;
+          break;
+        case b:
+          h = ((r - g) / d + 4) * 60;
+          break;
+      }
+    }
+
+    return [h, s, v];
+  },
+
   // RGB to HEX
   rgbToHex(r: number, g: number, b: number): string {
     return (
@@ -80,27 +170,8 @@ export const ColorUtils = {
     );
   },
 
-  // HEX to RGB (supports #RGB, #RRGGBB, #RGBA, #RRGGBBAA formats)
-  hexToRgb(hex: string): [number, number, number] | null {
-    // Remove # if present
-    hex = hex.replace(/^#/, '');
-
-    // Handle 3-digit hex (#RGB)
-    if (hex.length === 3) {
-      hex = hex.split('').map(char => char + char).join('');
-    }
-
-    // Handle 4-digit hex (#RGBA)
-    if (hex.length === 4) {
-      hex = hex.split('').map(char => char + char).join('');
-    }
-
-    // Extract RGB values (ignore alpha channel if present)
-    const result = /^([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})?$/i.exec(hex);
-    return result
-      ? [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)]
-      : null;
-  },
+  // HEX to RGB - uses overloaded function defined above
+  hexToRgb,
 
   // RGB to HSL
   rgbToHsl(r: number, g: number, b: number): [number, number, number] {

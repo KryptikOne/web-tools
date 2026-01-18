@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo, useCallback } from "react";
 import { ColorUtils } from "@/lib/colorUtils";
 import { ClipboardDocumentIcon, CheckIcon, ArrowPathIcon, SwatchIcon, BookmarkIcon, EyeIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { Button } from "@/components/ui/button";
+import { ColorPickerPopover } from "@/components/ColorPickerPopover";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { hydrateColorPicker, setOklch, setAlpha, saveColor, loadColor, clearSavedColors, SavedColor } from "@/store/slices/colorPickerSlice";
 import styles from "./ColorPicker.module.scss";
@@ -107,7 +108,7 @@ export default function ColorPicker() {
 
 			return (lighter + 0.05) / (darker + 0.05);
 		},
-		[getLuminance]
+		[getLuminance],
 	);
 
 	// Check if a color meets contrast requirements on both black and white
@@ -119,7 +120,7 @@ export default function ColorPicker() {
 			const contrastOnBlack = calculateContrast(testRgb, [0, 0, 0]);
 			return contrastOnWhite >= minRatio && contrastOnBlack >= minRatio;
 		},
-		[calculateContrast]
+		[calculateContrast],
 	);
 
 	// Generate accessible random color
@@ -141,7 +142,7 @@ export default function ColorPicker() {
 
 			return { l: 0.55, c: 0.12, h: Math.random() * 360 };
 		},
-		[meetsContrastOnBothBackgrounds]
+		[meetsContrastOnBothBackgrounds],
 	);
 
 	// Generate random color (optionally accessible)
@@ -187,18 +188,12 @@ export default function ColorPicker() {
 		setInputValue("");
 	};
 
-	// Convert hex to RGB tuple
-	const hexToRgb = useCallback((hex: string): [number, number, number] => {
-		const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-		return result ? [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)] : [0, 0, 0];
-	}, []);
-
 	// Calculate contrast ratio between foreground and background
 	const fgBgContrastRatio = useMemo(() => {
-		const fgRgb = hexToRgb(foregroundHex);
-		const bgRgb = hexToRgb(backgroundHex);
+		const fgRgb = ColorUtils.hexToRgb(foregroundHex, [0, 0, 0]);
+		const bgRgb = ColorUtils.hexToRgb(backgroundHex, [0, 0, 0]);
 		return calculateContrast(fgRgb, bgRgb);
-	}, [foregroundHex, backgroundHex, hexToRgb, calculateContrast]);
+	}, [foregroundHex, backgroundHex, calculateContrast]);
 
 	// WCAG compliance levels for fg/bg contrast
 	const wcagLevels = useMemo(
@@ -208,7 +203,7 @@ export default function ColorPicker() {
 			{ level: "Large Text AA", ratio: 3, passes: fgBgContrastRatio >= 3 },
 			{ level: "Large Text AAA", ratio: 4.5, passes: fgBgContrastRatio >= 4.5 },
 		],
-		[fgBgContrastRatio]
+		[fgBgContrastRatio],
 	);
 
 	// Sync current color to foreground when it changes
@@ -343,7 +338,16 @@ export default function ColorPicker() {
 								<label className={styles.label}>Lightness</label>
 								<span className={styles.valueDisplay}>{(oklch.l * 100).toFixed(1)}%</span>
 							</div>
-							<input type="range" min="0" max="100" step="0.1" value={oklch.l * 100} onChange={(e) => dispatch(setOklch({ ...oklch, l: parseFloat(e.target.value) / 100 }))} className={styles.slider} style={{ background: getLightnessGradient() }} />
+							<input
+								type="range"
+								min="0"
+								max="100"
+								step="0.1"
+								value={oklch.l * 100}
+								onChange={(e) => dispatch(setOklch({ ...oklch, l: parseFloat(e.target.value) / 100 }))}
+								className={styles.slider}
+								style={{ background: getLightnessGradient() }}
+							/>
 						</div>
 
 						<div className={styles.sliderGroup}>
@@ -351,7 +355,16 @@ export default function ColorPicker() {
 								<label className={styles.label}>Chroma</label>
 								<span className={styles.valueDisplay}>{oklch.c.toFixed(3)}</span>
 							</div>
-							<input type="range" min="0" max="0.4" step="0.001" value={oklch.c} onChange={(e) => dispatch(setOklch({ ...oklch, c: parseFloat(e.target.value) }))} className={styles.slider} style={{ background: getChromaGradient() }} />
+							<input
+								type="range"
+								min="0"
+								max="0.4"
+								step="0.001"
+								value={oklch.c}
+								onChange={(e) => dispatch(setOklch({ ...oklch, c: parseFloat(e.target.value) }))}
+								className={styles.slider}
+								style={{ background: getChromaGradient() }}
+							/>
 						</div>
 
 						<div className={styles.sliderGroup}>
@@ -359,7 +372,16 @@ export default function ColorPicker() {
 								<label className={styles.label}>Hue</label>
 								<span className={styles.valueDisplay}>{oklch.h.toFixed(1)}°</span>
 							</div>
-							<input type="range" min="0" max="360" step="0.1" value={oklch.h} onChange={(e) => dispatch(setOklch({ ...oklch, h: parseFloat(e.target.value) }))} className={styles.slider} style={{ background: getHueGradient() }} />
+							<input
+								type="range"
+								min="0"
+								max="360"
+								step="0.1"
+								value={oklch.h}
+								onChange={(e) => dispatch(setOklch({ ...oklch, h: parseFloat(e.target.value) }))}
+								className={styles.slider}
+								style={{ background: getHueGradient() }}
+							/>
 						</div>
 
 						<div className={styles.sliderGroup}>
@@ -367,7 +389,16 @@ export default function ColorPicker() {
 								<label className={styles.label}>Alpha</label>
 								<span className={styles.valueDisplay}>{(alpha * 100).toFixed(0)}%</span>
 							</div>
-							<input type="range" min="0" max="100" step="1" value={alpha * 100} onChange={(e) => dispatch(setAlpha(parseFloat(e.target.value) / 100))} className={styles.slider} style={{ background: `linear-gradient(to right, transparent, ${colorFormats.hex})` }} />
+							<input
+								type="range"
+								min="0"
+								max="100"
+								step="1"
+								value={alpha * 100}
+								onChange={(e) => dispatch(setAlpha(parseFloat(e.target.value) / 100))}
+								className={styles.slider}
+								style={{ background: `linear-gradient(to right, transparent, ${colorFormats.hex})` }}
+							/>
 						</div>
 					</div>
 				</div>
@@ -437,7 +468,7 @@ export default function ColorPicker() {
 							<div className={styles.contrastInputGroup}>
 								<label className={styles.contrastLabel}>Foreground</label>
 								<div className={styles.colorInputRow}>
-									<input type="color" value={foregroundHex} onChange={(e) => setForegroundHex(e.target.value)} className={styles.colorInput} />
+									<ColorPickerPopover color={foregroundHex} onChange={setForegroundHex} swatchSize="md" />
 									<input type="text" value={foregroundHex} onChange={(e) => setForegroundHex(e.target.value)} className={styles.hexInputSmall} maxLength={7} />
 									<Button onClick={syncColorToForeground} className={styles.syncBtn} title="Use current color as foreground">
 										← Use Current
@@ -448,7 +479,7 @@ export default function ColorPicker() {
 							<div className={styles.contrastInputGroup}>
 								<label className={styles.contrastLabel}>Background</label>
 								<div className={styles.colorInputRow}>
-									<input type="color" value={backgroundHex} onChange={(e) => setBackgroundHex(e.target.value)} className={styles.colorInput} />
+									<ColorPickerPopover color={backgroundHex} onChange={setBackgroundHex} swatchSize="md" />
 									<input type="text" value={backgroundHex} onChange={(e) => setBackgroundHex(e.target.value)} className={styles.hexInputSmall} maxLength={7} />
 									<Button onClick={syncColorToBackground} className={styles.syncBtn} title="Use current color as background">
 										← Use Current
@@ -506,7 +537,8 @@ export default function ColorPicker() {
 						</div>
 						<div className={styles.noteBox}>
 							<p>
-								<strong>Tip:</strong> Use the accessibility toggle above to generate random colors that automatically meet AA or AAA contrast requirements on both light and dark backgrounds.
+								<strong>Tip:</strong> Use the accessibility toggle above to generate random colors that automatically meet AA or AAA contrast requirements on both light and dark
+								backgrounds.
 							</p>
 						</div>
 					</div>

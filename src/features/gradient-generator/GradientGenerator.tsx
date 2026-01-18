@@ -5,6 +5,8 @@ import { DndContext, useDraggable, DragEndEvent, DragMoveEvent, useSensor, useSe
 import { CSS } from "@dnd-kit/utilities";
 import { ClipboardDocumentIcon, CheckIcon, PlusIcon, TrashIcon, ArrowPathIcon } from "@heroicons/react/24/outline";
 import { Button } from "@/components/ui/button";
+import { ColorUtils } from "@/lib/colorUtils";
+import { ColorPickerPanel } from "@/components/ColorPickerPanel";
 import styles from "./GradientGenerator.module.scss";
 
 interface ColorStop {
@@ -21,13 +23,6 @@ const PRESET_ANGLES = [0, 45, 90, 135, 180, 225, 270, 315];
 const DEFAULT_COLOR_STOPS: ColorStop[] = [
 	{ id: 1, color: "#b5fe67", position: 0 },
 	{ id: 2, color: "#00ccad", position: 100 },
-	// { id: 1, color: "#ff0000", position: 0 },
-	// { id: 2, color: "#ff8000", position: 17 },
-	// { id: 3, color: "#ffff00", position: 33 },
-	// { id: 4, color: "#00ff00", position: 50 },
-	// { id: 5, color: "#0080ff", position: 67 },
-	// { id: 6, color: "#8000ff", position: 83 },
-	// { id: 7, color: "#ff00ff", position: 100 },
 ];
 
 const PRESET_GRADIENTS = [
@@ -95,79 +90,8 @@ const PRESET_GRADIENTS = [
 	},
 ];
 
-// HSV to RGB conversion
-function hsvToRgb(h: number, s: number, v: number): [number, number, number] {
-	const c = v * s;
-	const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
-	const m = v - c;
-
-	let r = 0,
-		g = 0,
-		b = 0;
-	if (h < 60) {
-		r = c;
-		g = x;
-	} else if (h < 120) {
-		r = x;
-		g = c;
-	} else if (h < 180) {
-		g = c;
-		b = x;
-	} else if (h < 240) {
-		g = x;
-		b = c;
-	} else if (h < 300) {
-		r = x;
-		b = c;
-	} else {
-		r = c;
-		b = x;
-	}
-
-	return [Math.round((r + m) * 255), Math.round((g + m) * 255), Math.round((b + m) * 255)];
-}
-
-// RGB to HSV conversion
-function rgbToHsv(r: number, g: number, b: number): [number, number, number] {
-	r /= 255;
-	g /= 255;
-	b /= 255;
-
-	const max = Math.max(r, g, b);
-	const min = Math.min(r, g, b);
-	const d = max - min;
-
-	let h = 0;
-	const s = max === 0 ? 0 : d / max;
-	const v = max;
-
-	if (max !== min) {
-		switch (max) {
-			case r:
-				h = ((g - b) / d + (g < b ? 6 : 0)) * 60;
-				break;
-			case g:
-				h = ((b - r) / d + 2) * 60;
-				break;
-			case b:
-				h = ((r - g) / d + 4) * 60;
-				break;
-		}
-	}
-
-	return [h, s, v];
-}
-
-// Hex to RGB
-function hexToRgb(hex: string): [number, number, number] {
-	const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-	return result ? [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)] : [255, 0, 0];
-}
-
-// RGB to Hex
-function rgbToHex(r: number, g: number, b: number): string {
-	return "#" + [r, g, b].map((x) => x.toString(16).padStart(2, "0")).join("");
-}
+// Default fallback color for invalid hex parsing
+const FALLBACK_RGB: [number, number, number] = [255, 0, 0];
 
 // Draggable Color Stop Handle Component
 interface DraggableStopProps {
@@ -209,204 +133,6 @@ function DraggableStop({ stop, isSelected, onSelect, isDraggingOutside, canDelet
 	);
 }
 
-// Color Canvas Picker Component (Inline version)
-interface ColorPickerPanelProps {
-	color: string;
-	onChange: (color: string) => void;
-	hasSelection: boolean;
-}
-
-function ColorPickerPanel({ color, onChange, hasSelection }: ColorPickerPanelProps) {
-	const canvasRef = useRef<HTMLCanvasElement>(null);
-	const hueRef = useRef<HTMLCanvasElement>(null);
-	const [hsv, setHsv] = useState<[number, number, number]>(() => {
-		const rgb = hexToRgb(color);
-		return rgbToHsv(...rgb);
-	});
-	const [isDraggingCanvas, setIsDraggingCanvas] = useState(false);
-	const [isDraggingHue, setIsDraggingHue] = useState(false);
-
-	// Sync HSV when external color changes
-	useEffect(() => {
-		const rgb = hexToRgb(color);
-		const newHsv = rgbToHsv(...rgb);
-		// Only update if significantly different to avoid loops
-		if (Math.abs(newHsv[0] - hsv[0]) > 1 || Math.abs(newHsv[1] - hsv[1]) > 0.01 || Math.abs(newHsv[2] - hsv[2]) > 0.01) {
-			setHsv(newHsv);
-		}
-	}, [color]); // eslint-disable-line react-hooks/exhaustive-deps
-
-	const hue = hsv[0];
-
-	// Draw saturation/value canvas
-	useEffect(() => {
-		const canvas = canvasRef.current;
-		if (!canvas) return;
-		const ctx = canvas.getContext("2d");
-		if (!ctx) return;
-
-		const width = canvas.width;
-		const height = canvas.height;
-
-		// Draw hue base
-		const [r, g, b] = hsvToRgb(hue, 1, 1);
-		ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
-		ctx.fillRect(0, 0, width, height);
-
-		// White gradient (left to right)
-		const whiteGradient = ctx.createLinearGradient(0, 0, width, 0);
-		whiteGradient.addColorStop(0, "rgba(255, 255, 255, 1)");
-		whiteGradient.addColorStop(1, "rgba(255, 255, 255, 0)");
-		ctx.fillStyle = whiteGradient;
-		ctx.fillRect(0, 0, width, height);
-
-		// Black gradient (top to bottom)
-		const blackGradient = ctx.createLinearGradient(0, 0, 0, height);
-		blackGradient.addColorStop(0, "rgba(0, 0, 0, 0)");
-		blackGradient.addColorStop(1, "rgba(0, 0, 0, 1)");
-		ctx.fillStyle = blackGradient;
-		ctx.fillRect(0, 0, width, height);
-	}, [hue]);
-
-	// Draw hue slider
-	useEffect(() => {
-		const canvas = hueRef.current;
-		if (!canvas) return;
-		const ctx = canvas.getContext("2d");
-		if (!ctx) return;
-
-		const width = canvas.width;
-		const height = canvas.height;
-		const gradient = ctx.createLinearGradient(0, 0, width, 0);
-
-		for (let i = 0; i <= 360; i += 60) {
-			const [r, g, b] = hsvToRgb(i, 1, 1);
-			gradient.addColorStop(i / 360, `rgb(${r}, ${g}, ${b})`);
-		}
-
-		ctx.fillStyle = gradient;
-		ctx.fillRect(0, 0, width, height);
-	}, []);
-
-	// Update color when HSV changes (only from user interaction)
-	const updateColorFromHsv = useCallback(
-		(newHsv: [number, number, number]) => {
-			const [r, g, b] = hsvToRgb(newHsv[0], newHsv[1], newHsv[2]);
-			const newHex = rgbToHex(r, g, b);
-			onChange(newHex);
-		},
-		[onChange]
-	);
-
-	const handleCanvasInteraction = useCallback(
-		(e: React.MouseEvent<HTMLCanvasElement>) => {
-			if (!hasSelection) return;
-			const canvas = canvasRef.current;
-			if (!canvas) return;
-
-			const rect = canvas.getBoundingClientRect();
-			const x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-			const y = Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
-
-			const newHsv: [number, number, number] = [hsv[0], x, 1 - y];
-			setHsv(newHsv);
-			updateColorFromHsv(newHsv);
-		},
-		[hsv, hasSelection, updateColorFromHsv]
-	);
-
-	const handleHueInteraction = useCallback(
-		(e: React.MouseEvent<HTMLCanvasElement>) => {
-			if (!hasSelection) return;
-			const canvas = hueRef.current;
-			if (!canvas) return;
-
-			const rect = canvas.getBoundingClientRect();
-			const x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-
-			const newHsv: [number, number, number] = [x * 360, hsv[1], hsv[2]];
-			setHsv(newHsv);
-			updateColorFromHsv(newHsv);
-		},
-		[hsv, hasSelection, updateColorFromHsv]
-	);
-
-	return (
-		<div className={`${styles.colorPickerPanel} ${!hasSelection ? styles.disabled : ""}`}>
-			<h3 className={styles.sectionTitle}>Color Picker</h3>
-
-			{!hasSelection && <p className={styles.pickerHint}>Select a color stop to edit</p>}
-
-			{/* Saturation/Value Canvas */}
-			<div className={styles.canvasContainer}>
-				<canvas
-					ref={canvasRef}
-					width={280}
-					height={180}
-					className={styles.colorCanvas}
-					onMouseDown={(e) => {
-						if (!hasSelection) return;
-						setIsDraggingCanvas(true);
-						handleCanvasInteraction(e);
-					}}
-					onMouseMove={(e) => isDraggingCanvas && handleCanvasInteraction(e)}
-					onMouseUp={() => setIsDraggingCanvas(false)}
-					onMouseLeave={() => setIsDraggingCanvas(false)}
-				/>
-				{/* Canvas cursor */}
-				<div
-					className={styles.canvasCursor}
-					style={{
-						left: `${hsv[1] * 100}%`,
-						top: `${(1 - hsv[2]) * 100}%`,
-					}}
-				/>
-			</div>
-
-			{/* Hue Slider */}
-			<div className={styles.hueContainer}>
-				<canvas
-					ref={hueRef}
-					width={280}
-					height={20}
-					className={styles.hueCanvas}
-					onMouseDown={(e) => {
-						if (!hasSelection) return;
-						setIsDraggingHue(true);
-						handleHueInteraction(e);
-					}}
-					onMouseMove={(e) => isDraggingHue && handleHueInteraction(e)}
-					onMouseUp={() => setIsDraggingHue(false)}
-					onMouseLeave={() => setIsDraggingHue(false)}
-				/>
-				{/* Hue cursor */}
-				<div className={styles.hueCursor} style={{ left: `${(hsv[0] / 360) * 100}%` }} />
-			</div>
-
-			{/* Color preview and hex input */}
-			<div className={styles.pickerFooter}>
-				<div className={styles.colorPreviewSmall} style={{ backgroundColor: color }} />
-				<input
-					type="text"
-					value={color}
-					onChange={(e) => {
-						if (!hasSelection) return;
-						const val = e.target.value;
-						if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
-							onChange(val);
-							const rgb = hexToRgb(val);
-							setHsv(rgbToHsv(...rgb));
-						}
-					}}
-					className={styles.hexInputSmall}
-					maxLength={7}
-					disabled={!hasSelection}
-				/>
-			</div>
-		</div>
-	);
-}
-
 export default function GradientGenerator() {
 	const [gradientType, setGradientType] = useState<GradientType>("linear");
 	const [angle, setAngle] = useState(135);
@@ -425,7 +151,7 @@ export default function GradientGenerator() {
 			activationConstraint: {
 				distance: 3,
 			},
-		})
+		}),
 	);
 
 	// Generate CSS gradient string
@@ -477,8 +203,8 @@ export default function GradientGenerator() {
 			// Simple color interpolation
 			const t = rightStop.position === leftStop.position ? 0 : (position - leftStop.position) / (rightStop.position - leftStop.position);
 
-			const leftRgb = hexToRgb(leftStop.color);
-			const rightRgb = hexToRgb(rightStop.color);
+			const leftRgb = ColorUtils.hexToRgb(leftStop.color, FALLBACK_RGB);
+			const rightRgb = ColorUtils.hexToRgb(rightStop.color, FALLBACK_RGB);
 
 			const r = Math.round(leftRgb[0] + (rightRgb[0] - leftRgb[0]) * t);
 			const g = Math.round(leftRgb[1] + (rightRgb[1] - leftRgb[1]) * t);
@@ -486,7 +212,7 @@ export default function GradientGenerator() {
 
 			const newStop: ColorStop = {
 				id: nextId,
-				color: rgbToHex(r, g, b),
+				color: ColorUtils.rgbToHex(r, g, b),
 				position: Math.round(position),
 			};
 
@@ -494,7 +220,7 @@ export default function GradientGenerator() {
 			setNextId(nextId + 1);
 			setSelectedStopId(newStop.id);
 		},
-		[colorStops, nextId]
+		[colorStops, nextId],
 	);
 
 	// Handle click on slider track to add stop
@@ -509,7 +235,7 @@ export default function GradientGenerator() {
 			const position = ((e.clientX - rect.left) / rect.width) * 100;
 			addColorStopAtPosition(Math.max(0, Math.min(100, position)));
 		},
-		[addColorStopAtPosition]
+		[addColorStopAtPosition],
 	);
 
 	// Handle drag move to detect if outside slider
@@ -549,13 +275,13 @@ export default function GradientGenerator() {
 							return { ...stop, position: Math.round(newPosition) };
 						}
 						return stop;
-					})
+					}),
 				);
 			}
 
 			setDragOutsideId(null);
 		},
-		[colorStops, dragOutsideId, selectedStopId]
+		[colorStops, dragOutsideId, selectedStopId],
 	);
 
 	// Handle stop selection
@@ -569,7 +295,7 @@ export default function GradientGenerator() {
 			if (!selectedStopId) return;
 			setColorStops(colorStops.map((stop) => (stop.id === selectedStopId ? { ...stop, color: newColor } : stop)));
 		},
-		[colorStops, selectedStopId]
+		[colorStops, selectedStopId],
 	);
 
 	// Add a new color stop (button version)
@@ -604,7 +330,7 @@ export default function GradientGenerator() {
 				setSelectedStopId(newStops[0]?.id ?? null);
 			}
 		},
-		[colorStops, selectedStopId]
+		[colorStops, selectedStopId],
 	);
 
 	// Update a color stop
@@ -612,7 +338,7 @@ export default function GradientGenerator() {
 		(id: number, updates: Partial<Omit<ColorStop, "id">>) => {
 			setColorStops(colorStops.map((stop) => (stop.id === id ? { ...stop, ...updates } : stop)));
 		},
-		[colorStops]
+		[colorStops],
 	);
 
 	// Distribute stops evenly
@@ -646,7 +372,7 @@ export default function GradientGenerator() {
 			setNextId(nextId + preset.stops.length);
 			setSelectedStopId(newStops[0]?.id ?? null);
 		},
-		[nextId]
+		[nextId],
 	);
 
 	// Generate random gradient
@@ -729,7 +455,9 @@ export default function GradientGenerator() {
 
 					{/* Color Picker Panel */}
 					<div className={styles.glassCard}>
-						<ColorPickerPanel color={selectedStop?.color ?? "#ff6b6b"} onChange={handleColorChange} hasSelection={!!selectedStop} />
+						<h3 className={styles.sectionTitle}>Color Picker</h3>
+						{!selectedStop && <p className={styles.pickerHint}>Select a color stop to edit</p>}
+						<ColorPickerPanel color={selectedStop?.color ?? "#ff6b6b"} onChange={handleColorChange} disabled={!selectedStop} />
 					</div>
 				</div>
 
@@ -758,7 +486,14 @@ export default function GradientGenerator() {
 									}}
 								/>
 								{colorStops.map((stop) => (
-									<DraggableStop key={stop.id} stop={stop} isSelected={selectedStopId === stop.id} onSelect={() => handleStopSelect(stop)} isDraggingOutside={dragOutsideId === stop.id} canDelete={colorStops.length > 2} />
+									<DraggableStop
+										key={stop.id}
+										stop={stop}
+										isSelected={selectedStopId === stop.id}
+										onSelect={() => handleStopSelect(stop)}
+										isDraggingOutside={dragOutsideId === stop.id}
+										canDelete={colorStops.length > 2}
+									/>
 								))}
 							</div>
 						</DndContext>
@@ -785,10 +520,31 @@ export default function GradientGenerator() {
 								.sort((a, b) => a.position - b.position)
 								.map((stop) => (
 									<div key={stop.id} className={`${styles.colorStopItem} ${selectedStopId === stop.id ? styles.selected : ""}`} onClick={() => handleStopSelect(stop)}>
-										<input type="color" value={stop.color} onChange={(e) => updateColorStop(stop.id, { color: e.target.value })} className={styles.colorInput} onClick={(e) => e.stopPropagation()} />
-										<input type="text" value={stop.color} onChange={(e) => updateColorStop(stop.id, { color: e.target.value })} className={styles.hexInput} maxLength={7} onClick={(e) => e.stopPropagation()} />
+										<input
+											type="color"
+											value={stop.color}
+											onChange={(e) => updateColorStop(stop.id, { color: e.target.value })}
+											className={styles.colorInput}
+											onClick={(e) => e.stopPropagation()}
+										/>
+										<input
+											type="text"
+											value={stop.color}
+											onChange={(e) => updateColorStop(stop.id, { color: e.target.value })}
+											className={styles.hexInput}
+											maxLength={7}
+											onClick={(e) => e.stopPropagation()}
+										/>
 										<div className={styles.positionInput}>
-											<input type="number" min="0" max="100" value={stop.position} onChange={(e) => updateColorStop(stop.id, { position: Math.min(100, Math.max(0, parseInt(e.target.value) || 0)) })} className={styles.numberInput} onClick={(e) => e.stopPropagation()} />
+											<input
+												type="number"
+												min="0"
+												max="100"
+												value={stop.position}
+												onChange={(e) => updateColorStop(stop.id, { position: Math.min(100, Math.max(0, parseInt(e.target.value) || 0)) })}
+												className={styles.numberInput}
+												onClick={(e) => e.stopPropagation()}
+											/>
 											<span className={styles.percentSign}>%</span>
 										</div>
 										<Button

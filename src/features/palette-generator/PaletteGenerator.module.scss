@@ -12,7 +12,7 @@
 	display: flex;
 	height: 280px;
 	border-radius: $radius-xl;
-	overflow: hidden;
+	// overflow: hidden;
 	margin-bottom: 1.5rem;
 	box-shadow: $shadow-lg;
 
@@ -27,6 +27,25 @@
 	position: relative;
 	cursor: pointer;
 	transition: flex 0.3s ease;
+
+	&:first-child {
+		border-top-left-radius: $radius-xl;
+		border-bottom-left-radius: $radius-xl;
+
+		@media (max-width: 768px) {
+			border-top-right-radius: $radius-xl;
+			border-bottom-left-radius: 0;
+		}
+	}
+	&:last-child {
+		border-top-right-radius: $radius-xl;
+		border-bottom-right-radius: $radius-xl;
+
+		@media (max-width: 768px) {
+			border-top-right-radius: 0;
+			border-bottom-left-radius: $radius-xl;
+		}
+	}
 
 	&:hover {
 		flex: 1.2;

@@ -1,11 +1,42 @@
 "use client";
 
 import { useState, useMemo, useEffect, useRef } from "react";
-import { ClipboardDocumentIcon, CheckIcon, ArrowPathIcon, BookmarkIcon, LockClosedIcon, LockOpenIcon, PlusIcon, MinusIcon, AdjustmentsHorizontalIcon, TrashIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+	ClipboardDocumentIcon,
+	CheckIcon,
+	ArrowPathIcon,
+	BookmarkIcon,
+	LockClosedIcon,
+	LockOpenIcon,
+	PlusIcon,
+	MinusIcon,
+	AdjustmentsHorizontalIcon,
+	TrashIcon,
+	XMarkIcon,
+} from "@heroicons/react/24/outline";
 import { Button } from "@/components/ui/button";
+import { ColorPickerPopover } from "@/components/ColorPickerPopover";
 import { ColorUtils } from "@/lib/colorUtils";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { hydrateFromStorage, setPalette, setHarmony, setBaseHue, setSaturation, setLightness, toggleLock, updateColor, addColor, removeLastColor, savePalette, loadSavedPalette, loadPreset, removeSavedPalette, clearSavedPalettes, HarmonyType, PaletteColor } from "@/store/slices/paletteSlice";
+import {
+	hydrateFromStorage,
+	setPalette,
+	setHarmony,
+	setBaseHue,
+	setSaturation,
+	setLightness,
+	toggleLock,
+	updateColor,
+	addColor,
+	removeLastColor,
+	savePalette,
+	loadSavedPalette,
+	loadPreset,
+	removeSavedPalette,
+	clearSavedPalettes,
+	HarmonyType,
+	PaletteColor,
+} from "@/store/slices/paletteSlice";
 import styles from "./PaletteGenerator.module.scss";
 
 const HARMONY_INFO: Record<HarmonyType, { name: string; description: string; angles: number[] }> = {
@@ -280,7 +311,7 @@ export default function PaletteGenerator() {
 								<button className={`${styles.actionBtn} ${copiedIndex === index ? styles.copied : ""}`} onClick={() => copyColor(color.hex, index)} title="Copy color">
 									{copiedIndex === index ? <CheckIcon className="w-4 h-4" /> : <ClipboardDocumentIcon className="w-4 h-4" />}
 								</button>
-								<input type="color" value={color.hex} onChange={(e) => dispatch(updateColor({ id: color.id, hex: e.target.value }))} className={styles.colorInput} title="Pick color" />
+								<ColorPickerPopover color={color.hex} onChange={(hex) => dispatch(updateColor({ id: color.id, hex }))} swatchSize="lg" showHex={false} />
 							</div>
 						</div>
 					</div>

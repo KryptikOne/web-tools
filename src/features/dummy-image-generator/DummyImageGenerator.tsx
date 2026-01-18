@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { ArrowDownTrayIcon, PhotoIcon } from "@heroicons/react/24/outline";
+import { ColorPickerPopover } from "@/components/ColorPickerPopover";
 import styles from "./DummyImageGenerator.module.scss";
 
 const SIZE_PRESETS = [
@@ -218,14 +219,14 @@ export default function DummyImageGenerator() {
 						<div className={styles.inputGroup}>
 							<label className={styles.inputLabel}>Background Color</label>
 							<div className={styles.colorInputWrapper}>
-								<input type="color" value={backgroundColor} onChange={(e) => setBackgroundColor(e.target.value)} className={styles.colorInput} />
+								<ColorPickerPopover color={backgroundColor} onChange={setBackgroundColor} swatchSize="sm" />
 								<input type="text" value={backgroundColor} onChange={(e) => setBackgroundColor(e.target.value)} className={styles.colorTextInput} />
 							</div>
 						</div>
 						<div className={styles.inputGroup}>
 							<label className={styles.inputLabel}>Text Color</label>
 							<div className={styles.colorInputWrapper}>
-								<input type="color" value={textColor} onChange={(e) => setTextColor(e.target.value)} className={styles.colorInput} />
+								<ColorPickerPopover color={textColor} onChange={setTextColor} swatchSize="sm" />
 								<input type="text" value={textColor} onChange={(e) => setTextColor(e.target.value)} className={styles.colorTextInput} />
 							</div>
 						</div>

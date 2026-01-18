@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { ClipboardDocumentIcon, CheckIcon, PlusIcon, TrashIcon, ArrowPathIcon } from "@heroicons/react/24/outline";
+import { ColorPickerPopover } from "@/components/ColorPickerPopover";
 import styles from "./BoxShadowGenerator.module.scss";
 
 interface Shadow {
@@ -179,22 +180,36 @@ export default function BoxShadowGenerator() {
 					<div className={styles.previewControls}>
 						<div className={styles.controlRow}>
 							<label className={styles.controlLabel}>Background</label>
-							<input type="color" value={previewBg} onChange={(e) => setPreviewBg(e.target.value)} className={styles.colorInput} />
+							<ColorPickerPopover color={previewBg} onChange={setPreviewBg} swatchSize="md" />
 							<span className={styles.valueLabel}>{previewBg}</span>
 						</div>
 						<div className={styles.controlRow}>
 							<label className={styles.controlLabel}>Box Color</label>
-							<input type="color" value={previewBoxBg} onChange={(e) => setPreviewBoxBg(e.target.value)} className={styles.colorInput} />
+							<ColorPickerPopover color={previewBoxBg} onChange={setPreviewBoxBg} swatchSize="md" />
 							<span className={styles.valueLabel}>{previewBoxBg}</span>
 						</div>
 						<div className={styles.controlRow}>
 							<label className={styles.controlLabel}>Width</label>
-							<input type="range" min="100" max="300" value={previewSize.width} onChange={(e) => setPreviewSize((prev) => ({ ...prev, width: parseInt(e.target.value) }))} className={styles.slider} />
+							<input
+								type="range"
+								min="100"
+								max="300"
+								value={previewSize.width}
+								onChange={(e) => setPreviewSize((prev) => ({ ...prev, width: parseInt(e.target.value) }))}
+								className={styles.slider}
+							/>
 							<span className={styles.valueLabel}>{previewSize.width}px</span>
 						</div>
 						<div className={styles.controlRow}>
 							<label className={styles.controlLabel}>Height</label>
-							<input type="range" min="50" max="250" value={previewSize.height} onChange={(e) => setPreviewSize((prev) => ({ ...prev, height: parseInt(e.target.value) }))} className={styles.slider} />
+							<input
+								type="range"
+								min="50"
+								max="250"
+								value={previewSize.height}
+								onChange={(e) => setPreviewSize((prev) => ({ ...prev, height: parseInt(e.target.value) }))}
+								className={styles.slider}
+							/>
 							<span className={styles.valueLabel}>{previewSize.height}px</span>
 						</div>
 						<div className={styles.controlRow}>
@@ -241,37 +256,100 @@ export default function BoxShadowGenerator() {
 								<div className={styles.shadowControls}>
 									<div className={styles.controlGroup}>
 										<label>X Offset</label>
-										<input type="range" min="-50" max="50" value={shadow.offsetX} onChange={(e) => updateShadow(shadow.id, { offsetX: parseInt(e.target.value) })} className={styles.slider} />
-										<input type="number" value={shadow.offsetX} onChange={(e) => updateShadow(shadow.id, { offsetX: parseInt(e.target.value) || 0 })} className={styles.numberInput} />
+										<input
+											type="range"
+											min="-50"
+											max="50"
+											value={shadow.offsetX}
+											onChange={(e) => updateShadow(shadow.id, { offsetX: parseInt(e.target.value) })}
+											className={styles.slider}
+										/>
+										<input
+											type="number"
+											value={shadow.offsetX}
+											onChange={(e) => updateShadow(shadow.id, { offsetX: parseInt(e.target.value) || 0 })}
+											className={styles.numberInput}
+										/>
 									</div>
 
 									<div className={styles.controlGroup}>
 										<label>Y Offset</label>
-										<input type="range" min="-50" max="50" value={shadow.offsetY} onChange={(e) => updateShadow(shadow.id, { offsetY: parseInt(e.target.value) })} className={styles.slider} />
-										<input type="number" value={shadow.offsetY} onChange={(e) => updateShadow(shadow.id, { offsetY: parseInt(e.target.value) || 0 })} className={styles.numberInput} />
+										<input
+											type="range"
+											min="-50"
+											max="50"
+											value={shadow.offsetY}
+											onChange={(e) => updateShadow(shadow.id, { offsetY: parseInt(e.target.value) })}
+											className={styles.slider}
+										/>
+										<input
+											type="number"
+											value={shadow.offsetY}
+											onChange={(e) => updateShadow(shadow.id, { offsetY: parseInt(e.target.value) || 0 })}
+											className={styles.numberInput}
+										/>
 									</div>
 
 									<div className={styles.controlGroup}>
 										<label>Blur</label>
-										<input type="range" min="0" max="100" value={shadow.blur} onChange={(e) => updateShadow(shadow.id, { blur: parseInt(e.target.value) })} className={styles.slider} />
-										<input type="number" min="0" value={shadow.blur} onChange={(e) => updateShadow(shadow.id, { blur: parseInt(e.target.value) || 0 })} className={styles.numberInput} />
+										<input
+											type="range"
+											min="0"
+											max="100"
+											value={shadow.blur}
+											onChange={(e) => updateShadow(shadow.id, { blur: parseInt(e.target.value) })}
+											className={styles.slider}
+										/>
+										<input
+											type="number"
+											min="0"
+											value={shadow.blur}
+											onChange={(e) => updateShadow(shadow.id, { blur: parseInt(e.target.value) || 0 })}
+											className={styles.numberInput}
+										/>
 									</div>
 
 									<div className={styles.controlGroup}>
 										<label>Spread</label>
-										<input type="range" min="-50" max="50" value={shadow.spread} onChange={(e) => updateShadow(shadow.id, { spread: parseInt(e.target.value) })} className={styles.slider} />
-										<input type="number" value={shadow.spread} onChange={(e) => updateShadow(shadow.id, { spread: parseInt(e.target.value) || 0 })} className={styles.numberInput} />
+										<input
+											type="range"
+											min="-50"
+											max="50"
+											value={shadow.spread}
+											onChange={(e) => updateShadow(shadow.id, { spread: parseInt(e.target.value) })}
+											className={styles.slider}
+										/>
+										<input
+											type="number"
+											value={shadow.spread}
+											onChange={(e) => updateShadow(shadow.id, { spread: parseInt(e.target.value) || 0 })}
+											className={styles.numberInput}
+										/>
 									</div>
 
 									<div className={styles.controlGroup}>
 										<label>Opacity</label>
-										<input type="range" min="0" max="100" value={shadow.opacity} onChange={(e) => updateShadow(shadow.id, { opacity: parseInt(e.target.value) })} className={styles.slider} />
-										<input type="number" min="0" max="100" value={shadow.opacity} onChange={(e) => updateShadow(shadow.id, { opacity: Math.min(100, parseInt(e.target.value) || 0) })} className={styles.numberInput} />
+										<input
+											type="range"
+											min="0"
+											max="100"
+											value={shadow.opacity}
+											onChange={(e) => updateShadow(shadow.id, { opacity: parseInt(e.target.value) })}
+											className={styles.slider}
+										/>
+										<input
+											type="number"
+											min="0"
+											max="100"
+											value={shadow.opacity}
+											onChange={(e) => updateShadow(shadow.id, { opacity: Math.min(100, parseInt(e.target.value) || 0) })}
+											className={styles.numberInput}
+										/>
 									</div>
 
 									<div className={styles.controlGroup}>
 										<label>Color</label>
-										<input type="color" value={shadow.color} onChange={(e) => updateShadow(shadow.id, { color: e.target.value })} className={styles.colorInput} />
+										<ColorPickerPopover color={shadow.color} onChange={(color) => updateShadow(shadow.id, { color })} swatchSize="sm" />
 										<span className={styles.colorValue}>{shadow.color}</span>
 									</div>
 								</div>
@@ -326,7 +404,10 @@ export default function BoxShadowGenerator() {
 					</div>
 					<div className={styles.infoItem}>
 						<h3 className={styles.infoSubtitle}>Layered Shadows</h3>
-						<p className={styles.infoText}>Combine multiple shadow layers for more realistic depth effects. Layered shadows with varying blur and opacity create smoother, more natural-looking shadows than a single layer.</p>
+						<p className={styles.infoText}>
+							Combine multiple shadow layers for more realistic depth effects. Layered shadows with varying blur and opacity create smoother, more natural-looking shadows than a single
+							layer.
+						</p>
 					</div>
 					<div className={styles.infoItem}>
 						<h3 className={styles.infoSubtitle}>Performance</h3>
@@ -337,7 +418,9 @@ export default function BoxShadowGenerator() {
 					</div>
 					<div className={styles.infoItem}>
 						<h3 className={styles.infoSubtitle}>Colored Shadows</h3>
-						<p className={styles.infoText}>For a more natural look, use a shadow color derived from the element&apos;s background rather than pure black. This creates a more cohesive and modern design aesthetic.</p>
+						<p className={styles.infoText}>
+							For a more natural look, use a shadow color derived from the element&apos;s background rather than pure black. This creates a more cohesive and modern design aesthetic.
+						</p>
 					</div>
 				</div>
 			</div>

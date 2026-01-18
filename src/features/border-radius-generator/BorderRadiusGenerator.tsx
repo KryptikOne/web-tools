@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { ClipboardDocumentIcon, CheckIcon, ArrowPathIcon, LinkIcon } from "@heroicons/react/24/outline";
+import { ColorPickerPopover } from "@/components/ColorPickerPopover";
 import styles from "./BorderRadiusGenerator.module.scss";
 
 interface CornerRadius {
@@ -143,7 +144,7 @@ export default function BorderRadiusGenerator() {
 						</div>
 						<div className={styles.controlRow}>
 							<label className={styles.controlLabel}>Color</label>
-							<input type="color" value={previewColor} onChange={(e) => setPreviewColor(e.target.value)} className={styles.colorInput} />
+							<ColorPickerPopover color={previewColor} onChange={setPreviewColor} swatchSize="sm" />
 							<span className={styles.valueLabel}>{previewColor}</span>
 						</div>
 					</div>
