@@ -74,11 +74,11 @@ export default function HomePage() {
 						<h3>⚡ Fast & Private</h3>
 						<p>All tools run locally in your browser. Nothing is ever uploaded to a server.</p>
 						<p>The only analytics in place are for anonymous usage information.</p>
-						<p>No ads, no tracking, no bloat, just tools.</p>
+						<p>No ads, no tracking, no data collection, just tools... For Free</p>
 					</div>
 					<div className={styles.featureCard}>
 						<h3>🆓 Free Forever</h3>
-						<p>No registration, no payments, no limits</p>
+						<p>No registration, no payments, no limits.</p>
 					</div>
 				</div>
 			</section>

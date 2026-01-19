@@ -130,34 +130,21 @@ export default function PercentageCalculator() {
 					</button>
 				</div>
 
-				<p className="text-sm text-gray-400 mb-6">
-					Enter any two values to calculate the third automatically.
-				</p>
+				<p className="text-sm text-gray-400 mb-6">Enter any two values to calculate the third automatically.</p>
 
 				<div className="grid gap-6 md:grid-cols-3">
 					{/* Whole Input */}
 					<div className="flex flex-col gap-2">
 						<label className={styles.inputLabel}>Whole (Total)</label>
 						<div className={styles.inputWrapper}>
-							<input
-								type="number"
-								inputMode="decimal"
-								value={whole}
-								onChange={(e) => handleWholeChange(e.target.value)}
-								className={styles.input}
-								placeholder="e.g., 100"
-							/>
+							<input type="number" inputMode="decimal" value={whole} onChange={(e) => handleWholeChange(e.target.value)} className={styles.input} placeholder="e.g., 100" />
 							<button
 								className={`${styles.copyBtn} ${copiedField === "whole" ? styles.copied : ""}`}
 								onClick={() => copyToClipboard(whole, "whole")}
 								title="Copy to clipboard"
 								disabled={!whole}
 							>
-								{copiedField === "whole" ? (
-									<CheckIcon className={styles.copyIcon} />
-								) : (
-									<ClipboardDocumentIcon className={styles.copyIcon} />
-								)}
+								{copiedField === "whole" ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
 							</button>
 						</div>
 						<span className="text-xs text-gray-500">The total amount (100%)</span>
@@ -167,25 +154,14 @@ export default function PercentageCalculator() {
 					<div className="flex flex-col gap-2">
 						<label className={styles.inputLabel}>Part</label>
 						<div className={styles.inputWrapper}>
-							<input
-								type="number"
-								inputMode="decimal"
-								value={part}
-								onChange={(e) => handlePartChange(e.target.value)}
-								className={styles.input}
-								placeholder="e.g., 25"
-							/>
+							<input type="number" inputMode="decimal" value={part} onChange={(e) => handlePartChange(e.target.value)} className={styles.input} placeholder="e.g., 25" />
 							<button
 								className={`${styles.copyBtn} ${copiedField === "part" ? styles.copied : ""}`}
 								onClick={() => copyToClipboard(part, "part")}
 								title="Copy to clipboard"
 								disabled={!part}
 							>
-								{copiedField === "part" ? (
-									<CheckIcon className={styles.copyIcon} />
-								) : (
-									<ClipboardDocumentIcon className={styles.copyIcon} />
-								)}
+								{copiedField === "part" ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
 							</button>
 						</div>
 						<span className="text-xs text-gray-500">The portion of the whole</span>
@@ -195,14 +171,7 @@ export default function PercentageCalculator() {
 					<div className="flex flex-col gap-2">
 						<label className={styles.inputLabel}>Percentage</label>
 						<div className={styles.inputWrapper}>
-							<input
-								type="number"
-								inputMode="decimal"
-								value={percentage}
-								onChange={(e) => handlePercentageChange(e.target.value)}
-								className={styles.input}
-								placeholder="e.g., 25"
-							/>
+							<input type="number" inputMode="decimal" value={percentage} onChange={(e) => handlePercentageChange(e.target.value)} className={styles.input} placeholder="e.g., 25" />
 							<span className={styles.unitLabel}>%</span>
 							<button
 								className={`${styles.copyBtn} ${copiedField === "percentage" ? styles.copied : ""}`}
@@ -210,11 +179,7 @@ export default function PercentageCalculator() {
 								title="Copy to clipboard"
 								disabled={!percentage}
 							>
-								{copiedField === "percentage" ? (
-									<CheckIcon className={styles.copyIcon} />
-								) : (
-									<ClipboardDocumentIcon className={styles.copyIcon} />
-								)}
+								{copiedField === "percentage" ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
 							</button>
 						</div>
 						<span className="text-xs text-gray-500">The percentage value</span>
@@ -240,11 +205,7 @@ export default function PercentageCalculator() {
 				<h2 className={styles.sectionTitle}>Quick Examples</h2>
 				<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
 					{quickCalcs.map((calc, idx) => (
-						<button
-							key={idx}
-							onClick={() => applyQuickCalc(calc)}
-							className={styles.quickBtn}
-						>
+						<button key={idx} onClick={() => applyQuickCalc(calc)} className={styles.quickBtn}>
 							{calc.label}
 						</button>
 					))}
@@ -258,23 +219,17 @@ export default function PercentageCalculator() {
 					<div className={styles.formulaCard}>
 						<h3 className="font-semibold text-white mb-2">Find Percentage</h3>
 						<code className={styles.formula}>Percentage = (Part ÷ Whole) × 100</code>
-						<p className="text-sm text-gray-400 mt-2">
-							&quot;What % is 25 of 100?&quot; → 25%
-						</p>
+						<p className="text-sm text-gray-400 mt-2">&quot;What % is 25 of 100?&quot; → 25%</p>
 					</div>
 					<div className={styles.formulaCard}>
 						<h3 className="font-semibold text-white mb-2">Find Part</h3>
 						<code className={styles.formula}>Part = (Percentage ÷ 100) × Whole</code>
-						<p className="text-sm text-gray-400 mt-2">
-							&quot;What is 25% of 100?&quot; → 25
-						</p>
+						<p className="text-sm text-gray-400 mt-2">&quot;What is 25% of 100?&quot; → 25</p>
 					</div>
 					<div className={styles.formulaCard}>
 						<h3 className="font-semibold text-white mb-2">Find Whole</h3>
 						<code className={styles.formula}>Whole = Part ÷ (Percentage ÷ 100)</code>
-						<p className="text-sm text-gray-400 mt-2">
-							&quot;25 is 25% of what?&quot; → 100
-						</p>
+						<p className="text-sm text-gray-400 mt-2">&quot;25 is 25% of what?&quot; → 100</p>
 					</div>
 				</div>
 			</div>
