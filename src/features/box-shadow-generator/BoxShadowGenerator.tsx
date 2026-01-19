@@ -266,6 +266,7 @@ export default function BoxShadowGenerator() {
 										/>
 										<input
 											type="number"
+											inputMode="numeric"
 											value={shadow.offsetX}
 											onChange={(e) => updateShadow(shadow.id, { offsetX: parseInt(e.target.value) || 0 })}
 											className={styles.numberInput}
@@ -284,6 +285,7 @@ export default function BoxShadowGenerator() {
 										/>
 										<input
 											type="number"
+											inputMode="numeric"
 											value={shadow.offsetY}
 											onChange={(e) => updateShadow(shadow.id, { offsetY: parseInt(e.target.value) || 0 })}
 											className={styles.numberInput}
@@ -302,6 +304,7 @@ export default function BoxShadowGenerator() {
 										/>
 										<input
 											type="number"
+											inputMode="numeric"
 											min="0"
 											value={shadow.blur}
 											onChange={(e) => updateShadow(shadow.id, { blur: parseInt(e.target.value) || 0 })}
@@ -321,6 +324,7 @@ export default function BoxShadowGenerator() {
 										/>
 										<input
 											type="number"
+											inputMode="numeric"
 											value={shadow.spread}
 											onChange={(e) => updateShadow(shadow.id, { spread: parseInt(e.target.value) || 0 })}
 											className={styles.numberInput}
@@ -339,6 +343,7 @@ export default function BoxShadowGenerator() {
 										/>
 										<input
 											type="number"
+											inputMode="numeric"
 											min="0"
 											max="100"
 											value={shadow.opacity}

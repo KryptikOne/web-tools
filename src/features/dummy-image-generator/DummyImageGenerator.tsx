@@ -203,11 +203,11 @@ export default function DummyImageGenerator() {
 					<div className={styles.dimensionsGrid}>
 						<div className={styles.inputGroup}>
 							<label className={styles.inputLabel}>Width (1-4000px)</label>
-							<input type="number" min="1" max="4000" value={width} onChange={(e) => handleWidthChange(e.target.value)} className={styles.input} />
+							<input type="number" inputMode="numeric" min="1" max="4000" value={width} onChange={(e) => handleWidthChange(e.target.value)} className={styles.input} />
 						</div>
 						<div className={styles.inputGroup}>
 							<label className={styles.inputLabel}>Height (1-3000px)</label>
-							<input type="number" min="1" max="3000" value={height} onChange={(e) => handleHeightChange(e.target.value)} className={styles.input} />
+							<input type="number" inputMode="numeric" min="1" max="3000" value={height} onChange={(e) => handleHeightChange(e.target.value)} className={styles.input} />
 						</div>
 					</div>
 				</div>

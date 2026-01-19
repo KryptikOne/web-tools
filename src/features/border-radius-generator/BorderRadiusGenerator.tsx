@@ -177,7 +177,7 @@ export default function BorderRadiusGenerator() {
 							<label className={styles.cornerLabel}>Top Left</label>
 							<div className={styles.cornerInputRow}>
 								<input type="range" min="0" max="100" value={radius.topLeft} onChange={(e) => handleRadiusChange("topLeft", parseInt(e.target.value))} className={styles.slider} />
-								<input type="number" min="0" value={radius.topLeft} onChange={(e) => handleRadiusChange("topLeft", parseInt(e.target.value) || 0)} className={styles.numberInput} />
+								<input type="number" inputMode="numeric" min="0" value={radius.topLeft} onChange={(e) => handleRadiusChange("topLeft", parseInt(e.target.value) || 0)} className={styles.numberInput} />
 							</div>
 						</div>
 
@@ -185,7 +185,7 @@ export default function BorderRadiusGenerator() {
 							<label className={styles.cornerLabel}>Top Right</label>
 							<div className={styles.cornerInputRow}>
 								<input type="range" min="0" max="100" value={radius.topRight} onChange={(e) => handleRadiusChange("topRight", parseInt(e.target.value))} className={styles.slider} />
-								<input type="number" min="0" value={radius.topRight} onChange={(e) => handleRadiusChange("topRight", parseInt(e.target.value) || 0)} className={styles.numberInput} />
+								<input type="number" inputMode="numeric" min="0" value={radius.topRight} onChange={(e) => handleRadiusChange("topRight", parseInt(e.target.value) || 0)} className={styles.numberInput} />
 							</div>
 						</div>
 
@@ -193,7 +193,7 @@ export default function BorderRadiusGenerator() {
 							<label className={styles.cornerLabel}>Bottom Left</label>
 							<div className={styles.cornerInputRow}>
 								<input type="range" min="0" max="100" value={radius.bottomLeft} onChange={(e) => handleRadiusChange("bottomLeft", parseInt(e.target.value))} className={styles.slider} />
-								<input type="number" min="0" value={radius.bottomLeft} onChange={(e) => handleRadiusChange("bottomLeft", parseInt(e.target.value) || 0)} className={styles.numberInput} />
+								<input type="number" inputMode="numeric" min="0" value={radius.bottomLeft} onChange={(e) => handleRadiusChange("bottomLeft", parseInt(e.target.value) || 0)} className={styles.numberInput} />
 							</div>
 						</div>
 
@@ -201,7 +201,7 @@ export default function BorderRadiusGenerator() {
 							<label className={styles.cornerLabel}>Bottom Right</label>
 							<div className={styles.cornerInputRow}>
 								<input type="range" min="0" max="100" value={radius.bottomRight} onChange={(e) => handleRadiusChange("bottomRight", parseInt(e.target.value))} className={styles.slider} />
-								<input type="number" min="0" value={radius.bottomRight} onChange={(e) => handleRadiusChange("bottomRight", parseInt(e.target.value) || 0)} className={styles.numberInput} />
+								<input type="number" inputMode="numeric" min="0" value={radius.bottomRight} onChange={(e) => handleRadiusChange("bottomRight", parseInt(e.target.value) || 0)} className={styles.numberInput} />
 							</div>
 						</div>
 					</div>

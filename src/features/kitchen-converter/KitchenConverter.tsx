@@ -215,7 +215,7 @@ export default function KitchenConverter() {
 					<div className={styles.converterInput}>
 						<label className={styles.inputLabel}>From</label>
 						<div className={styles.inputRow}>
-							<input type="number" value={inputValue} onChange={(e) => setInputValue(e.target.value)} className={styles.numberInput} placeholder="Enter value" />
+							<input type="number" inputMode="decimal" value={inputValue} onChange={(e) => setInputValue(e.target.value)} className={styles.numberInput} placeholder="Enter value" />
 							<select value={fromUnit} onChange={(e) => setFromUnit(e.target.value)} className={styles.unitSelect}>
 								{units.map((unit) => (
 									<option key={unit.id} value={unit.id}>

@@ -220,6 +220,7 @@ export default function EpochConverter() {
 						<div className={styles.inputWrapper}>
 							<input
 								type="number"
+								inputMode="numeric"
 								value={epochInput}
 								onChange={(e) => {
 									setEpochInput(e.target.value);

@@ -337,11 +337,11 @@ export default function CubicBezier() {
 							<div className={styles.inputRow}>
 								<div className={styles.inputGroup}>
 									<label>X</label>
-									<input type="number" step="0.01" min="0" max="1" value={p1.x.toFixed(2)} onChange={(e) => setP1({ ...p1, x: parseFloat(e.target.value) || 0 })} className={styles.input} />
+									<input type="number" inputMode="decimal" step="0.01" min="0" max="1" value={p1.x.toFixed(2)} onChange={(e) => setP1({ ...p1, x: parseFloat(e.target.value) || 0 })} className={styles.input} />
 								</div>
 								<div className={styles.inputGroup}>
 									<label>Y</label>
-									<input type="number" step="0.01" min="-2" max="2" value={p1.y.toFixed(2)} onChange={(e) => setP1({ ...p1, y: parseFloat(e.target.value) || 0 })} className={styles.input} />
+									<input type="number" inputMode="decimal" step="0.01" min="-2" max="2" value={p1.y.toFixed(2)} onChange={(e) => setP1({ ...p1, y: parseFloat(e.target.value) || 0 })} className={styles.input} />
 								</div>
 							</div>
 						</div>
@@ -356,11 +356,11 @@ export default function CubicBezier() {
 							<div className={styles.inputRow}>
 								<div className={styles.inputGroup}>
 									<label>X</label>
-									<input type="number" step="0.01" min="0" max="1" value={p2.x.toFixed(2)} onChange={(e) => setP2({ ...p2, x: parseFloat(e.target.value) || 0 })} className={styles.input} />
+									<input type="number" inputMode="decimal" step="0.01" min="0" max="1" value={p2.x.toFixed(2)} onChange={(e) => setP2({ ...p2, x: parseFloat(e.target.value) || 0 })} className={styles.input} />
 								</div>
 								<div className={styles.inputGroup}>
 									<label>Y</label>
-									<input type="number" step="0.01" min="-2" max="2" value={p2.y.toFixed(2)} onChange={(e) => setP2({ ...p2, y: parseFloat(e.target.value) || 0 })} className={styles.input} />
+									<input type="number" inputMode="decimal" step="0.01" min="-2" max="2" value={p2.y.toFixed(2)} onChange={(e) => setP2({ ...p2, y: parseFloat(e.target.value) || 0 })} className={styles.input} />
 								</div>
 							</div>
 						</div>
@@ -386,7 +386,7 @@ export default function CubicBezier() {
 						<div className={styles.animationControls}>
 							<div className={styles.inputGroup}>
 								<label>Duration (s)</label>
-								<input type="number" step="0.1" min="0.1" max="10" value={duration} onChange={(e) => setDuration(parseFloat(e.target.value) || 1)} className={styles.input} />
+								<input type="number" inputMode="decimal" step="0.1" min="0.1" max="10" value={duration} onChange={(e) => setDuration(parseFloat(e.target.value) || 1)} className={styles.input} />
 							</div>
 							<Button onClick={toggleAnimation} className={styles.btnSecondary}>
 								{isAnimating ? "Stop" : "Play"}

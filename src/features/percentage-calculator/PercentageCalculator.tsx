@@ -141,6 +141,7 @@ export default function PercentageCalculator() {
 						<div className={styles.inputWrapper}>
 							<input
 								type="number"
+								inputMode="decimal"
 								value={whole}
 								onChange={(e) => handleWholeChange(e.target.value)}
 								className={styles.input}
@@ -168,6 +169,7 @@ export default function PercentageCalculator() {
 						<div className={styles.inputWrapper}>
 							<input
 								type="number"
+								inputMode="decimal"
 								value={part}
 								onChange={(e) => handlePartChange(e.target.value)}
 								className={styles.input}
@@ -195,6 +197,7 @@ export default function PercentageCalculator() {
 						<div className={styles.inputWrapper}>
 							<input
 								type="number"
+								inputMode="decimal"
 								value={percentage}
 								onChange={(e) => handlePercentageChange(e.target.value)}
 								className={styles.input}

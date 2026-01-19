@@ -90,6 +90,7 @@ export default function TipCalculator() {
 						<span className={styles.currencySymbol}>$</span>
 						<input
 							type="number"
+							inputMode="decimal"
 							value={billAmount}
 							onChange={(e) => setBillAmount(e.target.value)}
 							className={styles.billInput}
@@ -116,6 +117,7 @@ export default function TipCalculator() {
 						<div className={styles.customTipWrapper}>
 							<input
 								type="number"
+								inputMode="decimal"
 								value={customTip}
 								onChange={(e) => handleCustomTipChange(e.target.value)}
 								className={`${styles.customTipInput} ${isCustom ? styles.active : ""}`}

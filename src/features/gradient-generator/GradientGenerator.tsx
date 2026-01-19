@@ -538,6 +538,7 @@ export default function GradientGenerator() {
 										<div className={styles.positionInput}>
 											<input
 												type="number"
+												inputMode="numeric"
 												min="0"
 												max="100"
 												value={stop.position}
