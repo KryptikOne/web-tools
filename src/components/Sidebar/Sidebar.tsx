@@ -56,64 +56,64 @@ export default function Sidebar() {
 			{mobileMenuOpen && <div className={styles.overlay} onClick={handleCloseMobileMenu} />}
 
 			<aside className={`${styles.sidebar} ${mobileMenuOpen ? styles.sidebarOpen : ""}`}>
-			<div className={styles.sidebarContent}>
-				<Link href="/" className={styles.logo}>
-					<WrenchScrewdriverIcon className={styles.logoIcon} />
-					<span className={styles.logoText}>BittBott.dev</span>
-				</Link>
+				<div className={styles.sidebarContent}>
+					<Link href="/" className={styles.logo}>
+						<WrenchScrewdriverIcon className={styles.logoIcon} />
+						<span className={styles.logoText}>Tools</span>
+					</Link>
 
-				<nav className={styles.navigation}>
-					{Object.values(CATEGORIES).map((category) => {
-						const tools = getToolsByCategory(category.id);
-						const isExpanded = expandedCategories.has(category.id);
+					<nav className={styles.navigation}>
+						{Object.values(CATEGORIES).map((category) => {
+							const tools = getToolsByCategory(category.id);
+							const isExpanded = expandedCategories.has(category.id);
 
-						if (tools.length === 0) return null;
+							if (tools.length === 0) return null;
 
-						return (
-							<div key={category.id} className={styles.categorySection}>
-								{(() => {
-									const CategoryIcon = CATEGORY_ICONS[category.id];
-									return (
-										<button className={styles.categoryHeader} onClick={() => toggleCategory(category.id)}>
-											<CategoryIcon className={styles.categoryIcon} />
-											<span className={styles.categoryName}>{category.name}</span>
-										</button>
-									);
-								})()}
+							return (
+								<div key={category.id} className={styles.categorySection}>
+									{(() => {
+										const CategoryIcon = CATEGORY_ICONS[category.id];
+										return (
+											<button className={styles.categoryHeader} onClick={() => toggleCategory(category.id)}>
+												<CategoryIcon className={styles.categoryIcon} />
+												<span className={styles.categoryName}>{category.name}</span>
+											</button>
+										);
+									})()}
 
-								{isExpanded && (
-									<div className={styles.toolsList}>
-										{tools.map((tool) => {
-											const isActive = pathname === tool.route;
-											return (
-												<Link
-													onMouseEnter={() => handleHover(tool.id, tool.name)}
-													onClick={tool.implemented ? handleCloseMobileMenu : undefined}
-													key={tool.id}
-													href={tool.implemented ? tool.route : "#"}
-													className={`${styles.toolLink} ${isActive ? styles.active : ""} ${!tool.implemented ? styles.disabled : ""}`}
-													title={tool.description}
-												>
-													<span
-														className={styles.toolName}
-														ref={(el) => {
-															if (el) textRefs.current.set(tool.id, el);
-														}}
+									{isExpanded && (
+										<div className={styles.toolsList}>
+											{tools.map((tool) => {
+												const isActive = pathname === tool.route;
+												return (
+													<Link
+														onMouseEnter={() => handleHover(tool.id, tool.name)}
+														onClick={tool.implemented ? handleCloseMobileMenu : undefined}
+														key={tool.id}
+														href={tool.implemented ? tool.route : "#"}
+														className={`${styles.toolLink} ${isActive ? styles.active : ""} ${!tool.implemented ? styles.disabled : ""}`}
+														title={tool.description}
 													>
-														{tool.name}
-													</span>
-													{!tool.implemented && <span className={styles.comingSoon}>Soon</span>}
-												</Link>
-											);
-										})}
-									</div>
-								)}
-							</div>
-						);
-					})}
-				</nav>
-			</div>
-		</aside>
+														<span
+															className={styles.toolName}
+															ref={(el) => {
+																if (el) textRefs.current.set(tool.id, el);
+															}}
+														>
+															{tool.name}
+														</span>
+														{!tool.implemented && <span className={styles.comingSoon}>Soon</span>}
+													</Link>
+												);
+											})}
+										</div>
+									)}
+								</div>
+							);
+						})}
+					</nav>
+				</div>
+			</aside>
 		</>
 	);
 }

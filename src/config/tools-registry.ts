@@ -3,17 +3,17 @@ import { Tool, ToolCategory, CategoryInfo } from "@/types/tools";
 export const CATEGORIES: Record<ToolCategory, CategoryInfo> = {
 	[ToolCategory.COLOR_DESIGN]: {
 		id: ToolCategory.COLOR_DESIGN,
-		name: "Color & Design Tools",
+		name: "Color & Design",
 		description: "Color pickers, generators, and CSS design utilities",
 	},
 	[ToolCategory.IMAGE_VISUAL]: {
 		id: ToolCategory.IMAGE_VISUAL,
-		name: "Image & Visual Tools",
+		name: "Image & Visual",
 		description: "Image processing, conversion, and manipulation tools",
 	},
 	[ToolCategory.CODE_WEB]: {
 		id: ToolCategory.CODE_WEB,
-		name: "Code & Web Development",
+		name: "Code & Web Dev",
 		description: "Developer tools for coding and web development",
 	},
 	[ToolCategory.UTILITY_CONVERSION]: {
@@ -23,7 +23,7 @@ export const CATEGORIES: Record<ToolCategory, CategoryInfo> = {
 	},
 	[ToolCategory.TEXT_DATA]: {
 		id: ToolCategory.TEXT_DATA,
-		name: "Text & Data Tools",
+		name: "Text & Data",
 		description: "Text processing, formatting, and data conversion utilities",
 	},
 	[ToolCategory.FUN_RANDOM]: {

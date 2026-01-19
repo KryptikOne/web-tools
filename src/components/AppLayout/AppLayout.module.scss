@@ -19,6 +19,11 @@
   padding: 2rem;
   min-height: calc(100vh - 4rem);
 
+  display: flex;
+  > div {
+    flex: 1;
+  }
+
   @media (max-width: 768px) {
     padding: 1.5rem 1rem;
   }

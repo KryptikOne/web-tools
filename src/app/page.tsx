@@ -15,11 +15,11 @@ export default function HomePage() {
 						<SparklesIcon className={styles.titleIcon} />
 						Welcome to BittBott.dev
 					</h1>
-					<p className={styles.subtitle}>A comprehensive collection of free, browser-based tools for developers and designers. Choose a tool from the sidebar to get started.</p>
+					<p className={styles.subtitle}>A comprehensive collection of free, browser-based tools. Choose a tool from the sidebar to get started.</p>
 				</div>
 
-				<div className={styles.statsGrid}>
-					<div className={styles.statCard}>
+				{/* <div className={styles.statsGrid}> */}
+				{/* <div className={styles.statCard}>
 						<div className={styles.statIcon}>
 							<BeakerIcon />
 						</div>
@@ -37,9 +37,9 @@ export default function HomePage() {
 							<span className={styles.statNumber}>{implementedTools}</span>
 							<span className={styles.statLabel}>Ready to Use</span>
 						</div>
-					</div>
+					</div> */}
 
-					{/* <div className={styles.statCard}>
+				{/* <div className={styles.statCard}>
 						<div className={styles.statIcon}>
 							<SparklesIcon />
 						</div>
@@ -48,7 +48,7 @@ export default function HomePage() {
 							<span className={styles.statLabel}>Categories</span>
 						</div>
 					</div> */}
-				</div>
+				{/* </div> */}
 			</section>
 
 			<section className={styles.features}>
@@ -72,7 +72,9 @@ export default function HomePage() {
 					</div> */}
 					<div className={styles.featureCard}>
 						<h3>⚡ Fast & Private</h3>
-						<p>All tools run locally in your browser</p>
+						<p>All tools run locally in your browser. Nothing is ever uploaded to a server.</p>
+						<p>The only analytics in place are for anonymous usage information.</p>
+						<p>No ads, no tracking, no bloat, just tools.</p>
 					</div>
 					<div className={styles.featureCard}>
 						<h3>🆓 Free Forever</h3>
@@ -81,10 +83,10 @@ export default function HomePage() {
 				</div>
 			</section>
 
-			<section className={styles.getStarted}>
+			{/* <section className={styles.getStarted}>
 				<h2>☄️ Incoming</h2>
 				<p>What you see in the sidebar is what currently exists, but there is more on the roadmap... Bookmark and Stay Tuned!</p>
-			</section>
+			</section> */}
 		</div>
 	);
 }

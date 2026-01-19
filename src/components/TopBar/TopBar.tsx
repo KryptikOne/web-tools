@@ -2,7 +2,21 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { SunIcon, MoonIcon, SwatchIcon, ArrowTrendingUpIcon, EyeSlashIcon, ClockIcon, CalculatorIcon, Square2StackIcon, PaintBrushIcon, CubeIcon, FunnelIcon, Squares2X2Icon, TableCellsIcon } from "@heroicons/react/24/outline";
+import {
+	SunIcon,
+	MoonIcon,
+	SwatchIcon,
+	ArrowTrendingUpIcon,
+	EyeSlashIcon,
+	ClockIcon,
+	CalculatorIcon,
+	Square2StackIcon,
+	PaintBrushIcon,
+	CubeIcon,
+	FunnelIcon,
+	Squares2X2Icon,
+	TableCellsIcon,
+} from "@heroicons/react/24/outline";
 import { TOOLS_REGISTRY } from "@/config/tools-registry";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { hydrateTheme, toggleTheme } from "@/store/slices/themeSlice";
@@ -55,7 +69,7 @@ export default function TopBar() {
 			<div className={styles.leftSection}>
 				{currentTool && (
 					<>
-						{ToolIcon && <ToolIcon className={styles.pageIcon} />}
+						{/* {ToolIcon && <ToolIcon className={styles.pageIcon} />} */}
 						<h1 className={styles.pageTitle}>{currentTool.name}</h1>
 					</>
 				)}
@@ -65,12 +79,7 @@ export default function TopBar() {
 				<button className={styles.iconButton} onClick={handleToggleTheme} aria-label="Toggle theme">
 					{theme === "dark" ? <SunIcon /> : <MoonIcon />}
 				</button>
-				<button
-					className={`${styles.hamburger} ${mobileMenuOpen ? styles.hamburgerActive : ""}`}
-					onClick={handleToggleMobileMenu}
-					aria-label="Toggle menu"
-					aria-expanded={mobileMenuOpen}
-				>
+				<button className={`${styles.hamburger} ${mobileMenuOpen ? styles.hamburgerActive : ""}`} onClick={handleToggleMobileMenu} aria-label="Toggle menu" aria-expanded={mobileMenuOpen}>
 					<span className={styles.hamburgerBox}>
 						<span className={styles.hamburgerInner}></span>
 					</span>
