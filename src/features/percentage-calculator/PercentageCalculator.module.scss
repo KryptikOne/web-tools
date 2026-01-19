@@ -1,0 +1,146 @@
+@use "@/styles/variables" as *;
+@use "@/styles/utilities" as util;
+
+.container {
+	@extend .container;
+}
+
+.glassCard {
+	@extend .glass-card;
+	margin-bottom: 1.5rem;
+}
+
+.sectionTitle {
+	@extend .section-title;
+	margin: 0;
+}
+
+.inputLabel {
+	font-size: 0.9rem;
+	font-weight: 600;
+	color: $text-secondary;
+}
+
+.inputWrapper {
+	position: relative;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.input {
+	flex: 1;
+	padding: 0.875rem 1rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: $radius-md;
+	font-size: 1.125rem;
+	font-weight: 600;
+	color: $text-primary;
+	font-family: $font-family-mono;
+	transition: all 0.2s ease;
+
+	&:focus {
+		outline: none;
+		border-color: $color-accent;
+		box-shadow: 0 0 0 3px $color-accent-20;
+	}
+
+	&::placeholder {
+		color: $text-muted;
+		font-weight: 400;
+	}
+
+	// Hide number input spinners
+	&::-webkit-outer-spin-button,
+	&::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+	-moz-appearance: textfield;
+}
+
+.unitLabel {
+	position: absolute;
+	right: 3rem;
+	font-size: 1rem;
+	font-weight: 600;
+	color: $text-muted;
+	pointer-events: none;
+}
+
+.copyBtn {
+	@extend .copy-btn;
+}
+
+.copyIcon {
+	@extend .copy-icon;
+}
+
+.copied {
+	color: $color-success;
+}
+
+.clearBtn {
+	padding: 0.5rem 1rem;
+	background: transparent;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-sm;
+	font-size: 0.85rem;
+	color: $text-secondary;
+	cursor: pointer;
+	transition: all 0.2s ease;
+
+	&:hover {
+		border-color: $border-medium;
+		color: $text-primary;
+	}
+}
+
+.resultBox {
+	margin-top: 1.5rem;
+	padding: 1.25rem;
+	background: $input-bg;
+	border-radius: $radius-md;
+	border: 1px solid $border-subtle;
+}
+
+.quickBtn {
+	padding: 0.75rem 1rem;
+	background: $input-bg;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	font-size: 0.85rem;
+	color: $text-secondary;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	text-align: center;
+
+	&:hover {
+		border-color: $color-accent;
+		color: $text-primary;
+		background: $color-accent-20;
+	}
+}
+
+.formulaCard {
+	padding: 1rem;
+	background: $input-bg;
+	border-radius: $radius-md;
+	border: 1px solid $border-subtle;
+}
+
+.formula {
+	display: block;
+	padding: 0.5rem 0.75rem;
+	background: rgba(0, 0, 0, 0.3);
+	border-radius: $radius-sm;
+	font-family: $font-family-mono;
+	font-size: 0.85rem;
+	color: $color-accent;
+}
+
+// Accent color for result display
+.textAccent {
+	color: $color-accent;
+}

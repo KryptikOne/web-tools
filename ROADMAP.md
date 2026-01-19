@@ -27,6 +27,8 @@ A collection of utility tools, converters, and generators planned for developmen
 - [x] **PX/REM Calculator** - Convert between pixels and rem units
 - [x] **Kitchen Converter** - Convert cooking measurements with reference charts
 - [x] **Timezone Converter** - Convert times between timezones with visual timeline
+- [x] **Percentage Calculator** - Calculate percentages - find percentage, part, or whole from any two values
+- [x] **Tip Calculator** - Calculate tips with presets, split bills between multiple people
 
 ### Fun & Random
 - [x] **Dice Roller** - Roll virtual dice (D4, D6, D8, D10, D12, D20, D100)
@@ -74,7 +76,6 @@ A collection of utility tools, converters, and generators planned for developmen
 
 ### Utility & Conversion
 - [ ] **Aspect Ratio Calculator** - Calculate aspect ratios and dimensions
-- [ ] **Percentage Calculator** - Calculate percentages and ratios
 - [ ] **Password Generator** - Generate secure random passwords
 - [ ] **Number Base Converter** - Convert between number bases (binary, octal, decimal, hex)
 - [ ] **IP Address Checker** - Check your IP address and location

@@ -237,10 +237,11 @@
   overflow: hidden;
   text-overflow: ellipsis;
   font-family: $font-family-mono;
-  &:before {
-    content: '// ';
-    font-family: $font-family-mono;
-  }
+  // &:before {
+  //   // content: '// ';
+  //   content: '🔹- ';
+  //   font-family: $font-family-mono;
+  // }
 }
 
 .comingSoon {
