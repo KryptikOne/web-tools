@@ -26,6 +26,9 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+  flex: 1;
+  min-width: 0; // Allows flex child to shrink below content size
+  overflow: hidden;
 }
 
 .pageIcon {
@@ -56,6 +59,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  flex-shrink: 0; // Prevent buttons from being pushed off-screen
 }
 
 .iconButton {
