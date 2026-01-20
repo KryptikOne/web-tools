@@ -15,7 +15,7 @@ export default function HomePage() {
 						{/* <SparklesIcon className={styles.titleIcon} /> */}
 						Welcome to BittBott.dev
 					</h1>
-					<p className={styles.subtitle}>A comprehensive collection of free, browser-based tools. Choose a tool from the sidebar to get started.</p>
+					<p className={styles.subtitle}>A comprehensive collection of free, browser-based tools. Choose a tool from the menu to get started.</p>
 				</div>
 
 				{/* <div className={styles.statsGrid}> */}

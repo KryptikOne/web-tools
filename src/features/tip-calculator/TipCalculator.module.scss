@@ -23,19 +23,29 @@
 }
 
 .clearBtn {
-	padding: 0.5rem 1rem;
+	padding: 0.5rem 0.75rem;
 	background: transparent;
 	border: 1px solid $border-subtle;
 	border-radius: $radius-sm;
-	font-size: 0.85rem;
-	color: $text-secondary;
+	color: $text-muted;
+	font-size: 0.75rem;
 	cursor: pointer;
 	transition: all 0.2s ease;
+	display: flex;
+	align-items: center;
+	gap: 0.375rem;
+
+	// background: rgba(239, 68, 68, 0.1);
+	// 	border-color: rgba(239, 68, 68, 0.3);
+	// 	color: #ef4444;
 
 	&:hover {
-		border-color: $border-medium;
-		color: $text-primary;
+		background: rgba(239, 68, 68, 0.2);
+		border-color: rgba(239, 68, 68, 0.5);
+		// color: #ff5653;
+		color: #ef4444;
 	}
+
 }
 
 // Bill Amount Input
@@ -88,16 +98,16 @@
 // Tip Percentage Buttons
 .tipGrid {
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	gap: 0.75rem;
+	grid-template-columns: repeat(6, 1fr);
+	gap: 0.5rem;
 
-	@media (max-width: 640px) {
-		grid-template-columns: repeat(3, 1fr);
+	@media (min-width: 600px) {
+		grid-template-columns: repeat(6, 1fr);
 	}
 }
 
 .tipBtn {
-	padding: 1rem;
+	padding: 0.5rem;
 	background: $input-bg;
 	border: 2px solid $border-subtle;
 	border-radius: $radius-md;
@@ -159,6 +169,7 @@
 		-webkit-appearance: none;
 	}
 	-moz-appearance: textfield;
+	appearance: textfield;
 }
 
 .customTipUnit {
@@ -168,6 +179,37 @@
 	font-weight: 600;
 	color: $text-muted;
 	pointer-events: none;
+}
+
+.customTipRow {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	margin-top: 0.75rem;
+
+	.customTipWrapper {
+		flex: 1;
+	}
+}
+
+.customTipOr {
+	font-size: 0.85rem;
+	color: $text-muted;
+	font-weight: 500;
+}
+
+.customTipCurrency {
+	position: absolute;
+	left: 0.75rem;
+	font-size: 0.9rem;
+	font-weight: 600;
+	color: $text-muted;
+	pointer-events: none;
+}
+
+.dollarInput {
+	padding-left: 1.75rem;
+	padding-right: 1rem;
 }
 
 // Split Bill
