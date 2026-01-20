@@ -98,7 +98,7 @@
 // Tip Percentage Buttons
 .tipGrid {
 	display: grid;
-	grid-template-columns: repeat(6, 1fr);
+	grid-template-columns: repeat(3, 1fr);
 	gap: 0.5rem;
 
 	@media (min-width: 600px) {
