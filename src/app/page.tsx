@@ -12,7 +12,7 @@ export default function HomePage() {
 			<section className={styles.hero}>
 				<div className={styles.heroContent}>
 					<h1 className={styles.title}>
-						<SparklesIcon className={styles.titleIcon} />
+						{/* <SparklesIcon className={styles.titleIcon} /> */}
 						Welcome to BittBott.dev
 					</h1>
 					<p className={styles.subtitle}>A comprehensive collection of free, browser-based tools. Choose a tool from the sidebar to get started.</p>
@@ -72,13 +72,12 @@ export default function HomePage() {
 					</div> */}
 					<div className={styles.featureCard}>
 						<h3>⚡ Fast & Private</h3>
-						<p>All tools run locally in your browser. Nothing is ever uploaded to a server.</p>
-						<p>The only analytics in place are for anonymous usage information.</p>
-						<p>No ads, no tracking, no data collection, just tools... For Free</p>
+						<p>All tools run in your browser. Nothing is ever uploaded to a server.</p>
 					</div>
 					<div className={styles.featureCard}>
 						<h3>🆓 Free Forever</h3>
 						<p>No registration, no payments, no limits.</p>
+						<p>No ads, no tracking, no data collection, just tools.</p>
 					</div>
 				</div>
 			</section>
