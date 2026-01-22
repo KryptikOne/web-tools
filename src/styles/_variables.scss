@@ -5,10 +5,10 @@ $color-primary-50: oklch(91.9% 0.196 131.1 / 0.50);
 $color-primary-20: oklch(91.9% 0.196 131.1 / 0.20);
 $color-primary-dark: oklch(55% 0.2 145); // For light theme
 
-// Accent colors - Teal (analogous to primary green)
-$color-accent: oklch(47.3% 0.102 245.3);
-$color-accent-50: oklch(47.3% 0.102 245.3 / 0.50);
-$color-accent-20: oklch(47.3% 0.102 245.3 / 0.20);
+// Accent colors - Pink/Purple (vibrant contrast)
+$color-accent: oklch(55% 0.196 311.1 / 1);
+$color-accent-50: oklch(55% 0.196 311.1 / .50);
+$color-accent-20: oklch(55% 0.196 311.1 / .2);
 $color-accent-dark: oklch(50% 0.12 180); // For light theme
 
 // Accent Secondary - Amber (split-complementary warmth)
@@ -16,10 +16,6 @@ $color-accent-secondary: oklch(85% 0.18 85);
 $color-accent-secondary-50: oklch(85% 0.18 85 / 0.50);
 $color-accent-secondary-20: oklch(85% 0.18 85 / 0.20);
 $color-accent-secondary-dark: oklch(55% 0.15 85); // For light theme
-
-// Muted variants
-$color-muted-green: oklch(65% 0.12 160);
-$color-muted-green-dark: oklch(45% 0.1 160); // For light theme
 
 // Semantic colors
 $color-success: oklch(70% 0.18 145);

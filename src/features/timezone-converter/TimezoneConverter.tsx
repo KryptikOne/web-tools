@@ -58,11 +58,14 @@ const TIMEZONES: TimezoneInfo[] = [
 ];
 
 // Group timezones by region for the dropdown
-const TIMEZONE_GROUPS = TIMEZONES.reduce((acc, tz) => {
-	if (!acc[tz.region]) acc[tz.region] = [];
-	acc[tz.region].push(tz);
-	return acc;
-}, {} as Record<string, TimezoneInfo[]>);
+const TIMEZONE_GROUPS = TIMEZONES.reduce(
+	(acc, tz) => {
+		if (!acc[tz.region]) acc[tz.region] = [];
+		acc[tz.region].push(tz);
+		return acc;
+	},
+	{} as Record<string, TimezoneInfo[]>,
+);
 
 // Detect user's local timezone and map to our timezone list
 function detectUserTimezone(): string {
@@ -271,7 +274,7 @@ export default function TimezoneConverter() {
 
 			return hours;
 		},
-		[timelineZones]
+		[timelineZones],
 	);
 
 	// Get current hour position for the highlight
@@ -362,9 +365,11 @@ export default function TimezoneConverter() {
 							))}
 						</select>
 
-						<div className={styles.timeDisplay}>
+						<div className={`read-only ${styles.timeDisplay}`}>
 							<div className={styles.largeTimeReadonly}>{formatTimeDisplay(convertedTime.hours, convertedTime.minutes)}</div>
-							{convertedTime.dayOffset !== 0 && <div className={styles.dayOffset}>{convertedTime.dayOffset > 0 ? `+${convertedTime.dayOffset} day` : `${convertedTime.dayOffset} day`}</div>}
+							{convertedTime.dayOffset !== 0 && (
+								<div className={styles.dayOffset}>{convertedTime.dayOffset > 0 ? `+${convertedTime.dayOffset} day` : `${convertedTime.dayOffset} day`}</div>
+							)}
 							<div className={styles.offsetLabel}>{toTz && formatOffset(toTz.offset)}</div>
 						</div>
 					</div>
@@ -373,7 +378,8 @@ export default function TimezoneConverter() {
 				{/* Summary sentence */}
 				<div className={styles.summaryBox}>
 					<p>
-						When it&apos;s <strong>{formatTimeDisplay(inputHours, inputMinutes)}</strong> in <strong>{fromTz?.name}</strong>, it&apos;s <strong>{formatTimeDisplay(convertedTime.hours, convertedTime.minutes)}</strong> in <strong>{toTz?.name}</strong>
+						When it&apos;s <strong>{formatTimeDisplay(inputHours, inputMinutes)}</strong> in <strong>{fromTz?.name}</strong>, it&apos;s{" "}
+						<strong>{formatTimeDisplay(convertedTime.hours, convertedTime.minutes)}</strong> in <strong>{toTz?.name}</strong>
 						{convertedTime.dayOffset !== 0 && <span className={styles.dayNote}> ({convertedTime.dayOffset > 0 ? "next" : "previous"} day)</span>}
 					</p>
 				</div>
@@ -419,7 +425,11 @@ export default function TimezoneConverter() {
 								</div>
 								<div className={styles.timelineHours}>
 									{hours.map((h, i) => (
-										<div key={i} className={`${styles.hourCell} ${styles[getTimeCategory(h.localHour)]} ${i === currentBaseHour ? styles.currentHour : ""}`} title={`${tz?.abbrev}: ${formatTime12(h.localHour, 0)}`}>
+										<div
+											key={i}
+											className={`${styles.hourCell} ${styles[getTimeCategory(h.localHour)]} ${i === currentBaseHour ? styles.currentHour : ""}`}
+											title={`${tz?.abbrev}: ${formatTime12(h.localHour, 0)}`}
+										>
 											<span className={styles.hourLabel}>{getHourLabel(h.localHour)}</span>
 											{h.dayOffset !== 0 && <span className={styles.hourDayOffset}>{h.dayOffset > 0 ? "+1" : "-1"}</span>}
 										</div>
