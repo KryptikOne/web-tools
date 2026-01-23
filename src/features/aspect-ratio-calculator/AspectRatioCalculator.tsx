@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
-import { ArrowsRightLeftIcon, ClipboardDocumentIcon, CheckIcon, LockClosedIcon, LockOpenIcon } from "@heroicons/react/24/outline";
+import { useState, useCallback } from "react";
+import { ArrowsRightLeftIcon, LockClosedIcon, LockOpenIcon } from "@heroicons/react/24/outline";
 import styles from "./AspectRatioCalculator.module.scss";
 
 interface AspectRatio {
@@ -66,17 +66,10 @@ function simplifyRatio(width: number, height: number): string {
 	return `${w}:${h}`;
 }
 
-function formatNumber(num: number): string {
-	if (num === 0) return "0";
-	if (Number.isInteger(num)) return num.toLocaleString();
-	return num.toFixed(2).replace(/\.?0+$/, "");
-}
-
 export default function AspectRatioCalculator() {
 	const [width, setWidth] = useState<string>("1920");
 	const [height, setHeight] = useState<string>("1080");
 	const [lockedDimension, setLockedDimension] = useState<"width" | "height" | null>(null);
-	const [copiedCell, setCopiedCell] = useState<string | null>(null);
 
 	// Calculate derived values
 	const widthNum = parseFloat(width) || 0;
@@ -141,125 +134,120 @@ export default function AspectRatioCalculator() {
 		}
 	};
 
-	const copyToClipboard = async (text: string, cellId: string) => {
-		try {
-			await navigator.clipboard.writeText(text);
-			setCopiedCell(cellId);
-			setTimeout(() => setCopiedCell(null), 1500);
-		} catch (err) {
-			console.error("Failed to copy:", err);
-		}
-	};
-
 	return (
 		<div className={styles.container}>
 			{/* Calculator Section */}
 			<div className={styles.glassCard}>
 				<h2 className={styles.sectionTitle}>Aspect Ratio Calculator</h2>
 
-				{/* Dimension Inputs */}
-				<div className={styles.calculatorGrid}>
-					<div className={styles.dimensionInput}>
-						<div className={styles.inputHeader}>
-							<label className={styles.inputLabel}>Width</label>
-							<button
-								className={`${styles.lockButton} ${lockedDimension === "width" ? styles.locked : ""}`}
-								onClick={() => setLockedDimension(lockedDimension === "width" ? null : "width")}
-								title={lockedDimension === "width" ? "Unlock width" : "Lock width"}
-							>
-								{lockedDimension === "width" ? (
-									<LockClosedIcon className="w-4 h-4" />
-								) : (
-									<LockOpenIcon className="w-4 h-4" />
-								)}
-							</button>
-						</div>
-						<div className={styles.inputRow}>
-							<input
-								type="number"
-								inputMode="numeric"
-								value={width}
-								onChange={(e) => handleWidthChange(e.target.value)}
-								className={styles.numberInput}
-								placeholder="Width"
-							/>
-							<span className={styles.unitLabel}>px</span>
-						</div>
-					</div>
-
-					<button className={styles.swapButton} onClick={swapDimensions} title="Swap dimensions">
-						<ArrowsRightLeftIcon className="w-5 h-5" />
-					</button>
-
-					<div className={styles.dimensionInput}>
-						<div className={styles.inputHeader}>
-							<label className={styles.inputLabel}>Height</label>
-							<button
-								className={`${styles.lockButton} ${lockedDimension === "height" ? styles.locked : ""}`}
-								onClick={() => setLockedDimension(lockedDimension === "height" ? null : "height")}
-								title={lockedDimension === "height" ? "Unlock height" : "Lock height"}
-							>
-								{lockedDimension === "height" ? (
-									<LockClosedIcon className="w-4 h-4" />
-								) : (
-									<LockOpenIcon className="w-4 h-4" />
-								)}
-							</button>
-						</div>
-						<div className={styles.inputRow}>
-							<input
-								type="number"
-								inputMode="numeric"
-								value={height}
-								onChange={(e) => handleHeightChange(e.target.value)}
-								className={styles.numberInput}
-								placeholder="Height"
-							/>
-							<span className={styles.unitLabel}>px</span>
-						</div>
-					</div>
-				</div>
-
-				{/* Results */}
-				<div className={styles.resultsGrid}>
-					<div className={styles.resultCard} onClick={() => copyToClipboard(ratio, "ratio")}>
-						<span className={styles.resultLabel}>Aspect Ratio</span>
-						<span className={styles.resultValue}>{ratio}</span>
-						{copiedCell === "ratio" && <CheckIcon className={styles.copiedIcon} />}
-					</div>
-					<div className={styles.resultCard} onClick={() => copyToClipboard(decimalRatio, "decimal")}>
-						<span className={styles.resultLabel}>Decimal Ratio</span>
-						<span className={styles.resultValue}>{decimalRatio}</span>
-						{copiedCell === "decimal" && <CheckIcon className={styles.copiedIcon} />}
-					</div>
-					<div className={styles.resultCard} onClick={() => copyToClipboard(pixels, "pixels")}>
-						<span className={styles.resultLabel}>Total Pixels</span>
-						<span className={styles.resultValue}>{pixels}</span>
-						{copiedCell === "pixels" && <CheckIcon className={styles.copiedIcon} />}
-					</div>
-					<div className={styles.resultCard} onClick={() => copyToClipboard(`${megapixels} MP`, "mp")}>
-						<span className={styles.resultLabel}>Megapixels</span>
-						<span className={styles.resultValue}>{megapixels} MP</span>
-						{copiedCell === "mp" && <CheckIcon className={styles.copiedIcon} />}
-					</div>
-				</div>
-
-				{/* Copy Full Dimensions */}
-				{widthNum > 0 && heightNum > 0 && (
-					<div className={styles.copyDimensions}>
-						<button
-							className={styles.copyBtn}
-							onClick={() => copyToClipboard(`${width}x${height}`, "dimensions")}
-						>
-							{copiedCell === "dimensions" ? (
-								<CheckIcon className={styles.copyIcon} />
+				{/* Main Calculator Layout with Preview */}
+				<div className={styles.calculatorLayout}>
+					{/* Visual Preview */}
+					<div className={styles.previewSection}>
+						<div className={styles.previewContainer}>
+							{widthNum > 0 && heightNum > 0 ? (
+								<div
+									className={styles.previewBox}
+									style={{ aspectRatio: `${widthNum}/${heightNum}` }}
+								>
+									<span className={styles.previewRatio}>{ratio}</span>
+									<span className={styles.previewDimensions}>{width} × {height}</span>
+								</div>
 							) : (
-								<ClipboardDocumentIcon className={styles.copyIcon} />
+								<div className={styles.previewPlaceholder}>
+									<span>Enter dimensions</span>
+								</div>
 							)}
-							<span>Copy {width} × {height}</span>
-						</button>
+						</div>
+						<p className={styles.previewLabel}>Live Preview</p>
 					</div>
-				)}
+
+					{/* Inputs Section */}
+					<div className={styles.inputsSection}>
+						{/* Dimension Inputs */}
+						<div className={styles.calculatorGrid}>
+							<div className={styles.dimensionInput}>
+								<div className={styles.inputHeader}>
+									<label className={styles.inputLabel}>Width</label>
+									<button
+										className={`${styles.lockButton} ${lockedDimension === "width" ? styles.locked : ""}`}
+										onClick={() => setLockedDimension(lockedDimension === "width" ? null : "width")}
+										title={lockedDimension === "width" ? "Unlock width" : "Lock width"}
+									>
+										{lockedDimension === "width" ? (
+											<LockClosedIcon className="w-4 h-4" />
+										) : (
+											<LockOpenIcon className="w-4 h-4" />
+										)}
+									</button>
+								</div>
+								<div className={styles.inputRow}>
+									<input
+										type="number"
+										inputMode="numeric"
+										value={width}
+										onChange={(e) => handleWidthChange(e.target.value)}
+										className={styles.numberInput}
+										placeholder="Width"
+									/>
+									<span className={styles.unitLabel}>px</span>
+								</div>
+							</div>
+
+							<button className={styles.swapButton} onClick={swapDimensions} title="Swap dimensions">
+								<ArrowsRightLeftIcon className="w-5 h-5" />
+							</button>
+
+							<div className={styles.dimensionInput}>
+								<div className={styles.inputHeader}>
+									<label className={styles.inputLabel}>Height</label>
+									<button
+										className={`${styles.lockButton} ${lockedDimension === "height" ? styles.locked : ""}`}
+										onClick={() => setLockedDimension(lockedDimension === "height" ? null : "height")}
+										title={lockedDimension === "height" ? "Unlock height" : "Lock height"}
+									>
+										{lockedDimension === "height" ? (
+											<LockClosedIcon className="w-4 h-4" />
+										) : (
+											<LockOpenIcon className="w-4 h-4" />
+										)}
+									</button>
+								</div>
+								<div className={styles.inputRow}>
+									<input
+										type="number"
+										inputMode="numeric"
+										value={height}
+										onChange={(e) => handleHeightChange(e.target.value)}
+										className={styles.numberInput}
+										placeholder="Height"
+									/>
+									<span className={styles.unitLabel}>px</span>
+								</div>
+							</div>
+						</div>
+
+						{/* Results */}
+						<div className={styles.resultsGrid}>
+							<div className={styles.resultCard}>
+								<span className={styles.resultLabel}>Aspect Ratio</span>
+								<span className={styles.resultValue}>{ratio}</span>
+							</div>
+							<div className={styles.resultCard}>
+								<span className={styles.resultLabel}>Decimal Ratio</span>
+								<span className={styles.resultValue}>{decimalRatio}</span>
+							</div>
+							<div className={styles.resultCard}>
+								<span className={styles.resultLabel}>Total Pixels</span>
+								<span className={styles.resultValue}>{pixels}</span>
+							</div>
+							<div className={styles.resultCard}>
+								<span className={styles.resultLabel}>Megapixels</span>
+								<span className={styles.resultValue}>{megapixels} MP</span>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 
 			{/* Common Aspect Ratios */}

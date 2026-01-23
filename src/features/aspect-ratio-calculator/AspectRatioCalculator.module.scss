@@ -31,6 +31,99 @@
 	margin: 0 0 1rem 0;
 }
 
+// Calculator Layout with Preview
+.calculatorLayout {
+	display: grid;
+	grid-template-columns: 280px 1fr;
+	gap: 2rem;
+	align-items: start;
+
+	@media (max-width: 900px) {
+		grid-template-columns: 1fr;
+		gap: 1.5rem;
+	}
+}
+
+.previewSection {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.75rem;
+
+	@media (max-width: 900px) {
+		order: 2;
+	}
+}
+
+.previewContainer {
+	width: 100%;
+	max-width: 280px;
+	aspect-ratio: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: $input-bg;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	padding: 1rem;
+}
+
+.previewBox {
+	max-width: 100%;
+	max-height: 100%;
+	width: 100%;
+	height: auto;
+	background: linear-gradient(135deg, $color-accent-20 0%, $bg-glass 100%);
+	border: 2px solid $color-accent;
+	border-radius: $radius-sm;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.25rem;
+	padding: 1rem;
+	min-height: 60px;
+}
+
+.previewRatio {
+	font-size: 1.25rem;
+	font-weight: 700;
+	color: $color-accent;
+	font-family: $font-family-mono;
+}
+
+.previewDimensions {
+	font-size: 0.8rem;
+	color: $text-secondary;
+	font-family: $font-family-mono;
+}
+
+.previewPlaceholder {
+	width: 100%;
+	aspect-ratio: 16/9;
+	background: $bg-glass;
+	border: 2px dashed $border-subtle;
+	border-radius: $radius-sm;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: $text-muted;
+	font-size: 0.9rem;
+}
+
+.previewLabel {
+	font-size: 0.8rem;
+	color: $text-muted;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	font-weight: 600;
+	margin: 0;
+}
+
+.inputsSection {
+	flex: 1;
+}
+
 // Calculator Grid
 .calculatorGrid {
 	display: grid;
@@ -168,18 +261,10 @@
 	background: $input-bg;
 	border: 1px solid $border-subtle;
 	border-radius: $radius-md;
-	cursor: pointer;
-	transition: all 0.2s ease;
 	display: flex;
 	flex-direction: column;
 	gap: 0.25rem;
-	position: relative;
 	text-align: center;
-
-	&:hover {
-		border-color: $color-accent;
-		background: $color-accent-20;
-	}
 }
 
 .resultLabel {
@@ -195,47 +280,6 @@
 	font-weight: 600;
 	color: $color-accent;
 	font-family: $font-family-mono;
-}
-
-.copiedIcon {
-	position: absolute;
-	top: 0.5rem;
-	right: 0.5rem;
-	width: 16px;
-	height: 16px;
-	color: $color-success;
-}
-
-// Copy Dimensions
-.copyDimensions {
-	display: flex;
-	justify-content: center;
-	margin-top: 1rem;
-}
-
-.copyBtn {
-	display: flex;
-	align-items: center;
-	gap: 0.5rem;
-	padding: 0.625rem 1rem;
-	background: $bg-glass;
-	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
-	color: $text-secondary;
-	font-size: 0.9rem;
-	cursor: pointer;
-	transition: all 0.2s ease;
-
-	&:hover {
-		background: $bg-glass-hover;
-		color: $text-primary;
-		border-color: $color-accent;
-	}
-}
-
-.copyIcon {
-	width: 18px;
-	height: 18px;
 }
 
 // Ratios Grid
