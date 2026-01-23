@@ -7,6 +7,7 @@ A collection of utility tools, converters, and generators planned for developmen
 ## Existing Tools (Implemented)
 
 ### Color & Design
+
 - [x] **Color Picker** - Advanced OKLCH-based color picker with multi-format conversion
 - [x] **CSS Gradient Generator** - Create CSS gradients visually with linear and radial options
 - [x] **Box Shadow Generator** - Generate CSS box shadows
@@ -15,14 +16,17 @@ A collection of utility tools, converters, and generators planned for developmen
 - [x] **Color Palette Generator** - Generate color palettes with harmony rules
 
 ### Image & Visual
+
 - [x] **Dummy Image Generator** - Generate placeholder images with custom dimensions and colors
 
 ### Text & Data
+
 - [x] **Invisible Character Remover** - Strip invisible and problematic Unicode characters
 - [x] **HTML Entities Reference** - Comprehensive HTML entities reference
 - [x] **Text/Binary Converter** - Convert text to binary and binary to text with encoding options
 
 ### Utility & Conversion
+
 - [x] **Epoch Converter** - Convert Unix timestamps to dates
 - [x] **PX/REM Calculator** - Convert between pixels and rem units
 - [x] **Kitchen Converter** - Convert cooking measurements with reference charts
@@ -34,8 +38,12 @@ A collection of utility tools, converters, and generators planned for developmen
 - [x] **Temperature Converter** - Convert between Fahrenheit, Celsius, and Kelvin
 - [x] **Area Converter** - Convert between square feet, square meters, acres, hectares, and more
 - [x] **Volume Converter** - Convert between gallons, liters, cubic feet, and more
+- [x] **Aspect Ratio Calculator** - Calculate aspect ratios and dimensions for video/images
+- [x] **Data Storage Converter** - Convert between bytes, KB, MB, GB, TB with binary/decimal modes
+- [x] **Bandwidth Calculator** - Convert bandwidth units and calculate download times
 
 ### Fun & Random
+
 - [x] **Dice Roller** - Roll virtual dice (D4, D6, D8, D10, D12, D20, D100)
 
 ---
@@ -43,6 +51,7 @@ A collection of utility tools, converters, and generators planned for developmen
 ## Planned Tools (Commented Out in Registry)
 
 ### Color & Design
+
 - [ ] **CSS Filter Generator** - Generate CSS filter effects
 - [ ] **Background Pattern Generator** - Create CSS background patterns
 - [ ] **Color Blindness Simulator** - Preview designs for different types of color blindness
@@ -51,6 +60,7 @@ A collection of utility tools, converters, and generators planned for developmen
 - [ ] **Icon Generator** - Generate simple icons and favicons
 
 ### Image & Visual
+
 - [ ] **Image Resizer** - Resize images to specific dimensions
 - [ ] **Image Format Converter** - Convert images between formats (PNG, JPG, WebP)
 - [ ] **Image Compressor** - Compress images to reduce file size
@@ -63,6 +73,7 @@ A collection of utility tools, converters, and generators planned for developmen
 - [ ] **Image Color Extractor** - Extract dominant colors from images
 
 ### Code & Web Development
+
 - [ ] **URL Encoder/Decoder** - Encode and decode URLs
 - [ ] **JWT Decoder** - Decode and inspect JSON Web Tokens
 - [ ] **CSP Parser** - Parse and validate Content Security Policy headers
@@ -80,13 +91,14 @@ A collection of utility tools, converters, and generators planned for developmen
 - [ ] **Package.json Generator** - Generate package.json files
 
 ### Utility & Conversion
-- [ ] **Aspect Ratio Calculator** - Calculate aspect ratios and dimensions
-- [ ] **Password Generator** - Generate secure random passwords
+
+- [x] **Aspect Ratio Calculator** - Calculate aspect ratios and dimensions (Implemented)
 - [ ] **Number Base Converter** - Convert between number bases (binary, octal, decimal, hex)
 - [ ] **IP Address Checker** - Check your IP address and location
 - [ ] **File Size Calculator** - Calculate and convert file sizes
 
 ### Text & Data
+
 - [ ] **Base64 Encoder/Decoder** - Encode and decode Base64 strings
 - [ ] **Character Counter** - Count characters, words, and lines in text
 - [ ] **CSV to JSON** - Convert CSV data to JSON format
@@ -105,6 +117,7 @@ A collection of utility tools, converters, and generators planned for developmen
 - [ ] **Hash Generator** - Generate MD5, SHA-1, SHA-256 hashes
 
 ### Fun & Random
+
 - [ ] **UUID Generator** - Generate UUIDs (v1, v4, etc.)
 - [ ] **Random Number Generator** - Generate random numbers with constraints
 - [ ] **Lorem Pixel** - Generate random placeholder images
@@ -123,53 +136,57 @@ A collection of utility tools, converters, and generators planned for developmen
 
 ---
 
-### Tech / Developer Focused
+### Tech / Developer Focused (Implemented)
 
-#### Data Storage Converter
-Convert between digital storage units.
-- **Units:** bytes, kilobytes, megabytes, gigabytes, terabytes, petabytes
-- **Features:** Binary (1024) vs Decimal (1000) toggle, file size estimator
-- **Extras:** "How many songs/photos/videos can fit?" calculator
-
-#### Bandwidth / Transfer Calculator
-Calculate transfer speeds and times.
-- **Units:** bps, Kbps, Mbps, Gbps, MB/s, GB/s
-- **Features:** Download time estimator, streaming quality requirements
+- [x] **Data Storage Converter** - bytes, KB, MB, GB, TB, PB with binary (1024) vs decimal (1000) toggle
+- [x] **Bandwidth Calculator** - bps, Kbps, Mbps, Gbps, MB/s, GB/s with download time estimator
 
 #### Screen / Resolution Tools
+
 Screen and display calculations.
+
 - **Features:**
-  - DPI/PPI calculator
-  - Aspect ratio converter (16:9, 4:3, 21:9, etc.)
-  - Resolution scaler
-  - Pixel density comparator
+    - DPI/PPI calculator
+    - Aspect ratio converter (16:9, 4:3, 21:9, etc.)
+    - Resolution scaler
+    - Pixel density comparator
 
 ---
 
 ### Science / Engineering
 
 #### Pressure Converter
+
 Convert between pressure units.
+
 - **Units:** PSI, bar, atmospheres (atm), pascals (Pa), kilopascals (kPa), mmHg, inHg
 - **Features:** Tire pressure reference, weather/altitude context
 
 #### Energy Converter
+
 Convert between energy units.
+
 - **Units:** joules (J), kilojoules (kJ), calories (cal), kilocalories (kcal/Cal), BTU, kilowatt-hours (kWh), electron volts (eV)
 - **Features:** Food calorie context, electricity cost calculator
 
 #### Speed / Velocity Converter
+
 Convert between speed units.
+
 - **Units:** mph, km/h, m/s, ft/s, knots, Mach
 - **Features:** Wind speed scale (Beaufort), common speed references
 
 #### Power Converter
+
 Convert between power units.
+
 - **Units:** watts (W), kilowatts (kW), horsepower (hp), BTU/hour
 - **Features:** Appliance power consumption reference
 
 #### Frequency Converter
+
 Convert between frequency units.
+
 - **Units:** hertz (Hz), kilohertz (kHz), megahertz (MHz), gigahertz (GHz), RPM
 - **Features:** Audio frequency reference, radio band reference
 
@@ -178,39 +195,49 @@ Convert between frequency units.
 ### Practical / Niche
 
 #### Fuel Economy Converter
+
 Convert between fuel efficiency units.
+
 - **Units:** MPG (US), MPG (UK), L/100km, km/L
 - **Features:** Trip cost calculator, vehicle comparison tool
 
 #### Clothing Size Converter
+
 Convert between international clothing sizes.
+
 - **Categories:**
-  - Shoes (US, UK, EU, CM)
-  - Shirts/Tops (US, UK, EU)
-  - Pants/Bottoms (US, UK, EU)
-  - Rings
+    - Shoes (US, UK, EU, CM)
+    - Shirts/Tops (US, UK, EU)
+    - Pants/Bottoms (US, UK, EU)
+    - Rings
 - **Features:** Men's/Women's/Kids' modes, brand-specific variations
 
 #### Currency Converter
+
 Convert between world currencies.
+
 - **Features:**
-  - Live exchange rates (API integration)
-  - Historical rates
-  - Multi-currency comparison
-  - Travel budget calculator
+    - Live exchange rates (API integration)
+    - Historical rates
+    - Multi-currency comparison
+    - Travel budget calculator
 
 #### Angle Converter
+
 Convert between angle units.
+
 - **Units:** degrees, radians, gradians, turns, arc minutes, arc seconds
 - **Features:** Trig function calculator, visual angle representation
 
 #### Time Duration Calculator
+
 Calculate time differences and durations.
+
 - **Features:**
-  - Days/hours/minutes/seconds breakdown
-  - Working days calculator
-  - Age calculator
-  - Countdown/time-until calculator
+    - Days/hours/minutes/seconds breakdown
+    - Working days calculator
+    - Age calculator
+    - Countdown/time-until calculator
 
 ---
 
@@ -219,6 +246,7 @@ Calculate time differences and durations.
 Planned improvements for existing tools:
 
 ### Text/Binary Converter
+
 - [ ] File upload support (.txt files)
 - [ ] File download (save as .txt or .bin)
 - [ ] Custom delimiter input
@@ -234,6 +262,7 @@ Feel free to suggest new tools or improvements by opening an issue or pull reque
 ## Priority Legend
 
 When implementing, consider:
+
 - **High Priority:** Frequently needed, broad appeal
 - **Medium Priority:** Useful but more niche
 - **Low Priority:** Nice to have, specialized use cases

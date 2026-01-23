@@ -20,7 +20,6 @@ import {
 	ClockIcon,
 	EyeIcon,
 	BookmarkIcon,
-	PencilIcon,
 } from "@heroicons/react/24/outline";
 import { Button } from "@/components/ui/button";
 import { ColorPickerPopover } from "@/components/ColorPickerPopover";

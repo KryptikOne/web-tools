@@ -193,14 +193,6 @@ export const TOOLS_REGISTRY: Tool[] = [
 	// },
 
 	// UTILITY & CONVERSION
-	// {
-	// 	id: "password-generator",
-	// 	name: "Password Generator",
-	// 	description: "Generate secure random passwords",
-	// 	category: ToolCategory.UTILITY_CONVERSION,
-	// 	route: "/tools/password-generator",
-	// 	implemented: false,
-	// },
 	{
 		id: "epoch-converter",
 		name: "Epoch Converter",
@@ -225,14 +217,6 @@ export const TOOLS_REGISTRY: Tool[] = [
 		route: "/tools/px-rem-calculator",
 		implemented: true,
 	},
-	// {
-	// 	id: "aspect-ratio-calculator",
-	// 	name: "Aspect Ratio Calculator",
-	// 	description: "Calculate aspect ratios and dimensions",
-	// 	category: ToolCategory.UTILITY_CONVERSION,
-	// 	route: "/tools/aspect-ratio-calculator",
-	// 	implemented: false,
-	// },
 	{
 		id: "percentage-calculator",
 		name: "Percentage Calculator",
@@ -429,6 +413,30 @@ export const TOOLS_REGISTRY: Tool[] = [
 		description: "Convert between gallons, liters, cubic feet, fluid ounces, and more",
 		category: ToolCategory.UTILITY_CONVERSION,
 		route: "/tools/volume-converter",
+		implemented: true,
+	},
+	{
+		id: "aspect-ratio-calculator",
+		name: "Aspect Ratio Calculator",
+		description: "Calculate aspect ratios, resize dimensions, and find common presets for video and images",
+		category: ToolCategory.UTILITY_CONVERSION,
+		route: "/tools/aspect-ratio-calculator",
+		implemented: true,
+	},
+	{
+		id: "data-storage-converter",
+		name: "Data Storage Converter",
+		description: "Convert between bytes, KB, MB, GB, TB with binary (1024) and decimal (1000) modes",
+		category: ToolCategory.UTILITY_CONVERSION,
+		route: "/tools/data-storage-converter",
+		implemented: true,
+	},
+	{
+		id: "bandwidth-calculator",
+		name: "Bandwidth Calculator",
+		description: "Convert bandwidth units and calculate download times for files",
+		category: ToolCategory.UTILITY_CONVERSION,
+		route: "/tools/bandwidth-calculator",
 		implemented: true,
 	},
 ];
