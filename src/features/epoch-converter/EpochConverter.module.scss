@@ -26,7 +26,7 @@
 .liveIcon {
   width: 1.5rem;
   height: 1.5rem;
-  color: $color-green-base;
+  color: $color-primary;
 }
 
 .liveTitle {
@@ -72,7 +72,7 @@
   font-size: 2rem;
   font-weight: 700;
   font-family: $font-family-mono;
-  color: $color-green-base;
+  color: $color-primary;
   letter-spacing: 0.02em;
 
   @media (max-width: 600px) {
@@ -238,7 +238,7 @@
   margin: 0;
   font-size: 1rem;
   font-weight: 600;
-  color: $color-green-base;
+  color: $color-primary;
   font-family: $font-family-mono;
   word-break: break-word;
 }

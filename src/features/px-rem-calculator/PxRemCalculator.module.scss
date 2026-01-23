@@ -113,7 +113,7 @@
 .arrowIcon {
   width: 1.5rem;
   height: 1.5rem;
-  color: $color-green-base;
+  color: $color-primary;
 }
 
 .baseSizeSection {
@@ -131,7 +131,7 @@
 }
 
 .baseSizeValue {
-  color: $color-green-base;
+  color: $color-primary;
   font-weight: 600;
 }
 
@@ -172,7 +172,7 @@
   }
 
   &.active {
-    border-color: $color-green-base;
+    border-color: $color-primary;
     background: rgba(102, 234, 150, 0.1);
   }
 }
@@ -228,7 +228,7 @@
     background: rgba(102, 234, 150, 0.1);
 
     td {
-      color: $color-green-base;
+      color: $color-primary;
     }
   }
 }
@@ -270,6 +270,6 @@
   border-radius: $radius-sm;
   font-family: $font-family-mono;
   font-size: 0.8rem;
-  color: $color-green-base;
+  color: $color-primary;
   margin: 0.25rem 0;
 }

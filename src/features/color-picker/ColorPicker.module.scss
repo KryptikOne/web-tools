@@ -148,12 +148,16 @@
 .formatValue {
   color: $text-code;
   font-family: $font-family-mono;
-  font-size: 1rem;
+  font-size: 1.2rem;
   flex: 1;
   margin: 0 $spacing-md;
   padding: $spacing-sm;
   background: $input-bg;
   border-radius: $radius-sm;
+  white-space: nowrap;    // prevents text wrapping
+  overflow: hidden;       // clips/hides overflow text
+  text-overflow: ellipsis; // optional: adds "..." when truncated
+
 }
 
 .copyBtn {
@@ -467,6 +471,7 @@
   border: 1px solid $color-accent-50;
   border-radius: $radius-lg;
   margin-bottom: $spacing-lg;
+  font-size: larger;
 }
 
 .ratioValue {

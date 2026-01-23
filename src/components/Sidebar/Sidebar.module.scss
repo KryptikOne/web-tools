@@ -108,14 +108,14 @@
   width: 1.75rem;
   height: 1.75rem;
   flex-shrink: 0;
-  color: $color-green-base;
+  color: $color-primary;
 }
 
 .logoText {
   font-size: 1.25rem;
   font-weight: 700;
   white-space: nowrap;
-  color: $color-green-base;
+  color: $color-primary;
   font-family: $font-family-display;
 }
 
@@ -155,7 +155,7 @@
   width: 1.125rem;
   height: 1.125rem;
   flex-shrink: 0;
-  color: $color-green-base;
+  color: $color-primary;
   opacity: 0.8;
   transition: opacity 0.2s ease;
 

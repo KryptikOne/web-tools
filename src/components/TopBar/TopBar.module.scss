@@ -34,7 +34,7 @@
 .pageIcon {
   width: 1.5rem;
   height: 1.5rem;
-  color: $color-green-base;
+  color: $color-primary;
   flex-shrink: 0;
 }
 
@@ -174,7 +174,7 @@
     // transform: rotate(225deg);
     // transition-delay: 0.12s;
     // transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-    // background-color: $color-green-base;
+    // background-color: $color-primary;
     transform: rotate(45deg);
     transition-delay: 0.12s;
     transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -190,7 +190,7 @@
       bottom: 0;
       // transform: rotate(-90deg);
       // transition: bottom 0.1s ease-out, transform 0.22s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
-      // background-color: $color-green-base;
+      // background-color: $color-primary;
 
       transform: rotate(-90deg);
       transition: bottom 0.075s ease, transform 0.075s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
