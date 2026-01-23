@@ -29,6 +29,11 @@ A collection of utility tools, converters, and generators planned for developmen
 - [x] **Timezone Converter** - Convert times between timezones with visual timeline
 - [x] **Percentage Calculator** - Calculate percentages - find percentage, part, or whole from any two values
 - [x] **Tip Calculator** - Calculate tips with presets, split bills between multiple people
+- [x] **Distance / Length Converter** - Convert between miles, km, meters, feet, yards, inches, and more
+- [x] **Weight / Mass Converter** - Convert between pounds, kg, ounces, grams, stones, and tons
+- [x] **Temperature Converter** - Convert between Fahrenheit, Celsius, and Kelvin
+- [x] **Area Converter** - Convert between square feet, square meters, acres, hectares, and more
+- [x] **Volume Converter** - Convert between gallons, liters, cubic feet, and more
 
 ### Fun & Random
 - [x] **Dice Roller** - Roll virtual dice (D4, D6, D8, D10, D12, D20, D100)
@@ -108,32 +113,13 @@ A collection of utility tools, converters, and generators planned for developmen
 
 ## Planned Measurement Converters
 
-### Everyday Use
+### Everyday Use (Implemented)
 
-#### Distance / Length Converter
-Convert between common distance and length units.
-- **Units:** miles, kilometers, meters, feet, yards, inches, centimeters, millimeters, nautical miles
-- **Features:** Quick reference table, common conversions
-
-#### Weight / Mass Converter
-Convert between weight and mass units.
-- **Units:** pounds (lbs), kilograms (kg), ounces (oz), grams (g), stones, metric tons, US tons
-- **Features:** Body weight mode, shipping weight mode
-
-#### Temperature Converter
-Convert between temperature scales.
-- **Units:** Fahrenheit (°F), Celsius (°C), Kelvin (K)
-- **Features:** Common reference points (freezing, boiling, body temp), formula display
-
-#### Area Converter
-Convert between area measurements.
-- **Units:** square feet, square meters, square yards, acres, hectares, square kilometers, square miles
-- **Features:** Real estate mode, land measurement mode
-
-#### Volume Converter
-Convert between volume measurements (non-cooking focused).
-- **Units:** gallons (US/UK), liters, cubic feet, cubic meters, cubic inches, fluid ounces
-- **Features:** Tank/container calculator, pool volume estimator
+- [x] **Distance / Length Converter** - miles, km, meters, feet, yards, inches, cm, mm, nautical miles
+- [x] **Weight / Mass Converter** - lbs, kg, oz, grams, stones, metric tons, US tons
+- [x] **Temperature Converter** - Fahrenheit, Celsius, Kelvin with reference charts
+- [x] **Area Converter** - sq ft, sq m, sq yd, acres, hectares, sq km, sq miles
+- [x] **Volume Converter** - gallons (US/UK), liters, cubic ft/m/in, fluid ounces
 
 ---
 

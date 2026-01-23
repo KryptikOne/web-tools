@@ -81,6 +81,21 @@ Avoid premature optimization and over-engineering.
 
 ---
 
+## New Tool Checklist
+
+When creating a new tool, **always complete all of these steps**:
+
+1. **Create the feature component** in `src/features/[tool-name]/[ToolName].tsx`
+2. **Create the SCSS module** in `src/features/[tool-name]/[ToolName].module.scss`
+3. **Create the route page** in `src/app/tools/[tool-name]/page.tsx`
+4. **Register the tool** in `src/config/tools-registry.ts` with `implemented: true`
+5. **Update ROADMAP.md**:
+   - Add the tool to "Existing Tools (Implemented)" under the appropriate category
+   - If the tool was listed in "Planned Tools", mark it as `[x]` or move it to the implemented section
+6. **Run `npm run build`** to verify everything compiles correctly
+
+---
+
 ## Styling Approach: Tailwind + SCSS Hybrid
 
 Use a balanced combination of Tailwind utility classes and SCSS modules:

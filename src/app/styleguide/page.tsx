@@ -352,13 +352,13 @@ export default function StyleguidePage() {
 								<code className={styles.colorValue}>#764ba2</code>
 							</div>
 						</div>
-						<div className={styles.colorCard}>
+						{/* <div className={styles.colorCard}>
 							<div className={styles.colorSwatch} style={{ background: "oklch(0.70 0.18 150)" }} />
 							<div className={styles.colorInfo}>
 								<span className={styles.colorName}>$color-green-base</span>
 								<code className={styles.colorValue}>oklch(0.70 0.18 150)</code>
 							</div>
-						</div>
+						</div> */}
 					</div>
 				</div>
 

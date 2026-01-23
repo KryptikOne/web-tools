@@ -391,6 +391,46 @@ export const TOOLS_REGISTRY: Tool[] = [
 		route: "/tools/timezone-converter",
 		implemented: true,
 	},
+	{
+		id: "distance-converter",
+		name: "Distance / Length Converter",
+		description: "Convert between miles, kilometers, meters, feet, yards, inches, and more",
+		category: ToolCategory.UTILITY_CONVERSION,
+		route: "/tools/distance-converter",
+		implemented: true,
+	},
+	{
+		id: "weight-converter",
+		name: "Weight / Mass Converter",
+		description: "Convert between pounds, kilograms, ounces, grams, stones, and tons",
+		category: ToolCategory.UTILITY_CONVERSION,
+		route: "/tools/weight-converter",
+		implemented: true,
+	},
+	{
+		id: "temperature-converter",
+		name: "Temperature Converter",
+		description: "Convert between Fahrenheit, Celsius, and Kelvin with reference charts",
+		category: ToolCategory.UTILITY_CONVERSION,
+		route: "/tools/temperature-converter",
+		implemented: true,
+	},
+	{
+		id: "area-converter",
+		name: "Area Converter",
+		description: "Convert between square feet, square meters, acres, hectares, and more",
+		category: ToolCategory.UTILITY_CONVERSION,
+		route: "/tools/area-converter",
+		implemented: true,
+	},
+	{
+		id: "volume-converter",
+		name: "Volume Converter",
+		description: "Convert between gallons, liters, cubic feet, fluid ounces, and more",
+		category: ToolCategory.UTILITY_CONVERSION,
+		route: "/tools/volume-converter",
+		implemented: true,
+	},
 ];
 
 export function getToolsByCategory(category: ToolCategory): Tool[] {
