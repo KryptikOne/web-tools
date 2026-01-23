@@ -154,9 +154,9 @@
   padding: $spacing-sm;
   background: $input-bg;
   border-radius: $radius-sm;
-  white-space: nowrap;    // prevents text wrapping
-  overflow: hidden;       // clips/hides overflow text
-  text-overflow: ellipsis; // optional: adds "..." when truncated
+  // white-space: nowrap;    // prevents text wrapping
+  // overflow-y: hidden;       // clips/hides overflow text
+  // text-overflow: ellipsis; // optional: adds "..." when truncated
 
 }
 
