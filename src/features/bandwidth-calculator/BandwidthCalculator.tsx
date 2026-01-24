@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useMemo } from "react";
-import { ArrowsRightLeftIcon, ClipboardDocumentIcon, CheckIcon, ClockIcon } from "@heroicons/react/24/outline";
+import { ArrowsRightLeftIcon, ClockIcon } from "@heroicons/react/24/outline";
 import styles from "./BandwidthCalculator.module.scss";
 
 interface ConversionUnit {
@@ -88,7 +88,6 @@ export default function BandwidthCalculator() {
 	const [fromUnit, setFromUnit] = useState<string>("mbps");
 	const [toUnit, setToUnit] = useState<string>("mBps");
 	const [inputValue, setInputValue] = useState<string>("100");
-	const [copiedCell, setCopiedCell] = useState<string | null>(null);
 
 	// Download time calculator state
 	const [fileSize, setFileSize] = useState<string>("1");
@@ -136,16 +135,6 @@ export default function BandwidthCalculator() {
 		const temp = fromUnit;
 		setFromUnit(toUnit);
 		setToUnit(temp);
-	};
-
-	const copyToClipboard = async (text: string, cellId: string) => {
-		try {
-			await navigator.clipboard.writeText(text);
-			setCopiedCell(cellId);
-			setTimeout(() => setCopiedCell(null), 1500);
-		} catch (err) {
-			console.error("Failed to copy:", err);
-		}
 	};
 
 	const result = convert();
@@ -206,13 +195,6 @@ export default function BandwidthCalculator() {
 								{result} {BANDWIDTH_UNITS.find((u) => u.id === toUnit)?.abbrev}
 							</strong>
 						</span>
-						<button
-							className={`${styles.copyBtn} ${copiedCell === "result" ? styles.copied : ""}`}
-							onClick={() => copyToClipboard(`${result} ${BANDWIDTH_UNITS.find((u) => u.id === toUnit)?.abbrev}`, "result")}
-							title="Copy to clipboard"
-						>
-							{copiedCell === "result" ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
-						</button>
 					</div>
 				)}
 			</div>
@@ -269,12 +251,8 @@ export default function BandwidthCalculator() {
 
 					<div className={styles.calcResult}>
 						<label className={styles.inputLabel}>Download Time</label>
-						<div
-							className={styles.timeResult}
-							onClick={() => downloadTime && copyToClipboard(downloadTime.formatted, "dltime")}
-						>
+						<div className={styles.timeResult}>
 							{downloadTime ? downloadTime.formatted : "—"}
-							{copiedCell === "dltime" && <CheckIcon className={styles.copiedIconSmall} />}
 						</div>
 					</div>
 				</div>
@@ -299,10 +277,7 @@ export default function BandwidthCalculator() {
 								<tr key={i}>
 									<td className={styles.boldCell}>{row.speed}</td>
 									<td>{row.bitsNotation}</td>
-									<td className={styles.clickableCell} onClick={() => copyToClipboard(row.bytesNotation, `bvb-${i}`)}>
-										{row.bytesNotation}
-										{copiedCell === `bvb-${i}` && <CheckIcon className={styles.copiedIcon} />}
-									</td>
+									<td>{row.bytesNotation}</td>
 									<td className={styles.mutedCell}>{row.note}</td>
 								</tr>
 							))}
@@ -329,10 +304,7 @@ export default function BandwidthCalculator() {
 								{STREAMING_REQUIREMENTS.map((row, i) => (
 									<tr key={i}>
 										<td>{row.quality}</td>
-										<td className={styles.clickableCell} onClick={() => copyToClipboard(row.bitrate, `stream-${i}`)}>
-											{row.bitrate}
-											{copiedCell === `stream-${i}` && <CheckIcon className={styles.copiedIcon} />}
-										</td>
+										<td>{row.bitrate}</td>
 										<td className={styles.mutedCell}>{row.perHour}</td>
 									</tr>
 								))}
@@ -357,14 +329,8 @@ export default function BandwidthCalculator() {
 								{COMMON_SPEEDS.map((row, i) => (
 									<tr key={i}>
 										<td>{row.name}</td>
-										<td className={styles.clickableCell} onClick={() => copyToClipboard(row.download, `speed-dl-${i}`)}>
-											{row.download}
-											{copiedCell === `speed-dl-${i}` && <CheckIcon className={styles.copiedIcon} />}
-										</td>
-										<td className={styles.clickableCell} onClick={() => copyToClipboard(row.upload, `speed-ul-${i}`)}>
-											{row.upload}
-											{copiedCell === `speed-ul-${i}` && <CheckIcon className={styles.copiedIcon} />}
-										</td>
+										<td>{row.download}</td>
+										<td>{row.upload}</td>
 									</tr>
 								))}
 							</tbody>

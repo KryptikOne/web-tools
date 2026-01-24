@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { ArrowsRightLeftIcon, ClipboardDocumentIcon, CheckIcon } from "@heroicons/react/24/outline";
+import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import styles from "./VolumeConverter.module.scss";
 
 interface ConversionUnit {
@@ -93,7 +93,6 @@ export default function VolumeConverter() {
 	const [fromUnit, setFromUnit] = useState<string>("gal_us");
 	const [toUnit, setToUnit] = useState<string>("l");
 	const [inputValue, setInputValue] = useState<string>("1");
-	const [copiedCell, setCopiedCell] = useState<string | null>(null);
 
 	const convert = useCallback(() => {
 		const value = parseFloat(inputValue);
@@ -114,16 +113,6 @@ export default function VolumeConverter() {
 		const temp = fromUnit;
 		setFromUnit(toUnit);
 		setToUnit(temp);
-	};
-
-	const copyToClipboard = async (text: string, cellId: string) => {
-		try {
-			await navigator.clipboard.writeText(text);
-			setCopiedCell(cellId);
-			setTimeout(() => setCopiedCell(null), 1500);
-		} catch (err) {
-			console.error("Failed to copy:", err);
-		}
 	};
 
 	const result = convert();
@@ -184,13 +173,6 @@ export default function VolumeConverter() {
 								{result} {VOLUME_UNITS.find((u) => u.id === toUnit)?.abbrev}
 							</strong>
 						</span>
-						<button
-							className={`${styles.copyBtn} ${copiedCell === "result" ? styles.copied : ""}`}
-							onClick={() => copyToClipboard(`${result} ${VOLUME_UNITS.find((u) => u.id === toUnit)?.abbrev}`, "result")}
-							title="Copy to clipboard"
-						>
-							{copiedCell === "result" ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
-						</button>
 					</div>
 				)}
 			</div>
@@ -212,10 +194,7 @@ export default function VolumeConverter() {
 								{US_TO_METRIC.map((row, i) => (
 									<tr key={i}>
 										<td>{row.us}</td>
-										<td className={styles.clickableCell} onClick={() => copyToClipboard(row.metric, `us-${i}`)}>
-											{row.metric}
-											{copiedCell === `us-${i}` && <CheckIcon className={styles.copiedIcon} />}
-										</td>
+										<td>{row.metric}</td>
 									</tr>
 								))}
 							</tbody>
@@ -238,10 +217,7 @@ export default function VolumeConverter() {
 								{METRIC_TO_US.map((row, i) => (
 									<tr key={i}>
 										<td>{row.metric}</td>
-										<td className={styles.clickableCell} onClick={() => copyToClipboard(row.us, `met-${i}`)}>
-											{row.us}
-											{copiedCell === `met-${i}` && <CheckIcon className={styles.copiedIcon} />}
-										</td>
+										<td>{row.us}</td>
 									</tr>
 								))}
 							</tbody>
@@ -268,14 +244,8 @@ export default function VolumeConverter() {
 							{US_UK_COMPARISON.map((row, i) => (
 								<tr key={i}>
 									<td className={styles.boldCell}>{row.unit}</td>
-									<td className={styles.clickableCell} onClick={() => copyToClipboard(row.us, `comp-us-${i}`)}>
-										{row.us}
-										{copiedCell === `comp-us-${i}` && <CheckIcon className={styles.copiedIcon} />}
-									</td>
-									<td className={styles.clickableCell} onClick={() => copyToClipboard(row.uk, `comp-uk-${i}`)}>
-										{row.uk}
-										{copiedCell === `comp-uk-${i}` && <CheckIcon className={styles.copiedIcon} />}
-									</td>
+									<td>{row.us}</td>
+									<td>{row.uk}</td>
 									<td className={styles.mutedCell}>{row.note}</td>
 								</tr>
 							))}
@@ -289,10 +259,9 @@ export default function VolumeConverter() {
 				<h3 className={styles.chartTitle}>Common Tank &amp; Container Sizes</h3>
 				<div className={styles.referencesGrid}>
 					{TANK_SIZES.map((item, i) => (
-						<div key={i} className={styles.referenceCard} onClick={() => copyToClipboard(item.volume, `tank-${i}`)}>
+						<div key={i} className={styles.referenceCard}>
 							<span className={styles.referenceLabel}>{item.description}</span>
 							<span className={styles.referenceValue}>{item.volume}</span>
-							{copiedCell === `tank-${i}` && <CheckIcon className={styles.referenceCopied} />}
 						</div>
 					))}
 				</div>
@@ -303,10 +272,9 @@ export default function VolumeConverter() {
 				<h3 className={styles.chartTitle}>Pool Volume Estimates</h3>
 				<div className={styles.referencesGrid}>
 					{POOL_ESTIMATES.map((item, i) => (
-						<div key={i} className={styles.referenceCard} onClick={() => copyToClipboard(item.volume, `pool-${i}`)}>
+						<div key={i} className={styles.referenceCard}>
 							<span className={styles.referenceLabel}>{item.description}</span>
 							<span className={styles.referenceValue}>{item.volume}</span>
-							{copiedCell === `pool-${i}` && <CheckIcon className={styles.referenceCopied} />}
 						</div>
 					))}
 				</div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { ArrowsRightLeftIcon, ClipboardDocumentIcon, CheckIcon } from "@heroicons/react/24/outline";
+import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import styles from "./DataStorageConverter.module.scss";
 
 type BaseMode = "binary" | "decimal";
@@ -70,7 +70,6 @@ export default function DataStorageConverter() {
 	const [toUnit, setToUnit] = useState<string>("mb");
 	const [inputValue, setInputValue] = useState<string>("1");
 	const [baseMode, setBaseMode] = useState<BaseMode>("binary");
-	const [copiedCell, setCopiedCell] = useState<string | null>(null);
 
 	const convert = useCallback(() => {
 		const value = parseFloat(inputValue);
@@ -94,16 +93,6 @@ export default function DataStorageConverter() {
 		const temp = fromUnit;
 		setFromUnit(toUnit);
 		setToUnit(temp);
-	};
-
-	const copyToClipboard = async (text: string, cellId: string) => {
-		try {
-			await navigator.clipboard.writeText(text);
-			setCopiedCell(cellId);
-			setTimeout(() => setCopiedCell(null), 1500);
-		} catch (err) {
-			console.error("Failed to copy:", err);
-		}
 	};
 
 	const result = convert();
@@ -185,13 +174,6 @@ export default function DataStorageConverter() {
 								{result} {STORAGE_UNITS.find((u) => u.id === toUnit)?.abbrev}
 							</strong>
 						</span>
-						<button
-							className={`${styles.copyBtn} ${copiedCell === "result" ? styles.copied : ""}`}
-							onClick={() => copyToClipboard(`${result} ${STORAGE_UNITS.find((u) => u.id === toUnit)?.abbrev}`, "result")}
-							title="Copy to clipboard"
-						>
-							{copiedCell === "result" ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
-						</button>
 					</div>
 				)}
 			</div>
@@ -213,14 +195,8 @@ export default function DataStorageConverter() {
 							{STORAGE_COMPARISON.map((row, i) => (
 								<tr key={i}>
 									<td>{row.name}</td>
-									<td className={styles.clickableCell} onClick={() => copyToClipboard(row.binary, `comp-bin-${i}`)}>
-										{row.binary}
-										{copiedCell === `comp-bin-${i}` && <CheckIcon className={styles.copiedIcon} />}
-									</td>
-									<td className={styles.clickableCell} onClick={() => copyToClipboard(row.decimal, `comp-dec-${i}`)}>
-										{row.decimal}
-										{copiedCell === `comp-dec-${i}` && <CheckIcon className={styles.copiedIcon} />}
-									</td>
+									<td>{row.binary}</td>
+									<td>{row.decimal}</td>
 									<td className={styles.mutedCell}>{row.note}</td>
 								</tr>
 							))}
@@ -246,10 +222,7 @@ export default function DataStorageConverter() {
 								{FILE_SIZE_ESTIMATES.map((row, i) => (
 									<tr key={i}>
 										<td>{row.type}</td>
-										<td className={styles.clickableCell} onClick={() => copyToClipboard(row.size, `file-${i}`)}>
-											{row.size}
-											{copiedCell === `file-${i}` && <CheckIcon className={styles.copiedIcon} />}
-										</td>
+										<td>{row.size}</td>
 									</tr>
 								))}
 							</tbody>

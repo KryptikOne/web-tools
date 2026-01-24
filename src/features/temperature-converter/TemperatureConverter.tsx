@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { ArrowsRightLeftIcon, ClipboardDocumentIcon, CheckIcon } from "@heroicons/react/24/outline";
+import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import styles from "./TemperatureConverter.module.scss";
 
 interface ConversionUnit {
@@ -71,7 +71,6 @@ export default function TemperatureConverter() {
 	const [fromUnit, setFromUnit] = useState<string>("f");
 	const [toUnit, setToUnit] = useState<string>("c");
 	const [inputValue, setInputValue] = useState<string>("72");
-	const [copiedCell, setCopiedCell] = useState<string | null>(null);
 
 	const convert = useCallback(() => {
 		const value = parseFloat(inputValue);
@@ -92,16 +91,6 @@ export default function TemperatureConverter() {
 		const temp = fromUnit;
 		setFromUnit(toUnit);
 		setToUnit(temp);
-	};
-
-	const copyToClipboard = async (text: string, cellId: string) => {
-		try {
-			await navigator.clipboard.writeText(text);
-			setCopiedCell(cellId);
-			setTimeout(() => setCopiedCell(null), 1500);
-		} catch (err) {
-			console.error("Failed to copy:", err);
-		}
 	};
 
 	const result = convert();
@@ -162,13 +151,6 @@ export default function TemperatureConverter() {
 								{result} {TEMP_UNITS.find((u) => u.id === toUnit)?.abbrev}
 							</strong>
 						</span>
-						<button
-							className={`${styles.copyBtn} ${copiedCell === "result" ? styles.copied : ""}`}
-							onClick={() => copyToClipboard(`${result} ${TEMP_UNITS.find((u) => u.id === toUnit)?.abbrev}`, "result")}
-							title="Copy to clipboard"
-						>
-							{copiedCell === "result" ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
-						</button>
 					</div>
 				)}
 			</div>
@@ -190,18 +172,9 @@ export default function TemperatureConverter() {
 							{REFERENCE_POINTS.map((row, i) => (
 								<tr key={i}>
 									<td className={styles.descCell}>{row.description}</td>
-									<td className={styles.clickableCell} onClick={() => copyToClipboard(`${row.celsius}°C`, `ref-c-${i}`)}>
-										{row.celsius}°C
-										{copiedCell === `ref-c-${i}` && <CheckIcon className={styles.copiedIcon} />}
-									</td>
-									<td className={styles.clickableCell} onClick={() => copyToClipboard(`${row.fahrenheit}°F`, `ref-f-${i}`)}>
-										{row.fahrenheit}°F
-										{copiedCell === `ref-f-${i}` && <CheckIcon className={styles.copiedIcon} />}
-									</td>
-									<td className={styles.clickableCell} onClick={() => copyToClipboard(`${row.kelvin} K`, `ref-k-${i}`)}>
-										{row.kelvin} K
-										{copiedCell === `ref-k-${i}` && <CheckIcon className={styles.copiedIcon} />}
-									</td>
+									<td>{row.celsius}°C</td>
+									<td>{row.fahrenheit}°F</td>
+									<td>{row.kelvin} K</td>
 								</tr>
 							))}
 						</tbody>
@@ -228,14 +201,8 @@ export default function TemperatureConverter() {
 								{WEATHER_TEMPS.map((row, i) => (
 									<tr key={i}>
 										<td>{row.description}</td>
-										<td className={styles.clickableCell} onClick={() => copyToClipboard(`${row.celsius}°C`, `wea-c-${i}`)}>
-											{row.celsius}
-											{copiedCell === `wea-c-${i}` && <CheckIcon className={styles.copiedIcon} />}
-										</td>
-										<td className={styles.clickableCell} onClick={() => copyToClipboard(`${row.fahrenheit}°F`, `wea-f-${i}`)}>
-											{row.fahrenheit}
-											{copiedCell === `wea-f-${i}` && <CheckIcon className={styles.copiedIcon} />}
-										</td>
+										<td>{row.celsius}</td>
+										<td>{row.fahrenheit}</td>
 										<td className={styles.mutedCell}>{row.feel}</td>
 									</tr>
 								))}
@@ -260,14 +227,8 @@ export default function TemperatureConverter() {
 								{COOKING_TEMPS.map((row, i) => (
 									<tr key={i}>
 										<td>{row.description}</td>
-										<td className={styles.clickableCell} onClick={() => copyToClipboard(row.celsius, `cook-c-${i}`)}>
-											{row.celsius}
-											{copiedCell === `cook-c-${i}` && <CheckIcon className={styles.copiedIcon} />}
-										</td>
-										<td className={styles.clickableCell} onClick={() => copyToClipboard(row.fahrenheit, `cook-f-${i}`)}>
-											{row.fahrenheit}
-											{copiedCell === `cook-f-${i}` && <CheckIcon className={styles.copiedIcon} />}
-										</td>
+										<td>{row.celsius}</td>
+										<td>{row.fahrenheit}</td>
 									</tr>
 								))}
 							</tbody>
@@ -281,10 +242,9 @@ export default function TemperatureConverter() {
 				<h3 className={styles.chartTitle}>Conversion Formulas</h3>
 				<div className={styles.formulasGrid}>
 					{FORMULAS.map((item, i) => (
-						<div key={i} className={styles.formulaCard} onClick={() => copyToClipboard(item.formula, `form-${i}`)}>
+						<div key={i} className={styles.formulaCard}>
 							<span className={styles.formulaLabel}>{item.from}</span>
 							<code className={styles.formulaCode}>{item.formula}</code>
-							{copiedCell === `form-${i}` && <CheckIcon className={styles.formulaCopied} />}
 						</div>
 					))}
 				</div>

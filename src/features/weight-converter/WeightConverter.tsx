@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { ArrowsRightLeftIcon, ClipboardDocumentIcon, CheckIcon } from "@heroicons/react/24/outline";
+import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import styles from "./WeightConverter.module.scss";
 
 interface ConversionUnit {
@@ -80,7 +80,6 @@ export default function WeightConverter() {
 	const [fromUnit, setFromUnit] = useState<string>("lb");
 	const [toUnit, setToUnit] = useState<string>("kg");
 	const [inputValue, setInputValue] = useState<string>("1");
-	const [copiedCell, setCopiedCell] = useState<string | null>(null);
 
 	const convert = useCallback(() => {
 		const value = parseFloat(inputValue);
@@ -101,16 +100,6 @@ export default function WeightConverter() {
 		const temp = fromUnit;
 		setFromUnit(toUnit);
 		setToUnit(temp);
-	};
-
-	const copyToClipboard = async (text: string, cellId: string) => {
-		try {
-			await navigator.clipboard.writeText(text);
-			setCopiedCell(cellId);
-			setTimeout(() => setCopiedCell(null), 1500);
-		} catch (err) {
-			console.error("Failed to copy:", err);
-		}
 	};
 
 	const result = convert();
@@ -171,13 +160,6 @@ export default function WeightConverter() {
 								{result} {WEIGHT_UNITS.find((u) => u.id === toUnit)?.abbrev}
 							</strong>
 						</span>
-						<button
-							className={`${styles.copyBtn} ${copiedCell === "result" ? styles.copied : ""}`}
-							onClick={() => copyToClipboard(`${result} ${WEIGHT_UNITS.find((u) => u.id === toUnit)?.abbrev}`, "result")}
-							title="Copy to clipboard"
-						>
-							{copiedCell === "result" ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
-						</button>
 					</div>
 				)}
 			</div>
@@ -199,10 +181,7 @@ export default function WeightConverter() {
 								{COMMON_CONVERSIONS.map((row, i) => (
 									<tr key={i}>
 										<td>{row.imperial}</td>
-										<td className={styles.clickableCell} onClick={() => copyToClipboard(row.metric, `imp-${i}`)}>
-											{row.metric}
-											{copiedCell === `imp-${i}` && <CheckIcon className={styles.copiedIcon} />}
-										</td>
+										<td>{row.metric}</td>
 									</tr>
 								))}
 							</tbody>
@@ -225,10 +204,7 @@ export default function WeightConverter() {
 								{METRIC_TO_IMPERIAL.map((row, i) => (
 									<tr key={i}>
 										<td>{row.metric}</td>
-										<td className={styles.clickableCell} onClick={() => copyToClipboard(row.imperial, `met-${i}`)}>
-											{row.imperial}
-											{copiedCell === `met-${i}` && <CheckIcon className={styles.copiedIcon} />}
-										</td>
+										<td>{row.imperial}</td>
 									</tr>
 								))}
 							</tbody>
@@ -253,14 +229,8 @@ export default function WeightConverter() {
 							{BODY_WEIGHT_REFERENCE.map((row, i) => (
 								<tr key={i}>
 									<td>{row.lbs}</td>
-									<td className={styles.clickableCell} onClick={() => copyToClipboard(row.kg, `body-kg-${i}`)}>
-										{row.kg}
-										{copiedCell === `body-kg-${i}` && <CheckIcon className={styles.copiedIcon} />}
-									</td>
-									<td className={styles.clickableCell} onClick={() => copyToClipboard(row.stones, `body-st-${i}`)}>
-										{row.stones}
-										{copiedCell === `body-st-${i}` && <CheckIcon className={styles.copiedIcon} />}
-									</td>
+									<td>{row.kg}</td>
+									<td>{row.stones}</td>
 								</tr>
 							))}
 						</tbody>
@@ -273,10 +243,9 @@ export default function WeightConverter() {
 				<h3 className={styles.chartTitle}>Common Shipping Weights</h3>
 				<div className={styles.referencesGrid}>
 					{SHIPPING_WEIGHTS.map((item, i) => (
-						<div key={i} className={styles.referenceCard} onClick={() => copyToClipboard(item.weight, `ship-${i}`)}>
+						<div key={i} className={styles.referenceCard}>
 							<span className={styles.referenceLabel}>{item.description}</span>
 							<span className={styles.referenceValue}>{item.weight}</span>
-							{copiedCell === `ship-${i}` && <CheckIcon className={styles.referenceCopied} />}
 						</div>
 					))}
 				</div>
