@@ -57,7 +57,7 @@ export default function Sidebar() {
 
 			<aside className={`${styles.sidebar} ${mobileMenuOpen ? styles.sidebarOpen : ""}`}>
 				<div className={styles.sidebarContent}>
-					<Link href="/" className={styles.logo}>
+					<Link href="/tools" className={styles.logo}>
 						<WrenchScrewdriverIcon className={styles.logoIcon} />
 						<span className={styles.logoText}>Tools</span>
 					</Link>

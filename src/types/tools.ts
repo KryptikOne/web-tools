@@ -1,25 +1,25 @@
 export interface Tool {
-  id: string;
-  name: string;
-  description: string;
-  category: ToolCategory;
-  route: string;
-  icon?: string;
-  implemented?: boolean;
+	id: string;
+	name: string;
+	description: string;
+	category: ToolCategory;
+	route: string;
+	icon?: string;
+	implemented?: boolean;
 }
 
 export enum ToolCategory {
-  TEXT_DATA = 'text-data',
-  COLOR_DESIGN = 'color-design',
-  IMAGE_VISUAL = 'image-visual',
-  CODE_WEB = 'code-web',
-  UTILITY_CONVERSION = 'utility-conversion',
-  FUN_RANDOM = 'fun-random'
+	CODE_WEB = "code-web",
+	COLOR_DESIGN = "color-design",
+	UTILITY_CONVERSION = "utility-conversion",
+	TEXT_DATA = "text-data",
+	IMAGE_VISUAL = "image-visual",
+	FUN_RANDOM = "fun-random",
 }
 
 export interface CategoryInfo {
-  id: ToolCategory;
-  name: string;
-  description: string;
-  icon?: string;
+	id: ToolCategory;
+	name: string;
+	description: string;
+	icon?: string;
 }
