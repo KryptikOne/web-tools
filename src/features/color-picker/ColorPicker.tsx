@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { ColorUtils } from "@/lib/colorUtils";
-import { ClipboardDocumentIcon, CheckIcon, ArrowPathIcon, SwatchIcon, BookmarkIcon, EyeIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { ClipboardDocumentIcon, CheckIcon, ArrowPathIcon, SwatchIcon, BookmarkIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { Button } from "@/components/ui/button";
 import { ColorPickerPopover } from "@/components/ColorPickerPopover";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
@@ -19,7 +19,6 @@ export default function ColorPicker() {
 	const [inputValue, setInputValue] = useState("");
 	const [copiedFormat, setCopiedFormat] = useState<string | null>(null);
 	const [showColorList, setShowColorList] = useState(false);
-	const [showAccessibility, setShowAccessibility] = useState(false);
 	const [accessibilityLevel, setAccessibilityLevel] = useState<AccessibilityLevel>("none");
 
 	// Contrast checker state (local, not persisted)
@@ -289,10 +288,6 @@ export default function ColorPicker() {
 								<SwatchIcon className="w-4 h-4" />
 								Saved ({savedColors.length})
 							</Button>
-							<Button onClick={() => setShowAccessibility(!showAccessibility)} className={styles.btnSecondary}>
-								<EyeIcon className="w-4 h-4" />
-								WCAG Accessibility
-							</Button>
 						</div>
 
 						{/* Accessibility Level Toggle for Random Colors */}
@@ -429,7 +424,6 @@ export default function ColorPicker() {
 			</div>
 
 			{/* Contrast Checker Section */}
-			{showAccessibility && (
 				<div className={styles.contrastCheckerContent}>
 					<h3 className={styles.sectionTitle}>Contrast Checker</h3>
 
@@ -543,7 +537,6 @@ export default function ColorPicker() {
 						</div>
 					</div>
 				</div>
-			)}
 		</div>
 	);
 }
