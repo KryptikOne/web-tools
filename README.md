@@ -1,27 +1,31 @@
-# Web Tools - Developer Utilities Platform
+# BittBott - Web Developer Tools
 
-A comprehensive collection of free, browser-based tools for developers and designers. Built with Next.js 15, TypeScript, Redux Toolkit, and Tailwind CSS v4.
+A collection of free, browser-based tools for developers and designers. All tools run entirely client-side — no data is sent to any server, no registration required.
+
+Built with Next.js 15, React 19, TypeScript, Tailwind CSS v4, and SCSS Modules.
 
 ## Features
 
-- **50+ Tools** across 5 categories (Color, Text/Data, Image, Code/Web, Utilities)
-- **Category Navigation** with dropdown menus for easy tool discovery
-- **Modular Architecture** for easy addition of new tools
-- **Redux State Management** for complex tool state
-- **SASS Module System** with centralized theming
-- **Fully Responsive** design that works on all devices
-- **Zero Vulnerabilities** - all packages updated to latest secure versions
+- **25 Implemented Tools** across 6 categories
+- **100% Client-Side** — all processing happens in the browser
+- **No Tracking** — no registration, no usage limits
+- **Modular Architecture** — easy to add new tools
+- **Responsive Design** — works on desktop and mobile
 
 ## Getting Started
 
 ### Prerequisites
 
 - Node.js 18+
-- pnpm (recommended) - `npm install -g pnpm`
+- pnpm (recommended) — `npm install -g pnpm`
 
 ### Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/KryptikOne/web-tools.git
+cd web-tools
+
 # Install dependencies
 pnpm install
 
@@ -37,155 +41,126 @@ pnpm start
 
 Open [http://localhost:3000](http://localhost:3000) to view the application.
 
+## Implemented Tools
+
+### Color & Design
+
+- **Color Picker** — OKLCH-based color picker with multi-format conversion and WCAG contrast checking
+- **CSS Gradient Generator** — Create linear and radial CSS gradients visually
+- **Box Shadow Generator** — Generate CSS box shadows with live preview
+- **Border Radius Generator** — Create custom border radius values
+- **Cubic Bezier Generator** — Interactive cubic bezier curve editor for CSS animations
+- **Color Palette Generator** — Generate color palettes with harmony rules
+
+### Image & Visual
+
+- **Dummy Image Generator** — Generate placeholder images with custom dimensions and colors
+
+### Text & Data
+
+- **Invisible Character Remover** — Strip invisible and problematic Unicode characters
+- **HTML Entities Reference** — Comprehensive HTML entities reference
+- **Text/Binary Converter** — Convert text to binary and vice versa with encoding options
+
+### Utility & Conversion
+
+- **Epoch Converter** — Convert Unix timestamps to human-readable dates
+- **PX/REM Calculator** — Convert between pixels and rem units
+- **Percentage Calculator** — Calculate percentages, parts, or wholes from any two values
+- **Tip Calculator** — Calculate tips with presets and bill splitting
+- **Kitchen Converter** — Convert cooking measurements with reference charts
+- **Timezone Converter** — Convert times between timezones with visual timeline
+- **Distance / Length Converter** — Miles, km, meters, feet, yards, inches, and more
+- **Weight / Mass Converter** — Pounds, kg, ounces, grams, stones, and tons
+- **Temperature Converter** — Fahrenheit, Celsius, and Kelvin
+- **Area Converter** — Square feet, square meters, acres, hectares, and more
+- **Volume Converter** — Gallons, liters, cubic feet, and more
+- **Aspect Ratio Calculator** — Calculate aspect ratios and dimensions for video/images
+- **Data Storage Converter** — Bytes, KB, MB, GB, TB with binary/decimal modes
+- **Bandwidth Calculator** — Convert bandwidth units and calculate download times
+
+### Fun & Random
+
+- **Dice Roller** — Roll virtual dice (D4, D6, D8, D10, D12, D20, D100)
+
 ## Project Structure
 
 ```
 src/
 ├── app/                      # Next.js App Router
-│   ├── layout.tsx           # Root layout with Redux & Navigation
-│   ├── page.tsx             # Home page
-│   └── tools/               # Individual tool pages
-│       ├── color-picker/
-│       ├── json-formatter/
-│       └── ...
+│   ├── layout.tsx            # Root layout
+│   ├── page.tsx              # Home page
+│   └── tools/                # Individual tool routes
 │
-├── components/              # Shared components
-│   ├── Navigation/         # Category-based navigation
-│   ├── ToolCard/          # Tool display cards
-│   ├── ToolLayout/        # Tool page wrapper
-│   └── PlaceholderTool/   # "Coming Soon" component
+├── components/               # Shared components
+│   ├── Navigation/           # Category-based navigation
+│   ├── Sidebar/              # Collapsible sidebar
+│   ├── ToolCard/             # Tool display cards
+│   ├── ToolLayout/           # Tool page wrapper
+│   ├── ColorPickerPanel/     # Reusable HSV color picker
+│   └── ColorPickerPopover/   # Viewport-aware color picker popover
 │
-├── features/               # Feature modules
-│   └── color-picker/      # Color picker feature
+├── features/                 # Feature modules (one per tool)
+│   └── [tool-name]/          # ToolName.tsx + ToolName.module.scss
 │
-├── store/                  # Redux store
-│   ├── index.ts           # Store config
-│   ├── hooks.ts           # Typed hooks
-│   └── slices/            # Redux slices
+├── config/                   # Configuration
+│   └── tools-registry.ts     # Central tool registry
 │
-├── config/                 # Configuration
-│   └── tools-registry.ts  # Central tool registry
-│
-├── types/                  # TypeScript types
-├── styles/                 # SASS styles
-├── providers/              # React providers
-└── lib/                    # Utilities
+├── hooks/                    # Custom React hooks
+├── lib/                      # Pure utility functions
+├── store/                    # Redux store and slices
+├── styles/                   # Global SCSS styles and variables
+├── types/                    # TypeScript types
+└── providers/                # React providers
 ```
-
-## Adding a New Tool
-
-### 1. Register the Tool
-
-Add your tool to `src/config/tools-registry.ts`:
-
-```typescript
-{
-  id: 'my-tool',
-  name: 'My Tool Name',
-  description: 'What your tool does',
-  category: ToolCategory.UTILITY_CONVERSION,
-  route: '/tools/my-tool',
-  implemented: false, // Change to true when ready
-}
-```
-
-### 2. Create the Page
-
-Create `src/app/tools/my-tool/page.tsx`:
-
-```typescript
-import ToolLayout from '@/components/ToolLayout/ToolLayout';
-import PlaceholderTool from '@/components/PlaceholderTool/PlaceholderTool';
-
-export default function MyToolPage() {
-  return (
-    <ToolLayout title="My Tool" description="Description">
-      <PlaceholderTool toolName="My Tool" />
-    </ToolLayout>
-  );
-}
-```
-
-### 3. Implement the Tool
-
-When ready to implement:
-
-1. Create `src/features/my-tool/MyTool.tsx`
-2. Create `src/features/my-tool/MyTool.module.scss`
-3. Replace `PlaceholderTool` with your component
-4. Update `implemented: true` in registry
-
-The tool will automatically appear in:
-- Home page grid
-- Navigation dropdown
-- Category listings
-
-## Tool Categories
-
-- **Text & Data Tools**: JSON formatting, CSV conversion, character counting, etc.
-- **Color & Design Tools**: Color pickers, palette generators, CSS utilities
-- **Image & Visual Tools**: Image processing, QR codes, format conversion
-- **Code & Web Development**: JWT decoder, OGP generators, validators
-- **Utility & Conversion**: Password generation, epoch conversion, calculators
 
 ## Technology Stack
 
-- **Framework**: Next.js 15 (App Router) with Turbopack
-- **Language**: TypeScript 5
-- **State**: Redux Toolkit 2.10
-- **Styling**: Tailwind CSS v4 + SASS Modules
-- **Icons**: Heroicons
-- **Fonts**: Geist Sans & Geist Mono
+| Technology | Version | Purpose |
+|---|---|---|
+| Next.js | 15.5.9 | Framework (App Router + Turbopack) |
+| React | 19.x | UI library |
+| TypeScript | 5.x | Type safety |
+| Tailwind CSS | 4.x | Utility-first styling |
+| SCSS Modules | — | Component-specific styles |
+| Redux Toolkit | 2.10.x | State management |
+| Heroicons | 2.x | Icons |
 
-## Design System
+## Contributing
 
-### Colors
-Uses OKLCH color space for perceptual uniformity. Variables defined in `src/styles/_variables.scss`.
+Contributions are welcome! Here's how to get started:
 
-### Spacing
-8px grid system from `$spacing-xs` (0.25rem) to `$spacing-2xl` (3rem).
+### Adding a New Tool
 
-### Components
-- Glass morphism effects for modern UI
-- Consistent hover states
-- Responsive breakpoints: mobile (< 768px), tablet (768-1024px), desktop (> 1024px)
+1. **Register the tool** in `src/config/tools-registry.ts`
+2. **Create the route** at `src/app/tools/[tool-name]/page.tsx`
+3. **Create the feature** at `src/features/[tool-name]/ToolName.tsx`
+4. **Create styles** at `src/features/[tool-name]/ToolName.module.scss`
+5. **Set `implemented: true`** in the registry
+6. **Run `pnpm build`** to verify everything compiles
 
-## Implemented Tools
+### Guidelines
 
-### Color Picker ✅
-Advanced OKLCH-based color picker with:
-- Multi-format conversion (HEX, RGB, HSL, OKLCH)
-- WCAG contrast checking
-- Color palette saving
-- CSS variable generation
+- Follow the existing feature-based file structure
+- Use Tailwind for layout, SCSS modules for custom/complex styles
+- Keep all processing client-side — no external API calls unless explicitly needed
+- Use TypeScript strict mode — no `any` types
+- Use functional React components and hooks
+- Test on both desktop and mobile viewports
 
-### Coming Soon
-49+ additional tools currently in planning/development.
+### Workflow
 
-## Performance
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/my-new-tool`)
+3. Make your changes
+4. Run `pnpm build` and `pnpm lint` to verify
+5. Submit a pull request
 
-- Server-side rendering where applicable
-- Route-based code splitting
-- Lazy loading for components
-- Optimized for Core Web Vitals
-
-## Security
-
-✅ Zero vulnerabilities
-✅ Latest package versions
-✅ Next.js 15.5.7 (patched critical vulnerabilities)
-✅ Client-side only (no backend security concerns)
-
-## Browser Support
-
-- Chrome/Edge (latest)
-- Firefox (latest)
-- Safari (latest)
-- Mobile browsers
+See [ROADMAP.md](./ROADMAP.md) for planned tools and ideas.
 
 ## Development
 
-### Key Commands
+### Commands
 
 ```bash
 pnpm dev      # Start dev server with Turbopack
@@ -194,35 +169,17 @@ pnpm start    # Start production server
 pnpm lint     # Run ESLint
 ```
 
-### Code Style
+## Browser Support
 
-- TypeScript strict mode
-- ESLint with Next.js config
-- Modular SASS with BEM-like naming
-- Functional React components
-
-## Architecture
-
-See [ARCHITECTURE.md](./ARCHITECTURE.md) for detailed architecture documentation.
-
-## Contributing
-
-When adding new tools:
-1. Use the tool registry system
-2. Follow the feature-based structure
-3. Use SASS modules for styling
-4. Add Redux slices if state is needed
-5. Include TypeScript types
-6. Test on multiple devices
+- Chrome / Edge (latest)
+- Firefox (latest)
+- Safari (latest)
+- Mobile browsers (iOS Safari, Chrome for Android)
 
 ## License
 
-MIT
-
-## Author
-
-BittBott - Web Developer Tools
+This project is licensed under the [GNU Affero General Public License v3.0](./LICENSE). In short: you're free to use, modify, and distribute this software, but any modified version — including one hosted as a web service — must also be made available under the same license with full source code.
 
 ---
 
-**Note**: This is a work in progress. New tools are being added regularly. Check back often for updates!
+**This is a work in progress.** New tools are being added regularly. Check the [ROADMAP](./ROADMAP.md) for what's planned.

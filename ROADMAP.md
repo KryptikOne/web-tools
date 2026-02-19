@@ -92,7 +92,6 @@ A collection of utility tools, converters, and generators planned for developmen
 
 ### Utility & Conversion
 
-- [x] **Aspect Ratio Calculator** - Calculate aspect ratios and dimensions (Implemented)
 - [ ] **Number Base Converter** - Convert between number bases (binary, octal, decimal, hex)
 - [ ] **IP Address Checker** - Check your IP address and location
 - [ ] **File Size Calculator** - Calculate and convert file sizes
