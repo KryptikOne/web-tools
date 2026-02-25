@@ -447,7 +447,7 @@
 .presetBtn {
 	padding: 0;
 	background: transparent;
-	border: 1px solid $border-subtle;
+	border: 2px solid transparent;
 	border-radius: $radius-md;
 	cursor: pointer;
 	overflow: hidden;
@@ -456,6 +456,10 @@
 	&:hover {
 		border-color: $border-medium;
 	}
+}
+
+.activePreset {
+	border-color: $color-accent;
 }
 
 .presetColors {

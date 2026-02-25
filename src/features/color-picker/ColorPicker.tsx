@@ -18,6 +18,7 @@ export default function ColorPicker() {
 	// Local UI state (not persisted)
 	const [inputValue, setInputValue] = useState("");
 	const [copiedFormat, setCopiedFormat] = useState<string | null>(null);
+	const [hexCopied, setHexCopied] = useState(false);
 	const [showColorList, setShowColorList] = useState(false);
 	const [accessibilityLevel, setAccessibilityLevel] = useState<AccessibilityLevel>("none");
 
@@ -269,9 +270,22 @@ export default function ColorPicker() {
 						<div className={styles.colorPreview}>
 							<div className={styles.swatch} style={{ backgroundColor: colorFormats.rgba }}>
 								<div className={styles.previewOverlay}>
-									<div className={styles.hexDisplay}>
-										<p>{colorFormats.hex}</p>
-									</div>
+									<div
+									className={`${styles.hexDisplay} ${hexCopied ? styles.hexCopied : ""}`}
+									onClick={async () => {
+										try {
+											await navigator.clipboard.writeText(colorFormats.hex);
+											setHexCopied(true);
+											setTimeout(() => setHexCopied(false), 600);
+										} catch (err) {
+											console.error("Failed to copy:", err);
+										}
+									}}
+									title="Click to copy hex"
+									style={{ cursor: "pointer" }}
+								>
+									<p>{colorFormats.hex}</p>
+								</div>
 									<Button onClick={generateRandomColor} className={styles.btnRandom} title="Random Color">
 										<ArrowPathIcon className="w-5 h-5" />
 									</Button>

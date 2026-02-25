@@ -139,6 +139,7 @@ export default function PaletteGenerator() {
 	const [copiedAll, setCopiedAll] = useState(false);
 	const [copiedCss, setCopiedCss] = useState(false);
 	const [showSettings, setShowSettings] = useState(false);
+	const [activePresetId, setActivePresetId] = useState<number | null>(null);
 	// Track if we should skip regeneration (after loading preset/saved palette or on initial hydration)
 	const skipRegenerateRef = useRef(true); // Start as true to skip first regeneration after hydration
 
@@ -209,6 +210,7 @@ export default function PaletteGenerator() {
 		skipRegenerateRef.current = false;
 		const newHue = Math.random() * 360;
 		dispatch(setBaseHue(newHue));
+		setActivePresetId(null);
 	};
 
 	// Copy single color
@@ -238,6 +240,7 @@ export default function PaletteGenerator() {
 	const handleLoadSavedPalette = (saved: (typeof savedPalettes)[0]) => {
 		skipRegenerateRef.current = true;
 		dispatch(loadSavedPalette(saved));
+		setActivePresetId(null);
 
 		// Extract base hue from first color
 		const oklch = hexToOklch(saved.colors[0]);
@@ -250,11 +253,13 @@ export default function PaletteGenerator() {
 	const handleLoadPreset = (preset: (typeof PRESET_PALETTES)[0]) => {
 		skipRegenerateRef.current = true;
 		dispatch(loadPreset(preset.colors));
+		setActivePresetId(preset.id);
 	};
 
 	// Handle adding color
 	const handleAddColor = () => {
 		if (colorCount >= 8) return;
+		setActivePresetId(null);
 
 		const harmonyAngles = HARMONY_INFO[harmony].angles;
 		const newIndex = colorCount;
@@ -311,7 +316,7 @@ export default function PaletteGenerator() {
 								<button className={`${styles.actionBtn} ${copiedIndex === index ? styles.copied : ""}`} onClick={() => copyColor(color.hex, index)} title="Copy color">
 									{copiedIndex === index ? <CheckIcon className="w-4 h-4" /> : <ClipboardDocumentIcon className="w-4 h-4" />}
 								</button>
-								<ColorPickerPopover color={color.hex} onChange={(hex) => dispatch(updateColor({ id: color.id, hex }))} swatchSize="lg" showHex={true} />
+								<ColorPickerPopover color={color.hex} onChange={(hex) => { dispatch(updateColor({ id: color.id, hex })); setActivePresetId(null); }} swatchSize="lg" showHex={true} />
 							</div>
 						</div>
 					</div>
@@ -340,7 +345,7 @@ export default function PaletteGenerator() {
 				</div>
 
 				<div className={styles.colorCountControls}>
-					<Button onClick={() => dispatch(removeLastColor())} className={styles.countBtn} disabled={colorCount <= 2}>
+					<Button onClick={() => { dispatch(removeLastColor()); setActivePresetId(null); }} className={styles.countBtn} disabled={colorCount <= 2}>
 						<MinusIcon className="w-4 h-4" />
 					</Button>
 					<span className={styles.countLabel}>{colorCount} colors</span>
@@ -363,6 +368,7 @@ export default function PaletteGenerator() {
 									onClick={() => {
 										skipRegenerateRef.current = false;
 										dispatch(setHarmony(type));
+										setActivePresetId(null);
 									}}
 								>
 									<span className={styles.harmonyName}>{HARMONY_INFO[type].name}</span>
@@ -389,6 +395,7 @@ export default function PaletteGenerator() {
 								onChange={(e) => {
 									skipRegenerateRef.current = false;
 									dispatch(setBaseHue(parseFloat(e.target.value)));
+									setActivePresetId(null);
 								}}
 								className={styles.slider}
 								style={{ background: hueGradient }}
@@ -409,6 +416,7 @@ export default function PaletteGenerator() {
 								onChange={(e) => {
 									skipRegenerateRef.current = false;
 									dispatch(setSaturation(parseFloat(e.target.value)));
+									setActivePresetId(null);
 								}}
 								className={styles.slider}
 							/>
@@ -428,6 +436,7 @@ export default function PaletteGenerator() {
 								onChange={(e) => {
 									skipRegenerateRef.current = false;
 									dispatch(setLightness(parseFloat(e.target.value)));
+									setActivePresetId(null);
 								}}
 								className={styles.slider}
 							/>
@@ -477,7 +486,7 @@ export default function PaletteGenerator() {
 				<h3 className={styles.sectionTitle}>Preset Palettes</h3>
 				<div className={styles.presetsGrid}>
 					{PRESET_PALETTES.map((preset) => (
-						<button key={preset.id} className={styles.presetBtn} onClick={() => handleLoadPreset(preset)}>
+						<button key={preset.id} className={`${styles.presetBtn} ${activePresetId === preset.id ? styles.activePreset : ""}`} onClick={() => handleLoadPreset(preset)}>
 							<div className={styles.presetColors}>
 								{preset.colors.map((color, i) => (
 									<div key={i} className={styles.presetColor} style={{ backgroundColor: color }} />
