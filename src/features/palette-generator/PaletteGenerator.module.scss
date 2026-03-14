@@ -9,11 +9,7 @@
 
 // Main Palette Display
 .paletteDisplay {
-	display: flex;
 	height: 280px;
-	border-radius: $radius-xl;
-	// overflow: hidden;
-	margin-bottom: 1.5rem;
 	box-shadow: $shadow-lg;
 
 	@media (max-width: 768px) {
@@ -23,9 +19,6 @@
 }
 
 .colorSwatch {
-	flex: 1;
-	position: relative;
-	cursor: pointer;
 	transition: flex 0.3s ease;
 
 	&:first-child {
@@ -63,45 +56,25 @@
 }
 
 .swatchOverlay {
-	position: absolute;
-	inset: 0;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	gap: 0.75rem;
 	background: rgba(0, 0, 0, 0.3);
 	opacity: 0;
 	transition: opacity 0.2s ease;
 }
 
 .hexLabel {
-	font-family: $font-family-mono;
-	font-size: 1.2rem;
-	font-weight: 600;
-	color: white;
 	text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-	padding: 0.25rem 0.5rem;
 	background: rgba(0, 0, 0, 0.3);
 	border-radius: $radius-sm;
-}
-
-.swatchActions {
-	display: flex;
-	gap: 0.5rem;
+	padding: 0.25rem 0.5rem;
 }
 
 .actionBtn {
-	padding: 0.5rem;
 	background: rgba(255, 255, 255, 0.2);
 	border: none;
 	border-radius: $radius-sm;
 	color: white;
 	cursor: pointer;
 	transition: all 0.2s ease;
-	display: flex;
-	align-items: center;
-	justify-content: center;
 
 	&:hover {
 		background: rgba(255, 255, 255, 0.3);
@@ -133,22 +106,9 @@
 
 // Controls
 .controls {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	gap: 1rem;
-	margin-bottom: 1.5rem;
-	flex-wrap: wrap;
-
 	@media (max-width: 600px) {
 		flex-direction: column;
 	}
-}
-
-.mainActions {
-	display: flex;
-	gap: 0.75rem;
-	flex-wrap: wrap;
 }
 
 // Shared Utilities
@@ -170,23 +130,13 @@
 	}
 }
 
-.colorCountControls {
-	display: flex;
-	align-items: center;
-	gap: 0.75rem;
-}
-
 .countBtn {
-	padding: 0.5rem;
 	background: $bg-glass;
 	border: 1px solid $border-subtle;
 	border-radius: $radius-sm;
 	color: $text-primary;
 	cursor: pointer;
 	transition: all 0.2s ease;
-	display: flex;
-	align-items: center;
-	justify-content: center;
 
 	&:hover:not(:disabled) {
 		background: $bg-glass-hover;
@@ -199,20 +149,11 @@
 }
 
 .countLabel {
-	font-size: 0.9rem;
-	font-weight: 500;
 	color: $text-secondary;
-	min-width: 70px;
-	text-align: center;
 }
 
 // Settings Panel
 .settingsPanel {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 1.5rem;
-	margin-bottom: 1.5rem;
-
 	@media (max-width: 900px) {
 		grid-template-columns: 1fr;
 	}
@@ -221,36 +162,20 @@
 // Glass Card
 .glassCard {
 	@extend .glass-card;
-	margin-bottom: 1.5rem;
 }
 
 .sectionTitle {
-	font-size: 1rem;
-	font-weight: 600;
 	color: $text-primary;
-	margin: 0 0 1rem 0;
 	font-family: $font-family-display;
 }
 
 // Harmony Selection
-.harmonyGrid {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-	gap: 0.5rem;
-	margin-bottom: 1rem;
-}
-
 .harmonyBtn {
-	padding: 0.625rem 0.75rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
 	border-radius: $radius-sm;
 	color: $text-secondary;
-	font-size: 0.8rem;
-	font-weight: 500;
-	cursor: pointer;
 	transition: all 0.2s ease;
-	text-align: center;
 
 	&:hover {
 		background: $bg-glass-hover;
@@ -265,42 +190,16 @@
 	}
 }
 
-.harmonyName {
-	display: block;
-}
-
 .harmonyDescription {
-	font-size: 0.8rem;
 	color: $text-muted;
-	margin: 0;
-	line-height: 1.5;
 }
 
 // Sliders
-.sliderGroup {
-	margin-bottom: 1.25rem;
-
-	&:last-child {
-		margin-bottom: 0;
-	}
-}
-
-.sliderHeader {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 0.5rem;
-}
-
 .label {
-	font-size: 0.875rem;
-	font-weight: 500;
 	color: $text-secondary;
 }
 
 .valueDisplay {
-	font-size: 0.875rem;
-	font-family: $font-family-mono;
 	color: $text-primary;
 	background: $input-bg;
 	padding: 0.125rem 0.5rem;
@@ -309,31 +208,20 @@
 
 .slider {
 	@extend .slider;
-	height: 8px;
 }
 
 // Code Block
 .codeBlock {
-	position: relative;
 	background: $input-bg;
 	border: 1px solid $border-subtle;
 	border-radius: $radius-md;
-	padding: 1rem;
-	overflow-x: auto;
 
 	pre {
-		margin: 0;
-		font-family: $font-family-mono;
-		font-size: 0.85rem;
 		color: $text-code;
-		line-height: 1.6;
 	}
 
 	.copyBtn {
 		@extend .copy-btn;
-		position: absolute;
-		top: 0.5rem;
-		right: 0.5rem;
 	}
 
 	.copyIcon {
@@ -342,60 +230,16 @@
 }
 
 // Saved Palettes
-.savedHeader {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 1rem;
-
-	.sectionTitle {
-		margin: 0;
-	}
-}
-
-.clearAllBtn {
-	padding: 0.5rem 0.75rem;
-	background: transparent;
-	border: 1px solid $border-subtle;
-	border-radius: $radius-sm;
-	color: $text-muted;
-	font-size: 0.75rem;
-	font-weight: 500;
-	cursor: pointer;
-	transition: all 0.2s ease;
-	display: flex;
-	align-items: center;
-	gap: 0.375rem;
-
-	&:hover {
-		background: rgba(239, 68, 68, 0.1);
-		border-color: rgba(239, 68, 68, 0.3);
-		color: #ef4444;
-	}
-}
-
-.savedGrid {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-	gap: 0.75rem;
-}
-
 .savedPaletteWrapper {
-	position: relative;
-
 	&:hover .deletePaletteBtn {
 		opacity: 1;
 	}
 }
 
 .savedPalette {
-	width: 100%;
-	padding: 0;
 	background: transparent;
 	border: 1px solid $border-subtle;
 	border-radius: $radius-md;
-	cursor: pointer;
-	overflow: hidden;
 	transition: all 0.2s ease;
 
 	&:hover {
@@ -404,22 +248,13 @@
 }
 
 .deletePaletteBtn {
-	position: absolute;
 	top: -6px;
 	right: -6px;
-	width: 20px;
-	height: 20px;
-	padding: 0;
 	background: $bg-glass;
 	border: 1px solid $border-subtle;
-	border-radius: 50%;
 	color: $text-muted;
-	cursor: pointer;
 	opacity: 0;
 	transition: all 0.2s ease;
-	display: flex;
-	align-items: center;
-	justify-content: center;
 
 	&:hover {
 		background: rgba(239, 68, 68, 0.2);
@@ -428,29 +263,26 @@
 	}
 }
 
-.savedColors {
-	display: flex;
-	height: 40px;
-}
+// Clear All Button
+.clearAllBtn {
+	background: transparent;
+	border: 1px solid $border-subtle;
+	color: $text-muted;
+	cursor: pointer;
+	transition: all 0.2s ease;
 
-.savedColor {
-	flex: 1;
+	&:hover {
+		background: rgba(239, 68, 68, 0.1);
+		border-color: rgba(239, 68, 68, 0.3);
+		color: #ef4444;
+	}
 }
 
 // Presets
-.presetsGrid {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-	gap: 1rem;
-}
-
 .presetBtn {
-	padding: 0;
 	background: transparent;
 	border: 2px solid transparent;
 	border-radius: $radius-md;
-	cursor: pointer;
-	overflow: hidden;
 	transition: all 0.2s ease;
 
 	&:hover {
@@ -462,35 +294,17 @@
 	border-color: $color-accent;
 }
 
-.presetColors {
-	display: flex;
-	height: 50px;
-}
-
-.presetColor {
-	flex: 1;
-}
-
 .presetName {
-	display: block;
-	padding: 0.5rem;
-	font-size: 0.8rem;
-	font-weight: 500;
 	color: $text-secondary;
 	background: $input-bg;
-	text-align: center;
 }
 
 // Info Section
 .infoTitle {
-	font-size: 1.125rem;
-	font-weight: 600;
 	color: $text-primary;
-	margin: 0 0 1rem 0;
 	font-family: $font-family-display;
 }
 
-// Info Section
 .infoGrid {
 	@extend .info-grid;
 }
@@ -505,8 +319,6 @@
 }
 
 .noteBox {
-	margin-top: 1.5rem;
-	padding: 1rem;
 	background: $color-accent-20;
 	border-radius: $radius-md;
 	border-left: 3px solid $color-accent;

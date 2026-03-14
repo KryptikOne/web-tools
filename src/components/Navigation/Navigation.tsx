@@ -27,17 +27,17 @@ export default function Navigation() {
 
   return (
     <nav className={styles.nav}>
-      <div className={styles.container}>
-        <div className={styles.navContent}>
-          <Link href="/" className={styles.logo} onClick={() => setMobileMenuOpen(false)}>
+      <div className="max-w-360 mx-auto px-6">
+        <div className="flex justify-between items-center min-h-16">
+          <Link href="/" className={`flex items-center gap-4 no-underline ${styles.logo}`} onClick={() => setMobileMenuOpen(false)}>
             <WrenchScrewdriverIcon />
             <span>Web Tools</span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className={styles.desktopNav}>
+          <div className={`hidden md:flex gap-2 ${styles.desktopNav}`}>
             {Object.values(CATEGORIES).map((category) => (
-              <div key={category.id} style={{ position: 'relative' }}>
+              <div key={category.id} className="relative">
                 <button
                   className={`${styles.categoryButton} ${activeDropdown === category.id ? styles.active : ''}`}
                   onClick={() => toggleDropdown(category.id)}
@@ -54,11 +54,11 @@ export default function Navigation() {
                     <Link
                       key={tool.id}
                       href={tool.implemented ? tool.route : '#'}
-                      className={`${styles.dropdownItem} ${!tool.implemented ? styles.notImplemented : ''}`}
+                      className={`flex items-start gap-4 p-4 rounded-lg no-underline ${styles.dropdownItem} ${!tool.implemented ? styles.notImplemented : ''}`}
                       onClick={closeDropdown}
                     >
-                      <div className={styles.dropdownItemContent}>
-                        <div className={styles.dropdownItemTitle}>
+                      <div className="flex-1">
+                        <div className={`text-sm font-medium mb-0.5 ${styles.dropdownItemTitle}`}>
                           {tool.name}
                           {tool.implemented && <span className={styles.badge}>Ready</span>}
                         </div>
@@ -72,7 +72,7 @@ export default function Navigation() {
           </div>
 
           {/* Mobile Menu Button */}
-          <button className={styles.mobileMenuButton} onClick={toggleMobileMenu}>
+          <button className={`flex p-2 md:hidden ${styles.mobileMenuButton}`} onClick={toggleMobileMenu}>
             {mobileMenuOpen ? <XMarkIcon /> : <Bars3Icon />}
           </button>
         </div>
@@ -81,18 +81,18 @@ export default function Navigation() {
       {/* Mobile Menu */}
       <div className={`${styles.mobileMenu} ${mobileMenuOpen ? styles.open : ''}`}>
         {Object.values(CATEGORIES).map((category) => (
-          <div key={category.id} className={styles.mobileCategory}>
+          <div key={category.id} className="mb-6">
             <h3 className={styles.mobileCategoryTitle}>{category.name}</h3>
-            <div className={styles.mobileToolsList}>
+            <div className="flex flex-col gap-2">
               {getToolsByCategory(category.id).map((tool) => (
                 <Link
                   key={tool.id}
                   href={tool.implemented ? tool.route : '#'}
-                  className={`${styles.dropdownItem} ${!tool.implemented ? styles.notImplemented : ''}`}
+                  className={`flex items-start gap-4 p-4 rounded-lg no-underline ${styles.dropdownItem} ${!tool.implemented ? styles.notImplemented : ''}`}
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  <div className={styles.dropdownItemContent}>
-                    <div className={styles.dropdownItemTitle}>
+                  <div className="flex-1">
+                    <div className={`text-sm font-medium mb-0.5 ${styles.dropdownItemTitle}`}>
                       {tool.name}
                       {tool.implemented && <span className={styles.badge}>Ready</span>}
                     </div>

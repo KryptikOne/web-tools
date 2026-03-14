@@ -9,7 +9,6 @@
 
 .mainSection {
   @extend .grid-2col;
-  margin-bottom: 1.5rem;
 }
 
 .glassCard {
@@ -19,45 +18,29 @@
 // Shared Utilities
 .sectionTitle {
   @extend .section-title;
-  margin-bottom: 1rem;
 }
 
 .converterGrid {
-  display: grid;
   grid-template-columns: 1fr auto 1fr;
-  gap: 1rem;
-  align-items: end;
 
   @media (max-width: 600px) {
     grid-template-columns: 1fr;
   }
 }
 
-.inputGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
+.inputGroup {}
 
 .inputLabel {
   @extend .input-label;
 }
 
-.inputWrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
+.inputWrapper {}
 
 .input {
-  width: 100%;
   padding: 0.875rem 4.5rem 0.875rem 1rem;
   background: $input-bg;
   border: 1px solid $input-border;
-  border-radius: 0.5rem;
   color: $text-primary;
-  font-size: 1.25rem;
-  font-weight: 600;
   font-family: $font-family-mono;
   transition: all 0.2s ease;
 
@@ -80,17 +63,12 @@
 }
 
 .unitLabel {
-  position: absolute;
   right: 3rem;
   color: $text-muted;
-  font-size: 0.875rem;
-  font-weight: 500;
-  pointer-events: none;
 }
 
 .copyBtn {
   @extend .copy-btn;
-  position: absolute;
   right: 0.5rem;
 }
 
@@ -99,9 +77,6 @@
 }
 
 .arrowContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   padding-bottom: 0.25rem;
 
   @media (max-width: 600px) {
@@ -111,28 +86,19 @@
 }
 
 .arrowIcon {
-  width: 1.5rem;
-  height: 1.5rem;
   color: $color-primary;
 }
 
 .baseSizeSection {
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
   border-top: 1px solid $border-subtle;
 }
 
 .baseSizeLabel {
-  display: block;
-  font-size: 0.875rem;
-  font-weight: 500;
   color: $text-secondary;
-  margin-bottom: 0.75rem;
 }
 
 .baseSizeValue {
   color: $color-primary;
-  font-weight: 600;
 }
 
 .slider {
@@ -140,31 +106,19 @@
 }
 
 .sliderMarks {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 0.5rem;
-  font-size: 0.75rem;
   color: $text-muted;
 }
 
 .quickGrid {
-  display: grid;
   grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  gap: 0.5rem;
 }
 
 .quickBtn {
   padding: 0.75rem 0.5rem;
   background: $bg-glass;
   border: 1px solid $border-subtle;
-  border-radius: 0.5rem;
   color: $text-primary;
-  cursor: pointer;
   transition: all 0.2s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.25rem;
 
   &:hover {
     background: $bg-glass-hover;
@@ -178,25 +132,19 @@
 }
 
 .quickPx {
-  font-weight: 600;
   font-size: 0.9rem;
   color: $text-primary;
 }
 
 .quickRem {
-  font-size: 0.75rem;
   color: $text-muted;
   font-family: $font-family-mono;
 }
 
-.tableWrapper {
-  overflow-x: auto;
-}
+.tableWrapper {}
 
 .table {
-  width: 100%;
   border-collapse: collapse;
-  font-size: 0.875rem;
 
   th, td {
     padding: 0.75rem 1rem;
@@ -216,7 +164,6 @@
   }
 
   tbody tr {
-    cursor: pointer;
     transition: background 0.2s ease;
 
     &:hover {
@@ -234,42 +181,29 @@
 }
 
 .infoGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
 }
 
 .infoItem {
-  padding: 1rem;
   background: $input-bg;
-  border-radius: 0.5rem;
 }
 
 .infoSubtitle {
-  font-size: 1rem;
-  font-weight: 600;
   color: $text-primary;
-  margin: 0 0 0.5rem 0;
+  margin: 0;
 }
 
 .infoText {
-  font-size: 0.875rem;
   color: $text-secondary;
   line-height: 1.6;
   margin: 0;
 }
 
 .formula {
-  display: inline-block;
-  padding: 0.25rem 0.5rem;
   background: $bg-glass;
-  border-radius: $radius-sm;
   font-family: $font-family-mono;
-  font-size: 0.8rem;
   color: $color-primary;
   margin: 0.25rem 0;
 }

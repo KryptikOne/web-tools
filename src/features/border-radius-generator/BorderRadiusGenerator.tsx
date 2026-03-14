@@ -123,115 +123,121 @@ export default function BorderRadiusGenerator() {
 
 	return (
 		<div className={styles.container}>
-			<div className={styles.mainGrid}>
+			<div className={`grid mb-6 ${styles.mainGrid}`}>
 				{/* Preview Section */}
 				<div className={styles.glassCard}>
-					<h2 className={styles.sectionTitle}>Preview</h2>
-					<div className={styles.previewContainer}>
+					<h2 className={`mb-4 ${styles.sectionTitle}`}>Preview</h2>
+					<div className={`flex items-center justify-center min-h-50 rounded-lg p-8 mb-6 ${styles.previewContainer}`}>
 						<div className={styles.previewBox} style={getPreviewStyle()} />
 					</div>
 
-					<div className={styles.previewControls}>
-						<div className={styles.controlRow}>
-							<label className={styles.controlLabel}>Width</label>
+					<div className="flex flex-col gap-3">
+						<div className={`grid items-center gap-3 ${styles.controlRow}`}>
+							<label className={`text-sm font-medium ${styles.controlLabel}`}>Width</label>
 							<input type="range" min="100" max="300" value={previewSize.width} onChange={(e) => setPreviewSize((prev) => ({ ...prev, width: parseInt(e.target.value) }))} className={styles.slider} />
-							<span className={styles.valueLabel}>{previewSize.width}px</span>
+							<span className={`text-xs font-mono text-right ${styles.valueLabel}`}>
+								{previewSize.width}px
+							</span>
 						</div>
-						<div className={styles.controlRow}>
-							<label className={styles.controlLabel}>Height</label>
+						<div className={`grid items-center gap-3 ${styles.controlRow}`}>
+							<label className={`text-sm font-medium ${styles.controlLabel}`}>Height</label>
 							<input type="range" min="50" max="250" value={previewSize.height} onChange={(e) => setPreviewSize((prev) => ({ ...prev, height: parseInt(e.target.value) }))} className={styles.slider} />
-							<span className={styles.valueLabel}>{previewSize.height}px</span>
+							<span className={`text-xs font-mono text-right ${styles.valueLabel}`}>
+								{previewSize.height}px
+							</span>
 						</div>
-						<div className={styles.controlRow}>
-							<label className={styles.controlLabel}>Color</label>
+						<div className={`grid items-center gap-3 ${styles.controlRow}`}>
+							<label className={`text-sm font-medium ${styles.controlLabel}`}>Color</label>
 							<ColorPickerPopover color={previewColor} onChange={setPreviewColor} swatchSize="sm" />
-							<span className={styles.valueLabel}>{previewColor}</span>
+							<span className={`text-xs font-mono text-right ${styles.valueLabel}`}>
+								{previewColor}
+							</span>
 						</div>
 					</div>
 				</div>
 
 				{/* Controls Section */}
 				<div className={styles.glassCard}>
-					<div className={styles.controlsHeader}>
+					<div className={`flex items-center justify-between mb-4 ${styles.controlsHeader}`}>
 						<h2 className={styles.sectionTitle}>Border Radius</h2>
-						<div className={styles.headerActions}>
-							<button className={`${styles.linkBtn} ${linked ? styles.active : ""}`} onClick={() => setLinked(!linked)} title={linked ? "Unlink corners" : "Link corners"}>
-								<LinkIcon className={styles.linkIcon} />
+						<div className="flex gap-2">
+							<button className={`p-2 ${styles.linkBtn} ${linked ? styles.active : ""}`} onClick={() => setLinked(!linked)} title={linked ? "Unlink corners" : "Link corners"}>
+								<LinkIcon className={`w-4 h-4 block ${styles.linkIcon}`} />
 							</button>
-							<button className={styles.resetBtn} onClick={resetRadius} title="Reset">
-								<ArrowPathIcon className={styles.resetIcon} />
+							<button className={`p-2 ${styles.resetBtn}`} onClick={resetRadius} title="Reset">
+								<ArrowPathIcon className={`w-4 h-4 block ${styles.resetIcon}`} />
 							</button>
 						</div>
 					</div>
 
-					<div className={styles.unitSelector}>
+					<div className={`flex gap-2 mb-5 p-1 ${styles.unitSelector}`}>
 						{(["px", "%", "rem", "em"] as const).map((u) => (
-							<button key={u} className={`${styles.unitBtn} ${unit === u ? styles.active : ""}`} onClick={() => setUnit(u)}>
+							<button key={u} className={`flex-1 py-2 px-3 border-none text-sm font-medium cursor-pointer ${styles.unitBtn} ${unit === u ? styles.active : ""}`} onClick={() => setUnit(u)}>
 								{u}
 							</button>
 						))}
 					</div>
 
-					<div className={styles.cornersGrid}>
-						<div className={styles.cornerControl}>
-							<label className={styles.cornerLabel}>Top Left</label>
-							<div className={styles.cornerInputRow}>
+					<div className={`grid grid-cols-2 gap-4 mb-6 ${styles.cornersGrid}`}>
+						<div className="flex flex-col gap-2">
+							<label className={`text-xs font-medium ${styles.cornerLabel}`}>Top Left</label>
+							<div className="flex gap-3 items-center">
 								<input type="range" min="0" max="100" value={radius.topLeft} onChange={(e) => handleRadiusChange("topLeft", parseInt(e.target.value))} className={styles.slider} />
-								<input type="number" inputMode="numeric" min="0" value={radius.topLeft} onChange={(e) => handleRadiusChange("topLeft", parseInt(e.target.value) || 0)} className={styles.numberInput} />
+								<input type="number" inputMode="numeric" min="0" value={radius.topLeft} onChange={(e) => handleRadiusChange("topLeft", parseInt(e.target.value) || 0)} className={`w-15 p-2 text-sm font-mono text-center ${styles.numberInput}`} />
 							</div>
 						</div>
 
-						<div className={styles.cornerControl}>
-							<label className={styles.cornerLabel}>Top Right</label>
-							<div className={styles.cornerInputRow}>
+						<div className="flex flex-col gap-2">
+							<label className={`text-xs font-medium ${styles.cornerLabel}`}>Top Right</label>
+							<div className="flex gap-3 items-center">
 								<input type="range" min="0" max="100" value={radius.topRight} onChange={(e) => handleRadiusChange("topRight", parseInt(e.target.value))} className={styles.slider} />
-								<input type="number" inputMode="numeric" min="0" value={radius.topRight} onChange={(e) => handleRadiusChange("topRight", parseInt(e.target.value) || 0)} className={styles.numberInput} />
+								<input type="number" inputMode="numeric" min="0" value={radius.topRight} onChange={(e) => handleRadiusChange("topRight", parseInt(e.target.value) || 0)} className={`w-15 p-2 text-sm font-mono text-center ${styles.numberInput}`} />
 							</div>
 						</div>
 
-						<div className={styles.cornerControl}>
-							<label className={styles.cornerLabel}>Bottom Left</label>
-							<div className={styles.cornerInputRow}>
+						<div className="flex flex-col gap-2">
+							<label className={`text-xs font-medium ${styles.cornerLabel}`}>Bottom Left</label>
+							<div className="flex gap-3 items-center">
 								<input type="range" min="0" max="100" value={radius.bottomLeft} onChange={(e) => handleRadiusChange("bottomLeft", parseInt(e.target.value))} className={styles.slider} />
-								<input type="number" inputMode="numeric" min="0" value={radius.bottomLeft} onChange={(e) => handleRadiusChange("bottomLeft", parseInt(e.target.value) || 0)} className={styles.numberInput} />
+								<input type="number" inputMode="numeric" min="0" value={radius.bottomLeft} onChange={(e) => handleRadiusChange("bottomLeft", parseInt(e.target.value) || 0)} className={`w-15 p-2 text-sm font-mono text-center ${styles.numberInput}`} />
 							</div>
 						</div>
 
-						<div className={styles.cornerControl}>
-							<label className={styles.cornerLabel}>Bottom Right</label>
-							<div className={styles.cornerInputRow}>
+						<div className="flex flex-col gap-2">
+							<label className={`text-xs font-medium ${styles.cornerLabel}`}>Bottom Right</label>
+							<div className="flex gap-3 items-center">
 								<input type="range" min="0" max="100" value={radius.bottomRight} onChange={(e) => handleRadiusChange("bottomRight", parseInt(e.target.value))} className={styles.slider} />
-								<input type="number" inputMode="numeric" min="0" value={radius.bottomRight} onChange={(e) => handleRadiusChange("bottomRight", parseInt(e.target.value) || 0)} className={styles.numberInput} />
+								<input type="number" inputMode="numeric" min="0" value={radius.bottomRight} onChange={(e) => handleRadiusChange("bottomRight", parseInt(e.target.value) || 0)} className={`w-15 p-2 text-sm font-mono text-center ${styles.numberInput}`} />
 							</div>
 						</div>
 					</div>
 
 					{/* CSS Output */}
-					<div className={styles.outputSection}>
-						<div className={styles.outputHeader}>
-							<span className={styles.outputLabel}>CSS</span>
+					<div className={`rounded-lg p-4 ${styles.outputSection}`}>
+						<div className="flex items-center justify-between mb-2">
+							<span className={`text-xs font-semibold uppercase tracking-wide ${styles.outputLabel}`}>CSS</span>
 							<button className={`${styles.copyBtn} ${copiedField === "css" ? styles.copied : ""}`} onClick={() => copyToClipboard(getCssCode(), "css")} title="Copy to clipboard">
 								{copiedField === "css" ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
 							</button>
 						</div>
-						<code className={styles.outputCode}>{getCssCode()}</code>
+						<code className={`block font-mono break-all ${styles.outputCode}`}>{getCssCode()}</code>
 					</div>
 				</div>
 			</div>
 
 			{/* Presets Section */}
 			<div className={styles.glassCard}>
-				<h2 className={styles.sectionTitle}>Presets</h2>
-				<div className={styles.presetsGrid}>
+				<h2 className={`mb-4 ${styles.sectionTitle}`}>Presets</h2>
+				<div className={`grid gap-3 ${styles.presetsGrid}`}>
 					{PRESETS.map((preset) => (
-						<button key={preset.name} className={styles.presetBtn} onClick={() => applyPreset(preset)}>
+						<button key={preset.name} className={`flex flex-col items-center gap-2 py-4 px-3 rounded-lg cursor-pointer ${styles.presetBtn}`} onClick={() => applyPreset(preset)}>
 							<div
-								className={styles.presetPreview}
+								className={`w-12.5 h-8.75 ${styles.presetPreview}`}
 								style={{
 									borderRadius: `${preset.value.topLeft}px ${preset.value.topRight}px ${preset.value.bottomRight}px ${preset.value.bottomLeft}px`,
 								}}
 							/>
-							<span className={styles.presetName}>{preset.name}</span>
+							<span className={`text-xs font-medium ${styles.presetName}`}>{preset.name}</span>
 						</button>
 					))}
 				</div>
@@ -239,7 +245,7 @@ export default function BorderRadiusGenerator() {
 
 			{/* Info Section */}
 			<div className={styles.glassCard}>
-				<h2 className={styles.sectionTitle}>About Border Radius</h2>
+				<h2 className={`mb-4 ${styles.sectionTitle}`}>About Border Radius</h2>
 				<div className={styles.infoGrid}>
 					<div className={styles.infoItem}>
 						<h3 className={styles.infoSubtitle}>Shorthand Syntax</h3>

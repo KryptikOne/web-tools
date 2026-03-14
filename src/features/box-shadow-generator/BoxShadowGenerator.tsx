@@ -160,11 +160,11 @@ export default function BoxShadowGenerator() {
 
 	return (
 		<div className={styles.container}>
-			<div className={styles.mainGrid}>
+			<div className={`mb-6 ${styles.mainGrid}`}>
 				{/* Preview Section */}
 				<div className={styles.glassCard}>
-					<h2 className={styles.sectionTitle}>Preview</h2>
-					<div className={styles.previewContainer} style={{ background: previewBg }}>
+					<h2 className={`mb-4 ${styles.sectionTitle}`}>Preview</h2>
+					<div className={`flex items-center justify-center min-h-62.5 rounded-lg p-8 mb-6 ${styles.previewContainer}`} style={{ background: previewBg }}>
 						<div
 							className={styles.previewBox}
 							style={{
@@ -177,19 +177,19 @@ export default function BoxShadowGenerator() {
 						/>
 					</div>
 
-					<div className={styles.previewControls}>
-						<div className={styles.controlRow}>
-							<label className={styles.controlLabel}>Background</label>
+					<div className="flex flex-col gap-2.5">
+						<div className={`grid items-center gap-3 ${styles.controlRow}`}>
+							<label className={`text-xs font-medium ${styles.controlLabel}`}>Background</label>
 							<ColorPickerPopover color={previewBg} onChange={setPreviewBg} swatchSize="md" />
-							<span className={styles.valueLabel}>{previewBg}</span>
+							<span className={`text-xs font-mono text-right ${styles.valueLabel}`}>{previewBg}</span>
 						</div>
-						<div className={styles.controlRow}>
-							<label className={styles.controlLabel}>Box Color</label>
+						<div className={`grid items-center gap-3 ${styles.controlRow}`}>
+							<label className={`text-xs font-medium ${styles.controlLabel}`}>Box Color</label>
 							<ColorPickerPopover color={previewBoxBg} onChange={setPreviewBoxBg} swatchSize="md" />
-							<span className={styles.valueLabel}>{previewBoxBg}</span>
+							<span className={`text-xs font-mono text-right ${styles.valueLabel}`}>{previewBoxBg}</span>
 						</div>
-						<div className={styles.controlRow}>
-							<label className={styles.controlLabel}>Width</label>
+						<div className={`grid items-center gap-3 ${styles.controlRow}`}>
+							<label className={`text-xs font-medium ${styles.controlLabel}`}>Width</label>
 							<input
 								type="range"
 								min="100"
@@ -198,10 +198,10 @@ export default function BoxShadowGenerator() {
 								onChange={(e) => setPreviewSize((prev) => ({ ...prev, width: parseInt(e.target.value) }))}
 								className={styles.slider}
 							/>
-							<span className={styles.valueLabel}>{previewSize.width}px</span>
+							<span className={`text-xs font-mono text-right ${styles.valueLabel}`}>{previewSize.width}px</span>
 						</div>
-						<div className={styles.controlRow}>
-							<label className={styles.controlLabel}>Height</label>
+						<div className={`grid items-center gap-3 ${styles.controlRow}`}>
+							<label className={`text-xs font-medium ${styles.controlLabel}`}>Height</label>
 							<input
 								type="range"
 								min="50"
@@ -210,52 +210,52 @@ export default function BoxShadowGenerator() {
 								onChange={(e) => setPreviewSize((prev) => ({ ...prev, height: parseInt(e.target.value) }))}
 								className={styles.slider}
 							/>
-							<span className={styles.valueLabel}>{previewSize.height}px</span>
+							<span className={`text-xs font-mono text-right ${styles.valueLabel}`}>{previewSize.height}px</span>
 						</div>
-						<div className={styles.controlRow}>
-							<label className={styles.controlLabel}>Radius</label>
+						<div className={`grid items-center gap-3 ${styles.controlRow}`}>
+							<label className={`text-xs font-medium ${styles.controlLabel}`}>Radius</label>
 							<input type="range" min="0" max="100" value={previewRadius} onChange={(e) => setPreviewRadius(parseInt(e.target.value))} className={styles.slider} />
-							<span className={styles.valueLabel}>{previewRadius}px</span>
+							<span className={`text-xs font-mono text-right ${styles.valueLabel}`}>{previewRadius}px</span>
 						</div>
 					</div>
 				</div>
 
 				{/* Controls Section */}
 				<div className={styles.glassCard}>
-					<div className={styles.controlsHeader}>
+					<div className="flex items-center justify-between mb-4">
 						<h2 className={styles.sectionTitle}>Shadow Layers</h2>
-						<div className={styles.headerActions}>
-							<button className={styles.addBtn} onClick={addShadow} title="Add shadow layer">
-								<PlusIcon className={styles.btnIcon} />
+						<div className="flex gap-2">
+							<button className={`gap-1.5 ${styles.addBtn}`} onClick={addShadow} title="Add shadow layer">
+								<PlusIcon className="w-4 h-4" />
 								Add Layer
 							</button>
-							<button className={styles.resetBtn} onClick={resetShadows} title="Reset">
-								<ArrowPathIcon className={styles.btnIcon} />
+							<button className={`p-2 ${styles.resetBtn}`} onClick={resetShadows} title="Reset">
+								<ArrowPathIcon className="w-4 h-4" />
 							</button>
 						</div>
 					</div>
 
-					<div className={styles.shadowsList}>
+					<div className={`flex flex-col gap-4 mb-6 pr-2 ${styles.shadowsList}`}>
 						{shadows.map((shadow, index) => (
-							<div key={shadow.id} className={styles.shadowItem}>
-								<div className={styles.shadowHeader}>
-									<span className={styles.shadowLabel}>Layer {index + 1}</span>
-									<div className={styles.shadowActions}>
-										<label className={styles.insetToggle}>
+							<div key={shadow.id} className={`rounded-lg p-4 ${styles.shadowItem}`}>
+								<div className="flex items-center justify-between mb-3">
+									<span className={`text-sm font-semibold ${styles.shadowLabel}`}>{`Layer ${index + 1}`}</span>
+									<div className="flex items-center gap-3">
+										<label className={`flex items-center gap-1.5 text-xs cursor-pointer ${styles.insetToggle}`}>
 											<input type="checkbox" checked={shadow.inset} onChange={(e) => updateShadow(shadow.id, { inset: e.target.checked })} />
 											<span>Inset</span>
 										</label>
 										{shadows.length > 1 && (
 											<button className={styles.deleteBtn} onClick={() => removeShadow(shadow.id)} title="Remove layer">
-												<TrashIcon className={styles.deleteIcon} />
+												<TrashIcon className="w-4 h-4" />
 											</button>
 										)}
 									</div>
 								</div>
 
 								<div className={styles.shadowControls}>
-									<div className={styles.controlGroup}>
-										<label>X Offset</label>
+									<div className={`grid items-center gap-2 ${styles.controlGroup}`}>
+										<label className="text-xs font-medium">X Offset</label>
 										<input
 											type="range"
 											min="-50"
@@ -269,12 +269,12 @@ export default function BoxShadowGenerator() {
 											inputMode="numeric"
 											value={shadow.offsetX}
 											onChange={(e) => updateShadow(shadow.id, { offsetX: parseInt(e.target.value) || 0 })}
-											className={styles.numberInput}
+											className={`w-full text-center ${styles.numberInput}`}
 										/>
 									</div>
 
-									<div className={styles.controlGroup}>
-										<label>Y Offset</label>
+									<div className={`grid items-center gap-2 ${styles.controlGroup}`}>
+										<label className="text-xs font-medium">Y Offset</label>
 										<input
 											type="range"
 											min="-50"
@@ -288,12 +288,12 @@ export default function BoxShadowGenerator() {
 											inputMode="numeric"
 											value={shadow.offsetY}
 											onChange={(e) => updateShadow(shadow.id, { offsetY: parseInt(e.target.value) || 0 })}
-											className={styles.numberInput}
+											className={`w-full text-center ${styles.numberInput}`}
 										/>
 									</div>
 
-									<div className={styles.controlGroup}>
-										<label>Blur</label>
+									<div className={`grid items-center gap-2 ${styles.controlGroup}`}>
+										<label className="text-xs font-medium">Blur</label>
 										<input
 											type="range"
 											min="0"
@@ -308,12 +308,12 @@ export default function BoxShadowGenerator() {
 											min="0"
 											value={shadow.blur}
 											onChange={(e) => updateShadow(shadow.id, { blur: parseInt(e.target.value) || 0 })}
-											className={styles.numberInput}
+											className={`w-full text-center ${styles.numberInput}`}
 										/>
 									</div>
 
-									<div className={styles.controlGroup}>
-										<label>Spread</label>
+									<div className={`grid items-center gap-2 ${styles.controlGroup}`}>
+										<label className="text-xs font-medium">Spread</label>
 										<input
 											type="range"
 											min="-50"
@@ -327,12 +327,12 @@ export default function BoxShadowGenerator() {
 											inputMode="numeric"
 											value={shadow.spread}
 											onChange={(e) => updateShadow(shadow.id, { spread: parseInt(e.target.value) || 0 })}
-											className={styles.numberInput}
+											className={`w-full text-center ${styles.numberInput}`}
 										/>
 									</div>
 
-									<div className={styles.controlGroup}>
-										<label>Opacity</label>
+									<div className={`grid items-center gap-2 ${styles.controlGroup}`}>
+										<label className="text-xs font-medium">Opacity</label>
 										<input
 											type="range"
 											min="0"
@@ -348,14 +348,14 @@ export default function BoxShadowGenerator() {
 											max="100"
 											value={shadow.opacity}
 											onChange={(e) => updateShadow(shadow.id, { opacity: Math.min(100, parseInt(e.target.value) || 0) })}
-											className={styles.numberInput}
+											className={`w-full text-center ${styles.numberInput}`}
 										/>
 									</div>
 
-									<div className={styles.controlGroup}>
-										<label>Color</label>
+									<div className={`grid items-center gap-2 ${styles.controlGroup}`}>
+										<label className="text-xs font-medium">Color</label>
 										<ColorPickerPopover color={shadow.color} onChange={(color) => updateShadow(shadow.id, { color })} swatchSize="sm" />
-										<span className={styles.colorValue}>{shadow.color}</span>
+										<span className={`text-xs font-mono ${styles.colorValue}`}>{shadow.color}</span>
 									</div>
 								</div>
 							</div>
@@ -363,41 +363,41 @@ export default function BoxShadowGenerator() {
 					</div>
 
 					{/* CSS Output */}
-					<div className={styles.outputSection}>
-						<div className={styles.outputHeader}>
-							<span className={styles.outputLabel}>CSS</span>
+					<div className={`rounded-lg p-4 ${styles.outputSection}`}>
+						<div className="flex items-center justify-between mb-2">
+							<span className={`text-xs font-semibold uppercase tracking-wide ${styles.outputLabel}`}>CSS</span>
 							<button className={`${styles.copyBtn} ${copiedField === "css" ? styles.copied : ""}`} onClick={() => copyToClipboard(getCssCode(), "css")} title="Copy to clipboard">
 								{copiedField === "css" ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
 							</button>
 						</div>
-						<code className={styles.outputCode}>{getCssCode()}</code>
+						<code className={`block text-sm font-mono break-all leading-relaxed ${styles.outputCode}`}>{getCssCode()}</code>
 					</div>
 				</div>
 			</div>
 
 			{/* Presets Section */}
 			<div className={styles.glassCard}>
-				<h2 className={styles.sectionTitle}>Presets</h2>
+				<h2 className={`mb-4 ${styles.sectionTitle}`}>Presets</h2>
 				<div className={styles.presetsGrid}>
 					{PRESETS.map((preset) => (
-						<button key={preset.name} className={styles.presetBtn} onClick={() => applyPreset(preset)}>
-							<div className={styles.presetPreviewWrapper}>
+						<button key={preset.name} className={`flex flex-col items-center rounded-lg cursor-pointer ${styles.presetBtn}`} onClick={() => applyPreset(preset)}>
+							<div className={`flex items-center justify-center rounded-md p-2 ${styles.presetPreviewWrapper}`}>
 								<div
-									className={styles.presetPreview}
+									className={`rounded ${styles.presetPreview}`}
 									style={{
 										boxShadow: preset.shadows.map((s) => getShadowCss({ ...s, id: "" })).join(", "),
 									}}
 								/>
 							</div>
-							<span className={styles.presetName}>{preset.name}</span>
+							<span className={`text-xs font-medium ${styles.presetName}`}>{preset.name}</span>
 						</button>
 					))}
 				</div>
 			</div>
 
 			{/* Info Section */}
-			<div className={styles.glassCard} style={{ marginTop: "1.5rem" }}>
-				<h2 className={styles.sectionTitle}>About Box Shadow</h2>
+			<div className={`mt-6 ${styles.glassCard}`}>
+				<h2 className={`mb-4 ${styles.sectionTitle}`}>About Box Shadow</h2>
 				<div className={styles.infoGrid}>
 					<div className={styles.infoItem}>
 						<h3 className={styles.infoSubtitle}>Syntax</h3>

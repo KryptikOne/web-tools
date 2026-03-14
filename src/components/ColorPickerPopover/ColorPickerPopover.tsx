@@ -106,31 +106,31 @@ export function ColorPickerPopover({
 
 	// Loading state during SSR
 	if (isMobile === null) {
-		return <div className={`${styles.swatch} ${styles[swatchSize]} ${className ?? ""}`} style={{ backgroundColor: color }} />;
+		return <div className={`rounded-lg p-0 ${styles.swatch} ${styles[swatchSize]} ${className ?? ""}`} style={{ backgroundColor: color }} />;
 	}
 
 	// Mobile: use native color input styled as a swatch
 	if (isMobile) {
 		return (
-			<div className={`${styles.swatchWrapper} ${className ?? ""}`}>
+			<div className={`relative inline-block ${className ?? ""}`}>
 				<input
 					type="color"
 					value={color}
 					onChange={(e) => onChange(e.target.value)}
 					disabled={disabled}
-					className={`${styles.nativeInput} ${styles[swatchSize]}`}
+					className={`absolute inset-0 opacity-0 cursor-pointer w-full h-full ${styles[swatchSize]}`}
 				/>
-				<div className={`${styles.swatchOverlay} ${styles[swatchSize]}`} style={{ backgroundColor: color }} />
+				<div className={`rounded-lg pointer-events-none ${styles.swatchOverlay} ${styles[swatchSize]}`} style={{ backgroundColor: color }} />
 			</div>
 		);
 	}
 
 	// Desktop: swatch with popover
 	return (
-		<div ref={containerRef} className={`${styles.container} ${className ?? ""}`}>
+		<div ref={containerRef} className={`relative inline-block ${className ?? ""}`}>
 			<button
 				type="button"
-				className={`${styles.swatch} ${styles[swatchSize]} ${disabled ? styles.disabled : ""}`}
+				className={`rounded-lg p-0 ${styles.swatch} ${styles[swatchSize]} ${disabled ? styles.disabled : ""}`}
 				style={{ backgroundColor: color }}
 				onClick={handleSwatchClick}
 				disabled={disabled}
@@ -141,7 +141,7 @@ export function ColorPickerPopover({
 			{isOpen && (
 				<div
 					ref={popoverRef}
-					className={`${styles.popover} ${styles[position.h]} ${styles[position.v]}`}
+					className={`absolute w-55 p-4 rounded-xl ${styles.popover} ${styles[position.h]} ${styles[position.v]}`}
 				>
 					<ColorPickerPanel color={color} onChange={onChange} showHex={showHex} hexEditable={hexEditable} />
 				</div>

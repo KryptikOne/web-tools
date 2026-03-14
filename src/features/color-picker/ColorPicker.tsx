@@ -266,12 +266,12 @@ export default function ColorPicker() {
 			<div className={styles.grid}>
 				<div>
 					{/* Color Preview */}
-					<div className={styles.glassCard} style={{ marginBottom: "1.5rem" }}>
-						<div className={styles.colorPreview}>
-							<div className={styles.swatch} style={{ backgroundColor: colorFormats.rgba }}>
-								<div className={styles.previewOverlay}>
+					<div className={`mb-6 ${styles.glassCard}`}>
+						<div className={`w-full h-50 rounded-xl relative overflow-hidden shadow-xl ${styles.colorPreview}`}>
+							<div className={`w-full h-full ${styles.swatch}`} style={{ backgroundColor: colorFormats.rgba }}>
+								<div className={`absolute bottom-4 left-4 right-4 flex justify-between items-end`}>
 									<div
-									className={`${styles.hexDisplay} ${hexCopied ? styles.hexCopied : ""}`}
+									className={`rounded-md ${styles.hexDisplay} ${hexCopied ? styles.hexCopied : ""}`}
 									onClick={async () => {
 										try {
 											await navigator.clipboard.writeText(colorFormats.hex);
@@ -284,37 +284,37 @@ export default function ColorPicker() {
 									title="Click to copy hex"
 									style={{ cursor: "pointer" }}
 								>
-									<p>{colorFormats.hex}</p>
+									<p className="font-mono text-2xl">{colorFormats.hex}</p>
 								</div>
-									<Button onClick={generateRandomColor} className={styles.btnRandom} title="Random Color">
+									<Button onClick={generateRandomColor} className={`rounded-md ${styles.btnRandom}`} title="Random Color">
 										<ArrowPathIcon className="w-5 h-5" />
 									</Button>
 								</div>
 							</div>
 						</div>
 
-						<div className={styles.buttonGroup}>
-							<Button onClick={handleSaveColor} className={styles.btnSecondary}>
+						<div className={`flex gap-2 mt-4`}>
+							<Button onClick={handleSaveColor} className={`flex-1 ${styles.btnSecondary}`}>
 								<BookmarkIcon className="w-4 h-4" />
 								Save
 							</Button>
-							<Button onClick={() => setShowColorList(!showColorList)} className={styles.btnSecondary}>
+							<Button onClick={() => setShowColorList(!showColorList)} className={`flex-1 ${styles.btnSecondary}`}>
 								<SwatchIcon className="w-4 h-4" />
 								Saved ({savedColors.length})
 							</Button>
 						</div>
 
 						{/* Accessibility Level Toggle for Random Colors */}
-						<div className={styles.accessibilityToggle}>
-							<span className={styles.toggleLabel}>Random Color Accessibility:</span>
-							<div className={styles.toggleButtons}>
-								<Button onClick={() => setAccessibilityLevel("none")} className={`${styles.toggleBtn} ${accessibilityLevel === "none" ? styles.active : ""}`}>
+						<div className={`flex flex-col gap-2 mt-4 pt-4 ${styles.accessibilityToggle}`}>
+							<span className={`text-xs ${styles.toggleLabel}`}>Random Color Accessibility:</span>
+							<div className={`flex gap-1`}>
+								<Button onClick={() => setAccessibilityLevel("none")} className={`flex-1 rounded-md text-xs font-semibold ${styles.toggleBtn} ${accessibilityLevel === "none" ? styles.active : ""}`}>
 									Any
 								</Button>
-								<Button onClick={() => setAccessibilityLevel("aa")} className={`${styles.toggleBtn} ${accessibilityLevel === "aa" ? styles.active : ""}`}>
+								<Button onClick={() => setAccessibilityLevel("aa")} className={`flex-1 rounded-md text-xs font-semibold ${styles.toggleBtn} ${accessibilityLevel === "aa" ? styles.active : ""}`}>
 									AA+
 								</Button>
-								<Button onClick={() => setAccessibilityLevel("aaa")} className={`${styles.toggleBtn} ${accessibilityLevel === "aaa" ? styles.active : ""}`}>
+								<Button onClick={() => setAccessibilityLevel("aaa")} className={`flex-1 rounded-md text-xs font-semibold ${styles.toggleBtn} ${accessibilityLevel === "aaa" ? styles.active : ""}`}>
 									AAA+
 								</Button>
 							</div>
@@ -322,8 +322,8 @@ export default function ColorPicker() {
 					</div>
 					{/* Saved Colors Palette */}
 					{showColorList && savedColors.length > 0 && (
-						<div className={styles.glassCard} style={{ marginTop: "1.5rem" }}>
-							<div className={styles.savedColorsHeader}>
+						<div className={`mt-6 ${styles.glassCard}`}>
+							<div className={`flex justify-between items-center mb-4 ${styles.savedColorsHeader}`}>
 								<h3 className={styles.sectionTitle}>Saved Colors</h3>
 								<Button onClick={() => dispatch(clearSavedColors())} className={styles.clearBtn} title="Clear all saved colors">
 									<TrashIcon className="w-4 h-4" />
@@ -332,20 +332,20 @@ export default function ColorPicker() {
 							</div>
 							<div className={styles.savedColorsGrid}>
 								{savedColors.map((color) => (
-									<button key={color.id} onClick={() => handleLoadColor(color)} className={styles.colorSwatch} style={{ backgroundColor: color.hex }} title={color.hex} />
+									<button key={color.id} onClick={() => handleLoadColor(color)} className={`aspect-square rounded-lg cursor-pointer ${styles.colorSwatch}`} style={{ backgroundColor: color.hex }} title={color.hex} />
 								))}
 							</div>
 						</div>
 					)}
 
 					{/* OKLCH Sliders */}
-					<div className={styles.glassCard} style={{ marginTop: "1.5rem" }}>
+					<div className={`mt-6 ${styles.glassCard}`}>
 						<h3 className={styles.sectionTitle}>OKLCH Color Space</h3>
 
 						<div className={styles.sliderGroup}>
-							<div className={styles.sliderHeader}>
-								<label className={styles.label}>Lightness</label>
-								<span className={styles.valueDisplay}>{(oklch.l * 100).toFixed(1)}%</span>
+							<div className={`flex justify-between mb-2`}>
+								<label className={`text-sm ${styles.label}`}>Lightness</label>
+								<span className={`font-mono text-sm ${styles.valueDisplay}`}>{(oklch.l * 100).toFixed(1)}%</span>
 							</div>
 							<input
 								type="range"
@@ -354,15 +354,15 @@ export default function ColorPicker() {
 								step="0.1"
 								value={oklch.l * 100}
 								onChange={(e) => dispatch(setOklch({ ...oklch, l: parseFloat(e.target.value) / 100 }))}
-								className={styles.slider}
+								className={`h-2 ${styles.slider}`}
 								style={{ background: getLightnessGradient() }}
 							/>
 						</div>
 
 						<div className={styles.sliderGroup}>
-							<div className={styles.sliderHeader}>
-								<label className={styles.label}>Chroma</label>
-								<span className={styles.valueDisplay}>{oklch.c.toFixed(3)}</span>
+							<div className={`flex justify-between mb-2`}>
+								<label className={`text-sm ${styles.label}`}>Chroma</label>
+								<span className={`font-mono text-sm ${styles.valueDisplay}`}>{oklch.c.toFixed(3)}</span>
 							</div>
 							<input
 								type="range"
@@ -371,15 +371,15 @@ export default function ColorPicker() {
 								step="0.001"
 								value={oklch.c}
 								onChange={(e) => dispatch(setOklch({ ...oklch, c: parseFloat(e.target.value) }))}
-								className={styles.slider}
+								className={`h-2 ${styles.slider}`}
 								style={{ background: getChromaGradient() }}
 							/>
 						</div>
 
 						<div className={styles.sliderGroup}>
-							<div className={styles.sliderHeader}>
-								<label className={styles.label}>Hue</label>
-								<span className={styles.valueDisplay}>{oklch.h.toFixed(1)}°</span>
+							<div className={`flex justify-between mb-2`}>
+								<label className={`text-sm ${styles.label}`}>Hue</label>
+								<span className={`font-mono text-sm ${styles.valueDisplay}`}>{oklch.h.toFixed(1)}°</span>
 							</div>
 							<input
 								type="range"
@@ -388,15 +388,15 @@ export default function ColorPicker() {
 								step="0.1"
 								value={oklch.h}
 								onChange={(e) => dispatch(setOklch({ ...oklch, h: parseFloat(e.target.value) }))}
-								className={styles.slider}
+								className={`h-2 ${styles.slider}`}
 								style={{ background: getHueGradient() }}
 							/>
 						</div>
 
 						<div className={styles.sliderGroup}>
-							<div className={styles.sliderHeader}>
-								<label className={styles.label}>Alpha</label>
-								<span className={styles.valueDisplay}>{(alpha * 100).toFixed(0)}%</span>
+							<div className={`flex justify-between mb-2`}>
+								<label className={`text-sm ${styles.label}`}>Alpha</label>
+								<span className={`font-mono text-sm ${styles.valueDisplay}`}>{(alpha * 100).toFixed(0)}%</span>
 							</div>
 							<input
 								type="range"
@@ -405,7 +405,7 @@ export default function ColorPicker() {
 								step="1"
 								value={alpha * 100}
 								onChange={(e) => dispatch(setAlpha(parseFloat(e.target.value) / 100))}
-								className={styles.slider}
+								className={`h-2 ${styles.slider}`}
 								style={{ background: `linear-gradient(to right, transparent, ${colorFormats.hex})` }}
 							/>
 						</div>
@@ -414,10 +414,10 @@ export default function ColorPicker() {
 
 				<div>
 					{/* Input Field */}
-					<div className={styles.glassCard} style={{ marginBottom: "1.5rem" }}>
+					<div className={`mb-6 ${styles.glassCard}`}>
 						<h3 className={styles.sectionTitle}>Color Input</h3>
 						<input type="text" value={inputValue} onChange={(e) => handleInputChange(e.target.value)} placeholder="Enter any color format..." className={styles.inputField} />
-						<p className={styles.inputHint}>Supports: HEX (#RGB, #RRGGBB, #RRGGBBAA), RGB(A), HSL(A), OKLCH</p>
+						<p className={`text-xs mt-2 ${styles.inputHint}`}>Supports: HEX (#RGB, #RRGGBB, #RRGGBBAA), RGB(A), HSL(A), OKLCH</p>
 					</div>
 
 					{/* Color Formats */}
@@ -425,9 +425,9 @@ export default function ColorPicker() {
 						<h3 className={styles.sectionTitle}>All Formats</h3>
 
 						{Object.entries(colorFormats).map(([format, value]) => (
-							<div key={format} className={styles.formatItem}>
-								<span className={styles.formatLabel}>{format}</span>
-								<span className={styles.formatValue}>{value}</span>
+							<div key={format} className={`flex justify-between items-center p-3 rounded-md mb-2 ${styles.formatItem}`}>
+								<span className={`text-xs uppercase tracking-wide min-w-15 ${styles.formatLabel}`}>{format}</span>
+								<span className={`font-mono text-lg flex-1 mx-4 p-2 rounded-sm ${styles.formatValue}`}>{value}</span>
 								<button onClick={() => copyToClipboard(value, format)} className={`${styles.copyBtn} ${copiedFormat === format ? styles.copied : ""}`} title="Copy to clipboard">
 									{copiedFormat === format ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
 								</button>
@@ -438,29 +438,29 @@ export default function ColorPicker() {
 			</div>
 
 			{/* Contrast Checker Section */}
-				<div className={styles.contrastCheckerContent}>
+				<div className={`mt-6 ${styles.contrastCheckerContent}`}>
 					<h3 className={styles.sectionTitle}>Contrast Checker</h3>
 
 					{/* Current Color Contrast on White/Black */}
-					<div className={styles.currentColorContrast}>
-						<h4 className={styles.subsectionTitle}>Current Color Contrast</h4>
+					<div className={`mb-8`}>
+						<h4 className={`text-sm font-semibold mb-4 ${styles.subsectionTitle}`}>Current Color Contrast</h4>
 						<div className={styles.contrastBoxes}>
-							<div className={`${styles.contrastBox} ${styles.white}`}>
-								<div className={styles.contrastInfo}>
+							<div className={`p-4 rounded-lg ${styles.contrastBox} ${styles.white}`}>
+								<div className={`flex justify-between items-center`}>
 									<span>On White</span>
 									<div>
-										<span className={styles.contrastRatio}>{contrastWhite.toFixed(2)}:1</span>
-										<span className={`${styles.wcagBadge} ${getWCAGRating(contrastWhite).className}`}>{getWCAGRating(contrastWhite).level}</span>
+										<span className={`font-mono text-base font-bold ${styles.contrastRatio}`}>{contrastWhite.toFixed(2)}:1</span>
+										<span className={`inline-block px-2 py-1 rounded-sm ml-2 text-xs font-bold text-white ${styles.wcagBadge} ${getWCAGRating(contrastWhite).className}`}>{getWCAGRating(contrastWhite).level}</span>
 									</div>
 								</div>
 							</div>
 
-							<div className={`${styles.contrastBox} ${styles.black}`}>
-								<div className={styles.contrastInfo}>
+							<div className={`p-4 rounded-lg ${styles.contrastBox} ${styles.black}`}>
+								<div className={`flex justify-between items-center`}>
 									<span>On Black</span>
 									<div>
-										<span className={styles.contrastRatio}>{contrastBlack.toFixed(2)}:1</span>
-										<span className={`${styles.wcagBadge} ${getWCAGRating(contrastBlack).className}`}>{getWCAGRating(contrastBlack).level}</span>
+										<span className={`font-mono text-base font-bold ${styles.contrastRatio}`}>{contrastBlack.toFixed(2)}:1</span>
+										<span className={`inline-block px-2 py-1 rounded-sm ml-2 text-xs font-bold text-white ${styles.wcagBadge} ${getWCAGRating(contrastBlack).className}`}>{getWCAGRating(contrastBlack).level}</span>
 									</div>
 								</div>
 							</div>
@@ -468,28 +468,28 @@ export default function ColorPicker() {
 					</div>
 
 					{/* Custom Color Contrast Checker */}
-					<div className={styles.customContrastChecker}>
-						<h4 className={styles.subsectionTitle}>Custom Color Checker</h4>
+					<div className={`mb-8 pt-8 ${styles.customContrastChecker}`}>
+						<h4 className={`text-sm font-semibold mb-4 ${styles.subsectionTitle}`}>Custom Color Checker</h4>
 
 						{/* Foreground / Background Inputs */}
-						<div className={styles.contrastInputs}>
-							<div className={styles.contrastInputGroup}>
-								<label className={styles.contrastLabel}>Foreground</label>
-								<div className={styles.colorInputRow}>
+						<div className={`mb-6 ${styles.contrastInputs}`}>
+							<div className={`flex flex-col gap-2`}>
+								<label className={`text-sm font-medium ${styles.contrastLabel}`}>Foreground</label>
+								<div className={`flex gap-2 items-center`}>
 									<ColorPickerPopover color={foregroundHex} onChange={setForegroundHex} swatchSize="md" />
-									<input type="text" value={foregroundHex} onChange={(e) => setForegroundHex(e.target.value)} className={styles.hexInputSmall} maxLength={7} />
-									<Button onClick={syncColorToForeground} className={styles.syncBtn} title="Use current color as foreground">
+									<input type="text" value={foregroundHex} onChange={(e) => setForegroundHex(e.target.value)} className={`flex-1 rounded-md font-mono text-sm uppercase ${styles.hexInputSmall}`} maxLength={7} />
+									<Button onClick={syncColorToForeground} className={`rounded-md text-xs font-medium whitespace-nowrap ${styles.syncBtn}`} title="Use current color as foreground">
 										← Use Current
 									</Button>
 								</div>
 							</div>
 
-							<div className={styles.contrastInputGroup}>
-								<label className={styles.contrastLabel}>Background</label>
-								<div className={styles.colorInputRow}>
+							<div className={`flex flex-col gap-2`}>
+								<label className={`text-sm font-medium ${styles.contrastLabel}`}>Background</label>
+								<div className={`flex gap-2 items-center`}>
 									<ColorPickerPopover color={backgroundHex} onChange={setBackgroundHex} swatchSize="md" />
-									<input type="text" value={backgroundHex} onChange={(e) => setBackgroundHex(e.target.value)} className={styles.hexInputSmall} maxLength={7} />
-									<Button onClick={syncColorToBackground} className={styles.syncBtn} title="Use current color as background">
+									<input type="text" value={backgroundHex} onChange={(e) => setBackgroundHex(e.target.value)} className={`flex-1 rounded-md font-mono text-sm uppercase ${styles.hexInputSmall}`} maxLength={7} />
+									<Button onClick={syncColorToBackground} className={`rounded-md text-xs font-medium whitespace-nowrap ${styles.syncBtn}`} title="Use current color as background">
 										← Use Current
 									</Button>
 								</div>
@@ -497,37 +497,39 @@ export default function ColorPicker() {
 						</div>
 
 						{/* Preview Area */}
-						<div className={styles.contrastPreview} style={{ backgroundColor: backgroundHex, color: foregroundHex }}>
-							<p className={styles.previewNormal}>Normal text (16px)</p>
-							<p className={styles.previewLarge}>Large text (24px bold)</p>
+						<div className={`p-8 rounded-lg text-center mb-6 ${styles.contrastPreview}`} style={{ backgroundColor: backgroundHex, color: foregroundHex }}>
+							<p className={`text-base leading-6 m-0 mb-4`}>Normal text (16px)</p>
+							<p className={`text-2xl font-bold leading-6 m-0`}>Large text (24px bold)</p>
 						</div>
 
 						{/* Contrast Ratio Display */}
-						<div className={styles.contrastRatioDisplay}>
-							<span className={styles.ratioValue}>{fgBgContrastRatio.toFixed(2)}:1</span>
-							<span className={styles.ratioLabel}>Contrast Ratio</span>
+						<div className={`flex flex-col items-center gap-1 p-6 rounded-lg mb-6 text-lg ${styles.contrastRatioDisplay}`}>
+							<span className={`text-3xl font-bold leading-none ${styles.ratioValue}`}>
+								{fgBgContrastRatio.toFixed(2)}:1
+							</span>
+							<span className={`text-xs font-semibold uppercase tracking-wide ${styles.ratioLabel}`}>Contrast Ratio</span>
 						</div>
 
 						{/* WCAG Compliance Cards */}
 						<div className={styles.wcagCards}>
 							{wcagLevels.map((item) => (
-								<div key={item.level} className={`${styles.wcagCard} ${item.passes ? styles.wcagPass : styles.wcagFail}`}>
-									<div className={styles.wcagCardHeader}>
-										<span className={styles.wcagCardLevel}>{item.level}</span>
-										<span className={styles.wcagCardStatus}>{item.passes ? "✓ PASS" : "✗ FAIL"}</span>
+								<div key={item.level} className={`p-4 rounded-lg ${styles.wcagCard} ${item.passes ? styles.wcagPass : styles.wcagFail}`}>
+									<div className={`flex justify-between items-center mb-1`}>
+										<span className={`text-xs font-semibold ${styles.wcagCardLevel}`}>{item.level}</span>
+										<span className={`text-xs font-bold tracking-wide ${styles.wcagCardStatus}`}>{item.passes ? "✓ PASS" : "✗ FAIL"}</span>
 									</div>
-									<div className={styles.wcagCardRatio}>Required: {item.ratio}:1</div>
+									<div className={`text-xs font-mono ${styles.wcagCardRatio}`}>Required: {item.ratio}:1</div>
 								</div>
 							))}
 						</div>
 					</div>
 
 					{/* WCAG Requirements Info */}
-					<div className={styles.wcagInfo}>
-						<h4 className={styles.subsectionTitle}>WCAG Contrast Requirements</h4>
-						<div className={styles.infoGrid}>
+					<div className={`pt-8 ${styles.wcagInfo}`}>
+						<h4 className={`text-sm font-semibold mb-4 ${styles.subsectionTitle}`}>WCAG Contrast Requirements</h4>
+						<div className={`mb-4 ${styles.infoGrid}`}>
 							<div>
-								<h5 className={styles.infoSubtitle}>Level AA (Minimum)</h5>
+								<h5 className={`text-xs font-semibold mb-2 ${styles.infoSubtitle}`}>Level AA (Minimum)</h5>
 								<ul className={styles.infoList}>
 									<li>Normal text: 4.5:1 minimum</li>
 									<li>Large text: 3:1 minimum</li>
@@ -535,7 +537,7 @@ export default function ColorPicker() {
 								</ul>
 							</div>
 							<div>
-								<h5 className={styles.infoSubtitle}>Level AAA (Enhanced)</h5>
+								<h5 className={`text-xs font-semibold mb-2 ${styles.infoSubtitle}`}>Level AAA (Enhanced)</h5>
 								<ul className={styles.infoList}>
 									<li>Normal text: 7:1 minimum</li>
 									<li>Large text: 4.5:1 minimum</li>
@@ -543,9 +545,9 @@ export default function ColorPicker() {
 								</ul>
 							</div>
 						</div>
-						<div className={styles.noteBox}>
-							<p>
-								<strong>Tip:</strong> Use the accessibility toggle above to generate random colors that automatically meet AA or AAA contrast requirements on both light and dark
+						<div className={`p-4 rounded-md ${styles.noteBox}`}>
+							<p className={`m-0 text-xs`}>
+								<strong className="font-bold">Tip:</strong> Use the accessibility toggle above to generate random colors that automatically meet AA or AAA contrast requirements on both light and dark
 								backgrounds.
 							</p>
 						</div>

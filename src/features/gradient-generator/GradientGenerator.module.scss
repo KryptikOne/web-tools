@@ -24,31 +24,17 @@
 }
 
 // Preview Section
-.previewSection {
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-lg;
-}
+.previewSection {}
 
 .previewBox {
-  width: 100%;
   height: 200px;
-  border-radius: $radius-xl;
-  // box-shadow: $shadow-xl;
-  // border: 1px solid $border-subtle;
-  margin-bottom: $spacing-lg;
 
   @media (min-width: 768px) {
     height: 250px;
   }
 }
 
-.buttonGroup {
-  display: flex;
-  gap: $spacing-sm;
-  margin-top: $spacing-sm;
-  margin-bottom: $spacing-md;
-}
+.buttonGroup {}
 
 // Shared Utilities
 .btnPrimary {
@@ -57,27 +43,17 @@
 
 .btnSecondary {
   @include btn-secondary;
-  flex: 1;
 }
 
 // CSS Output
 .codeBlock {
-  display: flex;
-  align-items: center;
-  gap: $spacing-md;
-  padding: $spacing-md;
   background: $input-bg;
   border: 1px solid $input-border;
-  border-radius: $radius-md;
-  overflow-x: auto;
+}
 
-  code {
-    flex: 1;
-    color: $text-code;
-    font-family: $font-family-mono;
-    font-size: 14px;
-    white-space: pre-wrap;
-  }
+.codeText {
+  color: $text-code;
+  white-space: pre-wrap;
 }
 
 .copyBtn {
@@ -89,21 +65,12 @@
 }
 
 // Controls Section
-.controlsSection {
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-lg;
-}
+.controlsSection {}
 
 // Type Toggle
-.typeToggle {
-  display: flex;
-  gap: $spacing-sm;
-  margin-bottom: $spacing-lg;
-}
+.typeToggle {}
 
 .toggleBtn {
-  flex: 1;
   padding: $spacing-sm $spacing-md;
   background: $input-bg;
   border: 1px solid $border-subtle;
@@ -127,25 +94,17 @@
 }
 
 // Angle Control
-.angleControl {
-  margin-top: $spacing-md;
-}
+.angleControl {}
 
-.sliderHeader {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: $spacing-sm;
-}
+.sliderHeader {}
 
 .label {
   color: $text-secondary;
-  font-size: 14px;
 }
 
 .valueDisplay {
   color: $text-primary;
   font-family: $font-family-mono;
-  font-size: 14px;
 }
 
 .slider {
@@ -159,11 +118,7 @@
   );
 }
 
-.presetAngles {
-  display: flex;
-  flex-wrap: wrap;
-  gap: $spacing-xs;
-}
+.presetAngles {}
 
 .angleBtn {
   padding: $spacing-xs $spacing-sm;
@@ -171,7 +126,6 @@
   border: 1px solid $border-subtle;
   border-radius: $radius-sm;
   color: $text-tertiary;
-  font-size: 12px;
   cursor: pointer;
   transition: all $transition-base;
 
@@ -188,23 +142,12 @@
 }
 
 // Shape Control
-.shapeControl {
-  margin-top: $spacing-md;
-}
+.shapeControl {}
 
-.shapeToggle {
-  display: flex;
-  gap: $spacing-sm;
-  margin-top: $spacing-sm;
-}
+.shapeToggle {}
 
 // Color Stops
 .colorStopsHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: $spacing-lg;
-
   .sectionTitle {
     margin-bottom: 0;
   }
@@ -213,23 +156,14 @@
 .addBtn {
   @include btn-primary;
   padding: $spacing-xs $spacing-sm;
-  font-size: 12px;
 }
 
-.colorStopsList {
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-sm;
-}
+.colorStopsList {}
 
 .colorInput {
-  width: 40px;
-  height: 40px;
   border: 2px solid $border-medium;
-  border-radius: $radius-md;
   cursor: pointer;
   transition: all $transition-base;
-  flex-shrink: 0;
 
   &::-webkit-color-swatch-wrapper {
     padding: 0;
@@ -247,16 +181,11 @@
 }
 
 .hexInput {
-  flex: 1;
-  min-width: 80px;
-  padding: $spacing-sm;
   background: $input-bg;
   border: 1px solid $input-border;
   border-radius: $radius-md;
   color: $text-code;
   font-family: $font-family-mono;
-  font-size: 14px;
-  text-transform: uppercase;
   transition: all $transition-base;
 
   &:focus {
@@ -266,22 +195,14 @@
   }
 }
 
-.positionInput {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-}
+.positionInput {}
 
 .numberInput {
-  width: 50px;
-  padding: $spacing-sm;
   background: $input-bg;
   border: 1px solid $input-border;
   border-radius: $radius-md;
   color: $text-primary;
   font-family: $font-family-mono;
-  font-size: 14px;
-  text-align: center;
   transition: all $transition-base;
 
   &:focus {
@@ -301,14 +222,12 @@
 
 .percentSign {
   color: $text-tertiary;
-  font-size: 12px;
 }
 
 .removeBtn {
   background: none;
   border: none;
   cursor: pointer;
-  padding: $spacing-xs;
   color: $text-tertiary;
   transition: color $transition-base;
 
@@ -346,12 +265,9 @@
 
 .presetBtn {
   aspect-ratio: 1.5;
-  border-radius: $radius-lg;
   border: 2px solid transparent;
   cursor: pointer;
   transition: all $transition-base;
-  position: relative;
-  overflow: hidden;
 
   &:hover {
     border-color: $color-accent;
@@ -360,17 +276,9 @@
 }
 
 .presetName {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: $spacing-xs;
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(4px);
-  color: white;
   font-size: 11px;
-  text-align: center;
-  font-weight: 500;
 }
 
 // Info Section
@@ -425,9 +333,7 @@
 
 // Interactive Gradient Slider
 .interactiveSlider {
-  position: relative;
   height: 32px;
-  margin-bottom: $spacing-sm;
   cursor: crosshair;
 }
 
@@ -502,9 +408,6 @@
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-size: 14px;
   font-weight: bold;
   line-height: 1;
@@ -513,18 +416,11 @@
 .sliderHint {
   color: $text-muted;
   font-size: 11px;
-  text-align: center;
-  margin: 0 0 $spacing-md 0;
 }
 
 // Color Stop List Item - Selected State
 .colorStopItem {
-  display: flex;
-  align-items: center;
-  gap: $spacing-sm;
-  padding: $spacing-sm;
   background: $bg-overlay-light;
-  border-radius: $radius-md;
   border: 2px solid transparent;
   cursor: pointer;
   transition: all $transition-base;
@@ -553,10 +449,6 @@
 
 .pickerHint {
   color: $text-muted;
-  font-size: 12px;
-  text-align: center;
-  margin-bottom: $spacing-md;
-  font-style: italic;
 }
 
 .canvasContainer {

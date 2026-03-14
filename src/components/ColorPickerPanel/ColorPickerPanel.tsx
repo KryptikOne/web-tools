@@ -42,13 +42,13 @@ export function ColorPickerPanel({
 
 	// Show loading skeleton during SSR/hydration
 	if (isMobile === null) {
-		return <div className={`${styles.skeleton} ${className ?? ""}`} />;
+		return <div className={`w-full h-[260px] rounded-lg ${styles.skeleton} ${className ?? ""}`} />;
 	}
 
 	// Mobile: use native color picker
 	if (isMobile) {
 		return (
-			<div className={`${styles.mobileWrapper} ${className ?? ""}`}>
+			<div className={`flex items-center gap-2 ${className ?? ""}`}>
 				<input
 					type="color"
 					value={color}
@@ -56,7 +56,7 @@ export function ColorPickerPanel({
 					disabled={disabled}
 					className={styles.nativeInput}
 				/>
-				{showHex && <span className={styles.hexDisplay}>{color}</span>}
+				{showHex && <span className={`flex-1 p-2 font-mono text-sm uppercase ${styles.hexDisplay}`}>{color}</span>}
 			</div>
 		);
 	}
@@ -241,14 +241,14 @@ function DesktopColorPicker({
 	}, [hexInputValue, color, onChange, disabled]);
 
 	return (
-		<div className={`${styles.panel} ${disabled ? styles.disabled : ""} ${className ?? ""}`}>
+		<div className={`${disabled ? styles.disabled : ""} ${className ?? ""}`}>
 			{/* Saturation/Value Canvas */}
-			<div className={styles.canvasContainer}>
+			<div className="relative mb-4">
 				<canvas
 					ref={canvasRef}
 					width={280}
 					height={180}
-					className={styles.colorCanvas}
+					className={`w-full h-auto rounded-lg cursor-crosshair block ${styles.colorCanvas}`}
 					onMouseDown={(e) => {
 						if (disabled) return;
 						setIsDraggingCanvas(true);
@@ -269,12 +269,12 @@ function DesktopColorPicker({
 			</div>
 
 			{/* Hue Slider */}
-			<div className={styles.hueContainer}>
+			<div className="relative mb-4">
 				<canvas
 					ref={hueRef}
 					width={280}
 					height={20}
-					className={styles.hueCanvas}
+					className="w-full h-5 rounded cursor-crosshair block"
 					onMouseDown={(e) => {
 						if (disabled) return;
 						setIsDraggingHue(true);
@@ -290,8 +290,8 @@ function DesktopColorPicker({
 
 			{/* Footer with preview and hex */}
 			{(showPreview || showHex) && (
-				<div className={styles.footer}>
-					{showPreview && <div className={styles.preview} style={{ backgroundColor: color }} />}
+				<div className="flex items-center gap-2">
+					{showPreview && <div className={`w-8 h-8 rounded-lg shrink-0 ${styles.preview}`} style={{ backgroundColor: color }} />}
 					{showHex && (
 						hexEditable ? (
 							<input
@@ -305,12 +305,12 @@ function DesktopColorPicker({
 										(e.target as HTMLInputElement).blur();
 									}
 								}}
-								className={styles.hexInput}
+								className={`flex-1 p-2 rounded-lg font-mono text-sm uppercase ${styles.hexInput}`}
 								placeholder="#hex, rgb(), hsl(), oklch()"
 								disabled={disabled}
 							/>
 						) : (
-							<span className={styles.hexDisplay}>{color}</span>
+							<span className={`flex-1 p-2 font-mono text-sm uppercase ${styles.hexDisplay}`}>{color}</span>
 						)
 					)}
 				</div>

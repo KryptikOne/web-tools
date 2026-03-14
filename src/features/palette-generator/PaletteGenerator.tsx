@@ -304,16 +304,16 @@ export default function PaletteGenerator() {
 	return (
 		<div className={styles.container}>
 			{/* Main Palette Display */}
-			<div className={styles.paletteDisplay}>
+			<div className={`flex mb-6 ${styles.paletteDisplay}`}>
 				{palette.map((color, index) => (
-					<div key={color.id} className={styles.colorSwatch} style={{ backgroundColor: color.hex }}>
-						<div className={styles.swatchOverlay}>
-							<span className={styles.hexLabel}>{color.hex.toUpperCase()}</span>
-							<div className={styles.swatchActions}>
-								<button className={styles.actionBtn} onClick={() => dispatch(toggleLock(color.id))} title={color.locked ? "Unlock color" : "Lock color"}>
+					<div key={color.id} className={`flex-1 relative cursor-pointer ${styles.colorSwatch}`} style={{ backgroundColor: color.hex }}>
+						<div className={`absolute inset-0 flex flex-col items-center justify-center gap-3 ${styles.swatchOverlay}`}>
+							<span className={`font-mono text-xl font-semibold text-white ${styles.hexLabel}`}>{color.hex.toUpperCase()}</span>
+							<div className="flex gap-2">
+								<button className={`flex items-center justify-center p-2 ${styles.actionBtn}`} onClick={() => dispatch(toggleLock(color.id))} title={color.locked ? "Unlock color" : "Lock color"}>
 									{color.locked ? <LockClosedIcon className="w-4 h-4" /> : <LockOpenIcon className="w-4 h-4" />}
 								</button>
-								<button className={`${styles.actionBtn} ${copiedIndex === index ? styles.copied : ""}`} onClick={() => copyColor(color.hex, index)} title="Copy color">
+								<button className={`flex items-center justify-center p-2 ${styles.actionBtn} ${copiedIndex === index ? styles.copied : ""}`} onClick={() => copyColor(color.hex, index)} title="Copy color">
 									{copiedIndex === index ? <CheckIcon className="w-4 h-4" /> : <ClipboardDocumentIcon className="w-4 h-4" />}
 								</button>
 								<ColorPickerPopover color={color.hex} onChange={(hex) => { dispatch(updateColor({ id: color.id, hex })); setActivePresetId(null); }} swatchSize="lg" showHex={true} />
@@ -324,8 +324,8 @@ export default function PaletteGenerator() {
 			</div>
 
 			{/* Controls */}
-			<div className={styles.controls}>
-				<div className={styles.mainActions}>
+			<div className={`flex justify-between items-center gap-4 mb-6 flex-wrap ${styles.controls}`}>
+				<div className="flex gap-3 flex-wrap">
 					<Button onClick={shufflePalette} className={styles.btnPrimary}>
 						<ArrowPathIcon className="w-5 h-5" />
 						Generate
@@ -344,12 +344,12 @@ export default function PaletteGenerator() {
 					</Button>
 				</div>
 
-				<div className={styles.colorCountControls}>
-					<Button onClick={() => { dispatch(removeLastColor()); setActivePresetId(null); }} className={styles.countBtn} disabled={colorCount <= 2}>
+				<div className="flex items-center gap-3">
+					<Button onClick={() => { dispatch(removeLastColor()); setActivePresetId(null); }} className={`flex items-center justify-center p-2 ${styles.countBtn}`} disabled={colorCount <= 2}>
 						<MinusIcon className="w-4 h-4" />
 					</Button>
-					<span className={styles.countLabel}>{colorCount} colors</span>
-					<Button onClick={handleAddColor} className={styles.countBtn} disabled={colorCount >= 8}>
+					<span className={`text-sm font-medium text-center min-w-18 ${styles.countLabel}`}>{colorCount} colors</span>
+					<Button onClick={handleAddColor} className={`flex items-center justify-center p-2 ${styles.countBtn}`} disabled={colorCount >= 8}>
 						<PlusIcon className="w-4 h-4" />
 					</Button>
 				</div>
@@ -357,34 +357,34 @@ export default function PaletteGenerator() {
 
 			{/* Settings Panel */}
 			{showSettings && (
-				<div className={styles.settingsPanel}>
-					<div className={styles.glassCard}>
-						<h3 className={styles.sectionTitle}>Color Harmony</h3>
-						<div className={styles.harmonyGrid}>
+				<div className={`grid grid-cols-2 gap-6 mb-6 ${styles.settingsPanel}`}>
+					<div className={`mb-6 ${styles.glassCard}`}>
+						<h3 className={`text-base font-semibold mb-4 ${styles.sectionTitle}`}>Color Harmony</h3>
+						<div className={`grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-2 mb-4 ${styles.harmonyGrid}`}>
 							{(Object.keys(HARMONY_INFO) as HarmonyType[]).map((type) => (
 								<button
 									key={type}
-									className={`${styles.harmonyBtn} ${harmony === type ? styles.active : ""}`}
+									className={`px-3 py-2.5 text-xs font-medium text-center cursor-pointer ${styles.harmonyBtn} ${harmony === type ? styles.active : ""}`}
 									onClick={() => {
 										skipRegenerateRef.current = false;
 										dispatch(setHarmony(type));
 										setActivePresetId(null);
 									}}
 								>
-									<span className={styles.harmonyName}>{HARMONY_INFO[type].name}</span>
+									<span className="block">{HARMONY_INFO[type].name}</span>
 								</button>
 							))}
 						</div>
-						<p className={styles.harmonyDescription}>{HARMONY_INFO[harmony].description}</p>
+						<p className={`text-xs leading-relaxed m-0 ${styles.harmonyDescription}`}>{HARMONY_INFO[harmony].description}</p>
 					</div>
 
-					<div className={styles.glassCard}>
-						<h3 className={styles.sectionTitle}>Adjustments</h3>
+					<div className={`mb-6 ${styles.glassCard}`}>
+						<h3 className={`text-base font-semibold mb-4 ${styles.sectionTitle}`}>Adjustments</h3>
 
-						<div className={styles.sliderGroup}>
-							<div className={styles.sliderHeader}>
-								<label className={styles.label}>Base Hue</label>
-								<span className={styles.valueDisplay}>{Math.round(baseHue)}°</span>
+						<div className={`mb-5 last:mb-0 ${styles.sliderGroup}`}>
+							<div className="flex justify-between items-center mb-2">
+								<label className={`text-sm font-medium ${styles.label}`}>Base Hue</label>
+								<span className={`text-sm font-mono ${styles.valueDisplay}`}>{Math.round(baseHue)}°</span>
 							</div>
 							<input
 								type="range"
@@ -397,15 +397,15 @@ export default function PaletteGenerator() {
 									dispatch(setBaseHue(parseFloat(e.target.value)));
 									setActivePresetId(null);
 								}}
-								className={styles.slider}
+								className={`h-2 ${styles.slider}`}
 								style={{ background: hueGradient }}
 							/>
 						</div>
 
-						<div className={styles.sliderGroup}>
-							<div className={styles.sliderHeader}>
-								<label className={styles.label}>Saturation</label>
-								<span className={styles.valueDisplay}>{Math.round(saturation * 100)}%</span>
+						<div className={`mb-5 last:mb-0 ${styles.sliderGroup}`}>
+							<div className="flex justify-between items-center mb-2">
+								<label className={`text-sm font-medium ${styles.label}`}>Saturation</label>
+								<span className={`text-sm font-mono ${styles.valueDisplay}`}>{Math.round(saturation * 100)}%</span>
 							</div>
 							<input
 								type="range"
@@ -418,14 +418,14 @@ export default function PaletteGenerator() {
 									dispatch(setSaturation(parseFloat(e.target.value)));
 									setActivePresetId(null);
 								}}
-								className={styles.slider}
+								className={`h-2 ${styles.slider}`}
 							/>
 						</div>
 
-						<div className={styles.sliderGroup}>
-							<div className={styles.sliderHeader}>
-								<label className={styles.label}>Lightness</label>
-								<span className={styles.valueDisplay}>{Math.round(lightness * 100)}%</span>
+						<div className={`mb-5 last:mb-0 ${styles.sliderGroup}`}>
+							<div className="flex justify-between items-center mb-2">
+								<label className={`text-sm font-medium ${styles.label}`}>Lightness</label>
+								<span className={`text-sm font-mono ${styles.valueDisplay}`}>{Math.round(lightness * 100)}%</span>
 							</div>
 							<input
 								type="range"
@@ -438,7 +438,7 @@ export default function PaletteGenerator() {
 									dispatch(setLightness(parseFloat(e.target.value)));
 									setActivePresetId(null);
 								}}
-								className={styles.slider}
+								className={`h-2 ${styles.slider}`}
 							/>
 						</div>
 					</div>
@@ -447,26 +447,26 @@ export default function PaletteGenerator() {
 
 			{/* Saved Palettes */}
 			{savedPalettes.length > 0 && (
-				<div className={styles.glassCard}>
-					<div className={styles.savedHeader}>
-						<h3 className={styles.sectionTitle}>Saved Palettes</h3>
-						<Button onClick={() => dispatch(clearSavedPalettes())} className={styles.clearAllBtn} title="Clear all saved palettes">
+				<div className={`mb-6 ${styles.glassCard}`}>
+					<div className="flex justify-between items-center mb-4">
+						<h3 className={`text-base font-semibold m-0 ${styles.sectionTitle}`}>Saved Palettes</h3>
+						<Button onClick={() => dispatch(clearSavedPalettes())} className={`flex items-center gap-1.5 px-3 py-2 text-xs font-medium ${styles.clearAllBtn}`} title="Clear all saved palettes">
 							<TrashIcon className="w-4 h-4" />
 							Clear All
 						</Button>
 					</div>
-					<div className={styles.savedGrid}>
+					<div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-3">
 						{savedPalettes.map((saved) => (
-							<div key={saved.id} className={styles.savedPaletteWrapper}>
-								<button className={styles.savedPalette} onClick={() => handleLoadSavedPalette(saved)}>
-									<div className={styles.savedColors}>
+							<div key={saved.id} className={`relative ${styles.savedPaletteWrapper}`}>
+								<button className={`w-full p-0 overflow-hidden cursor-pointer ${styles.savedPalette}`} onClick={() => handleLoadSavedPalette(saved)}>
+									<div className="flex h-10">
 										{saved.colors.map((color, i) => (
-											<div key={i} className={styles.savedColor} style={{ backgroundColor: color }} />
+											<div key={i} className="flex-1" style={{ backgroundColor: color }} />
 										))}
 									</div>
 								</button>
 								<button
-									className={styles.deletePaletteBtn}
+									className={`absolute flex items-center justify-center p-0 w-5 h-5 rounded-full cursor-pointer ${styles.deletePaletteBtn}`}
 									onClick={(e) => {
 										e.stopPropagation();
 										dispatch(removeSavedPalette(saved.id));
@@ -482,34 +482,34 @@ export default function PaletteGenerator() {
 			)}
 
 			{/* Presets */}
-			<div className={styles.glassCard}>
-				<h3 className={styles.sectionTitle}>Preset Palettes</h3>
-				<div className={styles.presetsGrid}>
+			<div className={`mb-6 ${styles.glassCard}`}>
+				<h3 className={`text-base font-semibold mb-4 ${styles.sectionTitle}`}>Preset Palettes</h3>
+				<div className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-4">
 					{PRESET_PALETTES.map((preset) => (
-						<button key={preset.id} className={`${styles.presetBtn} ${activePresetId === preset.id ? styles.activePreset : ""}`} onClick={() => handleLoadPreset(preset)}>
-							<div className={styles.presetColors}>
+						<button key={preset.id} className={`p-0 overflow-hidden cursor-pointer ${styles.presetBtn} ${activePresetId === preset.id ? styles.activePreset : ""}`} onClick={() => handleLoadPreset(preset)}>
+							<div className="flex h-12.5">
 								{preset.colors.map((color, i) => (
-									<div key={i} className={styles.presetColor} style={{ backgroundColor: color }} />
+									<div key={i} className="flex-1" style={{ backgroundColor: color }} />
 								))}
 							</div>
-							<span className={styles.presetName}>{preset.name}</span>
+							<span className={`block p-2 text-xs font-medium text-center ${styles.presetName}`}>{preset.name}</span>
 						</button>
 					))}
 				</div>
 			</div>
 
 			{/* CSS Output */}
-			<div className={styles.glassCard}>
-				<h3 className={styles.sectionTitle}>CSS Variables</h3>
-				<div className={styles.codeBlock}>
-					<pre>{cssOutput}</pre>
+			<div className={`mb-6 ${styles.glassCard}`}>
+				<h3 className={`text-base font-semibold mb-4 ${styles.sectionTitle}`}>CSS Variables</h3>
+				<div className={`relative p-4 overflow-x-auto ${styles.codeBlock}`}>
+					<pre className="m-0 font-mono text-sm leading-relaxed">{cssOutput}</pre>
 					<button
 						onClick={async () => {
 							await navigator.clipboard.writeText(cssOutput);
 							setCopiedCss(true);
 							setTimeout(() => setCopiedCss(false), 2000);
 						}}
-						className={`${styles.copyBtn} ${copiedCss ? styles.copied : ""}`}
+						className={`absolute top-2 right-2 ${styles.copyBtn} ${copiedCss ? styles.copied : ""}`}
 						title="Copy to clipboard"
 					>
 						{copiedCss ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
@@ -518,8 +518,8 @@ export default function PaletteGenerator() {
 			</div>
 
 			{/* Info Section */}
-			<div className={styles.glassCard}>
-				<h3 className={styles.infoTitle}>About Color Harmonies</h3>
+			<div className={`mb-6 ${styles.glassCard}`}>
+				<h3 className={`text-lg font-semibold mb-4 ${styles.infoTitle}`}>About Color Harmonies</h3>
 				<div className={styles.infoGrid}>
 					<div>
 						<h4 className={styles.infoSubtitle}>Analogous</h4>
@@ -538,7 +538,7 @@ export default function PaletteGenerator() {
 						<p className={styles.infoText}>A base color and two colors adjacent to its complement. Provides high contrast without the tension of complementary schemes.</p>
 					</div>
 				</div>
-				<div className={styles.noteBox}>
+				<div className={`mt-6 p-4 ${styles.noteBox}`}>
 					<p>
 						<strong>Tip:</strong> Press the spacebar or click Generate to create new palettes. Lock colors you like to keep them while regenerating the rest.
 					</p>

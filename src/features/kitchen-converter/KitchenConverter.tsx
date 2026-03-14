@@ -194,29 +194,29 @@ export default function KitchenConverter() {
 	return (
 		<div className={styles.container}>
 			{/* Converter Section */}
-			<div className={styles.glassCard}>
+			<div className={`mb-6 ${styles.glassCard}`}>
 				<h2 className={styles.sectionTitle}>Measurement Converter</h2>
 
 				{/* Category Tabs */}
-				<div className={styles.categoryTabs}>
-					<button className={`${styles.categoryTab} ${category === "volume" ? styles.active : ""}`} onClick={() => handleCategoryChange("volume")}>
+				<div className={`flex gap-2 mb-6 p-1 w-fit rounded-md ${styles.categoryTabs}`}>
+					<button className={`rounded-sm text-sm font-medium ${styles.categoryTab} ${category === "volume" ? styles.active : ""}`} onClick={() => handleCategoryChange("volume")}>
 						Volume
 					</button>
-					<button className={`${styles.categoryTab} ${category === "weight" ? styles.active : ""}`} onClick={() => handleCategoryChange("weight")}>
+					<button className={`rounded-sm text-sm font-medium ${styles.categoryTab} ${category === "weight" ? styles.active : ""}`} onClick={() => handleCategoryChange("weight")}>
 						Weight
 					</button>
-					<button className={`${styles.categoryTab} ${category === "temperature" ? styles.active : ""}`} onClick={() => handleCategoryChange("temperature")}>
+					<button className={`rounded-sm text-sm font-medium ${styles.categoryTab} ${category === "temperature" ? styles.active : ""}`} onClick={() => handleCategoryChange("temperature")}>
 						Temperature
 					</button>
 				</div>
 
 				{/* Converter Interface */}
-				<div className={styles.converterGrid}>
-					<div className={styles.converterInput}>
-						<label className={styles.inputLabel}>From</label>
-						<div className={styles.inputRow}>
-							<input type="number" inputMode="decimal" value={inputValue} onChange={(e) => setInputValue(e.target.value)} className={styles.numberInput} placeholder="Enter value" />
-							<select value={fromUnit} onChange={(e) => setFromUnit(e.target.value)} className={styles.unitSelect}>
+				<div className={`grid grid-cols-[1fr_auto_1fr] gap-4 items-end ${styles.converterGrid}`}>
+					<div className={`flex flex-col gap-2 ${styles.converterInput}`}>
+						<label className={`text-xs font-semibold uppercase ${styles.inputLabel}`}>From</label>
+						<div className={`flex gap-2 ${styles.inputRow}`}>
+							<input type="number" inputMode="decimal" value={inputValue} onChange={(e) => setInputValue(e.target.value)} className={`flex-1 rounded-md text-xl font-semibold ${styles.numberInput}`} placeholder="Enter value" />
+							<select value={fromUnit} onChange={(e) => setFromUnit(e.target.value)} className={`rounded-md text-sm ${styles.unitSelect}`}>
 								{units.map((unit) => (
 									<option key={unit.id} value={unit.id}>
 										{unit.name} ({unit.abbrev})
@@ -226,15 +226,15 @@ export default function KitchenConverter() {
 						</div>
 					</div>
 
-					<button className={styles.swapButton} onClick={swapUnits} title="Swap units">
+					<button className={`flex items-center justify-center self-end rounded-md ${styles.swapButton}`} onClick={swapUnits} title="Swap units">
 						<ArrowsRightLeftIcon className="w-5 h-5" />
 					</button>
 
-					<div className={styles.converterInput}>
-						<label className={styles.inputLabel}>To</label>
-						<div className={styles.inputRow}>
-							<div className={styles.resultDisplay}>{result || "—"}</div>
-							<select value={toUnit} onChange={(e) => setToUnit(e.target.value)} className={styles.unitSelect}>
+					<div className={`flex flex-col gap-2 ${styles.converterInput}`}>
+						<label className={`text-xs font-semibold uppercase ${styles.inputLabel}`}>To</label>
+						<div className={`flex gap-2 ${styles.inputRow}`}>
+							<div className={`flex-1 flex items-center rounded-md text-xl font-semibold cursor-not-allowed ${styles.resultDisplay}`}>{result || "—"}</div>
+							<select value={toUnit} onChange={(e) => setToUnit(e.target.value)} className={`rounded-md text-sm ${styles.unitSelect}`}>
 								{units.map((unit) => (
 									<option key={unit.id} value={unit.id}>
 										{unit.name} ({unit.abbrev})
@@ -246,7 +246,7 @@ export default function KitchenConverter() {
 				</div>
 
 				{result && (
-					<div className={styles.resultSummary}>
+					<div className={`flex items-center justify-center gap-3 mt-6 p-4 rounded-md ${styles.resultSummary}`}>
 						<span className={styles.resultText}>
 							{inputValue} {units.find((u) => u.id === fromUnit)?.abbrev} = <strong>{result} {units.find((u) => u.id === toUnit)?.abbrev}</strong>
 						</span>
@@ -258,12 +258,12 @@ export default function KitchenConverter() {
 			</div>
 
 			{/* Reference Charts */}
-			<div className={styles.chartsGrid}>
+			<div className={`grid grid-cols-2 gap-6 ${styles.chartsGrid}`}>
 				{/* Volume Reference */}
-				<div className={styles.glassCard}>
-					<h3 className={styles.chartTitle}>Volume Conversions</h3>
-					<div className={styles.tableWrapper}>
-						<table className={styles.referenceTable}>
+				<div className={`mb-6 ${styles.glassCard}`}>
+					<h3 className={`text-base font-semibold ${styles.chartTitle}`}>Volume Conversions</h3>
+					<div className="overflow-x-auto">
+						<table className={`w-full text-sm ${styles.referenceTable}`}>
 							<thead>
 								<tr>
 									<th>Imperial</th>
@@ -274,7 +274,7 @@ export default function KitchenConverter() {
 								{VOLUME_REFERENCE.map((row, i) => (
 									<tr key={i}>
 										<td>{row.imperial}</td>
-										<td className={styles.clickableCell} onClick={() => copyToClipboard(row.metric, `vol-${i}`)}>
+										<td className={`relative font-medium cursor-pointer ${styles.clickableCell}`} onClick={() => copyToClipboard(row.metric, `vol-${i}`)}>
 											{row.metric}
 											{copiedCell === `vol-${i}` && <CheckIcon className={styles.copiedIcon} />}
 										</td>
@@ -286,10 +286,10 @@ export default function KitchenConverter() {
 				</div>
 
 				{/* Weight Reference */}
-				<div className={styles.glassCard}>
-					<h3 className={styles.chartTitle}>Weight Conversions</h3>
-					<div className={styles.tableWrapper}>
-						<table className={styles.referenceTable}>
+				<div className={`mb-6 ${styles.glassCard}`}>
+					<h3 className={`text-base font-semibold ${styles.chartTitle}`}>Weight Conversions</h3>
+					<div className="overflow-x-auto">
+						<table className={`w-full text-sm ${styles.referenceTable}`}>
 							<thead>
 								<tr>
 									<th>Imperial</th>
@@ -300,7 +300,7 @@ export default function KitchenConverter() {
 								{WEIGHT_REFERENCE.map((row, i) => (
 									<tr key={i}>
 										<td>{row.imperial}</td>
-										<td className={styles.clickableCell} onClick={() => copyToClipboard(row.metric, `wt-${i}`)}>
+										<td className={`relative font-medium cursor-pointer ${styles.clickableCell}`} onClick={() => copyToClipboard(row.metric, `wt-${i}`)}>
 											{row.metric}
 											{copiedCell === `wt-${i}` && <CheckIcon className={styles.copiedIcon} />}
 										</td>
@@ -312,10 +312,10 @@ export default function KitchenConverter() {
 				</div>
 
 				{/* Temperature Reference */}
-				<div className={styles.glassCard}>
-					<h3 className={styles.chartTitle}>Oven Temperatures</h3>
-					<div className={styles.tableWrapper}>
-						<table className={styles.referenceTable}>
+				<div className={`mb-6 ${styles.glassCard}`}>
+					<h3 className={`text-base font-semibold ${styles.chartTitle}`}>Oven Temperatures</h3>
+					<div className="overflow-x-auto">
+						<table className={`w-full text-sm ${styles.referenceTable}`}>
 							<thead>
 								<tr>
 									<th>Fahrenheit</th>
@@ -327,11 +327,11 @@ export default function KitchenConverter() {
 								{TEMP_REFERENCE.map((row, i) => (
 									<tr key={i}>
 										<td>{row.fahrenheit}</td>
-										<td className={styles.clickableCell} onClick={() => copyToClipboard(row.celsius, `temp-${i}`)}>
+										<td className={`relative font-medium cursor-pointer ${styles.clickableCell}`} onClick={() => copyToClipboard(row.celsius, `temp-${i}`)}>
 											{row.celsius}
 											{copiedCell === `temp-${i}` && <CheckIcon className={styles.copiedIcon} />}
 										</td>
-										<td className={styles.mutedCell}>{row.description}</td>
+										<td className={`text-sm ${styles.mutedCell}`}>{row.description}</td>
 									</tr>
 								))}
 							</tbody>
@@ -340,10 +340,10 @@ export default function KitchenConverter() {
 				</div>
 
 				{/* Butter Reference */}
-				<div className={styles.glassCard}>
-					<h3 className={styles.chartTitle}>Butter Measurements</h3>
-					<div className={styles.tableWrapper}>
-						<table className={styles.referenceTable}>
+				<div className={`mb-6 ${styles.glassCard}`}>
+					<h3 className={`text-base font-semibold ${styles.chartTitle}`}>Butter Measurements</h3>
+					<div className="overflow-x-auto">
+						<table className={`w-full text-sm ${styles.referenceTable}`}>
 							<thead>
 								<tr>
 									<th>Sticks</th>
@@ -358,7 +358,7 @@ export default function KitchenConverter() {
 										<td>{row.sticks}</td>
 										<td>{row.tbsp}</td>
 										<td>{row.cups}</td>
-										<td className={styles.clickableCell} onClick={() => copyToClipboard(row.grams, `butter-${i}`)}>
+										<td className={`relative font-medium cursor-pointer ${styles.clickableCell}`} onClick={() => copyToClipboard(row.grams, `butter-${i}`)}>
 											{row.grams}
 											{copiedCell === `butter-${i}` && <CheckIcon className={styles.copiedIcon} />}
 										</td>
@@ -371,39 +371,39 @@ export default function KitchenConverter() {
 			</div>
 
 			{/* Common Ingredients */}
-			<div className={styles.glassCard}>
-				<h3 className={styles.chartTitle}>Common Ingredient Weights</h3>
-				<p className={styles.chartSubtitle}>Weight equivalents for 1 cup of common baking ingredients</p>
-				<div className={styles.ingredientsGrid}>
+			<div className={`mb-6 ${styles.glassCard}`}>
+				<h3 className={`text-base font-semibold ${styles.chartTitle}`}>Common Ingredient Weights</h3>
+				<p className={`text-sm ${styles.chartSubtitle}`}>Weight equivalents for 1 cup of common baking ingredients</p>
+				<div className={`grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-3 ${styles.ingredientsGrid}`}>
 					{COMMON_INGREDIENTS.map((item, i) => (
-						<div key={i} className={styles.ingredientCard} onClick={() => copyToClipboard(item.grams, `ing-${i}`)}>
-							<span className={styles.ingredientName}>{item.ingredient}</span>
-							<span className={styles.ingredientValue}>
+						<div key={i} className={`flex flex-col gap-1 relative rounded-md cursor-pointer ${styles.ingredientCard}`} onClick={() => copyToClipboard(item.grams, `ing-${i}`)}>
+							<span className={`text-sm font-medium ${styles.ingredientName}`}>{item.ingredient}</span>
+							<span className={`text-xs ${styles.ingredientValue}`}>
 								{item.cups} = <strong>{item.grams}</strong>
 							</span>
-							{copiedCell === `ing-${i}` && <CheckIcon className={styles.ingredientCopied} />}
+							{copiedCell === `ing-${i}` && <CheckIcon className={`absolute top-2 right-2 w-4 h-4 ${styles.ingredientCopied}`} />}
 						</div>
 					))}
 				</div>
 			</div>
 
 			{/* Tips */}
-			<div className={styles.glassCard}>
-				<h3 className={styles.chartTitle}>Quick Tips</h3>
-				<div className={styles.tipsGrid}>
-					<div className={styles.tipCard}>
+			<div className={`mb-6 ${styles.glassCard}`}>
+				<h3 className={`text-base font-semibold ${styles.chartTitle}`}>Quick Tips</h3>
+				<div className={`grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-4 ${styles.tipsGrid}`}>
+					<div className={`p-4 rounded-md ${styles.tipCard}`}>
 						<h4>Measuring Liquids</h4>
 						<p>Use a liquid measuring cup placed on a flat surface. Read at eye level for accuracy.</p>
 					</div>
-					<div className={styles.tipCard}>
+					<div className={`p-4 rounded-md ${styles.tipCard}`}>
 						<h4>Measuring Dry Ingredients</h4>
 						<p>Spoon into measuring cup and level off with a straight edge. Don&apos;t pack unless specified.</p>
 					</div>
-					<div className={styles.tipCard}>
+					<div className={`p-4 rounded-md ${styles.tipCard}`}>
 						<h4>Measuring Flour</h4>
 						<p>Fluff flour first, spoon into cup, then level. Scooping directly compacts and adds too much.</p>
 					</div>
-					<div className={styles.tipCard}>
+					<div className={`p-4 rounded-md ${styles.tipCard}`}>
 						<h4>Weighing is Best</h4>
 						<p>For baking, weighing ingredients in grams is more accurate than volume measurements.</p>
 					</div>

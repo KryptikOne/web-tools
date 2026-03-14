@@ -178,13 +178,13 @@ export default function DummyImageGenerator() {
 	};
 
 	return (
-		<div className={styles.container}>
+		<div className={`gap-6 ${styles.container}`}>
 			{/* Settings Section */}
-			<div className={styles.settingsPanel}>
+			<div className={`flex flex-col gap-6 ${styles.settingsPanel}`}>
 				{/* Size Presets */}
 				<div className={styles.glassCard}>
 					<h2 className={styles.sectionTitle}>Size Presets</h2>
-					<div className={styles.presetsGrid}>
+					<div className={`grid grid-cols-2 gap-3 ${styles.presetsGrid}`}>
 						{SIZE_PRESETS.map((preset) => (
 							<button
 								key={preset.label}
@@ -200,7 +200,7 @@ export default function DummyImageGenerator() {
 				{/* Custom Dimensions */}
 				<div className={styles.glassCard}>
 					<h2 className={styles.sectionTitle}>Custom Dimensions</h2>
-					<div className={styles.dimensionsGrid}>
+					<div className={`grid grid-cols-2 gap-4 ${styles.dimensionsGrid}`}>
 						<div className={styles.inputGroup}>
 							<label className={styles.inputLabel}>Width (1-4000px)</label>
 							<input type="number" inputMode="numeric" min="1" max="4000" value={width} onChange={(e) => handleWidthChange(e.target.value)} className={styles.input} />
@@ -215,19 +215,19 @@ export default function DummyImageGenerator() {
 				{/* Colors */}
 				<div className={styles.glassCard}>
 					<h2 className={styles.sectionTitle}>Colors</h2>
-					<div className={styles.colorsGrid}>
+					<div className={`grid grid-cols-1 gap-4 ${styles.colorsGrid}`}>
 						<div className={styles.inputGroup}>
 							<label className={styles.inputLabel}>Background Color</label>
-							<div className={styles.colorInputWrapper}>
+							<div className={`flex gap-3 items-center ${styles.colorInputWrapper}`}>
 								<ColorPickerPopover color={backgroundColor} onChange={setBackgroundColor} swatchSize="sm" />
-								<input type="text" value={backgroundColor} onChange={(e) => setBackgroundColor(e.target.value)} className={styles.colorTextInput} />
+								<input type="text" value={backgroundColor} onChange={(e) => setBackgroundColor(e.target.value)} className={`flex-1 rounded-md text-sm ${styles.colorTextInput}`} />
 							</div>
 						</div>
 						<div className={styles.inputGroup}>
 							<label className={styles.inputLabel}>Text Color</label>
-							<div className={styles.colorInputWrapper}>
+							<div className={`flex gap-3 items-center ${styles.colorInputWrapper}`}>
 								<ColorPickerPopover color={textColor} onChange={setTextColor} swatchSize="sm" />
-								<input type="text" value={textColor} onChange={(e) => setTextColor(e.target.value)} className={styles.colorTextInput} />
+								<input type="text" value={textColor} onChange={(e) => setTextColor(e.target.value)} className={`flex-1 rounded-md text-sm ${styles.colorTextInput}`} />
 							</div>
 						</div>
 					</div>
@@ -238,7 +238,7 @@ export default function DummyImageGenerator() {
 					<h2 className={styles.sectionTitle}>Format & Advanced</h2>
 					<div className={styles.inputGroup}>
 						<label className={styles.inputLabel}>Output Format</label>
-						<div className={styles.formatButtons}>
+						<div className={`grid grid-cols-3 gap-2 ${styles.formatButtons}`}>
 							<button className={`${styles.formatBtn} ${format === "png" ? styles.active : ""}`} onClick={() => setFormat("png")}>
 								PNG
 							</button>
@@ -253,7 +253,7 @@ export default function DummyImageGenerator() {
 					<div className={styles.inputGroup}>
 						<label className={styles.inputLabel}>
 							Noise Level: {noise}%
-							<span className={styles.inputHint}>(Increases file size)</span>
+							<span className={`text-xs font-normal ml-2 ${styles.inputHint}`}>(Increases file size)</span>
 						</label>
 						<input type="range" min="0" max="100" value={noise} onChange={(e) => setNoise(parseInt(e.target.value, 10))} className={styles.slider} />
 					</div>
@@ -261,27 +261,27 @@ export default function DummyImageGenerator() {
 			</div>
 
 			{/* Preview Section */}
-			<div className={styles.previewPanel}>
+			<div className={`flex flex-col ${styles.previewPanel}`}>
 				<div className={styles.glassCard}>
-					<div className={styles.previewHeader}>
+					<div className={`flex items-start justify-between mb-6 gap-4 ${styles.previewHeader}`}>
 						<div>
 							<h2 className={styles.sectionTitle}>Preview</h2>
-							<p className={styles.previewInfo}>
+							<p className={`mt-1 text-sm ${styles.previewInfo}`}>
 								{width} × {height}px • {fileSize}
 							</p>
 						</div>
-						<button className={styles.downloadBtn} onClick={handleDownload}>
-							<ArrowDownTrayIcon className={styles.downloadIcon} />
+						<button className={`whitespace-nowrap ${styles.downloadBtn}`} onClick={handleDownload}>
+							<ArrowDownTrayIcon className={`w-5 h-5 ${styles.downloadIcon}`} />
 							Download
 						</button>
 					</div>
 
-					<div className={styles.previewContainer}>
-						<canvas ref={previewCanvasRef} className={styles.previewCanvas} />
+					<div className={`flex items-center justify-center rounded-lg mb-6 ${styles.previewContainer}`}>
+						<canvas ref={previewCanvasRef} className={`max-w-full rounded-md ${styles.previewCanvas}`} />
 					</div>
 
-					<div className={styles.infoBox}>
-						<PhotoIcon className={styles.infoIcon} />
+					<div className={`flex items-start gap-4 p-4 rounded-md ${styles.infoBox}`}>
+						<PhotoIcon className={`w-6 h-6 shrink-0 ${styles.infoIcon}`} />
 						<p className={styles.infoText}>
 							Generated images are perfect for mockups, wireframes, and testing. All processing happens in your browser - no uploads required.
 						</p>

@@ -311,8 +311,8 @@ export default function HtmlEntitiesReference() {
   return (
     <div className={styles.container}>
       {/* Search and Filter Bar */}
-      <div className={styles.controlsBar}>
-        <div className={styles.searchWrapper}>
+      <div className={`flex flex-wrap gap-4 mb-6 max-sm:flex-col ${styles.controlsBar}`}>
+        <div className={`flex-1 ${styles.searchWrapper}`}>
           <MagnifyingGlassIcon className={styles.searchIcon} />
           <input
             type="text"
@@ -339,7 +339,7 @@ export default function HtmlEntitiesReference() {
       </div>
 
       {/* Legend */}
-      <div className={styles.legend}>
+      <div className={`flex flex-wrap gap-4 p-4 rounded-lg mb-6 text-xs ${styles.legend}`}>
         <span className={styles.legendItem}><strong>Unicode:</strong> Universal character code</span>
         <span className={styles.legendItem}><strong>Entity:</strong> Named HTML entity</span>
         <span className={styles.legendItem}><strong>HTML:</strong> Numeric HTML code</span>
@@ -349,42 +349,42 @@ export default function HtmlEntitiesReference() {
 
       {/* Entity Categories */}
       {filteredData.map((category) => (
-        <div key={category.name} className={styles.categorySection}>
-          <h2 className={styles.categoryTitle}>{category.name}</h2>
-          <div className={styles.entitiesGrid}>
+        <div key={category.name} className={`mb-8 ${styles.categorySection}`}>
+          <h2 className={`text-xl font-semibold mb-4 pb-2 ${styles.categoryTitle}`}>{category.name}</h2>
+          <div className={`grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] max-sm:grid-cols-1 gap-4 ${styles.entitiesGrid}`}>
             {category.entities.map((entity) => (
               <div key={`${category.name}-${entity.name}`} className={styles.entityCard}>
-                <div className={styles.entityHeader}>
+                <div className={`flex items-center gap-3 mb-3 pb-3 ${styles.entityHeader}`}>
                   <span className={styles.entityChar}>{entity.char}</span>
                   <span className={styles.entityName}>{entity.name}</span>
                 </div>
-                <div className={styles.codesGrid}>
-                  <div className={styles.codeRow}>
+                <div className={`flex flex-col gap-1.5 ${styles.codesGrid}`}>
+                  <div className={`grid grid-cols-[50px_1fr_auto] items-center gap-2 py-1 ${styles.codeRow}`}>
                     <span className={styles.codeLabel}>Unicode</span>
                     <code className={styles.codeValue}>{entity.unicode}</code>
                     <CopyButton value={entity.unicode} entityName={entity.name} codeType="unicode" />
                   </div>
-                  <div className={styles.codeRow}>
+                  <div className={`grid grid-cols-[50px_1fr_auto] items-center gap-2 py-1 ${styles.codeRow}`}>
                     <span className={styles.codeLabel}>Entity</span>
                     <code className={styles.codeValue}>{entity.htmlEntity}</code>
                     <CopyButton value={entity.htmlEntity} entityName={entity.name} codeType="htmlEntity" />
                   </div>
-                  <div className={styles.codeRow}>
+                  <div className={`grid grid-cols-[50px_1fr_auto] items-center gap-2 py-1 ${styles.codeRow}`}>
                     <span className={styles.codeLabel}>HTML</span>
                     <code className={styles.codeValue}>{entity.htmlCode}</code>
                     <CopyButton value={entity.htmlCode} entityName={entity.name} codeType="htmlCode" />
                   </div>
-                  <div className={styles.codeRow}>
+                  <div className={`grid grid-cols-[50px_1fr_auto] items-center gap-2 py-1 ${styles.codeRow}`}>
                     <span className={styles.codeLabel}>CSS</span>
                     <code className={styles.codeValue}>{entity.cssCode}</code>
                     <CopyButton value={entity.cssCode} entityName={entity.name} codeType="cssCode" />
                   </div>
-                  <div className={styles.codeRow}>
+                  <div className={`grid grid-cols-[50px_1fr_auto] items-center gap-2 py-1 ${styles.codeRow}`}>
                     <span className={styles.codeLabel}>JS</span>
                     <code className={styles.codeValue}>{entity.jsCode}</code>
                     <CopyButton value={entity.jsCode} entityName={entity.name} codeType="jsCode" />
                   </div>
-                  <div className={`${styles.codeRow} ${styles.charRow}`}>
+                  <div className={`grid grid-cols-[50px_1fr_auto] items-center gap-2 py-1 ${styles.codeRow} ${styles.charRow}`}>
                     <span className={styles.codeLabel}>Char</span>
                     <code className={styles.codeValue}>{entity.char}</code>
                     <CopyButton value={entity.char} entityName={entity.name} codeType="char" />
@@ -397,7 +397,7 @@ export default function HtmlEntitiesReference() {
       ))}
 
       {filteredData.length === 0 && (
-        <div className={styles.noResults}>
+        <div className={`text-center p-12 ${styles.noResults}`}>
           <p>No entities found matching &quot;{searchQuery}&quot;</p>
         </div>
       )}

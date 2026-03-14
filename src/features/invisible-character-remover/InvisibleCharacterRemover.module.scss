@@ -9,7 +9,6 @@
 
 .grid {
   @extend .grid-2col;
-  margin-bottom: 1.5rem;
 }
 
 // Shared Utilities
@@ -17,51 +16,23 @@
   @extend .glass-card;
 }
 
-.cardHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
 .cardTitle {
-  font-size: 1.125rem;
-  font-weight: 600;
   color: $text-primary;
-  margin: 0;
-}
-
-.buttonGroup {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
 }
 
 .btnPrimary {
   @include btn-primary;
-  padding: 0.5rem 1rem;
-  font-size: 0.875rem;
 
   svg {
     width: 1rem;
     height: 1rem;
   }
-
 }
 
 .btnSecondary {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
   background: $bg-glass;
   color: $text-secondary;
   border: 1px solid $border-subtle;
-  border-radius: 0.5rem;
-  font-weight: 500;
-  font-size: 0.875rem;
   cursor: pointer;
   transition: all 0.2s ease;
   position: relative;
@@ -148,13 +119,7 @@
   }
 }
 
-
 .cardFooter {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 0.75rem;
-  font-size: 0.75rem;
   color: $text-tertiary;
 }
 
@@ -168,61 +133,14 @@
 }
 
 .hint {
-  margin-bottom: 1rem;
-  font-size: 0.875rem;
   color: $text-tertiary;
 }
 
 .preview {
-  padding: 1rem;
   background: rgba(255, 165, 0, 0.1);
   border: 1px solid rgba(255, 165, 0, 0.3);
   border-radius: 0.5rem;
   font-family: $font-family-mono;
-  font-size: 0.875rem;
-  white-space: pre-wrap;
-  word-break: break-word;
-  max-height: 400px;
-  overflow-y: auto;
-  color: $text-secondary;
-
-  /* Custom scrollbar */
-  &::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: $scrollbar-track;
-    border-radius: 4px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: $scrollbar-thumb;
-    border-radius: 4px;
-
-    &:hover {
-      background: $scrollbar-thumb-hover;
-    }
-  }
-}
-
-.previewCard {
-  border-left: 4px solid #ffa500;
-}
-
-.hint {
-  margin-bottom: 1rem;
-  font-size: 0.875rem;
-  color: $text-tertiary;
-}
-
-.preview {
-  padding: 1rem;
-  background: rgba(255, 165, 0, 0.1);
-  border: 1px solid rgba(255, 165, 0, 0.3);
-  border-radius: 0.5rem;
-  font-family: $font-family-mono;
-  font-size: 0.875rem;
   white-space: pre-wrap;
   word-break: break-word;
   max-height: 400px;
@@ -267,58 +185,28 @@
   backdrop-filter: blur(10px);
   border: 1px solid $border-subtle;
   border-left: 4px solid $color-accent;
-  border-radius: 1rem;
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.statsContent {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 1.5rem;
 }
 
 .statsTitle {
-  font-size: 1rem;
-  font-weight: 600;
   color: $text-primary;
-  margin: 0 0 0.75rem 0;
-}
-
-.statsList {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
 }
 
 .statItem {
-  font-size: 0.875rem;
   color: $text-tertiary;
 }
 
 .statCount {
-  font-weight: 600;
   color: $text-primary;
-}
-
-.statsIcon {
-  font-size: 2.5rem;
 }
 
 .infoTitle {
-  font-size: 1.125rem;
-  font-weight: 600;
   color: $text-primary;
-  margin: 0 0 1rem 0;
 }
 
 .infoBox {
-  padding: 1rem;
   background: rgba(255, 165, 0, 0.1);
   border: 1px solid rgba(255, 165, 0, 0.3);
   border-radius: 0.5rem;
-  margin-bottom: 1.5rem;
 
   p {
     margin: 0;
@@ -341,18 +229,8 @@
   margin: 0 0.125rem;
 }
 
-.infoGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
 .infoSubtitle {
-  font-size: 0.95rem;
-  font-weight: 600;
   color: $text-secondary;
-  margin: 0 0 0.75rem 0;
 }
 
 .infoList {
@@ -372,7 +250,6 @@
 }
 
 .noteBox {
-  padding: 1rem;
   background: $color-accent-20;
   border: 1px solid $color-accent-50;
   border-radius: 0.5rem;

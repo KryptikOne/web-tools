@@ -9,7 +9,6 @@
 
 .grid {
   @extend .grid-2col;
-  margin-bottom: 1.5rem;
 }
 
 .glassCard {
@@ -19,39 +18,24 @@
 // Shared Utilities
 .sectionTitle {
   @extend .section-title;
-  margin-bottom: 1rem;
 }
 
 .canvasContainer {
-  width: 100%;
   aspect-ratio: 5 / 7;
   background: $input-bg;
-  border-radius: 0.5rem;
-  overflow: hidden;
-  position: relative;
 }
 
 .canvas {
-  width: 100%;
-  height: 100%;
   cursor: crosshair;
-  display: block;
 }
 
 .hint {
-  margin-top: 0.75rem;
-  font-size: 0.875rem;
   color: $text-muted;
-  text-align: center;
 }
 
 .outputBox {
-  position: relative;
   background: $input-bg;
   border: 1px solid $border-subtle;
-  border-radius: 0.5rem;
-  padding: 1rem;
-  padding-right: 3rem;
   font-family: $font-family-mono;
 
   code {
@@ -63,9 +47,6 @@
 
 .copyBtn {
   @extend .copy-btn;
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
 }
 
 .copyIcon {
@@ -73,19 +54,12 @@
 }
 
 .btnSecondary {
-  padding: 0.75rem 1.5rem;
   background: $bg-glass;
   color: $text-primary;
   border: 1px solid $border-subtle;
-  border-radius: 0.5rem;
-  font-weight: 500;
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
 
   &:hover {
     background: $bg-glass-hover;
@@ -102,37 +76,18 @@
 }
 
 .controlLabel {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.75rem;
-  font-weight: 500;
   color: $text-secondary;
 }
 
 .pointBadge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  font-weight: 700;
-  font-size: 0.875rem;
-  color: white;
+  // Layout handled by Tailwind
 }
 
 .inputRow {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.75rem;
+  // Layout handled by Tailwind
 }
 
 .inputGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-
   label {
     font-size: 0.875rem;
     color: $text-muted;
@@ -144,7 +99,6 @@
   padding: 0.75rem;
   background: $input-bg;
   border: 1px solid $input-border;
-  border-radius: 0.5rem;
   color: $text-primary;
   font-size: 0.9rem;
   font-family: $font-family-mono;
@@ -163,23 +117,17 @@
 }
 
 .animationTrack {
-  position: relative;
   height: 60px;
   background: $input-bg;
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
-  overflow: hidden;
 }
 
 .animationBall {
-  position: absolute;
   left: 10px;
   top: 50%;
   transform: translateY(-50%);
   width: 40px;
   height: 40px;
   background: linear-gradient(135deg, $color-primary 0%, $color-accent 100%);
-  border-radius: 50%;
   box-shadow: 0 4px 15px $color-accent-50;
 
   &.atRight {
@@ -214,10 +162,7 @@
 }
 
 .animationControls {
-  display: grid;
   grid-template-columns: 1fr auto;
-  gap: 1rem;
-  align-items: end;
 }
 
 .presetsGrid {
@@ -230,14 +175,9 @@
   padding: 0.75rem 1rem;
   background: $bg-glass;
   border: 1px solid $border-subtle;
-  border-radius: 0.5rem;
   color: $text-primary;
   cursor: pointer;
   transition: all 0.2s ease;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
 
   &:hover {
     background: $bg-glass-hover;
@@ -246,13 +186,11 @@
 }
 
 .presetName {
-  font-weight: 600;
   font-size: 0.9rem;
   color: $text-primary;
 }
 
 .presetValue {
-  font-size: 0.75rem;
   color: $text-muted;
   font-family: $font-family-mono;
 }
@@ -260,9 +198,6 @@
 .codeBlock {
   background: $input-bg;
   border: 1px solid $border-subtle;
-  border-radius: 0.5rem;
-  padding: 1.5rem;
-  overflow-x: auto;
 
   code {
     color: $text-secondary;

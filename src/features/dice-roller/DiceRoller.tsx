@@ -144,21 +144,21 @@ export default function DiceRoller() {
 
 	return (
 		<div className={styles.container}>
-			<div className={styles.mainGrid}>
+			<div className={`grid grid-cols-1 gap-6 mb-6 ${styles.mainGrid}`}>
 				{/* Dice Selection */}
 				<div className={styles.glassCard}>
-					<h2 className={styles.sectionTitle}>Select Dice</h2>
-					<div className={styles.diceSelector}>
+					<h2 className={`mb-4 ${styles.sectionTitle}`}>Select Dice</h2>
+					<div className="flex flex-wrap gap-4 mb-4">
 						{DICE_TYPES.map((die) => {
 							const count = getDieCount(die);
 							return (
-								<div key={die.id} className={styles.dieOption}>
-									<button className={`${styles.dieButton} ${count > 0 ? styles.active : ""}`} style={{ "--die-color": die.color } as React.CSSProperties} onClick={() => addDieGroup(die)}>
-										<span className={styles.dieName}>{die.name}</span>
-										{count > 0 && <span className={styles.dieCount}>{count}</span>}
+								<div key={die.id} className="flex flex-col items-center gap-2">
+									<button className={`relative flex flex-col items-center justify-center gap-1 p-2 ${styles.dieButton} ${count > 0 ? styles.active : ""}`} style={{ "--die-color": die.color } as React.CSSProperties} onClick={() => addDieGroup(die)}>
+										<span className={`text-xl font-bold ${styles.dieName}`}>{die.name}</span>
+										{count > 0 && <span className={`absolute flex items-center justify-center text-xs font-bold text-white ${styles.dieCount}`}>{count}</span>}
 									</button>
 									{count > 0 && (
-										<div className={styles.dieControls}>
+										<div className="flex gap-1">
 											<button className={styles.controlBtn} onClick={() => removeDieGroup(die)} title="Remove one">
 												<MinusIcon className="w-3.5 h-3.5" />
 											</button>
@@ -173,8 +173,8 @@ export default function DiceRoller() {
 					</div>
 
 					{totalDice > 0 && (
-						<div className={styles.selectionInfo}>
-							<span className={styles.notation}>{diceNotation}</span>
+						<div className={`flex justify-between items-center pt-4 ${styles.selectionInfo}`}>
+							<span className={`font-semibold px-4 py-2 ${styles.notation}`}>{diceNotation}</span>
 							<Button onClick={clearDice} className={styles.clearBtn}>
 								<TrashIcon className="w-4 h-4" />
 								Clear
@@ -185,27 +185,27 @@ export default function DiceRoller() {
 
 				{/* Roll Button & Results */}
 				<div className={styles.glassCard}>
-					<div className={styles.rollSection}>
-						<Button onClick={rollDice} disabled={totalDice === 0 || isRolling} className={styles.rollButton}>
+					<div className="flex flex-col items-center gap-8">
+						<Button onClick={rollDice} disabled={totalDice === 0 || isRolling} className={`items-center gap-3 text-xl font-bold ${styles.rollButton}`}>
 							<ArrowPathIcon className={`w-6 h-6 ${isRolling ? styles.spinning : ""}`} />
 							{isRolling ? "Rolling..." : "Roll Dice"}
 						</Button>
 
 						{rolls.length > 0 && (
-							<div className={styles.resultsArea}>
-								<div className={styles.diceResults}>
+							<div className="w-full flex flex-col items-center gap-6">
+								<div className="flex flex-wrap justify-center gap-4">
 									{rolls.map((roll) => (
-										<div key={roll.id} className={`${styles.dieResult} ${roll.isRolling ? styles.rolling : ""}`} style={{ "--die-color": roll.dieType.color } as React.CSSProperties}>
-											<span className={styles.resultValue}>{roll.value}</span>
-											<span className={styles.resultLabel}>{roll.dieType.name}</span>
+										<div key={roll.id} className={`flex flex-col items-center justify-center gap-1 ${styles.dieResult} ${roll.isRolling ? styles.rolling : ""}`} style={{ "--die-color": roll.dieType.color } as React.CSSProperties}>
+											<span className={`text-3xl font-bold leading-none ${styles.resultValue}`}>{roll.value}</span>
+											<span className={`text-xs font-semibold uppercase ${styles.resultLabel}`}>{roll.dieType.name}</span>
 										</div>
 									))}
 								</div>
 
 								{rolls.length > 1 && (
-									<div className={styles.totalDisplay}>
-										<span className={styles.totalLabel}>Total</span>
-										<span className={styles.totalValue}>{currentTotal}</span>
+									<div className={`flex items-center gap-4 px-8 py-4 ${styles.totalDisplay}`}>
+										<span className={`font-semibold uppercase ${styles.totalLabel}`}>Total</span>
+										<span className={`text-4xl font-bold leading-none ${styles.totalValue}`}>{currentTotal}</span>
 									</div>
 								)}
 							</div>
@@ -216,26 +216,26 @@ export default function DiceRoller() {
 
 			{/* Roll History */}
 			{rollHistory.length > 0 && (
-				<div className={styles.glassCard}>
-					<div className={styles.historyHeader}>
+				<div className={`mb-6 ${styles.glassCard}`}>
+					<div className={`flex justify-between items-center mb-4 ${styles.historyHeader}`}>
 						<h2 className={styles.sectionTitle}>Roll History</h2>
-						<Button onClick={clearHistory} className={styles.clearHistoryBtn}>
+						<Button onClick={clearHistory} className={`flex items-center ${styles.clearHistoryBtn}`}>
 							<TrashIcon className="w-4 h-4" />
 							Clear
 						</Button>
 					</div>
-					<div className={styles.historyList}>
+					<div className="flex flex-col gap-2">
 						{rollHistory.map((entry, index) => (
-							<div key={entry.timestamp} className={styles.historyEntry}>
-								<span className={styles.historyIndex}>#{rollHistory.length - index}</span>
-								<div className={styles.historyRolls}>
+							<div key={entry.timestamp} className={`flex items-center gap-4 ${styles.historyEntry}`}>
+								<span className={`text-sm font-semibold ${styles.historyIndex}`}>{`#${rollHistory.length - index}`}</span>
+								<div className="flex flex-wrap gap-2 flex-1">
 									{entry.rolls.map((roll, i) => (
-										<span key={i} className={styles.historyRoll} style={{ "--die-color": roll.dieType.color } as React.CSSProperties}>
+										<span key={i} className={`inline-flex items-center justify-center font-semibold ${styles.historyRoll}`} style={{ "--die-color": roll.dieType.color } as React.CSSProperties}>
 											{roll.value}
 										</span>
 									))}
 								</div>
-								<span className={styles.historyTotal}>= {entry.total}</span>
+								<span className={`font-bold text-right ${styles.historyTotal}`}>{`= ${entry.total}`}</span>
 							</div>
 						))}
 					</div>
@@ -243,24 +243,24 @@ export default function DiceRoller() {
 			)}
 
 			{/* Info Section */}
-			<div className={styles.glassCard}>
-				<h2 className={styles.sectionTitle}>About Dice</h2>
-				<div className={styles.infoGrid}>
-					{/* <div className={styles.infoItem}>
-						<h3 className={styles.infoSubtitle}>Standard Polyhedral Dice</h3>
-						<p className={styles.infoText}>These are the dice commonly used in tabletop role-playing games like Dungeons & Dragons. The number indicates how many sides each die has.</p>
+			<div className={`mb-6 ${styles.glassCard}`}>
+				<h2 className={`mb-4 ${styles.sectionTitle}`}>About Dice</h2>
+				<div className="grid grid-cols-1">
+					{/* <div className={`p-4 ${styles.infoItem}`}>
+						<h3 className={`font-semibold mb-2 ${styles.infoSubtitle}`}>Standard Polyhedral Dice</h3>
+						<p className={`text-sm leading-relaxed ${styles.infoText}`}>These are the dice commonly used in tabletop role-playing games like Dungeons & Dragons. The number indicates how many sides each die has.</p>
 					</div>
-					<div className={styles.infoItem}>
-						<h3 className={styles.infoSubtitle}>D20 - The Iconic Die</h3>
-						<p className={styles.infoText}>The 20-sided die is the most famous RPG die, used for attack rolls, saving throws, and skill checks in many game systems.</p>
+					<div className={`p-4 ${styles.infoItem}`}>
+						<h3 className={`font-semibold mb-2 ${styles.infoSubtitle}`}>D20 - The Iconic Die</h3>
+						<p className={`text-sm leading-relaxed ${styles.infoText}`}>The 20-sided die is the most famous RPG die, used for attack rolls, saving throws, and skill checks in many game systems.</p>
 					</div>
-					<div className={styles.infoItem}>
-						<h3 className={styles.infoSubtitle}>D100 - Percentile</h3>
-						<p className={styles.infoText}>Also called a percentile die, the D100 generates numbers from 1-100 and is often used for probability-based events.</p>
+					<div className={`p-4 ${styles.infoItem}`}>
+						<h3 className={`font-semibold mb-2 ${styles.infoSubtitle}`}>D100 - Percentile</h3>
+						<p className={`text-sm leading-relaxed ${styles.infoText}`}>Also called a percentile die, the D100 generates numbers from 1-100 and is often used for probability-based events.</p>
 					</div> */}
-					<div className={styles.infoItem}>
-						<h3 className={styles.infoSubtitle}>Dice Notation</h3>
-						<p className={styles.infoText}>Written as NdX where N is the number of dice and X is the sides. For example, 2d6 means &quot;roll two six-sided dice.&quot;</p>
+					<div className={`p-4 ${styles.infoItem}`}>
+						<h3 className={`font-semibold mb-2 ${styles.infoSubtitle}`}>Dice Notation</h3>
+						<p className={`text-sm leading-relaxed ${styles.infoText}`}>Written as NdX where N is the number of dice and X is the sides. For example, 2d6 means &quot;roll two six-sided dice.&quot;</p>
 					</div>
 				</div>
 			</div>

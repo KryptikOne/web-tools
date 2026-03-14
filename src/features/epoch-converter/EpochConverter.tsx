@@ -167,25 +167,25 @@ export default function EpochConverter() {
 	return (
 		<div className={styles.container}>
 			{/* Live Epoch Display */}
-			<div className={styles.liveSection}>
+			<div className={`mb-6 ${styles.liveSection}`}>
 				<div className={styles.glassCard}>
-					<div className={styles.liveHeader}>
-						<ClockIcon className={styles.liveIcon} />
+					<div className={`flex items-center gap-3 mb-4 ${styles.liveHeader}`}>
+						<ClockIcon className={`w-6 h-6 ${styles.liveIcon}`} />
 						<h2 className={styles.liveTitle}>Current Unix Timestamp</h2>
 					</div>
-					<div className={styles.liveDisplayGrid}>
-						<div className={styles.liveDisplayItem}>
+					<div className={`grid grid-cols-2 gap-6 max-md:grid-cols-1 max-md:gap-4 ${styles.liveDisplayGrid}`}>
+						<div className={`flex flex-col gap-2 ${styles.liveDisplayItem}`}>
 							<span className={styles.liveDisplayLabel}>Seconds</span>
-							<div className={styles.liveDisplay}>
+							<div className={`flex items-center gap-4 ${styles.liveDisplay}`}>
 								<span className={styles.epochValue}>{formatEpoch(currentEpochSeconds)}</span>
 								<button className={`${styles.copyBtn} ${copiedField === "liveSeconds" ? styles.copied : ""}`} onClick={() => copyToClipboard(currentEpochSeconds.toString(), "liveSeconds")} title="Copy to clipboard">
 									{copiedField === "liveSeconds" ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
 								</button>
 							</div>
 						</div>
-						<div className={styles.liveDisplayItem}>
+						<div className={`flex flex-col gap-2 ${styles.liveDisplayItem}`}>
 							<span className={styles.liveDisplayLabel}>Milliseconds</span>
-							<div className={styles.liveDisplay}>
+							<div className={`flex items-center gap-4 ${styles.liveDisplay}`}>
 								<span className={styles.epochValue}>{formatEpoch(currentEpochMs)}</span>
 								<button className={`${styles.copyBtn} ${copiedField === "liveMs" ? styles.copied : ""}`} onClick={() => copyToClipboard(currentEpochMs.toString(), "liveMs")} title="Copy to clipboard">
 									{copiedField === "liveMs" ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
@@ -198,7 +198,7 @@ export default function EpochConverter() {
 			</div>
 
 			{/* Timezone Selector */}
-			<div className={styles.timezoneSection}>
+			<div className={`flex items-center gap-4 mb-6 px-6 py-4 rounded-xl ${styles.timezoneSection}`}>
 				<label className={styles.timezoneLabel}>Timezone for conversions:</label>
 				<select className={styles.timezoneSelect} value={timezone} onChange={(e) => setTimezone(e.target.value)}>
 					{TIMEZONES.map((tz) => (
@@ -210,14 +210,14 @@ export default function EpochConverter() {
 			</div>
 
 			{/* Conversion Grid */}
-			<div className={styles.conversionGrid}>
+			<div className={`grid grid-cols-2 gap-6 mb-6 max-[900px]:grid-cols-1 ${styles.conversionGrid}`}>
 				{/* Epoch to Date */}
 				<div className={styles.glassCard}>
 					<h2 className={styles.sectionTitle}>Epoch → Date/Time</h2>
 
-					<div className={styles.inputGroup}>
+					<div className={`mb-4 ${styles.inputGroup}`}>
 						<label className={styles.inputLabel}>Unix Timestamp (seconds)</label>
-						<div className={styles.inputWrapper}>
+						<div className={`relative ${styles.inputWrapper}`}>
 							<input
 								type="number"
 								inputMode="numeric"
@@ -233,20 +233,20 @@ export default function EpochConverter() {
 						{epochError && <p className={styles.errorText}>{epochError}</p>}
 					</div>
 
-					<div className={styles.buttonRow}>
+					<div className={`flex gap-3 mt-5 ${styles.buttonRow}`}>
 						<button className={styles.btnSecondary} onClick={setCurrentEpochInput}>
-							<ClockIcon className={styles.btnIcon} />
+							<ClockIcon className={`w-4 h-4 ${styles.btnIcon}`} />
 							Set Current
 						</button>
 						<button className={styles.btnPrimary} onClick={convertEpochToDate}>
-							<ArrowPathIcon className={styles.btnIcon} />
+							<ArrowPathIcon className={`w-4 h-4 ${styles.btnIcon}`} />
 							Convert
 						</button>
 					</div>
 
 					{dateResult && (
-						<div className={styles.resultBox}>
-							<div className={styles.resultHeader}>
+						<div className={`mt-5 p-4 rounded-lg ${styles.resultBox}`}>
+							<div className={`flex items-center justify-between mb-2 ${styles.resultHeader}`}>
 								<span className={styles.resultLabel}>Result:</span>
 								<button className={`${styles.copyBtn} ${copiedField === "dateResult" ? styles.copied : ""}`} onClick={() => copyToClipboard(dateResult, "dateResult")} title="Copy to clipboard">
 									{copiedField === "dateResult" ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
@@ -261,7 +261,7 @@ export default function EpochConverter() {
 				<div className={styles.glassCard}>
 					<h2 className={styles.sectionTitle}>Date/Time → Epoch</h2>
 
-					<div className={styles.inputGroup}>
+					<div className={`mb-4 ${styles.inputGroup}`}>
 						<label className={styles.inputLabel}>Date</label>
 						<input
 							type="date"
@@ -274,7 +274,7 @@ export default function EpochConverter() {
 						/>
 					</div>
 
-					<div className={styles.inputGroup}>
+					<div className={`mb-4 ${styles.inputGroup}`}>
 						<label className={styles.inputLabel}>Time</label>
 						<input
 							type="time"
@@ -290,20 +290,20 @@ export default function EpochConverter() {
 
 					{dateError && <p className={styles.errorText}>{dateError}</p>}
 
-					<div className={styles.buttonRow}>
+					<div className={`flex gap-3 mt-5 ${styles.buttonRow}`}>
 						<button className={styles.btnSecondary} onClick={setCurrentDateTime}>
-							<ClockIcon className={styles.btnIcon} />
+							<ClockIcon className={`w-4 h-4 ${styles.btnIcon}`} />
 							Set Current
 						</button>
 						<button className={styles.btnPrimary} onClick={convertDateToEpoch}>
-							<ArrowPathIcon className={styles.btnIcon} />
+							<ArrowPathIcon className={`w-4 h-4 ${styles.btnIcon}`} />
 							Convert
 						</button>
 					</div>
 
 					{epochResult && (
-						<div className={styles.resultBox}>
-							<div className={styles.resultHeader}>
+						<div className={`mt-5 p-4 rounded-lg ${styles.resultBox}`}>
+							<div className={`flex items-center justify-between mb-2 ${styles.resultHeader}`}>
 								<span className={styles.resultLabel}>Result:</span>
 								<button className={`${styles.copyBtn} ${copiedField === "epochResult" ? styles.copied : ""}`} onClick={() => copyToClipboard(epochResult, "epochResult")} title="Copy to clipboard">
 									{copiedField === "epochResult" ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}

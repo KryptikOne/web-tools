@@ -311,84 +311,84 @@ export default function CubicBezier() {
 
 	return (
 		<div className={styles.container}>
-			<div className={styles.grid}>
+			<div className={`mb-6 ${styles.grid}`}>
 				{/* Canvas Section */}
 				<div className={styles.glassCard}>
-					<h3 className={styles.sectionTitle}>Curve Editor</h3>
-					<div className={styles.canvasContainer}>
-						<canvas ref={canvasRef} width={500} height={700} className={styles.canvas} onMouseDown={handleCanvasMouseDown} onMouseMove={handleCanvasMouseMove} onMouseUp={handleCanvasMouseUp} onMouseLeave={handleCanvasMouseUp} />
+					<h3 className={`mb-4 ${styles.sectionTitle}`}>Curve Editor</h3>
+					<div className={`w-full relative overflow-hidden rounded-md ${styles.canvasContainer}`}>
+						<canvas ref={canvasRef} width={500} height={700} className={`block w-full h-full ${styles.canvas}`} onMouseDown={handleCanvasMouseDown} onMouseMove={handleCanvasMouseMove} onMouseUp={handleCanvasMouseUp} onMouseLeave={handleCanvasMouseUp} />
 					</div>
-					<p className={styles.hint}>Drag the control points to adjust the curve</p>
+					<p className={`mt-3 text-sm text-center ${styles.hint}`}>Drag the control points to adjust the curve</p>
 				</div>
 
 				{/* Controls Section */}
 				<div>
 					{/* Control Points */}
-					<div className={`${styles.glassCard} mb-6`}>
-						<h3 className={styles.sectionTitle}>Control Points</h3>
+					<div className={`mb-6 ${styles.glassCard}`}>
+						<h3 className={`mb-4 ${styles.sectionTitle}`}>Control Points</h3>
 
 						<div className={styles.controlGroup}>
-							<label className={styles.controlLabel}>
-								<span className={styles.pointBadge} style={{ backgroundColor: "#ff6b6b" }}>
+							<label className={`flex items-center gap-2 mb-3 font-medium ${styles.controlLabel}`}>
+								<span className={`inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold text-white ${styles.pointBadge}`} style={{ backgroundColor: "#ff6b6b" }}>
 									P1
 								</span>{" "}
 								Time
 							</label>
-							<div className={styles.inputRow}>
-								<div className={styles.inputGroup}>
+							<div className={`grid grid-cols-2 gap-3 ${styles.inputRow}`}>
+								<div className={`flex flex-col gap-2 ${styles.inputGroup}`}>
 									<label>X</label>
-									<input type="number" inputMode="decimal" step="0.01" min="0" max="1" value={p1.x.toFixed(2)} onChange={(e) => setP1({ ...p1, x: parseFloat(e.target.value) || 0 })} className={styles.input} />
+									<input type="number" inputMode="decimal" step="0.01" min="0" max="1" value={p1.x.toFixed(2)} onChange={(e) => setP1({ ...p1, x: parseFloat(e.target.value) || 0 })} className={`rounded-md ${styles.input}`} />
 								</div>
-								<div className={styles.inputGroup}>
+								<div className={`flex flex-col gap-2 ${styles.inputGroup}`}>
 									<label>Y</label>
-									<input type="number" inputMode="decimal" step="0.01" min="-2" max="2" value={p1.y.toFixed(2)} onChange={(e) => setP1({ ...p1, y: parseFloat(e.target.value) || 0 })} className={styles.input} />
+									<input type="number" inputMode="decimal" step="0.01" min="-2" max="2" value={p1.y.toFixed(2)} onChange={(e) => setP1({ ...p1, y: parseFloat(e.target.value) || 0 })} className={`rounded-md ${styles.input}`} />
 								</div>
 							</div>
 						</div>
 
 						<div className={styles.controlGroup}>
-							<label className={styles.controlLabel}>
-								<span className={styles.pointBadge} style={{ backgroundColor: "#4ecdc4" }}>
+							<label className={`flex items-center gap-2 mb-3 font-medium ${styles.controlLabel}`}>
+								<span className={`inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold text-white ${styles.pointBadge}`} style={{ backgroundColor: "#4ecdc4" }}>
 									P2
 								</span>{" "}
 								Progression
 							</label>
-							<div className={styles.inputRow}>
-								<div className={styles.inputGroup}>
+							<div className={`grid grid-cols-2 gap-3 ${styles.inputRow}`}>
+								<div className={`flex flex-col gap-2 ${styles.inputGroup}`}>
 									<label>X</label>
-									<input type="number" inputMode="decimal" step="0.01" min="0" max="1" value={p2.x.toFixed(2)} onChange={(e) => setP2({ ...p2, x: parseFloat(e.target.value) || 0 })} className={styles.input} />
+									<input type="number" inputMode="decimal" step="0.01" min="0" max="1" value={p2.x.toFixed(2)} onChange={(e) => setP2({ ...p2, x: parseFloat(e.target.value) || 0 })} className={`rounded-md ${styles.input}`} />
 								</div>
-								<div className={styles.inputGroup}>
+								<div className={`flex flex-col gap-2 ${styles.inputGroup}`}>
 									<label>Y</label>
-									<input type="number" inputMode="decimal" step="0.01" min="-2" max="2" value={p2.y.toFixed(2)} onChange={(e) => setP2({ ...p2, y: parseFloat(e.target.value) || 0 })} className={styles.input} />
+									<input type="number" inputMode="decimal" step="0.01" min="-2" max="2" value={p2.y.toFixed(2)} onChange={(e) => setP2({ ...p2, y: parseFloat(e.target.value) || 0 })} className={`rounded-md ${styles.input}`} />
 								</div>
 							</div>
 						</div>
 
-						<Button onClick={randomCurve} className={styles.btnSecondary} style={{ width: "100%" }}>
+						<Button onClick={randomCurve} className={`w-full flex items-center justify-center gap-2 rounded-md font-medium ${styles.btnSecondary}`}>
 							<ArrowPathIcon className="w-4 h-4" />
 							Random Curve
 						</Button>
 					</div>
 
 					{/* Animation Preview */}
-					<div className={`${styles.glassCard} mb-6`}>
-						<h3 className={styles.sectionTitle}>Animation Preview</h3>
-						<div className={styles.animationTrack}>
+					<div className={`mb-6 ${styles.glassCard}`}>
+						<h3 className={`mb-4 ${styles.sectionTitle}`}>Animation Preview</h3>
+						<div className={`relative mb-4 overflow-hidden rounded-md ${styles.animationTrack}`}>
 							<div
-								className={`${styles.animationBall} ${ballPosition === "right" ? styles.atRight : ""} ${isAnimating ? (ballPosition === "left" ? styles.animatingRight : styles.animatingLeft) : ""}`}
+								className={`absolute rounded-full ${styles.animationBall} ${ballPosition === "right" ? styles.atRight : ""} ${isAnimating ? (ballPosition === "left" ? styles.animatingRight : styles.animatingLeft) : ""}`}
 								style={{
 									animationDuration: `${duration}s`,
 									animationTimingFunction: cssValue,
 								}}
 							/>
 						</div>
-						<div className={styles.animationControls}>
-							<div className={styles.inputGroup}>
+						<div className={`grid items-end gap-4 ${styles.animationControls}`}>
+							<div className={`flex flex-col gap-2 ${styles.inputGroup}`}>
 								<label>Duration (s)</label>
-								<input type="number" inputMode="decimal" step="0.1" min="0.1" max="10" value={duration} onChange={(e) => setDuration(parseFloat(e.target.value) || 1)} className={styles.input} />
+								<input type="number" inputMode="decimal" step="0.1" min="0.1" max="10" value={duration} onChange={(e) => setDuration(parseFloat(e.target.value) || 1)} className={`rounded-md ${styles.input}`} />
 							</div>
-							<Button onClick={toggleAnimation} className={styles.btnSecondary}>
+							<Button onClick={toggleAnimation} className={`flex items-center justify-center gap-2 rounded-md font-medium ${styles.btnSecondary}`}>
 								{isAnimating ? "Stop" : "Play"}
 							</Button>
 						</div>
@@ -396,10 +396,10 @@ export default function CubicBezier() {
 
 					{/* CSS Output */}
 					<div className={styles.glassCard}>
-						<h3 className={styles.sectionTitle}>CSS Output</h3>
-						<div className={styles.outputBox}>
+						<h3 className={`mb-4 ${styles.sectionTitle}`}>CSS Output</h3>
+						<div className={`relative rounded-md p-4 pr-12 ${styles.outputBox}`}>
 							<code>{cssValue}</code>
-							<button onClick={copyToClipboard} className={`${styles.copyBtn} ${copied ? styles.copied : ""}`} title="Copy to clipboard">
+							<button onClick={copyToClipboard} className={`absolute top-2 right-2 ${styles.copyBtn} ${copied ? styles.copied : ""}`} title="Copy to clipboard">
 								{copied ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
 							</button>
 						</div>
@@ -408,22 +408,22 @@ export default function CubicBezier() {
 			</div>
 
 			{/* Presets */}
-			<div className={styles.glassCard} style={{ marginTop: "1.5rem" }}>
-				<h3 className={styles.sectionTitle}>Presets</h3>
+			<div className={`mt-6 ${styles.glassCard}`}>
+				<h3 className={`mb-4 ${styles.sectionTitle}`}>Presets</h3>
 				<div className={styles.presetsGrid}>
 					{PRESETS.map((preset) => (
-						<Button key={preset.name} onClick={() => loadPreset(preset)} className={styles.presetBtn} title={`cubic-bezier(${preset.value.join(", ")})`}>
-							<span className={styles.presetName}>{preset.name}</span>
-							<span className={styles.presetValue}>({preset.value.map((v) => v.toFixed(2)).join(", ")})</span>
+						<Button key={preset.name} onClick={() => loadPreset(preset)} className={`flex flex-col gap-1 text-left rounded-md ${styles.presetBtn}`} title={`cubic-bezier(${preset.value.join(", ")})`}>
+							<span className={`font-semibold ${styles.presetName}`}>{preset.name}</span>
+							<span className={`text-xs ${styles.presetValue}`}>({preset.value.map((v) => v.toFixed(2)).join(", ")})</span>
 						</Button>
 					))}
 				</div>
 			</div>
 
 			{/* Usage Guide */}
-			<div className={`${styles.glassCard} mt-6`} style={{ marginTop: "1.5rem" }}>
-				<h3 className={styles.sectionTitle}>Usage in CSS</h3>
-				<div className={styles.codeBlock}>
+			<div className={`mt-6 ${styles.glassCard}`}>
+				<h3 className={`mb-4 ${styles.sectionTitle}`}>Usage in CSS</h3>
+				<div className={`rounded-md p-6 overflow-x-auto ${styles.codeBlock}`}>
 					<code>
 						{`.element {
   transition: all ${duration}s ${cssValue};

@@ -297,24 +297,24 @@ export default function TimezoneConverter() {
 	return (
 		<div className={styles.container}>
 			{/* Quick Converter */}
-			<div className={styles.glassCard}>
-				<div className={styles.converterHeader}>
+			<div className={`mb-6 ${styles.glassCard}`}>
+				<div className={`flex justify-between items-center mb-6 flex-wrap gap-4 ${styles.converterHeader}`}>
 					<h2 className={styles.sectionTitle}>Quick Convert</h2>
-					<div className={styles.headerControls}>
-						<button className={`${styles.formatToggle} ${use24Hour ? styles.active : ""}`} onClick={() => setUse24Hour(!use24Hour)}>
+					<div className={`flex gap-2 items-center ${styles.headerControls}`}>
+						<button className={`py-2 px-3 rounded-sm text-xs font-semibold ${styles.formatToggle} ${use24Hour ? styles.active : ""}`} onClick={() => setUse24Hour(!use24Hour)}>
 							{use24Hour ? "24h" : "12h"}
 						</button>
-						<Button onClick={handleUseNow} className={`${styles.nowButton} ${useCurrentTime ? styles.active : ""}`}>
+						<Button onClick={handleUseNow} className={`flex items-center gap-1.5 py-2 px-3 rounded-sm text-xs ${styles.nowButton} ${useCurrentTime ? styles.active : ""}`}>
 							<ClockIcon className="w-4 h-4" />
 							Now
 						</Button>
 					</div>
 				</div>
 
-				<div className={styles.quickConverter}>
+				<div className={`grid items-center gap-6 ${styles.quickConverter}`}>
 					{/* From Side */}
-					<div className={styles.timeColumn}>
-						<select value={fromTimezone} onChange={(e) => setFromTimezone(e.target.value)} className={styles.timezoneSelect}>
+					<div className={`flex flex-col gap-4 ${styles.timeColumn}`}>
+						<select value={fromTimezone} onChange={(e) => setFromTimezone(e.target.value)} className={`w-full rounded-md ${styles.timezoneSelect}`}>
 							{Object.entries(TIMEZONE_GROUPS).map(([region, zones]) => (
 								<optgroup key={region} label={region}>
 									{zones.map((tz) => (
@@ -326,34 +326,34 @@ export default function TimezoneConverter() {
 							))}
 						</select>
 
-						<div className={styles.timeDisplay}>
+						<div className={`text-center p-6 rounded-lg ${styles.timeDisplay}`}>
 							{useCurrentTime ? (
-								<div className={styles.largeTimeEditable} onClick={() => setUseCurrentTime(false)} title="Click to set custom time">
+								<div className={`inline-flex rounded-md ${styles.largeTimeEditable}`} onClick={() => setUseCurrentTime(false)} title="Click to set custom time">
 									{formatTimeDisplay(inputHours, inputMinutes)}
 								</div>
 							) : (
-								<div className={styles.largeTimeEditing}>
-									<input type="time" value={formatTime24(inputHours, inputMinutes)} onChange={handleTimeChange} className={styles.timeInputLarge} autoFocus />
+								<div className={`items-center justify-center rounded-md ${styles.largeTimeEditing}`}>
+									<input type="time" value={formatTime24(inputHours, inputMinutes)} onChange={handleTimeChange} className={`w-full p-2 text-center font-bold ${styles.timeInputLarge}`} autoFocus />
 								</div>
 							)}
-							<div className={styles.offsetLabel}>{fromTz && formatOffset(fromTz.offset)}</div>
+							<div className={`mt-2 ${styles.offsetLabel}`}>{fromTz && formatOffset(fromTz.offset)}</div>
 						</div>
 					</div>
 
 					{/* Swap Button */}
-					<div className={styles.swapColumn}>
-						<button className={styles.swapButton} onClick={swapTimezones} title="Swap timezones">
+					<div className={`flex flex-col items-center gap-2 ${styles.swapColumn}`}>
+						<button className={`p-4 rounded-full ${styles.swapButton}`} onClick={swapTimezones} title="Swap timezones">
 							<ArrowsRightLeftIcon className="w-6 h-6" />
 						</button>
-						<div className={styles.offsetBadge}>
+						<div className={`font-semibold rounded-sm ${styles.offsetBadge}`}>
 							{offsetDiff >= 0 ? "+" : ""}
 							{offsetDiff}h
 						</div>
 					</div>
 
 					{/* To Side */}
-					<div className={styles.timeColumn}>
-						<select value={toTimezone} onChange={(e) => setToTimezone(e.target.value)} className={styles.timezoneSelect}>
+					<div className={`flex flex-col gap-4 ${styles.timeColumn}`}>
+						<select value={toTimezone} onChange={(e) => setToTimezone(e.target.value)} className={`w-full rounded-md ${styles.timezoneSelect}`}>
 							{Object.entries(TIMEZONE_GROUPS).map(([region, zones]) => (
 								<optgroup key={region} label={region}>
 									{zones.map((tz) => (
@@ -365,18 +365,18 @@ export default function TimezoneConverter() {
 							))}
 						</select>
 
-						<div className={`read-only ${styles.timeDisplay}`}>
+						<div className={`read-only text-center p-6 rounded-lg ${styles.timeDisplay}`}>
 							<div className={styles.largeTimeReadonly}>{formatTimeDisplay(convertedTime.hours, convertedTime.minutes)}</div>
 							{convertedTime.dayOffset !== 0 && (
-								<div className={styles.dayOffset}>{convertedTime.dayOffset > 0 ? `+${convertedTime.dayOffset} day` : `${convertedTime.dayOffset} day`}</div>
+								<div className={`font-semibold mt-1 ${styles.dayOffset}`}>{convertedTime.dayOffset > 0 ? `+${convertedTime.dayOffset} day` : `${convertedTime.dayOffset} day`}</div>
 							)}
-							<div className={styles.offsetLabel}>{toTz && formatOffset(toTz.offset)}</div>
+							<div className={`mt-2 ${styles.offsetLabel}`}>{toTz && formatOffset(toTz.offset)}</div>
 						</div>
 					</div>
 				</div>
 
 				{/* Summary sentence */}
-				<div className={styles.summaryBox}>
+				<div className={`mt-6 px-6 py-4 rounded-md text-center ${styles.summaryBox}`}>
 					<p>
 						When it&apos;s <strong>{formatTimeDisplay(inputHours, inputMinutes)}</strong> in <strong>{fromTz?.name}</strong>, it&apos;s{" "}
 						<strong>{formatTimeDisplay(convertedTime.hours, convertedTime.minutes)}</strong> in <strong>{toTz?.name}</strong>
@@ -386,11 +386,11 @@ export default function TimezoneConverter() {
 			</div>
 
 			{/* Visual Timeline */}
-			<div className={styles.glassCard}>
-				<div className={styles.timelineHeader}>
+			<div className={`mb-6 ${styles.glassCard}`}>
+				<div className={`flex justify-between items-center mb-5 flex-wrap gap-4 ${styles.timelineHeader}`}>
 					<h2 className={styles.sectionTitle}>Timeline Comparison</h2>
-					<div className={styles.timelineControls}>
-						<select onChange={(e) => e.target.value && addTimelineZone(e.target.value)} value="" className={styles.addZoneSelect} disabled={timelineZones.length >= 6}>
+					<div className={`flex gap-2 ${styles.timelineControls}`}>
+						<select onChange={(e) => e.target.value && addTimelineZone(e.target.value)} value="" className={`py-2 px-3 rounded-sm ${styles.addZoneSelect}`} disabled={timelineZones.length >= 6}>
 							<option value="">+ Add timezone</option>
 							{Object.entries(TIMEZONE_GROUPS).map(([region, zones]) => (
 								<optgroup key={region} label={region}>
@@ -407,31 +407,31 @@ export default function TimezoneConverter() {
 					</div>
 				</div>
 
-				<div className={styles.timelineContainer}>
+				<div className={`overflow-x-auto pb-2 ${styles.timelineContainer}`}>
 					{timelineZones.map((zoneId) => {
 						const tz = TIMEZONES.find((t) => t.id === zoneId);
 						const hours = getTimelineHours(zoneId);
 
 						return (
-							<div key={zoneId} className={styles.timelineRow}>
-								<div className={styles.timelineLabel}>
-									<div className={styles.zoneName}>{tz?.abbrev}</div>
+							<div key={zoneId} className={`flex items-center mb-2 last:mb-0 ${styles.timelineRow}`}>
+								<div className={`flex flex-col shrink-0 relative ${styles.timelineLabel}`}>
+									<div className={`font-semibold ${styles.zoneName}`}>{tz?.abbrev}</div>
 									<div className={styles.zoneOffset}>{tz && formatOffset(tz.offset)}</div>
 									{timelineZones.length > 2 && (
-										<button className={styles.removeZoneBtn} onClick={() => removeTimelineZone(zoneId)} title="Remove">
+										<button className={`absolute ${styles.removeZoneBtn}`} onClick={() => removeTimelineZone(zoneId)} title="Remove">
 											<XMarkIcon className="w-3.5 h-3.5" />
 										</button>
 									)}
 								</div>
-								<div className={styles.timelineHours}>
+								<div className={`flex flex-1 min-w-0 ${styles.timelineHours}`}>
 									{hours.map((h, i) => (
 										<div
 											key={i}
-											className={`${styles.hourCell} ${styles[getTimeCategory(h.localHour)]} ${i === currentBaseHour ? styles.currentHour : ""}`}
+											className={`flex flex-col items-center justify-center relative ${styles.hourCell} ${styles[getTimeCategory(h.localHour)]} ${i === currentBaseHour ? styles.currentHour : ""}`}
 											title={`${tz?.abbrev}: ${formatTime12(h.localHour, 0)}`}
 										>
-											<span className={styles.hourLabel}>{getHourLabel(h.localHour)}</span>
-											{h.dayOffset !== 0 && <span className={styles.hourDayOffset}>{h.dayOffset > 0 ? "+1" : "-1"}</span>}
+											<span className={`font-medium ${styles.hourLabel}`}>{getHourLabel(h.localHour)}</span>
+											{h.dayOffset !== 0 && <span className={`absolute ${styles.hourDayOffset}`}>{h.dayOffset > 0 ? "+1" : "-1"}</span>}
 										</div>
 									))}
 								</div>
@@ -440,28 +440,28 @@ export default function TimezoneConverter() {
 					})}
 				</div>
 
-				<div className={styles.timelineLegend}>
-					<div className={styles.legendItem}>
+				<div className={`flex flex-wrap gap-4 mt-4 pt-4 ${styles.timelineLegend}`}>
+					<div className={`flex items-center gap-1.5 ${styles.legendItem}`}>
 						<span className={`${styles.legendColor} ${styles.night}`}></span>
 						<span>Night (12a-6a)</span>
 					</div>
-					<div className={styles.legendItem}>
+					<div className={`flex items-center gap-1.5 ${styles.legendItem}`}>
 						<span className={`${styles.legendColor} ${styles.early}`}></span>
 						<span>Early (6a-9a)</span>
 					</div>
-					<div className={styles.legendItem}>
+					<div className={`flex items-center gap-1.5 ${styles.legendItem}`}>
 						<span className={`${styles.legendColor} ${styles.morning}`}></span>
 						<span>Morning (9a-12p)</span>
 					</div>
-					<div className={styles.legendItem}>
+					<div className={`flex items-center gap-1.5 ${styles.legendItem}`}>
 						<span className={`${styles.legendColor} ${styles.afternoon}`}></span>
 						<span>Afternoon (12p-5p)</span>
 					</div>
-					<div className={styles.legendItem}>
+					<div className={`flex items-center gap-1.5 ${styles.legendItem}`}>
 						<span className={`${styles.legendColor} ${styles.evening}`}></span>
 						<span>Evening (5p-9p)</span>
 					</div>
-					<div className={styles.legendItem}>
+					<div className={`flex items-center gap-1.5 ${styles.legendItem}`}>
 						<span className={`${styles.legendColor} ${styles.late}`}></span>
 						<span>Late (9p-12a)</span>
 					</div>
@@ -469,10 +469,10 @@ export default function TimezoneConverter() {
 			</div>
 
 			{/* Common Conversions Reference */}
-			<div className={styles.glassCard}>
+			<div className={`mb-6 ${styles.glassCard}`}>
 				<h2 className={styles.sectionTitle}>Quick Reference</h2>
-				<div className={styles.referenceGrid}>
-					<div className={styles.referenceCard}>
+				<div className={`grid gap-4 mt-4 ${styles.referenceGrid}`}>
+					<div className={`p-4 rounded-md ${styles.referenceCard}`}>
 						<h3>US Time Zones</h3>
 						<ul>
 							<li>PST to EST: +3 hours</li>
@@ -481,7 +481,7 @@ export default function TimezoneConverter() {
 							<li>EST to PST: -3 hours</li>
 						</ul>
 					</div>
-					<div className={styles.referenceCard}>
+					<div className={`p-4 rounded-md ${styles.referenceCard}`}>
 						<h3>US to Europe</h3>
 						<ul>
 							<li>EST to GMT: +5 hours</li>
@@ -490,7 +490,7 @@ export default function TimezoneConverter() {
 							<li>PST to CET: +9 hours</li>
 						</ul>
 					</div>
-					<div className={styles.referenceCard}>
+					<div className={`p-4 rounded-md ${styles.referenceCard}`}>
 						<h3>US to Asia</h3>
 						<ul>
 							<li>EST to IST: +10.5 hours</li>
@@ -499,7 +499,7 @@ export default function TimezoneConverter() {
 							<li>PST to JST: +17 hours</li>
 						</ul>
 					</div>
-					<div className={styles.referenceCard}>
+					<div className={`p-4 rounded-md ${styles.referenceCard}`}>
 						<h3>Tips</h3>
 						<ul>
 							<li>Add hours going east</li>

@@ -9,7 +9,6 @@
 // Shared Utilities
 .glassCard {
 	@extend .glass-card;
-	margin-bottom: 1.5rem;
 }
 
 .sectionTitle {
@@ -18,27 +17,16 @@
 
 // Header
 .converterHeader {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 1.5rem;
-	flex-wrap: wrap;
-	gap: 1rem;
+	// layout handled by Tailwind
 }
 
 .headerControls {
-	display: flex;
-	gap: 0.5rem;
-	align-items: center;
+	// layout handled by Tailwind
 }
 
 .formatToggle {
-	padding: 0.5rem 0.75rem;
 	background: $input-bg;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-sm;
-	font-size: 0.8rem;
-	font-weight: 600;
 	color: $text-secondary;
 	cursor: pointer;
 	transition: all 0.2s ease;
@@ -57,17 +45,11 @@
 }
 
 .nowButton {
-	padding: 0.5rem 0.75rem;
 	background: $input-bg;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-sm;
-	font-size: 0.8rem;
 	color: $text-secondary;
 	cursor: pointer;
 	transition: all 0.2s ease;
-	display: flex;
-	align-items: center;
-	gap: 0.375rem;
 
 	&:hover {
 		border-color: $border-medium;
@@ -83,10 +65,7 @@
 
 // Quick Converter
 .quickConverter {
-	display: grid;
 	grid-template-columns: 1fr auto 1fr;
-	gap: 1.5rem;
-	align-items: center;
 
 	@media (max-width: 768px) {
 		grid-template-columns: 1fr;
@@ -95,17 +74,13 @@
 }
 
 .timeColumn {
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
+	// layout handled by Tailwind
 }
 
 .timezoneSelect {
-	width: 100%;
 	padding: 0.75rem 1rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	font-size: 0.95rem;
 	color: $text-primary;
 	cursor: pointer;
@@ -122,22 +97,15 @@
 }
 
 .timeDisplay {
-	text-align: center;
-	padding: 1.5rem;
 	background: $input-bg;
-	border-radius: $radius-lg;
 	border: 1px solid $border-subtle;
 }
 
 .timeInputLarge {
-	width: 100%;
-	padding: 0.5rem;
 	background: transparent;
 	border: none;
 	font-size: 2.5rem;
-	font-weight: 700;
 	color: $text-primary;
-	text-align: center;
 	font-family: $font-family-display;
 
 	&:focus {
@@ -163,10 +131,6 @@
 	font-family: $font-family-display;
 	line-height: 1.1;
 	letter-spacing: -0.02em;
-	border-radius: $radius-md;
-	// padding: 0.25rem 0.5rem;
-	// margin: -0.25rem -0.5rem;
-	display: inline-flex;
 
 	@media (max-width: 480px) {
 		font-size: 2.25rem;
@@ -192,12 +156,6 @@
 	@extend .largeTime;
 	border: 1px solid $color-accent;
 	background: $color-accent-20;
-	border-radius: $radius-md;
-	// padding: 0.25rem 0.5rem;
-	// margin: -0.25rem -0.5rem;
-
-	align-items: center;
-	justify-content: center;
 }
 
 // Read-only time (right side) - no interaction
@@ -209,23 +167,15 @@
 .offsetLabel {
 	font-size: 0.85rem;
 	color: $text-muted;
-	margin-top: 0.5rem;
 	font-family: $font-family-mono;
 }
 
 .dayOffset {
 	font-size: 0.9rem;
-	font-weight: 600;
 	color: $color-accent;
-	margin-top: 0.25rem;
 }
 
 .swapColumn {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 0.5rem;
-
 	@media (max-width: 768px) {
 		flex-direction: row;
 		justify-content: center;
@@ -233,10 +183,8 @@
 }
 
 .swapButton {
-	padding: 1rem;
 	background: $bg-glass;
 	border: 1px solid $border-subtle;
-	border-radius: 50%;
 	color: $text-secondary;
 	cursor: pointer;
 	transition: all 0.2s ease;
@@ -261,20 +209,14 @@
 	padding: 0.375rem 0.75rem;
 	background: $color-accent-20;
 	border: 1px solid $color-accent;
-	border-radius: $radius-sm;
 	font-size: 0.85rem;
-	font-weight: 600;
 	color: $text-primary;
 	font-family: $font-family-mono;
 }
 
 // Summary Box
 .summaryBox {
-	margin-top: 1.5rem;
-	padding: 1rem 1.5rem;
 	background: $input-bg;
-	border-radius: $radius-md;
-	text-align: center;
 
 	p {
 		margin: 0;
@@ -295,24 +237,16 @@
 
 // Timeline
 .timelineHeader {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 1.25rem;
-	flex-wrap: wrap;
-	gap: 1rem;
+	// layout handled by Tailwind
 }
 
 .timelineControls {
-	display: flex;
-	gap: 0.5rem;
+	// layout handled by Tailwind
 }
 
 .addZoneSelect {
-	padding: 0.5rem 0.75rem;
 	background: $input-bg;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-sm;
 	font-size: 0.85rem;
 	color: $text-secondary;
 	cursor: pointer;
@@ -329,15 +263,10 @@
 }
 
 .timelineContainer {
-	overflow-x: auto;
-	padding-bottom: 0.5rem;
+	// layout handled by Tailwind
 }
 
 .timelineRow {
-	display: flex;
-	align-items: center;
-	margin-bottom: 0.5rem;
-
 	&:last-child {
 		margin-bottom: 0;
 	}
@@ -345,16 +274,11 @@
 
 .timelineLabel {
 	width: 90px;
-	flex-shrink: 0;
 	padding-right: 0.75rem;
-	display: flex;
-	flex-direction: column;
-	position: relative;
 }
 
 .zoneName {
 	font-size: 0.9rem;
-	font-weight: 600;
 	color: $text-primary;
 }
 
@@ -365,7 +289,6 @@
 }
 
 .removeZoneBtn {
-	position: absolute;
 	top: 0;
 	right: 0.75rem;
 	padding: 0.125rem;
@@ -386,21 +309,14 @@
 }
 
 .timelineHours {
-	display: flex;
-	flex: 1;
-	min-width: 0;
+	// layout handled by Tailwind
 }
 
 .hourCell {
 	flex: 1;
 	min-width: 32px;
 	height: 44px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
 	border-right: 1px solid rgba(255, 255, 255, 0.05);
-	position: relative;
 	transition: all 0.15s ease;
 
 	&:first-child {
@@ -450,32 +366,22 @@
 
 .hourLabel {
 	font-size: 0.7rem;
-	font-weight: 500;
 	color: $text-primary;
 }
 
 .hourDayOffset {
 	font-size: 0.55rem;
 	color: $color-accent;
-	position: absolute;
 	top: 2px;
 	right: 2px;
 }
 
 // Legend
 .timelineLegend {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 1rem;
-	margin-top: 1rem;
-	padding-top: 1rem;
 	border-top: 1px solid $border-subtle;
 }
 
 .legendItem {
-	display: flex;
-	align-items: center;
-	gap: 0.375rem;
 	font-size: 0.75rem;
 	color: $text-muted;
 }
@@ -512,16 +418,11 @@
 
 // Reference Grid
 .referenceGrid {
-	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-	gap: 1rem;
-	margin-top: 1rem;
 }
 
 .referenceCard {
-	padding: 1rem;
 	background: $input-bg;
-	border-radius: $radius-md;
 	border: 1px solid $border-subtle;
 
 	h3 {

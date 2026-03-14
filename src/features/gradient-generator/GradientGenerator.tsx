@@ -128,7 +128,7 @@ function DraggableStop({ stop, isSelected, onSelect, isDraggingOutside, canDelet
 		>
 			<div className={styles.stopColor} style={{ backgroundColor: stop.color }} />
 			<div className={styles.stopArrow} />
-			{isDragging && isDraggingOutside && canDelete && <div className={styles.deleteIndicator}>×</div>}
+			{isDragging && isDraggingOutside && canDelete && <div className={`flex items-center justify-center ${styles.deleteIndicator}`}>×</div>}
 		</div>
 	);
 }
@@ -404,33 +404,35 @@ export default function GradientGenerator() {
 	return (
 		<div className={styles.container}>
 			{/* Full-width Preview at Top */}
-			<div className={styles.previewBox} style={{ background: gradientCSS }} />
+			<div className={`w-full rounded-xl mb-6 ${styles.previewBox}`} style={{ background: gradientCSS }} />
 
 			<div className={styles.grid}>
 				{/* Left Column: Color Picker */}
-				<div className={styles.previewSection}>
+				<div className={`flex flex-col gap-6 ${styles.previewSection}`}>
 					{/* Gradient Type */}
 					<div className={styles.glassCard}>
 						<h3 className={styles.sectionTitle}>Gradient Type</h3>
-						<div className={styles.typeToggle}>
-							<Button onClick={() => setGradientType("linear")} className={`${styles.toggleBtn} ${gradientType === "linear" ? styles.active : ""}`}>
+						<div className={`flex gap-2 mb-6 ${styles.typeToggle}`}>
+							<Button onClick={() => setGradientType("linear")} className={`flex-1 ${styles.toggleBtn} ${gradientType === "linear" ? styles.active : ""}`}>
 								Linear
 							</Button>
-							<Button onClick={() => setGradientType("radial")} className={`${styles.toggleBtn} ${gradientType === "radial" ? styles.active : ""}`}>
+							<Button onClick={() => setGradientType("radial")} className={`flex-1 ${styles.toggleBtn} ${gradientType === "radial" ? styles.active : ""}`}>
 								Radial
 							</Button>
 						</div>
 
 						{gradientType === "linear" && (
-							<div className={styles.angleControl}>
-								<div className={styles.sliderHeader}>
-									<label className={styles.label}>Angle</label>
-									<span className={styles.valueDisplay}>{angle}°</span>
+							<div className={`mt-4 ${styles.angleControl}`}>
+								<div className={`flex justify-between mb-2 ${styles.sliderHeader}`}>
+									<label className={`text-sm ${styles.label}`}>Angle</label>
+									<span className={`text-sm font-mono ${styles.valueDisplay}`}>
+										{angle}°
+									</span>
 								</div>
 								<input type="range" min="0" max="360" value={angle} onChange={(e) => setAngle(parseInt(e.target.value))} className={styles.slider} />
-								<div className={styles.presetAngles}>
+								<div className={`flex flex-wrap gap-1 ${styles.presetAngles}`}>
 									{PRESET_ANGLES.map((presetAngle) => (
-										<Button key={presetAngle} onClick={() => setAngle(presetAngle)} className={`${styles.angleBtn} ${angle === presetAngle ? styles.active : ""}`}>
+										<Button key={presetAngle} onClick={() => setAngle(presetAngle)} className={`text-xs ${styles.angleBtn} ${angle === presetAngle ? styles.active : ""}`}>
 											{presetAngle}°
 										</Button>
 									))}
@@ -439,13 +441,13 @@ export default function GradientGenerator() {
 						)}
 
 						{gradientType === "radial" && (
-							<div className={styles.shapeControl}>
-								<label className={styles.label}>Shape</label>
-								<div className={styles.shapeToggle}>
-									<Button onClick={() => setRadialShape("circle")} className={`${styles.toggleBtn} ${radialShape === "circle" ? styles.active : ""}`}>
+							<div className={`mt-4 ${styles.shapeControl}`}>
+								<label className={`text-sm ${styles.label}`}>Shape</label>
+								<div className={`flex gap-2 mt-2 ${styles.shapeToggle}`}>
+									<Button onClick={() => setRadialShape("circle")} className={`flex-1 ${styles.toggleBtn} ${radialShape === "circle" ? styles.active : ""}`}>
 										Circle
 									</Button>
-									<Button onClick={() => setRadialShape("ellipse")} className={`${styles.toggleBtn} ${radialShape === "ellipse" ? styles.active : ""}`}>
+									<Button onClick={() => setRadialShape("ellipse")} className={`flex-1 ${styles.toggleBtn} ${radialShape === "ellipse" ? styles.active : ""}`}>
 										Ellipse
 									</Button>
 								</div>
@@ -456,18 +458,18 @@ export default function GradientGenerator() {
 					{/* Color Picker Panel */}
 					<div className={styles.glassCard}>
 						<h3 className={styles.sectionTitle}>Color Picker</h3>
-						{!selectedStop && <p className={styles.pickerHint}>Select a color stop to edit</p>}
+						{!selectedStop && <p className={`text-xs text-center italic mb-4 ${styles.pickerHint}`}>Select a color stop to edit</p>}
 						<ColorPickerPanel color={selectedStop?.color ?? "#ff6b6b"} onChange={handleColorChange} disabled={!selectedStop} />
 					</div>
 				</div>
 
 				{/* Right Column: Controls */}
-				<div className={styles.controlsSection}>
+				<div className={`flex flex-col gap-6 ${styles.controlsSection}`}>
 					{/* Color Stops */}
 					<div className={styles.glassCard}>
-						<div className={styles.colorStopsHeader}>
+						<div className={`flex justify-between items-center mb-6 ${styles.colorStopsHeader}`}>
 							<h3 className={styles.sectionTitle}>Color Stops</h3>
-							<Button onClick={addColorStop} className={styles.addBtn} disabled={colorStops.length >= 8}>
+							<Button onClick={addColorStop} className={`text-xs ${styles.addBtn}`} disabled={colorStops.length >= 8}>
 								<PlusIcon className="w-4 h-4" />
 								Add
 							</Button>
@@ -475,7 +477,7 @@ export default function GradientGenerator() {
 
 						{/* Interactive Gradient Slider */}
 						<DndContext sensors={sensors} onDragMove={handleDragMove} onDragEnd={handleDragEnd}>
-							<div className={styles.interactiveSlider} ref={sliderRef} onClick={handleSliderClick}>
+							<div className={`relative mb-2 ${styles.interactiveSlider}`} ref={sliderRef} onClick={handleSliderClick}>
 								<div
 									className={styles.sliderTrack}
 									style={{
@@ -498,44 +500,44 @@ export default function GradientGenerator() {
 							</div>
 						</DndContext>
 
-						<p className={styles.sliderHint}>Click to add • Drag to move • Drag outside to remove</p>
+						<p className={`text-center mb-4 ${styles.sliderHint}`}>Click to add • Drag to move • Drag outside to remove</p>
 
 						{/* Action Buttons */}
-						<div className={styles.buttonGroup}>
-							<Button onClick={generateRandom} className={styles.btnSecondary}>
+						<div className={`flex gap-2 mt-2 mb-4 ${styles.buttonGroup}`}>
+							<Button onClick={generateRandom} className={`flex-1 ${styles.btnSecondary}`}>
 								<ArrowPathIcon className="w-4 h-4" />
 								Random
 							</Button>
-							<Button onClick={reverseGradient} className={styles.btnSecondary}>
+							<Button onClick={reverseGradient} className={`flex-1 ${styles.btnSecondary}`}>
 								Reverse
 							</Button>
-							<Button onClick={distributeEvenly} className={styles.btnSecondary}>
+							<Button onClick={distributeEvenly} className={`flex-1 ${styles.btnSecondary}`}>
 								Distribute
 							</Button>
 						</div>
 
 						{/* Color Stops List */}
-						<div className={styles.colorStopsList}>
+						<div className={`flex flex-col gap-2 ${styles.colorStopsList}`}>
 							{[...colorStops]
 								.sort((a, b) => a.position - b.position)
 								.map((stop) => (
-									<div key={stop.id} className={`${styles.colorStopItem} ${selectedStopId === stop.id ? styles.selected : ""}`} onClick={() => handleStopSelect(stop)}>
+									<div key={stop.id} className={`flex items-center gap-2 p-2 rounded-md ${styles.colorStopItem} ${selectedStopId === stop.id ? styles.selected : ""}`} onClick={() => handleStopSelect(stop)}>
 										<input
 											type="color"
 											value={stop.color}
 											onChange={(e) => updateColorStop(stop.id, { color: e.target.value })}
-											className={styles.colorInput}
+											className={`w-10 h-10 rounded-md shrink-0 ${styles.colorInput}`}
 											onClick={(e) => e.stopPropagation()}
 										/>
 										<input
 											type="text"
 											value={stop.color}
 											onChange={(e) => updateColorStop(stop.id, { color: e.target.value })}
-											className={styles.hexInput}
+											className={`flex-1 min-w-20 p-2 text-sm uppercase ${styles.hexInput}`}
 											maxLength={7}
 											onClick={(e) => e.stopPropagation()}
 										/>
-										<div className={styles.positionInput}>
+										<div className={`flex items-center gap-0.5 ${styles.positionInput}`}>
 											<input
 												type="number"
 												inputMode="numeric"
@@ -543,17 +545,17 @@ export default function GradientGenerator() {
 												max="100"
 												value={stop.position}
 												onChange={(e) => updateColorStop(stop.id, { position: Math.min(100, Math.max(0, parseInt(e.target.value) || 0)) })}
-												className={styles.numberInput}
+												className={`w-12.5 p-2 text-sm text-center ${styles.numberInput}`}
 												onClick={(e) => e.stopPropagation()}
 											/>
-											<span className={styles.percentSign}>%</span>
+											<span className={`text-xs ${styles.percentSign}`}>%</span>
 										</div>
 										<Button
 											onClick={(e) => {
 												e.stopPropagation();
 												removeColorStop(stop.id);
 											}}
-											className={styles.removeBtn}
+											className={`p-1 ${styles.removeBtn}`}
 											disabled={colorStops.length <= 2}
 											title="Remove color stop"
 										>
@@ -567,8 +569,8 @@ export default function GradientGenerator() {
 					{/* CSS Output */}
 					<div className={styles.glassCard}>
 						<h3 className={styles.sectionTitle}>CSS Output</h3>
-						<div className={styles.codeBlock}>
-							<code>{fullCSS}</code>
+						<div className={`flex items-center gap-4 p-4 rounded-md overflow-x-auto ${styles.codeBlock}`}>
+							<code className={`flex-1 text-sm font-mono ${styles.codeText}`}>{fullCSS}</code>
 							<button onClick={() => copyToClipboard(fullCSS, "css")} className={`${styles.copyBtn} ${copiedFormat === "css" ? styles.copied : ""}`} title="Copy to clipboard">
 								{copiedFormat === "css" ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
 							</button>
@@ -578,44 +580,24 @@ export default function GradientGenerator() {
 			</div>
 
 			{/* Presets Section */}
-			<div className={styles.glassCard} style={{ marginTop: "1.5rem" }}>
+			<div className={`mt-6 ${styles.glassCard}`}>
 				<h3 className={styles.sectionTitle}>Presets</h3>
 				<div className={styles.presetsGrid}>
 					{PRESET_GRADIENTS.map((preset) => (
 						<button
 							key={preset.name}
 							onClick={() => loadPreset(preset)}
-							className={styles.presetBtn}
+							className={`rounded-lg relative overflow-hidden ${styles.presetBtn}`}
 							style={{
 								background: `linear-gradient(135deg, ${preset.stops.map((s) => `${s.color} ${s.position}%`).join(", ")})`,
 							}}
 							title={preset.name}
 						>
-							<span className={styles.presetName}>{preset.name}</span>
+							<span className={`absolute bottom-0 left-0 right-0 p-1 text-center text-white font-medium ${styles.presetName}`}>{preset.name}</span>
 						</button>
 					))}
 				</div>
 			</div>
-
-			{/* Info Section */}
-			{/* <div className={styles.glassCard} style={{ marginTop: "1.5rem" }}>
-				<h3 className={styles.infoTitle}>About CSS Gradients</h3>
-				<div className={styles.infoGrid}>
-					<div>
-						<h4 className={styles.infoSubtitle}>Linear Gradient</h4>
-						<p className={styles.infoText}>Colors change along a straight line. Use the angle control to set the direction (0° is bottom to top, 90° is left to right).</p>
-					</div>
-					<div>
-						<h4 className={styles.infoSubtitle}>Radial Gradient</h4>
-						<p className={styles.infoText}>Colors spread outward from the center. Choose between circular or elliptical shapes for different effects.</p>
-					</div>
-				</div>
-				<div className={styles.noteBox}>
-					<p>
-						<strong>Tip:</strong> Click on the gradient slider to add color stops. Drag stops to reposition them, or drag outside the slider to remove them.
-					</p>
-				</div>
-			</div> */}
 		</div>
 	);
 }

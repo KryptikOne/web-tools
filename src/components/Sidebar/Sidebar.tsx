@@ -56,13 +56,13 @@ export default function Sidebar() {
 			{mobileMenuOpen && <div className={styles.overlay} onClick={handleCloseMobileMenu} />}
 
 			<aside className={`${styles.sidebar} ${mobileMenuOpen ? styles.sidebarOpen : ""}`}>
-				<div className={styles.sidebarContent}>
-					<Link href="/tools" className={styles.logo}>
-						<WrenchScrewdriverIcon className={styles.logoIcon} />
-						<span className={styles.logoText}>Tools</span>
+				<div className={`h-full flex flex-col overflow-y-auto overflow-x-hidden ${styles.sidebarContent}`}>
+					<Link href="/tools" className={`flex items-center gap-2 px-5 h-16 no-underline ${styles.logo}`}>
+						<WrenchScrewdriverIcon className={`w-7 h-7 shrink-0 ${styles.logoIcon}`} />
+						<span className={`text-xl font-bold whitespace-nowrap ${styles.logoText}`}>Tools</span>
 					</Link>
 
-					<nav className={styles.navigation}>
+					<nav className="flex-1 py-4 overflow-y-auto">
 						{Object.values(CATEGORIES).map((category) => {
 							const tools = getToolsByCategory(category.id);
 							const isExpanded = expandedCategories.has(category.id);
@@ -70,19 +70,19 @@ export default function Sidebar() {
 							if (tools.length === 0) return null;
 
 							return (
-								<div key={category.id} className={styles.categorySection}>
+								<div key={category.id} className="mb-2">
 									{(() => {
 										const CategoryIcon = CATEGORY_ICONS[category.id];
 										return (
-											<button className={styles.categoryHeader} onClick={() => toggleCategory(category.id)}>
-												<CategoryIcon className={styles.categoryIcon} />
-												<span className={styles.categoryName}>{category.name}</span>
+											<button className={`w-full flex items-center gap-2 px-5 py-3 text-sm font-semibold uppercase tracking-wide cursor-pointer ${styles.categoryHeader}`} onClick={() => toggleCategory(category.id)}>
+												<CategoryIcon className={`w-4.5 h-4.5 shrink-0 ${styles.categoryIcon}`} />
+												<span className="flex-1 text-left whitespace-nowrap">{category.name}</span>
 											</button>
 										);
 									})()}
 
 									{isExpanded && (
-										<div className={styles.toolsList}>
+										<div className="flex flex-col gap-0.5 px-2">
 											{tools.map((tool) => {
 												const isActive = pathname === tool.route;
 												return (
@@ -91,11 +91,11 @@ export default function Sidebar() {
 														onClick={tool.implemented ? handleCloseMobileMenu : undefined}
 														key={tool.id}
 														href={tool.implemented ? tool.route : "#"}
-														className={`${styles.toolLink} ${isActive ? styles.active : ""} ${!tool.implemented ? styles.disabled : ""}`}
+														className={`flex items-center justify-between gap-2 px-4 py-3 no-underline text-[0.9rem] relative ${styles.toolLink} ${isActive ? styles.active : ""} ${!tool.implemented ? styles.disabled : ""}`}
 														title={tool.description}
 													>
 														<span
-															className={styles.toolName}
+															className={`flex-1 whitespace-nowrap overflow-hidden text-ellipsis pl-2 ${styles.toolName}`}
 															ref={(el) => {
 																if (el) textRefs.current.set(tool.id, el);
 															}}

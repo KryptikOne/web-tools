@@ -1,11 +1,8 @@
 @use "@/styles/variables" as *;
 
-// Loading skeleton during SSR
+// Loading skeleton during SSR (animation stays in SCSS)
 .skeleton {
-	width: 100%;
-	height: 260px;
 	background: $bg-glass;
-	border-radius: $radius-md;
 	animation: pulse 1.5s ease-in-out infinite;
 }
 
@@ -19,13 +16,7 @@
 	}
 }
 
-// Mobile wrapper
-.mobileWrapper {
-	display: flex;
-	gap: $spacing-sm;
-	align-items: center;
-}
-
+// Native color input (pseudo-elements stay in SCSS)
 .nativeInput {
 	width: 48px;
 	height: 48px;
@@ -50,32 +41,22 @@
 	}
 }
 
-// Desktop panel
-.panel {
-	&.disabled {
-		opacity: 0.6;
+// Desktop panel disabled state
+.disabled {
+	opacity: 0.6;
 
-		.colorCanvas,
-		.hueCanvas {
-			cursor: not-allowed;
-		}
+	.colorCanvas,
+	canvas {
+		cursor: not-allowed;
 	}
 }
 
-.canvasContainer {
-	position: relative;
-	margin-bottom: $spacing-md;
-}
-
+// Canvas aspect ratio
 .colorCanvas {
-	width: 100%;
-	height: auto;
 	aspect-ratio: 280 / 180;
-	border-radius: $radius-md;
-	cursor: crosshair;
-	display: block;
 }
 
+// Canvas cursor indicator (complex box-shadow stays in SCSS)
 .canvasCursor {
 	position: absolute;
 	width: 16px;
@@ -89,19 +70,7 @@
 	pointer-events: none;
 }
 
-.hueContainer {
-	position: relative;
-	margin-bottom: $spacing-md;
-}
-
-.hueCanvas {
-	width: 100%;
-	height: 20px;
-	border-radius: $radius-sm;
-	cursor: crosshair;
-	display: block;
-}
-
+// Hue cursor indicator
 .hueCursor {
 	position: absolute;
 	top: -2px;
@@ -115,30 +84,16 @@
 	pointer-events: none;
 }
 
-.footer {
-	display: flex;
-	align-items: center;
-	gap: $spacing-sm;
-}
-
+// Preview swatch border
 .preview {
-	width: 32px;
-	height: 32px;
-	border-radius: $radius-md;
 	border: 2px solid $border-medium;
-	flex-shrink: 0;
 }
 
+// Hex input (focus states with SCSS variables)
 .hexInput {
-	flex: 1;
-	padding: $spacing-sm;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	color: $text-code;
-	font-family: $font-family-mono;
-	font-size: 14px;
-	text-transform: uppercase;
 
 	&:focus {
 		outline: none;
@@ -152,11 +107,7 @@
 	}
 }
 
+// Hex display text color
 .hexDisplay {
-	flex: 1;
-	padding: $spacing-sm;
 	color: $text-code;
-	font-family: $font-family-mono;
-	font-size: 14px;
-	text-transform: uppercase;
 }

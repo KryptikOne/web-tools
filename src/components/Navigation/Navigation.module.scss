@@ -10,24 +10,7 @@
   z-index: $z-sticky;
 }
 
-.container {
-  max-width: 90rem;
-  margin: 0 auto;
-  padding: 0 $spacing-lg;
-}
-
-.navContent {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 64px;
-}
-
 .logo {
-  display: flex;
-  align-items: center;
-  gap: $spacing-md;
-  text-decoration: none;
   color: $text-primary;
   font-size: 20px;
   font-weight: 600;
@@ -44,38 +27,7 @@
   }
 }
 
-.desktopNav {
-  display: none;
-
-  @media (min-width: 768px) {
-    display: flex;
-    gap: $spacing-sm;
-  }
-}
-
-.mobileMenuButton {
-  display: flex;
-  padding: $spacing-sm;
-  background: none;
-  border: none;
-  color: $text-primary;
-  cursor: pointer;
-  transition: background $transition-base;
-  border-radius: $radius-md;
-
-  &:hover {
-    background: $bg-glass;
-  }
-
-  svg {
-    width: 24px;
-    height: 24px;
-  }
-
-  @media (min-width: 768px) {
-    display: none;
-  }
-}
+.desktopNav {}
 
 .categoryButton {
   position: relative;
@@ -128,15 +80,9 @@
 }
 
 .dropdownItem {
-  display: flex;
-  align-items: flex-start;
-  gap: $spacing-md;
-  padding: $spacing-md;
-  border-radius: $radius-md;
-  text-decoration: none;
   color: $text-primary;
-  transition: background $transition-base;
   cursor: pointer;
+  transition: background $transition-base;
 
   &:hover {
     background: $bg-glass;
@@ -149,14 +95,7 @@
   }
 }
 
-.dropdownItemContent {
-  flex: 1;
-}
-
 .dropdownItemTitle {
-  font-size: 14px;
-  font-weight: 500;
-  margin-bottom: 2px;
   color: $text-primary;
 }
 
@@ -176,6 +115,24 @@
   background: oklch(70% 0.18 145 / 0.2);
   color: $color-success;
   margin-left: $spacing-sm;
+}
+
+.mobileMenuButton {
+  background: none;
+  border: none;
+  color: $text-primary;
+  cursor: pointer;
+  transition: background $transition-base;
+  border-radius: $radius-md;
+
+  &:hover {
+    background: $bg-glass;
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
 }
 
 .mobileMenu {
@@ -200,10 +157,6 @@
   }
 }
 
-.mobileCategory {
-  margin-bottom: $spacing-lg;
-}
-
 .mobileCategoryTitle {
   font-size: 16px;
   font-weight: 600;
@@ -211,10 +164,4 @@
   margin-bottom: $spacing-md;
   padding-bottom: $spacing-sm;
   border-bottom: 1px solid $border-subtle;
-}
-
-.mobileToolsList {
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-sm;
 }

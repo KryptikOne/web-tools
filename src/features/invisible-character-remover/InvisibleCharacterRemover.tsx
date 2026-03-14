@@ -237,21 +237,21 @@ export default function InvisibleCharacterRemover() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.grid}>
+      <div className={`mb-6 ${styles.grid}`}>
         {/* Input Panel */}
         <div className={styles.glassCard}>
-          <div className={styles.cardHeader}>
-            <h3 className={styles.cardTitle}>Input</h3>
-            <div className={styles.buttonGroup}>
+          <div className="flex justify-between items-center mb-4 flex-wrap gap-4">
+            <h3 className={`text-lg font-semibold m-0 ${styles.cardTitle}`}>Input</h3>
+            <div className="flex gap-2 flex-wrap">
               <button
                 onClick={() => setShowInvisible(!showInvisible)}
-                className={`${styles.btnSecondary} ${showInvisible ? styles.active : ""}`}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium ${styles.btnSecondary} ${showInvisible ? styles.active : ""}`}
                 title="Toggle visibility of invisible characters"
               >
                 {showInvisible ? <EyeIcon className={styles.copyIcon} /> : <EyeSlashIcon className={styles.copyIcon} />}
                 {showInvisible ? "Showing" : "Show"}
               </button>
-              <label className={styles.btnSecondary}>
+              <label className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium ${styles.btnSecondary}`}>
                 <ArrowUpTrayIcon className={styles.copyIcon} />
                 Upload
                 <input
@@ -261,7 +261,7 @@ export default function InvisibleCharacterRemover() {
                   onChange={handleFileUpload}
                 />
               </label>
-              <button onClick={handleClear} className={styles.btnSecondary}>
+              <button onClick={handleClear} className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium ${styles.btnSecondary}`}>
                 <TrashIcon className={styles.copyIcon} />
                 Clear
               </button>
@@ -277,7 +277,7 @@ export default function InvisibleCharacterRemover() {
             spellCheck={false}
           />
 
-          <div className={styles.cardFooter}>
+          <div className={`flex justify-between items-center mt-3 text-xs ${styles.cardFooter}`}>
             <span>Characters: {inputText.length}</span>
             {showInvisible && stats.removed > 0 && (
               <span className={styles.warningText}>
@@ -289,13 +289,13 @@ export default function InvisibleCharacterRemover() {
 
         {/* Output Panel */}
         <div className={styles.glassCard}>
-          <div className={styles.cardHeader}>
-            <h3 className={styles.cardTitle}>Cleaned Output</h3>
-            <div className={styles.buttonGroup}>
+          <div className="flex justify-between items-center mb-4 flex-wrap gap-4">
+            <h3 className={`text-lg font-semibold m-0 ${styles.cardTitle}`}>Cleaned Output</h3>
+            <div className="flex gap-2 flex-wrap">
               <button
                 onClick={handleCopy}
                 disabled={!outputText}
-                className={styles.btnPrimary}
+                className={`px-4 py-2 text-sm ${styles.btnPrimary}`}
               >
                 {copied ? (
                   <>
@@ -312,7 +312,7 @@ export default function InvisibleCharacterRemover() {
               <button
                 onClick={handleDownload}
                 disabled={!outputText}
-                className={styles.btnSecondary}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium ${styles.btnSecondary}`}
               >
                 <ArrowDownTrayIcon className={styles.copyIcon} />
                 Download
@@ -328,7 +328,7 @@ export default function InvisibleCharacterRemover() {
             spellCheck={false}
           />
 
-          <div className={styles.cardFooter}>
+          <div className={`flex justify-between items-center mt-3 text-xs ${styles.cardFooter}`}>
             <span>Characters: {outputText.length}</span>
           </div>
         </div>
@@ -338,17 +338,17 @@ export default function InvisibleCharacterRemover() {
       {/* Preview Panel - Shows highlighted invisible characters */}
       {showInvisible && stats.removed > 0 && highlightedText && (
         <div className={`${styles.glassCard} ${styles.previewCard}`}>
-          <div className={styles.cardHeader}>
-            <h3 className={styles.cardTitle}>📍 Invisible Characters Preview</h3>
+          <div className="flex justify-between items-center mb-4 flex-wrap gap-4">
+            <h3 className={`text-lg font-semibold m-0 ${styles.cardTitle}`}>📍 Invisible Characters Preview</h3>
             <span className={styles.warningText}>
               {stats.removed} invisible character{stats.removed !== 1 ? "s" : ""} highlighted below
             </span>
           </div>
-          <p className={styles.hint}>
+          <p className={`mb-4 text-sm ${styles.hint}`}>
             Red tags show the location and type of invisible characters in your input text. Hover over them for details.
           </p>
           <div
-            className={styles.preview}
+            className={`p-4 text-sm ${styles.preview}`}
             dangerouslySetInnerHTML={{ __html: highlightedText }}
           />
         </div>
@@ -356,39 +356,39 @@ export default function InvisibleCharacterRemover() {
 
       {/* Stats Card */}
       {stats.removed > 0 && (
-        <div className={styles.statsCard}>
-          <div className={styles.statsContent}>
+        <div className={`rounded-2xl p-6 mb-6 ${styles.statsCard}`}>
+          <div className="flex justify-between items-start gap-6">
             <div>
-              <h3 className={styles.statsTitle}>
+              <h3 className={`text-base font-semibold m-0 mb-3 ${styles.statsTitle}`}>
                 Removed {stats.removed} invisible character{stats.removed !== 1 ? "s" : ""}
               </h3>
-              <div className={styles.statsList}>
+              <div className="flex flex-col gap-2">
                 {Object.entries(stats.categories).map(([name, count]) => (
-                  <div key={name} className={styles.statItem}>
-                    <span className={styles.statCount}>{count}×</span> {name}
+                  <div key={name} className={`text-sm ${styles.statItem}`}>
+                    <span className={`font-semibold ${styles.statCount}`}>{count}×</span> {name}
                   </div>
                 ))}
               </div>
             </div>
-            <div className={styles.statsIcon}>🧹</div>
+            <div className="text-4xl">🧹</div>
           </div>
         </div>
       )}
 
       {/* Info Section */}
       <div className={styles.glassCard}>
-        <h3 className={styles.infoTitle}>What gets removed?</h3>
+        <h3 className={`text-lg font-semibold m-0 mb-4 ${styles.infoTitle}`}>What gets removed?</h3>
 
-        <div className={styles.infoBox}>
+        <div className={`p-4 rounded-lg mb-6 ${styles.infoBox}`}>
           <p>
             <strong>💡 Visual Mode:</strong> Click the &quot;Showing Invisible&quot; button to see invisible characters
             highlighted in red tags like <span className={styles.exampleTag}>[Zero]</span> in the preview panel below. Hover over them to see their full names!
           </p>
         </div>
 
-        <div className={styles.infoGrid}>
+        <div className={`grid grid-cols-1 md:grid-cols-3 gap-6 mb-6 ${styles.infoGrid}`}>
           <div>
-            <h4 className={styles.infoSubtitle}>Zero-Width Characters</h4>
+            <h4 className={`text-base font-semibold m-0 mb-3 ${styles.infoSubtitle}`}>Zero-Width Characters</h4>
             <ul className={styles.infoList}>
               <li>Zero Width Space</li>
               <li>Zero Width Non-Joiner</li>
@@ -397,7 +397,7 @@ export default function InvisibleCharacterRemover() {
             </ul>
           </div>
           <div>
-            <h4 className={styles.infoSubtitle}>Directional Marks</h4>
+            <h4 className={`text-base font-semibold m-0 mb-3 ${styles.infoSubtitle}`}>Directional Marks</h4>
             <ul className={styles.infoList}>
               <li>Left-to-Right Mark</li>
               <li>Right-to-Left Mark</li>
@@ -406,7 +406,7 @@ export default function InvisibleCharacterRemover() {
             </ul>
           </div>
           <div>
-            <h4 className={styles.infoSubtitle}>Other Characters</h4>
+            <h4 className={`text-base font-semibold m-0 mb-3 ${styles.infoSubtitle}`}>Other Characters</h4>
             <ul className={styles.infoList}>
               <li>Soft Hyphen</li>
               <li>Control Characters</li>
@@ -416,7 +416,7 @@ export default function InvisibleCharacterRemover() {
           </div>
         </div>
 
-        <div className={styles.noteBox}>
+        <div className={`p-4 rounded-lg ${styles.noteBox}`}>
           <p>
             <strong>Note:</strong> This tool preserves normal whitespace like spaces, tabs, and newlines.
             It only removes invisible Unicode characters that can cause issues in code or text processing.

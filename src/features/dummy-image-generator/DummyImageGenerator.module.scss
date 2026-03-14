@@ -7,23 +7,15 @@
   @extend .container-wide;
   display: grid;
   grid-template-columns: 450px 1fr;
-  gap: 1.5rem;
 
   @media (max-width: 1200px) {
     grid-template-columns: 1fr;
   }
 }
 
-.settingsPanel {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
+.settingsPanel {}
 
-.previewPanel {
-  display: flex;
-  flex-direction: column;
-}
+.previewPanel {}
 
 // Shared Utilities
 .glassCard {
@@ -47,46 +39,27 @@
 }
 
 // Size Presets
-.presetsGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.75rem;
-}
+.presetsGrid {}
 
 .presetBtn {
   @include btn-preset;
 }
 
 // Custom Dimensions
-.dimensionsGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
+.dimensionsGrid {}
 
 .inputGroup {
   margin-bottom: 0;
 }
 
 .inputHint {
-  font-size: 0.75rem;
   color: $text-muted;
-  font-weight: 400;
-  margin-left: 0.5rem;
 }
 
 // Colors
-.colorsGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-}
+.colorsGrid {}
 
-.colorInputWrapper {
-  display: flex;
-  gap: 0.75rem;
-  align-items: center;
-}
+.colorInputWrapper {}
 
 .colorInput {
   @extend .color-input;
@@ -95,13 +68,10 @@
 }
 
 .colorTextInput {
-  flex: 1;
   padding: 0.75rem 1rem;
   background: $input-bg;
   border: 1px solid $input-border;
-  border-radius: 0.5rem;
   color: $text-primary;
-  font-size: 0.875rem;
   font-family: $font-family-mono;
   text-transform: uppercase;
   transition: all 0.2s ease;
@@ -114,11 +84,7 @@
 }
 
 // Format Buttons
-.formatButtons {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.5rem;
-}
+.formatButtons {}
 
 .formatBtn {
   @include btn-preset;
@@ -126,20 +92,13 @@
 
 // Preview
 .previewHeader {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 1.5rem;
-  gap: 1rem;
-
   @media (max-width: 600px) {
     flex-direction: column;
   }
 }
 
 .previewInfo {
-  margin: 0.25rem 0 0 0;
-  font-size: 0.875rem;
+  margin: 0;
   color: $text-muted;
   font-family: $font-family-mono;
 }
@@ -147,24 +106,15 @@
 .downloadBtn {
   @include btn-primary;
   padding: 0.75rem 1.5rem;
-  white-space: nowrap;
 }
 
-.downloadIcon {
-  width: 1.25rem;
-  height: 1.25rem;
-}
+.downloadIcon {}
 
 .previewContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   min-height: 400px;
   padding: 2rem;
   background: $input-bg;
-  border-radius: 0.75rem;
   border: 2px dashed $border-subtle;
-  margin-bottom: 1.5rem;
 
   @media (max-width: 768px) {
     min-height: 300px;
@@ -173,28 +123,18 @@
 }
 
 .previewCanvas {
-  max-width: 100%;
   max-height: 600px;
-  border-radius: 0.5rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   image-rendering: crisp-edges;
 }
 
 .infoBox {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  padding: 1rem;
   background: $input-bg;
-  border-radius: 0.5rem;
   border: 1px solid $border-subtle;
 }
 
 .infoIcon {
-  width: 1.5rem;
-  height: 1.5rem;
   color: $color-accent;
-  flex-shrink: 0;
   margin-top: 0.125rem;
 }
 

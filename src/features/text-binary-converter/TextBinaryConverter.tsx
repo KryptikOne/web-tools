@@ -153,17 +153,17 @@ export default function TextBinaryConverter() {
 	return (
 		<div className={styles.container}>
 			{/* Options Bar */}
-			<div className={styles.optionsBar}>
-				<div className={styles.optionGroup}>
-					<label className={styles.optionLabel}>Encoding</label>
+			<div className={`flex flex-wrap items-center gap-6 px-6 py-4 mb-6 ${styles.optionsBar}`}>
+				<div className={`flex items-center gap-2 ${styles.optionGroup}`}>
+					<label className={`text-sm font-medium whitespace-nowrap ${styles.optionLabel}`}>Encoding</label>
 					<select value={encoding} onChange={(e) => setEncoding(e.target.value as Encoding)} className={styles.select}>
 						<option value="ascii">ASCII</option>
 						<option value="utf8">UTF-8</option>
 					</select>
 				</div>
 
-				<div className={styles.optionGroup}>
-					<label className={styles.optionLabel}>Delimiter</label>
+				<div className={`flex items-center gap-2 ${styles.optionGroup}`}>
+					<label className={`text-sm font-medium whitespace-nowrap ${styles.optionLabel}`}>Delimiter</label>
 					<select value={delimiter} onChange={(e) => setDelimiter(e.target.value as Delimiter)} className={styles.select}>
 						<option value="space">Space</option>
 						<option value="comma">Comma</option>
@@ -171,23 +171,23 @@ export default function TextBinaryConverter() {
 					</select>
 				</div>
 
-				<div className={styles.optionGroup}>
-					<label className={styles.checkboxLabel}>
-						<input type="checkbox" checked={padBytes} onChange={(e) => setPadBytes(e.target.checked)} className={styles.checkbox} />
+				<div className={`flex items-center gap-2 ${styles.optionGroup}`}>
+					<label className={`flex items-center gap-2 text-sm font-medium cursor-pointer ${styles.checkboxLabel}`}>
+						<input type="checkbox" checked={padBytes} onChange={(e) => setPadBytes(e.target.checked)} className={`w-4 h-4 cursor-pointer ${styles.checkbox}`} />
 						8-bit padding
 					</label>
 				</div>
 			</div>
 
 			{/* Converter Grid */}
-			<div className={styles.grid}>
+			<div className={`grid gap-4 mb-6 items-start ${styles.grid}`}>
 				{/* Input Panel */}
 				<div className={styles.glassCard}>
-					<div className={styles.cardHeader}>
-						<h3 className={styles.cardTitle}>{mode === "text-to-binary" ? "Text Input" : "Binary Input"}</h3>
-						<div className={styles.buttonGroup}>
+					<div className={`flex justify-between items-center mb-4 flex-wrap gap-4 ${styles.cardHeader}`}>
+						<h3 className={`text-lg font-semibold m-0 ${styles.cardTitle}`}>{mode === "text-to-binary" ? "Text Input" : "Binary Input"}</h3>
+						<div className={`flex flex-wrap gap-2 ${styles.buttonGroup}`}>
 							<button onClick={handleClear} className={styles.btnSecondary} disabled={!inputText}>
-								<TrashIcon className={styles.btnIcon} />
+								<TrashIcon className={`w-4 h-4 ${styles.btnIcon}`} />
 								Clear
 							</button>
 						</div>
@@ -201,7 +201,7 @@ export default function TextBinaryConverter() {
 						spellCheck={false}
 					/>
 
-					<div className={styles.cardFooter}>
+					<div className={`flex justify-between items-center mt-3 text-xs ${styles.cardFooter}`}>
 						<span>
 							{mode === "text-to-binary" ? `${stats.charCount} characters` : `${stats.byteCount} bytes`}
 						</span>
@@ -209,17 +209,17 @@ export default function TextBinaryConverter() {
 				</div>
 
 				{/* Swap Button */}
-				<div className={styles.swapContainer}>
-					<button onClick={handleSwap} className={styles.swapButton} title="Swap conversion direction">
-						<ArrowsRightLeftIcon className={styles.swapIcon} />
+				<div className={`flex items-center justify-center py-4 ${styles.swapContainer}`}>
+					<button onClick={handleSwap} className={`flex items-center justify-center p-3 ${styles.swapButton}`} title="Swap conversion direction">
+						<ArrowsRightLeftIcon className={`w-6 h-6 ${styles.swapIcon}`} />
 					</button>
 				</div>
 
 				{/* Output Panel */}
 				<div className={styles.glassCard}>
-					<div className={styles.cardHeader}>
-						<h3 className={styles.cardTitle}>{mode === "text-to-binary" ? "Binary Output" : "Text Output"}</h3>
-						<div className={styles.buttonGroup}>
+					<div className={`flex justify-between items-center mb-4 flex-wrap gap-4 ${styles.cardHeader}`}>
+						<h3 className={`text-lg font-semibold m-0 ${styles.cardTitle}`}>{mode === "text-to-binary" ? "Binary Output" : "Text Output"}</h3>
+						<div className={`flex flex-wrap gap-2 ${styles.buttonGroup}`}>
 							<button
 								onClick={() => handleCopy(outputText, "output")}
 								className={`${styles.btnPrimary} ${copiedField === "output" ? styles.copied : ""}`}
@@ -227,12 +227,12 @@ export default function TextBinaryConverter() {
 							>
 								{copiedField === "output" ? (
 									<>
-										<CheckIcon className={styles.btnIcon} />
+										<CheckIcon className={`w-4 h-4 ${styles.btnIcon}`} />
 										Copied!
 									</>
 								) : (
 									<>
-										<ClipboardDocumentIcon className={styles.btnIcon} />
+										<ClipboardDocumentIcon className={`w-4 h-4 ${styles.btnIcon}`} />
 										Copy
 									</>
 								)}
@@ -242,7 +242,7 @@ export default function TextBinaryConverter() {
 
 					<textarea value={outputText} readOnly placeholder="Output will appear here..." className={`${styles.textarea} ${styles.readOnly}`} spellCheck={false} />
 
-					<div className={styles.cardFooter}>
+					<div className={`flex justify-between items-center mt-3 text-xs ${styles.cardFooter}`}>
 						<span>
 							{mode === "text-to-binary" ? `${stats.byteCount} bytes` : `${stats.charCount} characters`}
 						</span>
@@ -252,24 +252,24 @@ export default function TextBinaryConverter() {
 
 			{/* Info Section */}
 			<div className={styles.glassCard}>
-				<h3 className={styles.infoTitle}>About Binary Encoding</h3>
+				<h3 className={`text-lg font-semibold mb-4 m-0 ${styles.infoTitle}`}>About Binary Encoding</h3>
 
-				<div className={styles.infoGrid}>
+				<div className={`grid grid-cols-2 gap-6 ${styles.infoGrid}`}>
 					<div>
-						<h4 className={styles.infoSubtitle}>What is Binary?</h4>
-						<p className={styles.infoText}>
+						<h4 className={`font-semibold mb-2 m-0 ${styles.infoSubtitle}`}>What is Binary?</h4>
+						<p className={`text-sm leading-relaxed m-0 ${styles.infoText}`}>
 							Binary is the fundamental language of computers, using only two digits: 0 and 1. Each character in text is represented by a sequence of these bits, typically 8 bits (1 byte) for ASCII characters.
 						</p>
 					</div>
 					<div>
-						<h4 className={styles.infoSubtitle}>ASCII vs UTF-8</h4>
-						<p className={styles.infoText}>
+						<h4 className={`font-semibold mb-2 m-0 ${styles.infoSubtitle}`}>ASCII vs UTF-8</h4>
+						<p className={`text-sm leading-relaxed m-0 ${styles.infoText}`}>
 							ASCII uses 7 bits to represent 128 characters (English letters, digits, symbols). UTF-8 extends this to support all Unicode characters, using 1-4 bytes per character for international text and emojis.
 						</p>
 					</div>
 					<div>
-						<h4 className={styles.infoSubtitle}>Common Use Cases</h4>
-						<ul className={styles.infoList}>
+						<h4 className={`font-semibold mb-2 m-0 ${styles.infoSubtitle}`}>Common Use Cases</h4>
+						<ul className={`list-disc pl-5 m-0 ${styles.infoList}`}>
 							<li>Learning how computers store data</li>
 							<li>Debugging and data analysis</li>
 							<li>Encoding messages for fun</li>
@@ -277,13 +277,13 @@ export default function TextBinaryConverter() {
 						</ul>
 					</div>
 					<div>
-						<h4 className={styles.infoSubtitle}>Example</h4>
-						<p className={styles.infoText}>
+						<h4 className={`font-semibold mb-2 m-0 ${styles.infoSubtitle}`}>Example</h4>
+						<p className={`text-sm leading-relaxed m-0 ${styles.infoText}`}>
 							The word &quot;Hi&quot; in binary:
 							<br />
-							<code className={styles.codeExample}>H = 01001000</code>
+							<code className={`inline-block mt-1 ${styles.codeExample}`}>H = 01001000</code>
 							<br />
-							<code className={styles.codeExample}>i = 01101001</code>
+							<code className={`inline-block mt-1 ${styles.codeExample}`}>i = 01101001</code>
 						</p>
 					</div>
 				</div>
