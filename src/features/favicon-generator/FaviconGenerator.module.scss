@@ -1,0 +1,213 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+@use '@/styles/utilities' as util;
+
+// Layout
+.container {
+  @extend .container-wide;
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 1.5rem;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Shared Utilities
+.glassCard {
+  @extend .glass-card;
+}
+
+.sectionTitle {
+  @extend .section-title;
+}
+
+.inputLabel {
+  @extend .input-label;
+}
+
+.infoText {
+  @extend .info-text;
+}
+
+// Upload Zone
+.dropZone {
+  border: 2px dashed $border-medium;
+  background: $input-bg;
+  border-radius: $radius-lg;
+  cursor: pointer;
+  transition: all $transition-base;
+
+  &:hover,
+  &.dragOver {
+    border-color: $color-accent;
+    background: $bg-glass-hover;
+  }
+}
+
+.dropZoneIcon {
+  color: $text-muted;
+}
+
+.dropZoneText {
+  color: $text-secondary;
+}
+
+.dropZoneSub {
+  color: $text-muted;
+}
+
+// Source Preview
+.sourcePreview {
+  border: 1px solid $border-subtle;
+  border-radius: $radius-md;
+  overflow: hidden;
+
+  img {
+    max-height: 200px;
+    object-fit: contain;
+    image-rendering: auto;
+  }
+}
+
+.checkerboard {
+  @include checkerboard-bg;
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+}
+
+// Warning
+.warningBox {
+  background: rgba(234, 179, 8, 0.1);
+  border: 1px solid rgba(234, 179, 8, 0.3);
+  border-radius: $radius-md;
+  color: $text-secondary;
+
+  svg {
+    color: $color-warning;
+    flex-shrink: 0;
+  }
+}
+
+// Options
+.colorInputWrapper {}
+
+.colorTextInput {
+  padding: 0.75rem 1rem;
+  background: $input-bg;
+  border: 1px solid $input-border;
+  color: $text-primary;
+  font-family: $font-family-mono;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: $input-border-focus;
+    background: $input-bg-focus;
+  }
+}
+
+.slider {
+  @extend .slider;
+}
+
+.sliderValue {
+  font-family: $font-family-mono;
+  color: $text-primary;
+}
+
+// Buttons
+.generateBtn {
+  @include btn-primary;
+  padding: 0.75rem 1.5rem;
+  width: 100%;
+  font-weight: 600;
+}
+
+.downloadBtn {
+  @include btn-primary;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+}
+
+.downloadAllBtn {
+  @include btn-primary;
+  padding: 0.75rem 1.5rem;
+}
+
+.resetBtn {
+  @include btn-preset;
+  padding: 0.75rem 1rem;
+}
+
+// Favicon Grid
+.faviconGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+}
+
+.faviconCard {
+  background: $input-bg;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-md;
+  transition: all $transition-base;
+  overflow: hidden;
+
+  &:hover {
+    border-color: $border-medium;
+  }
+}
+
+.faviconPreview {
+  @include checkerboard-bg;
+  background-size: 12px 12px;
+  background-position: 0 0, 0 6px, 6px -6px, -6px 0px;
+  min-height: 80px;
+
+  img, canvas {
+    image-rendering: auto;
+  }
+}
+
+.faviconLabel {
+  font-family: $font-family-mono;
+  color: $text-primary;
+}
+
+.faviconSublabel {
+  color: $text-muted;
+}
+
+// Code Snippet
+.codeBlock {
+  background: $input-bg;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-md;
+  font-family: $font-family-mono;
+  font-size: 0.8rem;
+  color: $text-code;
+  overflow-x: auto;
+  @include custom-scrollbar;
+}
+
+.copyBtn {
+  @extend .copy-btn;
+}
+
+// Info
+.infoBox {
+  background: $input-bg;
+  border: 1px solid $border-subtle;
+}
+
+.infoIcon {
+  color: $color-accent;
+  margin-top: 0.125rem;
+}

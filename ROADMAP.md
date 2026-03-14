@@ -18,6 +18,16 @@ A collection of utility tools, converters, and generators planned for developmen
 ### Image & Visual
 
 - [x] **Dummy Image Generator** - Generate placeholder images with custom dimensions and colors
+- [x] **Image Resizer** - Resize images to specific dimensions with format conversion and quality control
+- [x] **Image Color Extractor** - Extract dominant colors from uploaded images with eyedropper and palette export
+- [x] **Image Format Converter** - Convert images between PNG, JPEG, and WebP formats in the browser
+- [x] **Image Compressor** - Compress images to reduce file size with quality and format options
+- [x] **Base64 Image Encoder** - Convert images to Base64 strings or decode Base64 to preview images
+- [x] **QR Code Generator** - Generate QR codes from URLs, text, WiFi credentials, contacts, and more
+- [x] **Screenshot Beautifier** - Add beautiful backgrounds, padding, shadows, and rounded corners to screenshots
+- [x] **QR Code Reader** - Upload an image to scan and decode QR codes with auto-detected content types
+- [x] **SVG Optimizer** - Optimize and minify SVG files with configurable options
+- [x] **Favicon Generator** - Upload an image and generate favicons in all standard sizes
 
 ### Text & Data
 
@@ -64,22 +74,22 @@ A collection of utility tools, converters, and generators planned for developmen
 - [ ] **CSS Filter Generator** - Generate CSS filter effects
 - [ ] **Background Pattern Generator** - Create CSS background patterns
 - [ ] **Color Blindness Simulator** - Preview designs for different types of color blindness
-- [ ] **Color Palette from Image** - Extract color palettes from uploaded images
+- [x] **Color Palette from Image** - Extract color palettes from uploaded images (see Image Color Extractor)
 - [ ] **SVG Pattern Generator** - Create repeating SVG patterns for backgrounds
 - [ ] **Icon Generator** - Generate simple icons and favicons
 
 ### Image & Visual
 
-- [ ] **Image Resizer** - Resize images to specific dimensions
-- [ ] **Image Format Converter** - Convert images between formats (PNG, JPG, WebP)
-- [ ] **Image Compressor** - Compress images to reduce file size
-- [ ] **Base64 Image Encoder** - Convert images to Base64 strings
-- [ ] **QR Code Generator** - Generate QR codes from text or URLs
-- [ ] **QR Code Reader** - Scan and decode QR codes
-- [ ] **Favicon Generator** - Generate favicons from images
-- [ ] **Screenshot Beautifier** - Add backgrounds and frames to screenshots
-- [ ] **SVG Optimizer** - Optimize and minify SVG files
-- [ ] **Image Color Extractor** - Extract dominant colors from images
+- [x] **Image Resizer** - Resize images to specific dimensions
+- [x] **Image Format Converter** - Convert images between formats (PNG, JPG, WebP)
+- [x] **Image Compressor** - Compress images to reduce file size
+- [x] **Base64 Image Encoder** - Convert images to Base64 strings
+- [x] **QR Code Generator** - Generate QR codes from text or URLs
+- [x] **QR Code Reader** - Scan and decode QR codes
+- [x] **Favicon Generator** - Generate favicons from images
+- [x] **Screenshot Beautifier** - Add backgrounds and frames to screenshots
+- [x] **SVG Optimizer** - Optimize and minify SVG files
+- [x] **Image Color Extractor** - Extract dominant colors from images
 
 ### Code & Web Development
 

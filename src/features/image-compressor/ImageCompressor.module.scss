@@ -1,0 +1,221 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+@use '@/styles/utilities' as util;
+
+// Layout
+.container {
+  @extend .container-wide;
+  display: grid;
+  grid-template-columns: 380px 1fr;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Shared Utilities
+.glassCard {
+  @extend .glass-card;
+}
+
+.sectionTitle {
+  @extend .section-title;
+}
+
+.inputLabel {
+  @extend .input-label;
+}
+
+.input {
+  @extend .input-field;
+}
+
+.slider {
+  @extend .slider;
+}
+
+// Drop Zone
+.dropZone {
+  padding: 2.5rem 1.5rem;
+  border: 2px dashed $border-subtle;
+  background: $input-bg;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: $border-medium;
+    background: $input-bg-focus;
+  }
+}
+
+.dropZoneActive {
+  border-color: $color-accent;
+  background: $input-bg-focus;
+
+  .dropIcon {
+    color: $color-accent;
+  }
+}
+
+.dropIcon {
+  color: $text-muted;
+  transition: color 0.2s ease;
+}
+
+.dropText {
+  color: $text-primary;
+}
+
+.dropHint {
+  color: $text-muted;
+}
+
+// Slider Value
+.sliderValue {
+  color: $text-primary;
+}
+
+// Hint Text
+.hintText {
+  color: $text-muted;
+}
+
+// Format Buttons
+.formatBtn {
+  @include btn-preset;
+}
+
+// Action Buttons
+.actionBtn {
+  @include btn-primary;
+  justify-content: center;
+}
+
+.clearBtn {
+  @include btn-primary;
+  justify-content: center;
+  color: $text-muted;
+
+  &:hover:not(:disabled) {
+    color: $color-error;
+    border-color: $color-error;
+  }
+}
+
+// Stats
+.statLabel {
+  color: $text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.statValue {
+  color: $text-primary;
+}
+
+.savingsValue {
+  color: $color-success;
+}
+
+.negativeValue {
+  color: $color-warning;
+}
+
+// Progress Bar
+.progressTrack {
+  height: 6px;
+  background: $input-bg;
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 100%;
+  background: $color-accent;
+  transition: width 0.3s ease;
+}
+
+// Image Row
+.imageRow {
+  @media (max-width: 500px) {
+    flex-direction: column;
+  }
+}
+
+.thumbnail {
+  width: 80px;
+  height: 80px;
+  background: $input-bg;
+  border: 1px solid $border-subtle;
+
+  @media (max-width: 500px) {
+    width: 100%;
+    height: 160px;
+  }
+}
+
+.fileName {
+  color: $text-primary;
+}
+
+.metaRow {
+  color: $text-muted;
+}
+
+// Icon Buttons
+.iconBtn {
+  padding: 0.375rem;
+  background: transparent;
+  border: none;
+  color: $text-muted;
+  cursor: pointer;
+  border-radius: $radius-sm;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    color: $text-primary;
+    background: $bg-glass-hover;
+  }
+}
+
+// Spinner
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid $border-subtle;
+  border-top-color: $color-accent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Empty State
+.emptyIcon {
+  color: $text-muted;
+  opacity: 0.5;
+}
+
+.emptyTitle {
+  color: $text-secondary;
+}
+
+// Info Box
+.infoBox {
+  background: $input-bg;
+  border: 1px solid $border-subtle;
+}
+
+.infoIcon {
+  color: $color-accent;
+  margin-top: 0.125rem;
+}
+
+.infoText {
+  @extend .info-text;
+}

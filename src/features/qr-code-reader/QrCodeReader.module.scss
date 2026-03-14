@@ -1,0 +1,194 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+@use '@/styles/utilities' as util;
+
+// Layout
+.container {
+  @extend .container;
+}
+
+.glassCard {
+  @extend .glass-card;
+}
+
+.sectionTitle {
+  @extend .section-title;
+}
+
+.inputLabel {
+  @extend .input-label;
+}
+
+.infoText {
+  @extend .info-text;
+}
+
+// Drop Zone
+.dropZone {
+  border: 2px dashed $border-medium;
+  background: $input-bg;
+  border-radius: $radius-lg;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+
+  &:hover {
+    border-color: $color-accent;
+    background: $input-bg-focus;
+  }
+}
+
+.dropZoneActive {
+  border-color: $color-accent;
+  background: $input-bg-focus;
+  box-shadow: 0 0 0 4px $color-accent-20;
+}
+
+.dropZoneHasImage {
+  border-style: solid;
+  border-color: $border-subtle;
+}
+
+.dropIcon {
+  color: $text-muted;
+}
+
+.dropText {
+  color: $text-secondary;
+}
+
+.dropHint {
+  color: $text-muted;
+}
+
+.browseLink {
+  color: $color-accent;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+// Image preview with QR overlay
+.imagePreviewWrapper {
+  position: relative;
+  max-height: 500px;
+  overflow: hidden;
+}
+
+.previewImage {
+  max-height: 500px;
+  object-fit: contain;
+  border-radius: $radius-md;
+}
+
+.qrOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+// Result section
+.resultCard {
+  background: $input-bg;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-md;
+}
+
+.resultContent {
+  background: $bg-glass;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-md;
+  word-break: break-all;
+  font-family: $font-family-mono;
+  color: $text-primary;
+}
+
+.resultLink {
+  color: $color-accent;
+  text-decoration: underline;
+  word-break: break-all;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.contentTypeBadge {
+  background: $color-accent-20;
+  color: $color-accent;
+  border-radius: $radius-sm;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+// Buttons
+.copyBtn {
+  @include btn-primary;
+}
+
+.openBtn {
+  @include btn-primary;
+}
+
+.clearBtn {
+  @include btn-primary;
+  color: $text-muted;
+
+  &:hover:not(:disabled) {
+    color: $text-primary;
+  }
+}
+
+// WiFi parsed view
+.wifiGrid {
+  background: $bg-glass;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-md;
+}
+
+.wifiLabel {
+  color: $text-muted;
+  font-weight: 500;
+}
+
+.wifiValue {
+  color: $text-primary;
+  font-family: $font-family-mono;
+}
+
+// Error state
+.errorCard {
+  background: oklch(65% 0.2 25 / 0.1);
+  border: 1px solid oklch(65% 0.2 25 / 0.3);
+  border-radius: $radius-md;
+}
+
+.errorIcon {
+  color: $color-error;
+}
+
+.errorText {
+  color: $color-error;
+}
+
+// Info box
+.infoBox {
+  background: $input-bg;
+  border: 1px solid $border-subtle;
+}
+
+.infoIcon {
+  color: $color-accent;
+  margin-top: 0.125rem;
+}
+
+// Success indicator
+.successIcon {
+  color: $color-success;
+}

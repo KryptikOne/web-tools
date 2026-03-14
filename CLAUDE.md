@@ -92,7 +92,7 @@ When creating a new tool, **always complete all of these steps**:
 5. **Update ROADMAP.md**:
    - Add the tool to "Existing Tools (Implemented)" under the appropriate category
    - If the tool was listed in "Planned Tools", mark it as `[x]` or move it to the implemented section
-6. **Run `npm run build`** to verify everything compiles correctly
+6. **Run `pnpm run build`** to verify everything compiles correctly
 
 ---
 
@@ -172,88 +172,23 @@ When creating new utilities:
 
 ---
 
-## Pending Migration: Tailwind + SCSS Hybrid
+## Package Manager
 
-The codebase needs to be migrated to the hybrid Tailwind + SCSS approach. This should be done in phases to manage scope.
+**Always use `pnpm`** — never `npm` or `yarn`.
 
-### Migration Phases
+- Install: `pnpm install` / `pnpm add <package>`
+- Build: `pnpm run build`
+- Dev: `pnpm run dev`
 
-**Phase 1: Core Components** (do first)
+---
 
-- `src/components/ColorPickerPanel/`
-- `src/components/ColorPickerPopover/`
-- `src/components/Navigation/`
-- `src/components/Sidebar/`
+## Sub-Agent Workflow (Batch Tool Creation)
 
-**Phase 2: Text/Data Tools**
+When creating multiple tools in parallel using sub-agents:
 
-- `src/features/text-binary-converter/`
-- `src/features/invisible-character-remover/`
-- `src/features/html-entities/`
-- `src/features/epoch-converter/`
+1. **Sub-agents create files only** — feature component, SCSS module, route page
+2. **Sub-agents do NOT run builds** — concurrent builds corrupt the `.next` directory
+3. **After all agents complete**, run one consolidated build: `rm -rf .next && pnpm run build`
+4. **Registry updates and ROADMAP updates** should be done by the main agent, not sub-agents
 
-**Phase 3: Design Tools**
-
-- `src/features/color-picker/`
-- `src/features/palette-generator/`
-- `src/features/gradient-generator/`
-- `src/features/box-shadow-generator/`
-- `src/features/border-radius-generator/`
-
-**Phase 4: Utility Tools**
-
-- `src/features/px-rem-calculator/`
-- `src/features/cubic-bezier/`
-- `src/features/timezone-converter/`
-- `src/features/kitchen-converter/`
-- `src/features/dice-roller/`
-- `src/features/dummy-image-generator/`
-
-### Per-File Migration Process
-
-For each feature/component:
-
-1. **Read the SCSS file** - Identify styles that Tailwind can replace:
-    - `display: flex/grid` → `flex`, `grid`
-    - `gap: *` → `gap-*`
-    - `padding: *` → `p-*`, `px-*`, `py-*`
-    - `margin: *` → `m-*`, `mx-*`, `my-*`
-    - `border-radius: *` → `rounded-*`
-    - `font-size: *` → `text-*`
-    - `font-weight: *` → `font-*`
-    - `text-align: *` → `text-left/center/right`
-    - `width/height: 100%` → `w-full`, `h-full`
-
-2. **Read the TSX file** - Note current className usage
-
-3. **Edit the TSX file** - Add Tailwind classes alongside existing SCSS module classes:
-
-    ```tsx
-    // Before
-    <div className={styles.container}>
-
-    // After
-    <div className={`flex flex-col gap-6 ${styles.container}`}>
-    ```
-
-4. **Edit the SCSS file** - Remove properties now handled by Tailwind
-
-5. **Verify** - Run `npm run build` to ensure no breakage
-
-### What to Keep in SCSS
-
-- `@extend .glass-card` and other utility extensions
-- Complex `&:hover` states with multiple properties
-- Animations and keyframes
-- `::before`, `::after` pseudo-elements
-- Styles using SCSS variables (`$color-accent`, etc.)
-- Media queries with custom breakpoints
-
-### Resume Instructions
-
-When starting a new session to continue migration:
-
-1. Check git status to see which files have been modified
-2. Ask user which phase to work on
-3. Process one feature at a time, committing after each
-4. Run build after each file to catch errors early
+This prevents `.next` directory corruption from concurrent Next.js builds.

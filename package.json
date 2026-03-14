@@ -14,9 +14,12 @@
     "@dnd-kit/utilities": "^3.2.2",
     "@heroicons/react": "^2.2.0",
     "@reduxjs/toolkit": "^2.10.2",
+    "@types/qrcode": "^1.5.6",
     "@vercel/analytics": "^1.6.1",
     "clsx": "^2.1.1",
+    "jsqr": "^1.4.0",
     "next": "15.5.9",
+    "qrcode": "^1.5.4",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-redux": "^9.2.0"

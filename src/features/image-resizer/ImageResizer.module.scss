@@ -1,0 +1,202 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+@use '@/styles/utilities' as util;
+
+// Layout
+.container {
+  @extend .container-wide;
+  display: grid;
+  grid-template-columns: 450px 1fr;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.settingsPanel {}
+
+.previewPanel {}
+
+// Shared Utilities
+.glassCard {
+  @extend .glass-card;
+}
+
+.sectionTitle {
+  @extend .section-title;
+}
+
+.inputLabel {
+  @extend .input-label;
+}
+
+.input {
+  @extend .input-field;
+}
+
+.slider {
+  @extend .slider;
+}
+
+// Drag & Drop Zone
+.dropZone {
+  border: 2px dashed $border-medium;
+  border-radius: $radius-lg;
+  background: $input-bg;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: $color-accent;
+    background: $bg-glass-hover;
+  }
+}
+
+.dropZoneActive {
+  border-color: $color-accent;
+  background: $bg-glass-active;
+  border-style: solid;
+}
+
+.dropZoneIcon {
+  color: $text-muted;
+  transition: color 0.2s ease;
+}
+
+.dropZoneActive .dropZoneIcon {
+  color: $color-accent;
+}
+
+.dropZoneText {
+  color: $text-secondary;
+}
+
+.dropZoneBrowse {
+  color: $color-accent;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.dropZoneHint {
+  color: $text-muted;
+}
+
+// Presets
+.presetBtn {
+  @include btn-preset;
+  font-size: 0.8125rem;
+}
+
+// Aspect Ratio Toggle
+.lockBtn {
+  @include btn-icon;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-md;
+  padding: 0.5rem;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: $border-medium;
+  }
+}
+
+.lockBtnActive {
+  color: $color-accent;
+  border-color: $color-accent-50;
+  background: $bg-glass-active;
+}
+
+// Format Buttons
+.formatBtn {
+  @include btn-preset;
+}
+
+// Download Button
+.downloadBtn {
+  @include btn-primary;
+  padding: 0.75rem 1.5rem;
+}
+
+// Preview
+.previewHeader {
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
+}
+
+.previewInfo {
+  margin: 0;
+  color: $text-muted;
+  font-family: $font-family-mono;
+}
+
+.previewContainer {
+  min-height: 300px;
+  padding: 2rem;
+  background: $input-bg;
+  border: 2px dashed $border-subtle;
+
+  @media (max-width: 768px) {
+    min-height: 200px;
+    padding: 1rem;
+  }
+}
+
+.previewImage {
+  max-height: 500px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.emptyPreview {
+  color: $text-muted;
+}
+
+// Info Box
+.infoBox {
+  background: $input-bg;
+  border: 1px solid $border-subtle;
+}
+
+.infoIcon {
+  color: $color-accent;
+  margin-top: 0.125rem;
+}
+
+.infoText {
+  @extend .info-text;
+}
+
+// Input Group
+.inputGroup {
+  margin-bottom: 0;
+}
+
+.inputHint {
+  color: $text-muted;
+}
+
+// Original Image Info
+.originalInfo {
+  background: $input-bg;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-md;
+}
+
+.originalInfoLabel {
+  color: $text-muted;
+}
+
+.originalInfoValue {
+  color: $text-primary;
+  font-family: $font-family-mono;
+}
+
+// Reset Button
+.resetBtn {
+  @include btn-icon;
+  color: $text-muted;
+
+  &:hover {
+    color: $theme-color-error;
+  }
+}

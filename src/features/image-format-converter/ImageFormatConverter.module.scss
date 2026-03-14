@@ -1,0 +1,200 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+@use '@/styles/utilities' as util;
+
+// Layout
+.container {
+  @extend .container-wide;
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 1.5rem;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Shared Utilities
+.glassCard {
+  @extend .glass-card;
+}
+
+.sectionTitle {
+  @extend .section-title;
+}
+
+.inputLabel {
+  @extend .input-label;
+}
+
+.slider {
+  @extend .slider;
+}
+
+// Drop Zone
+.dropZone {
+  padding: 2.5rem 1.5rem;
+  background: $input-bg;
+  border: 2px dashed $border-subtle;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: $border-medium;
+    background: $input-bg-focus;
+  }
+}
+
+.dropZoneActive {
+  border-color: $color-accent;
+  background: $input-bg-focus;
+}
+
+.dropText {
+  color: $text-secondary;
+}
+
+.dropHint {
+  color: $text-muted;
+}
+
+// Format Buttons
+.formatButtons {}
+
+.formatBtn {
+  @include btn-preset;
+}
+
+// Quality
+.qualityValue {
+  color: $text-primary;
+}
+
+.sliderHint {
+  color: $text-muted;
+}
+
+// Action Buttons
+.convertBtn {
+  @include btn-primary;
+  background: $color-accent;
+  border-color: $color-accent;
+  color: #fff;
+  font-weight: 600;
+
+  &:hover:not(:disabled) {
+    background: $color-accent-50;
+    border-color: $color-accent-50;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.downloadAllBtn {
+  @include btn-primary;
+}
+
+.clearBtn {
+  @include btn-primary;
+  color: $text-muted;
+
+  &:hover:not(:disabled) {
+    color: $color-error;
+    border-color: $color-error;
+  }
+}
+
+// Empty State
+.emptyState {}
+
+.emptyText {
+  color: $text-muted;
+}
+
+// Image Card
+.fileName {
+  color: $text-primary;
+}
+
+.fileMeta {
+  color: $text-muted;
+}
+
+.removeBtn {
+  @include btn-icon;
+  flex-shrink: 0;
+
+  &:hover {
+    color: $color-error;
+  }
+}
+
+// Comparison Grid
+.comparisonGrid {
+  grid-template-columns: 1fr 1fr;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.compareLabel {
+  color: $text-secondary;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.previewContainer {
+  min-height: 200px;
+  padding: 1rem;
+  background: $input-bg;
+  border: 1px solid $border-subtle;
+
+  @media (max-width: 768px) {
+    min-height: 150px;
+  }
+}
+
+.previewImage {
+  max-height: 400px;
+  object-fit: contain;
+
+  @media (max-width: 768px) {
+    max-height: 250px;
+  }
+}
+
+.sizeLabel {
+  color: $text-muted;
+}
+
+.sizeSaved {
+  color: $color-success;
+  font-weight: 600;
+}
+
+.sizeGrew {
+  color: $color-warning;
+  font-weight: 600;
+}
+
+// Download Button (per image)
+.downloadBtn {
+  @include btn-primary;
+}
+
+// Spinning animation
+.spinning {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
