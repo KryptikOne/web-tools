@@ -3,7 +3,7 @@
 @theme inline {
 	--font-display: var(--font-michroma);
 	--font-sans: var(--font-geist-sans);
-	--font-mono: var(--font-geist-mono);
+	--font-mono: var(--font-ubuntu-mono);
 	--ease-bezier: cubic-bezier(0.44, 0.31, 0.26, 0.95);
 }
 
