@@ -1,0 +1,240 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+@use '@/styles/utilities' as util;
+
+// Layout
+.container {
+  @extend .container;
+}
+
+.mainGrid {
+  @extend .grid-2col;
+}
+
+.glassCard {
+  @extend .glass-card;
+}
+
+// Shared Utilities
+.sectionTitle {
+  @extend .section-title;
+}
+
+// Preview
+.previewContainer {
+  @include checkerboard-bg;
+  min-height: 280px;
+  border-radius: $radius-lg;
+  overflow: hidden;
+}
+
+.previewImage {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  border-radius: $radius-md;
+  transition: filter 0.2s ease;
+}
+
+.previewShapes {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.previewShape {
+  transition: filter 0.2s ease;
+}
+
+// Sliders
+.slider {
+  @extend .slider;
+
+  &::-webkit-slider-thumb {
+    width: 14px;
+    height: 14px;
+  }
+
+  &::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.sliderGroup {
+  padding: 0.5rem 0;
+}
+
+.sliderHeader {
+  @extend .slider-header;
+}
+
+.sliderLabel {
+  @extend .slider-label;
+}
+
+.sliderValue {
+  @extend .slider-value;
+  min-width: 60px;
+  text-align: right;
+}
+
+// Controls list
+.controlsList {
+  max-height: 520px;
+  overflow-y: auto;
+  @include custom-scrollbar;
+}
+
+// Drop Shadow sub-controls
+.dropShadowControls {
+  padding: 0.75rem;
+  background: $input-bg;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-md;
+  margin-top: 0.5rem;
+}
+
+.dropShadowRow {
+  grid-template-columns: 70px 1fr 55px;
+}
+
+.dropShadowLabel {
+  color: $text-muted;
+  font-size: 0.75rem;
+}
+
+.dropShadowValue {
+  color: $text-muted;
+  font-size: 0.75rem;
+  font-family: $font-family-mono;
+  text-align: right;
+}
+
+.colorInput {
+  width: 36px;
+  height: 24px;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-sm;
+  cursor: pointer;
+  background: transparent;
+  padding: 0;
+
+  &::-webkit-color-swatch-wrapper {
+    padding: 2px;
+  }
+
+  &::-webkit-color-swatch {
+    border: none;
+    border-radius: 2px;
+  }
+}
+
+// Buttons
+.primaryBtn {
+  @include btn-primary;
+}
+
+.resetBtn {
+  background: $bg-glass;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-md;
+  color: $text-muted;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0.625rem;
+
+  &:hover {
+    background: $bg-glass-hover;
+    color: $text-primary;
+    border-color: $border-medium;
+  }
+}
+
+.copyBtn {
+  @extend .copy-btn;
+}
+
+.copyIcon {
+  @extend .copy-icon;
+}
+
+.copied {
+  color: $color-success;
+}
+
+// Presets
+.presetsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 0.75rem;
+}
+
+.presetBtn {
+  @include btn-preset;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.presetPreviewWrapper {
+  width: 64px;
+  height: 48px;
+  border-radius: $radius-md;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @include checkerboard-bg;
+  background-size: 10px 10px;
+  background-position: 0 0, 0 5px, 5px -5px, -5px 0px;
+}
+
+.presetPreviewImg {
+  width: 48px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: 3px;
+  transition: filter 0.2s ease;
+}
+
+.presetName {
+  color: $text-secondary;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+// Output
+.outputSection {
+  background: $input-bg;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-lg;
+}
+
+.outputLabel {
+  color: $text-muted;
+  letter-spacing: 0.05em;
+}
+
+.outputCode {
+  color: $text-code;
+  word-break: break-all;
+}
+
+// Info Section
+.infoGrid {
+  @extend .info-grid;
+}
+
+.infoItem {
+  @extend .info-item;
+}
+
+.infoSubtitle {
+  @extend .info-subtitle;
+}
+
+.infoText {
+  @extend .info-text;
+}

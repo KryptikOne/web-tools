@@ -1,0 +1,306 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+// Layout
+.container {
+	@extend .container;
+}
+
+.grid {
+	grid-template-columns: 1fr 1fr;
+
+	@media (max-width: 1024px) {
+		grid-template-columns: 1fr;
+	}
+}
+
+// Options Bar
+.optionsBar {
+	background: $bg-glass;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-lg;
+}
+
+.optionGroup {
+}
+
+.optionLabel {
+	color: $text-secondary;
+}
+
+.select {
+	padding: 0.5rem 1rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: $radius-md;
+	color: $text-primary;
+	font-size: 0.875rem;
+	cursor: pointer;
+	transition: all 0.2s ease;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+		background: $input-bg-focus;
+	}
+
+	option {
+		background: $bg-secondary;
+		color: $text-primary;
+	}
+}
+
+.customDelimiterInput {
+	width: 60px;
+	padding: 0.5rem 0.75rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: $radius-md;
+	color: $text-primary;
+	font-size: 0.875rem;
+	font-family: $font-family-mono;
+	text-align: center;
+	transition: all 0.2s ease;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+		background: $input-bg-focus;
+	}
+}
+
+.checkboxLabel {
+	color: $text-secondary;
+}
+
+.checkbox {
+	accent-color: $color-accent;
+}
+
+// Glass Card
+.glassCard {
+	@extend .glass-card;
+}
+
+.cardTitle {
+	@extend .section-title;
+	margin: 0;
+}
+
+// Buttons
+.btnPrimary {
+	@include btn-primary;
+	padding: 0.5rem 1rem;
+	font-size: 0.875rem;
+
+	&.copied {
+		background: $color-success;
+	}
+}
+
+.btnSecondary {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.5rem 1rem;
+	background: $bg-glass;
+	color: $text-secondary;
+	border: 1px solid $border-subtle;
+	border-radius: 0.5rem;
+	font-weight: 500;
+	font-size: 0.875rem;
+	cursor: pointer;
+	transition: all 0.2s ease;
+
+	&:hover:not(:disabled) {
+		background: $bg-glass-hover;
+		border-color: $border-medium;
+		color: $text-primary;
+	}
+
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+}
+
+.btnPreset {
+	@include btn-preset;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 0.875rem;
+
+	&.active {
+		background: $bg-glass-hover;
+		border-color: $color-accent;
+		color: $color-accent;
+		font-weight: 600;
+	}
+}
+
+// Textarea
+.textarea {
+	width: 100%;
+	min-height: 300px;
+	max-height: 500px;
+	padding: 1rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: 0.5rem;
+	color: $text-primary;
+	font-size: 0.875rem;
+	font-family: $font-family-mono;
+	line-height: 1.6;
+	transition: all 0.2s ease;
+	overflow-y: auto;
+	resize: vertical;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+		background: $input-bg-focus;
+	}
+
+	&::placeholder {
+		color: $text-muted;
+	}
+
+	@include custom-scrollbar;
+}
+
+// Code Block (JSON output)
+.codeBlock {
+	width: 100%;
+	min-height: 300px;
+	max-height: 500px;
+	padding: 1rem;
+	margin: 0;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: 0.5rem;
+	color: $text-primary;
+	font-size: 0.8125rem;
+	font-family: $font-family-mono;
+	line-height: 1.6;
+	overflow: auto;
+	white-space: pre;
+
+	@include custom-scrollbar;
+
+	code {
+		color: inherit;
+	}
+}
+
+// Preview Table
+.tableWrapper {
+	width: 100%;
+	min-height: 300px;
+	max-height: 500px;
+	overflow: auto;
+	border: 1px solid $input-border;
+	border-radius: 0.5rem;
+	background: $input-bg;
+
+	@include custom-scrollbar;
+}
+
+.previewTable {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 0.8125rem;
+	font-family: $font-family-mono;
+
+	th,
+	td {
+		padding: 0.5rem 0.75rem;
+		border: 1px solid $border-subtle;
+		text-align: left;
+		white-space: nowrap;
+		max-width: 300px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	th {
+		position: sticky;
+		top: 0;
+		background: $bg-glass-hover;
+		color: $text-primary;
+		font-weight: 600;
+		z-index: 1;
+	}
+
+	td {
+		color: $text-secondary;
+	}
+
+	tbody tr {
+		transition: background 0.15s ease;
+
+		&:hover {
+			background: $bg-glass;
+		}
+	}
+}
+
+.emptyPreview {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 300px;
+	color: $text-muted;
+	font-size: 0.875rem;
+}
+
+.cardFooter {
+	color: $text-tertiary;
+}
+
+.errorText {
+	color: $color-error;
+	font-weight: 500;
+}
+
+// Info Section
+.infoTitle {
+	color: $text-primary;
+}
+
+.infoGrid {
+	@media (max-width: 768px) {
+		grid-template-columns: 1fr;
+	}
+}
+
+.infoSubtitle {
+	font-size: 0.95rem;
+	color: $text-secondary;
+}
+
+.infoText {
+	color: $text-tertiary;
+}
+
+.infoList {
+	li {
+		font-size: 0.875rem;
+		color: $text-tertiary;
+		margin-bottom: 0.25rem;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+}
+
+.codeExample {
+	padding: 0.125rem 0.375rem;
+	background: $input-bg;
+	border-radius: $radius-sm;
+	font-family: $font-family-mono;
+	font-size: 0.8rem;
+	color: $text-code;
+}

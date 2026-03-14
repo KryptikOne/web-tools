@@ -1,0 +1,264 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+// Layout
+.container {
+	@extend .container;
+}
+
+.inputGrid {
+	grid-template-columns: 1fr 1fr;
+
+	@media (max-width: 1024px) {
+		grid-template-columns: 1fr;
+	}
+}
+
+// Options Bar
+.optionsBar {
+	background: $bg-glass;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-lg;
+}
+
+.optionGroup {
+}
+
+.checkboxLabel {
+	color: $text-secondary;
+}
+
+.checkbox {
+	accent-color: $color-accent;
+}
+
+// Glass Card
+.glassCard {
+	@extend .glass-card;
+}
+
+.cardHeader {
+}
+
+.cardTitle {
+	color: $text-primary;
+}
+
+.lineCount {
+	color: $text-tertiary;
+}
+
+// Buttons
+.btnPrimary {
+	@include btn-primary;
+	padding: 0.5rem 1rem;
+	font-size: 0.875rem;
+
+	&.copied {
+		background: $color-success;
+	}
+}
+
+.btnSecondary {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.5rem 1rem;
+	background: $bg-glass;
+	color: $text-secondary;
+	border: 1px solid $border-subtle;
+	border-radius: 0.5rem;
+	font-weight: 500;
+	font-size: 0.875rem;
+	cursor: pointer;
+	transition: all 0.2s ease;
+
+	&:hover:not(:disabled) {
+		background: $bg-glass-hover;
+		border-color: $border-medium;
+		color: $text-primary;
+	}
+
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+}
+
+// Textarea
+.textarea {
+	width: 100%;
+	min-height: 250px;
+	max-height: 500px;
+	padding: 1rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: 0.5rem;
+	color: $text-primary;
+	font-size: 0.875rem;
+	font-family: $font-family-mono;
+	line-height: 1.6;
+	transition: all 0.2s ease;
+	overflow-y: auto;
+	resize: vertical;
+	white-space: pre;
+	tab-size: 4;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+		background: $input-bg-focus;
+	}
+
+	&::placeholder {
+		color: $text-muted;
+	}
+
+	@include custom-scrollbar;
+}
+
+// Stats Bar
+.statsBar {
+	background: $bg-glass;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-lg;
+}
+
+.statItem {
+	color: $text-secondary;
+}
+
+.statCounts {
+}
+
+.statAdded {
+	color: $color-success;
+}
+
+.statRemoved {
+	color: $color-error;
+}
+
+.statUnchanged {
+	color: $text-tertiary;
+}
+
+// Section Title
+.sectionTitle {
+	@extend .section-title;
+}
+
+// Diff Output
+.diffOutput {
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	overflow: hidden;
+	font-family: $font-family-mono;
+	font-size: 0.8125rem;
+	line-height: 1.7;
+	max-height: 600px;
+	overflow-y: auto;
+
+	@include custom-scrollbar;
+}
+
+.diffLine {
+	display: flex;
+	align-items: stretch;
+	min-height: 1.7em;
+	border-bottom: 1px solid $border-subtle;
+
+	&:last-child {
+		border-bottom: none;
+	}
+}
+
+.diffLineAdded {
+	background: oklch(70% 0.18 145 / 0.12);
+
+	.lineNum {
+		background: oklch(70% 0.18 145 / 0.15);
+		color: $color-success;
+	}
+
+	.linePrefix {
+		color: $color-success;
+		font-weight: 700;
+	}
+
+	.lineContent {
+		color: $color-success;
+	}
+}
+
+.diffLineRemoved {
+	background: oklch(65% 0.2 25 / 0.12);
+
+	.lineNum {
+		background: oklch(65% 0.2 25 / 0.15);
+		color: $color-error;
+	}
+
+	.linePrefix {
+		color: $color-error;
+		font-weight: 700;
+	}
+
+	.lineContent {
+		color: $color-error;
+	}
+}
+
+.diffLineUnchanged {
+	background: transparent;
+
+	.lineNum {
+		color: $text-muted;
+	}
+
+	.linePrefix {
+		color: $text-muted;
+	}
+
+	.lineContent {
+		color: $text-tertiary;
+	}
+}
+
+.lineNum {
+	display: inline-flex;
+	align-items: center;
+	justify-content: flex-end;
+	width: 3rem;
+	min-width: 3rem;
+	padding: 0 0.5rem;
+	font-size: 0.75rem;
+	border-right: 1px solid $border-subtle;
+	user-select: none;
+	flex-shrink: 0;
+}
+
+.linePrefix {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 1.5rem;
+	min-width: 1.5rem;
+	flex-shrink: 0;
+	user-select: none;
+}
+
+.lineContent {
+	flex: 1;
+	padding: 0 0.75rem;
+	white-space: pre-wrap;
+	word-break: break-all;
+	display: flex;
+	align-items: center;
+}
+
+// Empty State
+.emptyText {
+	color: $text-muted;
+}

@@ -1,0 +1,90 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+@use '@/styles/utilities' as util;
+
+// Layout
+.container {
+  @extend .container-wide;
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 1.5rem;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Shared Utilities
+.glassCard {
+  @extend .glass-card;
+}
+
+.sectionTitle {
+  @extend .section-title;
+}
+
+.inputLabel {
+  @extend .input-label;
+}
+
+.inputField {
+  @include input-field;
+  font-family: $font-family-mono;
+  text-transform: uppercase;
+}
+
+.slider {
+  @extend .slider;
+}
+
+.sliderValue {
+  font-family: $font-family-mono;
+  color: $text-primary;
+  font-size: 0.875rem;
+}
+
+// Shape Buttons
+.shapeBtn {
+  @include btn-preset;
+  text-align: center;
+  font-size: 0.8125rem;
+}
+
+// Size Buttons
+.sizeBtn {
+  @include btn-preset;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  font-family: $font-family-mono;
+}
+
+// Action Buttons
+.downloadBtn {
+  @include btn-primary;
+  padding: 0.75rem 1.5rem;
+  width: 100%;
+  font-weight: 600;
+}
+
+.resetBtn {
+  @include btn-preset;
+  padding: 0.75rem 1rem;
+}
+
+// Preview
+.previewArea {
+  min-height: 280px;
+  background: $input-bg;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-md;
+  padding: 1.5rem;
+
+  canvas {
+    image-rendering: pixelated;
+  }
+}
+
+.previewLabel {
+  color: $text-muted;
+  font-family: $font-family-mono;
+}

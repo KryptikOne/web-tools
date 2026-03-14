@@ -1,0 +1,137 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+@use '@/styles/utilities' as util;
+
+// Layout
+.container {
+  @extend .container;
+}
+
+.mainGrid {
+  @extend .grid-2col;
+}
+
+.glassCard {
+  @extend .glass-card;
+}
+
+// Shared Utilities
+.sectionTitle {
+  @extend .section-title;
+}
+
+// Preview
+.previewWrapper {
+  border: 1px solid $border-subtle;
+  border-radius: $radius-lg;
+}
+
+.previewArea {
+  width: 100%;
+  min-height: 320px;
+}
+
+// Controls
+.controlLabel {
+  color: $text-secondary;
+}
+
+.patternGrid {
+  @media (max-width: 500px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.patternBtn {
+  @include btn-preset;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.colorSwatch {
+  @extend .color-input-sm;
+}
+
+.hexInput {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  background: $input-bg;
+  border: 1px solid $input-border;
+  border-radius: $radius-md;
+  color: $text-primary;
+  font-family: $font-family-mono;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: $input-border-focus;
+    background: $input-bg-focus;
+  }
+
+  &::placeholder {
+    color: $text-muted;
+  }
+}
+
+.slider {
+  @extend .slider;
+}
+
+.sliderValue {
+  color: $text-primary;
+}
+
+.resetBtn {
+  background: $bg-glass;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-sm;
+  color: $text-muted;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: $bg-glass-hover;
+    color: $text-primary;
+    border-color: $border-medium;
+  }
+}
+
+// Output
+.outputSection {
+  background: $input-bg;
+  border: 1px solid $border-subtle;
+}
+
+.outputCode {
+  color: $text-code;
+}
+
+.copyBtn {
+  @include btn-primary;
+
+  &.copied {
+    color: $color-success;
+  }
+}
+
+.copyIcon {
+  @extend .copy-icon;
+}
+
+// Info Section
+.infoGrid {
+  @extend .info-grid;
+}
+
+.infoItem {
+  @extend .info-item;
+}
+
+.infoSubtitle {
+  @extend .info-subtitle;
+}
+
+.infoText {
+  @extend .info-text;
+}

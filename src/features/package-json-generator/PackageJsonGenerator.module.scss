@@ -1,0 +1,190 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+// Layout
+.container {
+	@extend .container;
+}
+
+.mainGrid {
+	@extend .grid-2col;
+}
+
+.glassCard {
+	@extend .glass-card;
+}
+
+// Typography
+.sectionTitle {
+	@extend .section-title;
+}
+
+// Form Elements
+.inputGroup {
+	@include input-group;
+}
+
+.inputLabel {
+	@extend .input-label;
+}
+
+.inputField {
+	@include input-field;
+}
+
+.textarea {
+	resize: vertical;
+	font-family: $font-family-mono;
+	font-size: 0.875rem;
+	line-height: 1.5;
+}
+
+// Checkbox / Toggle
+.checkbox {
+	accent-color: $color-accent;
+	cursor: pointer;
+	width: 18px;
+	height: 18px;
+}
+
+.toggleLabel {
+	padding: 0.75rem 0;
+}
+
+.toggleText {
+	color: $text-secondary;
+}
+
+// Presets
+.presetsGrid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+	gap: 0.75rem;
+}
+
+.presetBtn {
+	@include btn-preset;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 0.25rem;
+	text-align: left;
+}
+
+.presetName {
+	color: $text-primary;
+}
+
+.presetDescription {
+	color: $text-muted;
+}
+
+// Action Buttons
+.addBtn {
+	@include btn-primary;
+	padding: 0.5rem 0.75rem;
+	font-size: 0.8rem;
+}
+
+.actionBtn {
+	@include btn-primary;
+}
+
+.deleteBtn {
+	padding: 0.5rem;
+	background: transparent;
+	border: 1px solid transparent;
+	color: $text-muted;
+	cursor: pointer;
+	border-radius: $radius-sm;
+	transition: all 0.2s ease;
+	margin-top: 2px;
+
+	&:hover {
+		color: $color-error;
+		background: oklch(65% 0.2 25 / 0.1);
+	}
+}
+
+// Keyword Tags
+.keywordTag {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.375rem;
+	padding: 0.375rem 0.625rem;
+	background: $bg-glass-hover;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-2xl;
+	color: $text-primary;
+	font-size: 0.8125rem;
+	font-weight: 500;
+	transition: all 0.2s ease;
+
+	&:hover {
+		border-color: $border-medium;
+	}
+}
+
+.keywordRemove {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+	background: transparent;
+	border: none;
+	color: $text-muted;
+	cursor: pointer;
+	border-radius: 50%;
+	transition: color 0.2s ease;
+
+	&:hover {
+		color: $color-error;
+	}
+}
+
+// Output Card
+.outputCard {
+	position: sticky;
+	top: 1.5rem;
+}
+
+.codeOutput {
+	background: $input-bg;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	overflow: auto;
+	max-height: 70vh;
+
+	@include custom-scrollbar;
+}
+
+.codeBlock {
+	margin: 0;
+	padding: 1rem;
+	font-family: $font-family-mono;
+	font-size: 0.8125rem;
+	line-height: 1.6;
+	color: $text-code;
+	white-space: pre;
+}
+
+// Validation
+.validationErrors {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	margin-bottom: 1rem;
+}
+
+.validationError {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.5rem 0.75rem;
+	background: oklch(65% 0.2 25 / 0.08);
+	border: 1px solid oklch(65% 0.2 25 / 0.2);
+	border-radius: $radius-sm;
+	color: $color-error;
+	font-size: 0.8125rem;
+}

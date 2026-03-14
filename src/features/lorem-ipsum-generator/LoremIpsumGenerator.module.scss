@@ -1,0 +1,113 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+.container {
+	@extend .container;
+}
+
+.glassCard {
+	@extend .glass-card;
+}
+
+.sectionTitle {
+	@extend .section-title;
+}
+
+// Controls
+
+.label {
+	color: $text-secondary;
+}
+
+.presetBtn {
+	@include btn-preset;
+}
+
+.numberInput {
+	width: 80px;
+	padding: 0.75rem 1rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: $radius-md;
+	color: $text-primary;
+	font-size: 0.875rem;
+	font-family: $font-family-mono;
+	transition: all 0.2s ease;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+		background: $input-bg-focus;
+	}
+
+	// Hide spin buttons
+	&::-webkit-inner-spin-button,
+	&::-webkit-outer-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+	-moz-appearance: textfield;
+}
+
+.checkboxLabel {
+	color: $text-secondary;
+}
+
+.checkbox {
+	accent-color: $color-accent;
+}
+
+.generateBtn {
+	@include btn-primary;
+	padding: 0.75rem 1.5rem;
+	font-weight: 600;
+}
+
+// Output Section
+
+.btnSecondary {
+	@include btn-primary;
+	padding: 0.5rem 1rem;
+	font-size: 0.875rem;
+}
+
+.btnCopy {
+	@include btn-primary;
+	padding: 0.5rem 1rem;
+	font-size: 0.875rem;
+
+	&.copied {
+		background: $color-success;
+		border-color: $color-success;
+	}
+}
+
+.outputArea {
+	min-height: 200px;
+	max-height: 500px;
+	padding: 1.25rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: $radius-md;
+	overflow-y: auto;
+	@include custom-scrollbar;
+}
+
+.outputText {
+	color: $text-primary;
+	font-size: 0.9375rem;
+	line-height: 1.75;
+	margin: 0;
+	white-space: pre-wrap;
+}
+
+.placeholder {
+	color: $text-muted;
+	font-size: 0.9375rem;
+	margin: 0;
+}
+
+.statsBar {
+	color: $text-tertiary;
+}

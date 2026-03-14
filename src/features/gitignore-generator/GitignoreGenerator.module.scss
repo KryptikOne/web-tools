@@ -1,0 +1,118 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+.container {
+	@extend .container;
+}
+
+.glassCard {
+	@extend .glass-card;
+	margin-bottom: 1.5rem;
+}
+
+.sectionTitle {
+	@extend .section-title;
+	margin-bottom: 0;
+}
+
+// ── Search ───────────────────────────────────────────────────────────────
+
+.searchWrapper {
+	display: flex;
+	align-items: center;
+}
+
+.searchIcon {
+	color: $text-muted;
+	pointer-events: none;
+	z-index: 1;
+}
+
+.searchInput {
+	@include input-field;
+	padding-left: 2.5rem;
+	font-family: $font-family-sans;
+}
+
+// ── Categories & Chips ───────────────────────────────────────────────────
+
+.categoryTitle {
+	font-size: 0.8rem;
+	font-weight: 600;
+	color: $text-secondary;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+
+.templateChip {
+	@include btn-preset;
+	font-size: 0.85rem;
+	padding: 0.5rem 0.875rem;
+}
+
+.emptyText {
+	color: $text-muted;
+}
+
+// ── Custom Rules Textarea ────────────────────────────────────────────────
+
+.customTextarea {
+	@include input-field;
+	font-family: $font-family-mono;
+	font-size: 0.875rem;
+	resize: vertical;
+	min-height: 100px;
+	line-height: 1.6;
+}
+
+// ── Action Buttons ───────────────────────────────────────────────────────
+
+.actionBtn {
+	@include btn-primary;
+	font-size: 0.85rem;
+	padding: 0.5rem 0.875rem;
+}
+
+.resetBtn {
+	@include btn-primary;
+	font-size: 0.85rem;
+	padding: 0.5rem 0.875rem;
+
+	&:hover:not(:disabled) {
+		background: rgba(239, 68, 68, 0.1);
+		border-color: rgba(239, 68, 68, 0.3);
+		color: #ef4444;
+	}
+}
+
+// ── Code Output ──────────────────────────────────────────────────────────
+
+.codeBlock {
+	@include custom-scrollbar;
+	background: $input-bg;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	padding: 1rem 1.25rem;
+	overflow-x: auto;
+	max-height: 500px;
+	overflow-y: auto;
+
+	code {
+		font-family: $font-family-mono;
+		font-size: 0.85rem;
+		line-height: 1.7;
+		color: $text-primary;
+		white-space: pre;
+	}
+}
+
+.placeholder {
+	padding: 2rem;
+	text-align: center;
+	color: $text-muted;
+	font-size: 0.9rem;
+	background: $input-bg;
+	border: 1px dashed $border-subtle;
+	border-radius: $radius-md;
+}

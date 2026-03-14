@@ -1,0 +1,253 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+// Layout
+.container {
+	@extend .container;
+}
+
+.grid {
+	grid-template-columns: 1fr 1fr;
+
+	@media (max-width: 1024px) {
+		grid-template-columns: 1fr;
+	}
+}
+
+// Options Bar
+.optionsBar {
+	background: $bg-glass;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-lg;
+}
+
+.optionGroup {
+}
+
+.optionLabel {
+	color: $text-secondary;
+}
+
+.select {
+	padding: 0.5rem 1rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: $radius-md;
+	color: $text-primary;
+	font-size: 0.875rem;
+	cursor: pointer;
+	transition: all 0.2s ease;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+		background: $input-bg-focus;
+	}
+
+	option {
+		background: $bg-secondary;
+		color: $text-primary;
+	}
+}
+
+.checkboxLabel {
+	color: $text-secondary;
+}
+
+.checkbox {
+	accent-color: $color-accent;
+}
+
+// Glass Card
+.glassCard {
+	@extend .glass-card;
+}
+
+.cardTitle {
+	color: $text-primary;
+}
+
+// Buttons
+.btnPrimary {
+	@include btn-primary;
+	padding: 0.5rem 1rem;
+	font-size: 0.875rem;
+
+	&.copied {
+		background: $color-success;
+	}
+}
+
+.btnSecondary {
+	@include btn-preset;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.5rem 1rem;
+	font-size: 0.875rem;
+
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+}
+
+// Textarea
+.textarea {
+	width: 100%;
+	min-height: 300px;
+	max-height: 500px;
+	padding: 1rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: 0.5rem;
+	color: $text-primary;
+	font-size: 0.875rem;
+	font-family: $font-family-mono;
+	line-height: 1.6;
+	transition: all 0.2s ease;
+	overflow-y: auto;
+	resize: vertical;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+		background: $input-bg-focus;
+	}
+
+	&::placeholder {
+		color: $text-muted;
+	}
+
+	@include custom-scrollbar;
+}
+
+// Code Block (CSV output)
+.codeBlock {
+	width: 100%;
+	min-height: 300px;
+	max-height: 500px;
+	padding: 1rem;
+	margin: 0;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: 0.5rem;
+	color: $text-primary;
+	font-size: 0.875rem;
+	font-family: $font-family-mono;
+	line-height: 1.6;
+	overflow: auto;
+	white-space: pre;
+
+	@include custom-scrollbar;
+
+	code {
+		color: inherit;
+		font-size: inherit;
+	}
+}
+
+.cardFooter {
+	color: $text-tertiary;
+}
+
+// Error Message
+.errorMessage {
+	padding: 0.75rem 1rem;
+	background: oklch(65% 0.2 25 / 0.1);
+	border: 1px solid oklch(65% 0.2 25 / 0.3);
+	border-radius: $radius-md;
+	color: $color-error;
+	font-size: 0.875rem;
+	line-height: 1.5;
+}
+
+// Section Title
+.sectionTitle {
+	@extend .section-title;
+}
+
+// Preview Table
+.tableWrapper {
+	overflow-x: auto;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+
+	@include custom-scrollbar;
+}
+
+.previewTable {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 0.875rem;
+
+	th,
+	td {
+		padding: 0.625rem 1rem;
+		text-align: left;
+		white-space: nowrap;
+		border-bottom: 1px solid $border-subtle;
+	}
+
+	th {
+		background: $bg-glass-hover;
+		color: $text-primary;
+		font-weight: 600;
+		position: sticky;
+		top: 0;
+	}
+
+	td {
+		color: $text-secondary;
+		max-width: 300px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	tbody tr {
+		transition: background 0.15s ease;
+
+		&:hover {
+			background: $bg-glass;
+		}
+
+		&:last-child td {
+			border-bottom: none;
+		}
+	}
+}
+
+.truncatedNotice {
+	color: $text-muted;
+	border-top: 1px solid $border-subtle;
+}
+
+// Info Section
+.infoTitle {
+	color: $text-primary;
+}
+
+.infoGrid {
+	@media (max-width: 768px) {
+		grid-template-columns: 1fr;
+	}
+}
+
+.infoSubtitle {
+	font-size: 0.95rem;
+	color: $text-secondary;
+}
+
+.infoText {
+	color: $text-tertiary;
+}
+
+.codeExample {
+	padding: 0.125rem 0.375rem;
+	background: $input-bg;
+	border-radius: $radius-sm;
+	font-family: $font-family-mono;
+	font-size: 0.8rem;
+	color: $text-code;
+}

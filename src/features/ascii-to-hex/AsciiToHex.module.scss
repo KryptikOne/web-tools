@@ -1,0 +1,289 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+// Layout
+.container {
+	@extend .container;
+}
+
+.grid {
+	grid-template-columns: 1fr auto 1fr;
+
+	@media (max-width: 1024px) {
+		grid-template-columns: 1fr;
+	}
+}
+
+// Options Bar
+.optionsBar {
+	background: $bg-glass;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-lg;
+}
+
+.optionGroup {
+}
+
+.optionLabel {
+	color: $text-secondary;
+}
+
+.select {
+	padding: 0.5rem 1rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: $radius-md;
+	color: $text-primary;
+	font-size: 0.875rem;
+	cursor: pointer;
+	transition: all 0.2s ease;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+		background: $input-bg-focus;
+	}
+
+	option {
+		background: $bg-secondary;
+		color: $text-primary;
+	}
+}
+
+// Glass Card
+.glassCard {
+	@extend .glass-card;
+}
+
+.cardTitle {
+	color: $text-primary;
+}
+
+.sectionTitle {
+	@extend .section-title;
+}
+
+// Buttons
+.btnPrimary {
+	@include btn-primary;
+	padding: 0.5rem 1rem;
+	font-size: 0.875rem;
+
+	&.copied {
+		background: $color-success;
+	}
+}
+
+.btnSecondary {
+	@include btn-primary;
+	padding: 0.5rem 1rem;
+	font-size: 0.875rem;
+
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+}
+
+// Textarea
+.textarea {
+	width: 100%;
+	min-height: 180px;
+	max-height: 400px;
+	padding: 1rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: 0.5rem;
+	color: $text-primary;
+	font-size: 0.875rem;
+	font-family: $font-family-mono;
+	line-height: 1.6;
+	transition: all 0.2s ease;
+	overflow-y: auto;
+	resize: vertical;
+	word-break: break-all;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+		background: $input-bg-focus;
+	}
+
+	&::placeholder {
+		color: $text-muted;
+	}
+
+	@include custom-scrollbar;
+}
+
+// Output block (below each textarea)
+.outputBlock {
+}
+
+.outputLabel {
+	color: $text-secondary;
+}
+
+.outputDisplay {
+	padding: 0.75rem 1rem;
+	background: $bg-overlay-light;
+	border: 1px solid $border-subtle;
+	border-radius: 0.5rem;
+	font-family: $font-family-mono;
+	font-size: 0.875rem;
+	color: $text-primary;
+	min-height: 2.5rem;
+	word-break: break-all;
+	line-height: 1.6;
+	max-height: 200px;
+	overflow-y: auto;
+
+	@include custom-scrollbar;
+}
+
+.placeholder {
+	color: $text-muted;
+}
+
+.cardFooter {
+	color: $text-tertiary;
+}
+
+// Swap Button
+.swapContainer {
+	@media (max-width: 1024px) {
+		transform: rotate(90deg);
+		padding: 0.5rem 0;
+	}
+}
+
+.swapButton {
+	background: $bg-glass;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	color: $text-secondary;
+	cursor: pointer;
+	transition: all 0.2s ease;
+
+	&:hover {
+		background: $bg-glass-hover;
+		color: $color-accent;
+		border-color: $color-accent;
+		transform: scale(1.05);
+	}
+}
+
+// ASCII Table
+.tableSearchWrapper {
+	position: relative;
+	min-width: 200px;
+}
+
+.tableSearchIcon {
+	position: absolute;
+	left: 0.75rem;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 1rem;
+	height: 1rem;
+	color: $text-muted;
+	pointer-events: none;
+}
+
+.tableSearchInput {
+	width: 100%;
+	padding: 0.5rem 0.75rem 0.5rem 2.25rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: $radius-md;
+	color: $text-primary;
+	font-size: 0.875rem;
+	transition: all 0.2s ease;
+
+	&::placeholder {
+		color: $text-muted;
+	}
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+		background: $input-bg-focus;
+	}
+}
+
+.tableWrapper {
+	max-height: 500px;
+	overflow-y: auto;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+
+	@include custom-scrollbar;
+}
+
+.asciiTable {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 0.85rem;
+
+	thead {
+		position: sticky;
+		top: 0;
+		z-index: 1;
+
+		tr {
+			background: $bg-glass-hover;
+		}
+
+		th {
+			padding: 0.625rem 1rem;
+			font-weight: 600;
+			font-size: 0.75rem;
+			text-transform: uppercase;
+			letter-spacing: 0.05em;
+			color: $text-secondary;
+			border-bottom: 2px solid $border-subtle;
+		}
+	}
+
+	tbody {
+		tr {
+			transition: background 0.15s ease;
+
+			&:hover {
+				background: $bg-glass-hover;
+			}
+
+			&:not(:last-child) {
+				td {
+					border-bottom: 1px solid $border-subtle;
+				}
+			}
+		}
+
+		td {
+			padding: 0.5rem 1rem;
+			color: $text-primary;
+		}
+	}
+}
+
+.monoCell {
+	font-family: $font-family-mono;
+}
+
+.controlChar {
+	td {
+		color: $text-tertiary;
+	}
+}
+
+.controlLabel {
+	color: $text-muted !important;
+	font-size: 0.75rem;
+	font-style: italic;
+}
+
+.noResults {
+	color: $text-muted;
+}

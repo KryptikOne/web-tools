@@ -1,0 +1,253 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+// Layout
+.container {
+	@extend .container;
+}
+
+.grid {
+	grid-template-columns: 1fr auto 1fr;
+
+	@media (max-width: 1024px) {
+		grid-template-columns: 1fr;
+	}
+}
+
+// Tab Bar
+.tabBar {
+	// flex, gap-2, mb-6 handled by Tailwind
+}
+
+.tab {
+	@include btn-preset;
+	min-width: 120px;
+	text-align: center;
+}
+
+// Options Bar
+.optionsBar {
+	background: $bg-glass;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-lg;
+}
+
+.optionGroup {
+}
+
+.optionLabel {
+	color: $text-secondary;
+}
+
+.select {
+	padding: 0.5rem 1rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: $radius-md;
+	color: $text-primary;
+	font-size: 0.875rem;
+	cursor: pointer;
+	transition: all 0.2s ease;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+		background: $input-bg-focus;
+	}
+
+	option {
+		background: $bg-secondary;
+		color: $text-primary;
+	}
+}
+
+.checkboxLabel {
+	color: $text-secondary;
+}
+
+.checkbox {
+	accent-color: $color-accent;
+}
+
+// Glass Card
+.glassCard {
+	@extend .glass-card;
+}
+
+.cardHeader {
+}
+
+.cardTitle {
+	color: $text-primary;
+}
+
+.buttonGroup {
+}
+
+// Section Title
+.sectionTitle {
+	@extend .section-title;
+}
+
+// Buttons
+.btnPrimary {
+	@include btn-primary;
+	padding: 0.5rem 1rem;
+	font-size: 0.875rem;
+
+	&.copied {
+		background: $color-success;
+	}
+}
+
+.btnSecondary {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.5rem 1rem;
+	background: $bg-glass;
+	color: $text-secondary;
+	border: 1px solid $border-subtle;
+	border-radius: 0.5rem;
+	font-weight: 500;
+	font-size: 0.875rem;
+	cursor: pointer;
+	transition: all 0.2s ease;
+
+	&:hover:not(:disabled) {
+		background: $bg-glass-hover;
+		border-color: $border-medium;
+		color: $text-primary;
+	}
+
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+}
+
+// Textarea
+.textarea {
+	width: 100%;
+	min-height: 250px;
+	max-height: 500px;
+	padding: 1rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: 0.5rem;
+	color: $text-primary;
+	font-size: 0.875rem;
+	font-family: $font-family-mono;
+	line-height: 1.6;
+	transition: all 0.2s ease;
+	overflow-y: auto;
+	resize: vertical;
+	word-break: break-all;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+		background: $input-bg-focus;
+	}
+
+	&::placeholder {
+		color: $text-muted;
+	}
+
+	&.readOnly {
+		background: $bg-overlay-light;
+		cursor: default;
+	}
+
+	@include custom-scrollbar;
+}
+
+.cardFooter {
+	color: $text-tertiary;
+}
+
+// Swap Button
+.swapContainer {
+	@media (max-width: 1024px) {
+		transform: rotate(90deg);
+		padding: 0.5rem 0;
+	}
+}
+
+.swapButton {
+	background: $bg-glass;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	color: $text-secondary;
+	cursor: pointer;
+	transition: all 0.2s ease;
+
+	&:hover {
+		background: $bg-glass-hover;
+		color: $color-accent;
+		border-color: $color-accent;
+		transform: scale(1.05);
+	}
+}
+
+// Reference Table
+.tableWrapper {
+	overflow-x: auto;
+	@include custom-scrollbar;
+}
+
+.referenceTable {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 0.875rem;
+
+	th,
+	td {
+		padding: 0.625rem 1rem;
+		text-align: left;
+		border-bottom: 1px solid $border-subtle;
+	}
+
+	th {
+		color: $text-secondary;
+		font-weight: 600;
+		font-size: 0.8rem;
+		text-transform: uppercase;
+		letter-spacing: 0.025em;
+		background: $bg-glass;
+	}
+
+	td {
+		color: $text-tertiary;
+	}
+
+	tbody tr {
+		transition: background 0.15s ease;
+
+		&:hover {
+			background: $bg-glass-hover;
+		}
+
+		&:last-child td {
+			border-bottom: none;
+		}
+	}
+}
+
+.charCell {
+	font-size: 1.125rem;
+	font-weight: 600;
+	color: $text-primary;
+	min-width: 3rem;
+	text-align: center;
+}
+
+.entityCode {
+	font-family: $font-family-mono;
+	font-size: 0.8rem;
+	color: $text-code;
+	background: $color-accent-20;
+	padding: 0.2rem 0.5rem;
+	border-radius: $radius-sm;
+}

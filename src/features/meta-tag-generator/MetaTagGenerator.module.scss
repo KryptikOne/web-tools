@@ -1,0 +1,115 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+@use '@/styles/utilities' as util;
+
+// Layout
+.container {
+  @extend .container;
+}
+
+.glassCard {
+  @include glass-card;
+}
+
+.sectionTitle {
+  @extend .section-title;
+}
+
+// Form Elements
+.label {
+  color: $text-secondary;
+}
+
+.hint {
+  color: $text-muted;
+}
+
+.input {
+  @include input-field;
+}
+
+.textarea {
+  @include input-field;
+  resize: vertical;
+  font-family: $font-family-sans;
+  line-height: 1.5;
+}
+
+.select {
+  @include input-field;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+
+.checkbox {
+  accent-color: $color-accent;
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+}
+
+.checkboxLabel {
+  color: $text-secondary;
+
+  &:hover {
+    color: $text-primary;
+  }
+}
+
+.twoColGrid {
+  grid-template-columns: 1fr 1fr;
+
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Buttons
+.copyBtn {
+  @include btn-primary;
+  padding: 0.5rem 0.75rem;
+  border-radius: $radius-sm;
+  font-size: 0.8rem;
+
+  &.copied {
+    border-color: $color-success;
+    color: $color-success;
+  }
+}
+
+.resetBtn {
+  @include btn-primary;
+  padding: 0.5rem 0.75rem;
+  border-radius: $radius-sm;
+  font-size: 0.8rem;
+  color: $text-muted;
+
+  &:hover {
+    color: $text-primary;
+  }
+}
+
+// Output
+.outputSection {
+  background: $input-bg;
+  border: 1px solid $border-subtle;
+}
+
+.codeBlock {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-all;
+  max-height: 400px;
+  overflow-y: auto;
+
+  @include custom-scrollbar;
+}
+
+.outputCode {
+  color: $text-code;
+  line-height: 1.6;
+}

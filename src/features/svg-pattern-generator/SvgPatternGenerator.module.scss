@@ -1,0 +1,148 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+// Layout
+.container {
+  @extend .container;
+}
+
+.mainGrid {
+  @extend .grid-2col;
+}
+
+.glassCard {
+  @include glass-card;
+}
+
+.sectionTitle {
+  @extend .section-title;
+}
+
+// Preview
+.previewArea {
+  height: 320px;
+  background-color: $bg-secondary;
+  background-repeat: repeat;
+  border: 1px solid $border-subtle;
+  transition: background-image 0.2s ease;
+}
+
+// Controls
+.label {
+  color: $text-secondary;
+}
+
+.valueDisplay {
+  color: $text-primary;
+}
+
+.slider {
+  @extend .slider;
+
+  &::-webkit-slider-thumb {
+    width: 14px;
+    height: 14px;
+  }
+
+  &::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+// Preset Grid
+.presetsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.presetBtn {
+  @include btn-preset;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+// Color Inputs
+.colorInput {
+  width: 40px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-sm;
+  cursor: pointer;
+  background: transparent;
+  flex-shrink: 0;
+
+  &::-webkit-color-swatch-wrapper {
+    padding: 3px;
+  }
+
+  &::-webkit-color-swatch {
+    border: none;
+    border-radius: 2px;
+  }
+}
+
+.hexInput {
+  padding: 0.5rem 0.75rem;
+  background: $input-bg;
+  border: 1px solid $input-border;
+  border-radius: $radius-md;
+  color: $text-primary;
+  font-family: $font-family-mono;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: $input-border-focus;
+    background: $input-bg-focus;
+  }
+}
+
+// Action Buttons (Copy, Download)
+.actionBtn {
+  @include btn-primary;
+  padding: 0.5rem 0.75rem;
+  border-radius: $radius-sm;
+  font-size: 0.8rem;
+
+  &.copied {
+    color: $color-success;
+    border-color: $color-success;
+  }
+}
+
+// Code Output Blocks
+.codeBlock {
+  background: $input-bg;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-md;
+  overflow: auto;
+  max-height: 280px;
+
+  @include custom-scrollbar;
+}
+
+.codeContent {
+  padding: 1rem;
+  margin: 0;
+  font-family: $font-family-mono;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: $text-code;
+  white-space: pre;
+  word-break: break-all;
+  overflow-wrap: break-word;
+
+  code {
+    font-family: inherit;
+  }
+}

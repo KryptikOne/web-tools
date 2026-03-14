@@ -1,0 +1,140 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+// Layout
+.container {
+	@extend .container;
+}
+
+.grid {
+	grid-template-columns: 1fr 1fr;
+
+	@media (max-width: 1024px) {
+		grid-template-columns: 1fr;
+	}
+}
+
+// Glass Card
+.glassCard {
+	@extend .glass-card;
+}
+
+// Section Title
+.sectionTitle {
+	@extend .section-title;
+}
+
+// Case Buttons
+.caseBtn {
+	@include btn-preset;
+	font-size: 0.8rem;
+}
+
+// Card Elements
+.cardTitle {
+	color: $text-primary;
+}
+
+// Buttons
+.btnPrimary {
+	@include btn-primary;
+	padding: 0.5rem 1rem;
+	font-size: 0.875rem;
+
+	&.copied {
+		background: $color-success;
+		border-color: $color-success;
+		color: #fff;
+	}
+}
+
+.btnSecondary {
+	@include btn-primary;
+	padding: 0.5rem 1rem;
+	font-size: 0.875rem;
+	color: $text-secondary;
+
+	&:hover:not(:disabled) {
+		color: $text-primary;
+	}
+}
+
+// Textarea
+.textarea {
+	width: 100%;
+	min-height: 220px;
+	max-height: 500px;
+	padding: 1rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: $radius-md;
+	color: $text-primary;
+	font-size: 0.875rem;
+	font-family: $font-family-mono;
+	line-height: 1.6;
+	transition: all 0.2s ease;
+	overflow-y: auto;
+	resize: vertical;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+		background: $input-bg-focus;
+	}
+
+	&::placeholder {
+		color: $text-muted;
+	}
+
+	&.readOnly {
+		background: $bg-overlay-light;
+		cursor: default;
+	}
+
+	@include custom-scrollbar;
+}
+
+.cardFooter {
+	color: $text-tertiary;
+}
+
+// All Conversions Preview
+.previewList {
+	@include custom-scrollbar;
+	max-height: 500px;
+	overflow-y: auto;
+}
+
+.previewRow {
+	padding: 0.625rem 0.75rem;
+	background: $input-bg;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	transition: all 0.2s ease;
+
+	&:hover {
+		border-color: $border-medium;
+		background: $input-bg-focus;
+	}
+}
+
+.previewLabel {
+	color: $text-secondary;
+	width: 110px;
+	text-align: right;
+}
+
+.previewText {
+	color: $text-primary;
+	font-family: $font-family-mono;
+}
+
+// Copy Button
+.copyBtn {
+	@extend .copy-btn;
+}
+
+.copyIcon {
+	@extend .copy-icon;
+}

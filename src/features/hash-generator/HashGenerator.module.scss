@@ -1,0 +1,171 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+// Layout
+.container {
+  @extend .container;
+}
+
+// Shared Utilities
+.glassCard {
+  @extend .glass-card;
+}
+
+.sectionTitle {
+  @extend .section-title;
+}
+
+.copyBtn {
+  @extend .copy-btn;
+}
+
+.copyIcon {
+  @extend .copy-icon;
+}
+
+// Options Bar
+.optionsBar {
+  background: $bg-glass;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-lg;
+}
+
+.optionLabel {
+  color: $text-secondary;
+}
+
+.btnPreset {
+  @include btn-preset;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8rem;
+
+  &.active {
+    background: $bg-glass-hover;
+    border-color: $color-accent;
+    color: $color-accent;
+    font-weight: 600;
+  }
+}
+
+// Buttons
+.btnPrimary {
+  @include btn-primary;
+}
+
+.btnSecondary {
+  @include btn-secondary;
+}
+
+// Textarea
+.textarea {
+  width: 100%;
+  min-height: 180px;
+  max-height: 400px;
+  padding: 1rem;
+  background: $input-bg;
+  border: 1px solid $input-border;
+  border-radius: $radius-md;
+  color: $text-primary;
+  font-size: 0.875rem;
+  font-family: $font-family-mono;
+  line-height: 1.6;
+  transition: all 0.2s ease;
+  overflow-y: auto;
+  resize: vertical;
+
+  &:focus {
+    outline: none;
+    border-color: $input-border-focus;
+    background: $input-bg-focus;
+  }
+
+  &::placeholder {
+    color: $text-muted;
+    font-family: $font-family-sans;
+  }
+
+  @include custom-scrollbar;
+}
+
+// File Indicator
+.fileIndicator {
+  background: $input-bg;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-md;
+  color: $text-primary;
+}
+
+// Hash Results
+.hashRow {
+  padding: 0.75rem 1rem;
+  background: $input-bg;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-md;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: $border-medium;
+  }
+}
+
+.hashRowInner {
+  // flex layout handled by Tailwind
+}
+
+.hashLabel {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: $color-accent;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  min-width: 5rem;
+  font-family: $font-family-display;
+}
+
+.hashValue {
+  font-family: $font-family-mono;
+  color: $text-secondary;
+  word-break: break-all;
+  line-height: 1.5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @media (max-width: 768px) {
+    font-size: 0.75rem;
+  }
+}
+
+// Spinner
+.spinner {
+  color: $text-muted;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Info Section
+.infoGrid {
+  @extend .info-grid;
+}
+
+.infoItem {
+  @extend .info-item;
+}
+
+.infoSubtitle {
+  @extend .info-subtitle;
+}
+
+.infoText {
+  @extend .info-text;
+}

@@ -1,0 +1,170 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+// Layout
+.container {
+	@extend .container;
+}
+
+.grid {
+	@extend .grid-2col;
+}
+
+// Options Bar
+.optionsBar {
+	background: $bg-glass;
+	border: 1px solid $border-subtle;
+}
+
+.checkboxLabel {
+	color: $text-secondary;
+}
+
+.checkbox {
+	accent-color: $color-accent;
+}
+
+.allowlistInput {
+	background: $input-bg;
+	border: 1px solid $input-border;
+	color: $text-primary;
+	font-family: $font-family-mono;
+	min-width: 220px;
+	transition: all 0.2s ease;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+		background: $input-bg-focus;
+	}
+
+	&::placeholder {
+		color: $text-muted;
+	}
+}
+
+// Shared Utilities
+.glassCard {
+	@extend .glass-card;
+}
+
+.sectionTitle {
+	@extend .section-title;
+}
+
+// Buttons
+.btnPrimary {
+	@include btn-primary;
+
+	svg {
+		width: 1rem;
+		height: 1rem;
+	}
+}
+
+.btnSecondary {
+	background: $bg-glass;
+	color: $text-secondary;
+	border: 1px solid $border-subtle;
+	cursor: pointer;
+	transition: all 0.2s ease;
+
+	svg {
+		width: 1rem;
+		height: 1rem;
+	}
+
+	&:hover:not(:disabled) {
+		background: $bg-glass-hover;
+		border-color: $border-medium;
+		color: $text-primary;
+	}
+
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+}
+
+// Textarea
+.textarea {
+	width: 100%;
+	min-height: 350px;
+	max-height: 550px;
+	padding: 1rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: 0.5rem;
+	color: $text-primary;
+	font-size: 0.875rem;
+	font-family: $font-family-mono;
+	line-height: 1.6;
+	transition: all 0.2s ease;
+	overflow-y: auto;
+	resize: vertical;
+	white-space: pre-wrap;
+	word-break: break-word;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+		background: $input-bg-focus;
+	}
+
+	&::placeholder {
+		color: $text-muted;
+	}
+
+	&.readOnly {
+		background: $bg-overlay-light;
+		cursor: default;
+	}
+
+	@include custom-scrollbar;
+}
+
+.cardFooter {
+	color: $text-tertiary;
+}
+
+// Stats Bar
+.statsBar {
+	background: $bg-glass;
+	backdrop-filter: blur(10px);
+	border: 1px solid $border-subtle;
+	border-left: 4px solid $color-accent;
+}
+
+.statBlock {
+	min-width: 100px;
+}
+
+.statValue {
+	color: $color-accent;
+}
+
+.statLabel {
+	color: $text-tertiary;
+	margin-top: 0.25rem;
+}
+
+// Info Section
+.infoGrid {
+	@media (max-width: 768px) {
+		grid-template-columns: 1fr;
+	}
+}
+
+.infoSubtitle {
+	color: $text-secondary;
+}
+
+.infoText {
+	color: $text-tertiary;
+	margin: 0;
+}
+
+.copyIcon {
+	@extend .copy-icon;
+}

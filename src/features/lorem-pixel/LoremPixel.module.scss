@@ -1,0 +1,117 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+@use '@/styles/utilities' as util;
+
+// Layout
+.container {
+  @extend .container-wide;
+  display: grid;
+  grid-template-columns: 450px 1fr;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.settingsPanel {}
+
+.previewPanel {}
+
+// Shared Utilities
+.glassCard {
+  @extend .glass-card;
+}
+
+.sectionTitle {
+  @extend .section-title;
+}
+
+.inputLabel {
+  @extend .input-label;
+}
+
+.input {
+  @extend .input-field;
+}
+
+.slider {
+  @extend .slider;
+}
+
+// Size Presets
+.presetBtn {
+  @include btn-preset;
+}
+
+// Color Inputs
+.colorTextInput {
+  padding: 0.75rem 1rem;
+  background: $input-bg;
+  border: 1px solid $input-border;
+  color: $text-primary;
+  font-family: $font-family-mono;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: $input-border-focus;
+    background: $input-bg-focus;
+  }
+}
+
+// Random Colors Button
+.randomBtn {
+  @include btn-primary;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8125rem;
+}
+
+// Hint Text
+.hint {
+  color: $text-muted;
+}
+
+// Preview
+.previewInfo {
+  margin: 0;
+  color: $text-muted;
+  font-family: $font-family-mono;
+}
+
+.downloadBtn {
+  @include btn-primary;
+  padding: 0.75rem 1.5rem;
+}
+
+.previewContainer {
+  min-height: 400px;
+  padding: 2rem;
+  background: $input-bg;
+  border: 2px dashed $border-subtle;
+
+  @media (max-width: 768px) {
+    min-height: 300px;
+    padding: 1rem;
+  }
+}
+
+.previewCanvas {
+  max-height: 600px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  image-rendering: crisp-edges;
+}
+
+.infoBox {
+  background: $input-bg;
+  border: 1px solid $border-subtle;
+}
+
+.infoIcon {
+  color: $color-accent;
+  margin-top: 0.125rem;
+}
+
+.infoText {
+  @extend .info-text;
+}

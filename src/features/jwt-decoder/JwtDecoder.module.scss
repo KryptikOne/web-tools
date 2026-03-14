@@ -1,0 +1,242 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+@use '@/styles/utilities' as util;
+
+// Layout
+.container {
+  @extend .container;
+}
+
+// Shared Utilities
+.glassCard {
+  @extend .glass-card;
+}
+
+.sectionTitle {
+  @extend .section-title;
+}
+
+.copyBtn {
+  @extend .copy-btn;
+}
+
+.copyIcon {
+  @extend .copy-icon;
+}
+
+// Input
+.tokenInput {
+  @extend .input-field;
+  min-height: 120px;
+  resize: vertical;
+  line-height: 1.6;
+  word-break: break-all;
+
+  &::placeholder {
+    font-family: inherit;
+    word-break: normal;
+  }
+}
+
+.inputLabel {
+  @extend .input-label;
+}
+
+// Error
+.errorBox {
+  background: oklch(65% 0.2 25 / 0.1);
+  border: 1px solid $color-error;
+  border-radius: $radius-md;
+  color: $color-error;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+// Token preview (color-coded)
+.tokenPreview {
+  font-family: $font-family-mono;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  word-break: break-all;
+  background: $input-bg;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-md;
+}
+
+.tokenHeader {
+  color: oklch(70% 0.18 250); // blue
+}
+
+.tokenPayload {
+  color: $color-accent; // purple/pink
+}
+
+.tokenDot {
+  color: $text-muted;
+}
+
+.tokenSignature {
+  color: oklch(70% 0.18 145); // green (matches $color-success)
+}
+
+// Decoded sections
+.sectionHeader {
+  // flex, items-center, justify-between handled by Tailwind
+}
+
+.sectionBadge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.2rem 0.5rem;
+  border-radius: $radius-sm;
+}
+
+.badgeHeader {
+  background: oklch(70% 0.18 250 / 0.15);
+  color: oklch(70% 0.18 250);
+}
+
+.badgePayload {
+  background: oklch(55% 0.196 311.1 / 0.15);
+  color: $color-accent;
+}
+
+.badgeSignature {
+  background: oklch(70% 0.18 145 / 0.15);
+  color: $color-success;
+}
+
+// Code blocks
+.codeBlock {
+  @include custom-scrollbar;
+  background: $input-bg;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-md;
+  overflow-x: auto;
+  font-family: $font-family-mono;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: $text-primary;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0;
+}
+
+// Claims table
+.claimsTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.claimRow {
+  border-bottom: 1px solid $border-subtle;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.claimName {
+  font-family: $font-family-mono;
+  font-weight: 600;
+  color: $color-accent;
+  white-space: nowrap;
+  vertical-align: top;
+}
+
+.claimLabel {
+  color: $text-muted;
+  font-size: 0.8rem;
+  vertical-align: top;
+}
+
+.claimValue {
+  font-family: $font-family-mono;
+  color: $text-primary;
+  word-break: break-word;
+  vertical-align: top;
+}
+
+// Expiration indicator
+.expirationBadge {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.expired {
+  background: oklch(65% 0.2 25 / 0.15);
+  color: $color-error;
+}
+
+.valid {
+  background: oklch(70% 0.18 145 / 0.15);
+  color: $color-success;
+}
+
+.expirationDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dotExpired {
+  background: $color-error;
+}
+
+.dotValid {
+  background: $color-success;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+// Signature hex display
+.signatureHex {
+  font-family: $font-family-mono;
+  font-size: 0.8rem;
+  color: $text-secondary;
+  word-break: break-all;
+  line-height: 1.6;
+}
+
+// Info section
+.infoGrid {
+  @extend .info-grid;
+}
+
+.infoItem {
+  @extend .info-item;
+}
+
+.infoSubtitle {
+  @extend .info-subtitle;
+}
+
+.infoText {
+  @extend .info-text;
+}
+
+// Clear button
+.btnPrimary {
+  @include btn-primary;
+}
+
+.btnSecondary {
+  @include btn-secondary;
+}

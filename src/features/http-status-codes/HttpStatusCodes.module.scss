@@ -1,0 +1,228 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+@use '@/styles/utilities' as util;
+
+// Layout
+.container {
+  @extend .container;
+  @include custom-scrollbar;
+}
+
+.controlsBar {
+  // Layout handled by Tailwind: flex, flex-wrap, items-center, gap-4, mb-6
+}
+
+.searchWrapper {
+  position: relative;
+  // flex-1 handled by Tailwind
+  min-width: 280px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.25rem;
+  height: 1.25rem;
+  color: $text-muted;
+  pointer-events: none;
+}
+
+.searchInput {
+  @include input-field;
+  padding-left: 2.75rem;
+}
+
+.resultCount {
+  font-size: 0.85rem;
+  color: $text-muted;
+  white-space: nowrap;
+}
+
+// Category Sections
+.categorySection {
+  @extend .glass-card;
+  // mb-6 handled by Tailwind
+
+  &.info {
+    border-left: 3px solid $color-info;
+  }
+
+  &.success {
+    border-left: 3px solid $color-success;
+  }
+
+  &.warning {
+    border-left: 3px solid $color-warning;
+  }
+
+  &.error {
+    border-left: 3px solid $color-error;
+  }
+}
+
+.categoryHeader {
+  // flex, items-center, gap-3, w-full, text-left handled by Tailwind
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: inherit;
+}
+
+.chevronIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: $text-muted;
+  flex-shrink: 0;
+  transition: color $transition-fast;
+}
+
+.categoryTitle {
+  @extend .section-title;
+  margin: 0;
+  flex: 1;
+}
+
+.categoryBadge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: $text-muted;
+  background: $bg-glass;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-2xl;
+  padding: 0.2rem 0.6rem;
+  flex-shrink: 0;
+}
+
+.codesList {
+  // flex, flex-col, gap-2, mt-4 handled by Tailwind
+}
+
+// Status Code Cards
+.statusCard {
+  background: $input-bg;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-md;
+  padding: 0.875rem 1rem;
+  transition: all $transition-base;
+
+  &:hover {
+    background: $bg-glass-hover;
+    border-color: $border-medium;
+  }
+
+  &.expanded {
+    background: $bg-glass-hover;
+    border-color: $border-medium;
+  }
+}
+
+.statusHeader {
+  // flex, items-center, gap-4, cursor-pointer handled by Tailwind
+}
+
+.statusCode {
+  font-family: $font-family-mono;
+  font-size: 1.1rem;
+  font-weight: 700;
+  min-width: 3rem;
+  text-align: center;
+  flex-shrink: 0;
+
+  &.info {
+    color: $color-info;
+  }
+
+  &.success {
+    color: $color-success;
+  }
+
+  &.warning {
+    color: $color-warning;
+  }
+
+  &.error {
+    color: $color-error;
+  }
+}
+
+.statusName {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: $text-primary;
+}
+
+.statusPreview {
+  font-size: 0.8rem;
+  color: $text-muted;
+  @include line-clamp(1);
+  margin: 0;
+}
+
+.copyBtn {
+  @extend .copy-btn;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.copyIcon {
+  @extend .copy-icon;
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+.expandIcon {
+  width: 1rem;
+  height: 1rem;
+  color: $text-muted;
+  flex-shrink: 0;
+  transition: transform $transition-fast;
+}
+
+// Expanded Details
+.statusDetails {
+  // mt-4, pt-4 handled by Tailwind
+  border-top: 1px solid $border-subtle;
+}
+
+.detailLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: $text-muted;
+  margin: 0 0 0.375rem 0;
+}
+
+.detailText {
+  font-size: 0.875rem;
+  color: $text-secondary;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.detailExample {
+  font-size: 0.85rem;
+  color: $text-code;
+  background: $color-accent-20;
+  padding: 0.625rem 0.875rem;
+  border-radius: $radius-sm;
+  font-family: $font-family-mono;
+  line-height: 1.5;
+  margin: 0;
+}
+
+// No Results
+.noResults {
+  // text-center, p-12 handled by Tailwind
+  color: $text-muted;
+
+  p {
+    font-size: 1rem;
+    margin: 0;
+  }
+}

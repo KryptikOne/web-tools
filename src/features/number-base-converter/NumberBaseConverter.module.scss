@@ -1,0 +1,196 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+@use '@/styles/utilities' as util;
+
+// Layout
+.container {
+	@extend .container;
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}
+
+// Shared Utilities
+.glassCard {
+	@extend .glass-card;
+}
+
+.sectionTitle {
+	@extend .section-title;
+}
+
+.inputLabel {
+	@extend .input-label;
+}
+
+.input {
+	@include input-field;
+	font-family: $font-family-mono;
+
+	&::placeholder {
+		font-family: inherit;
+	}
+}
+
+.errorText {
+	margin: 0.5rem 0 0 0;
+	font-size: 0.8rem;
+	color: $color-error;
+}
+
+// Base selector buttons
+.baseBtn {
+	@include btn-preset;
+
+	&.active {
+		background: $bg-glass-hover;
+		border-color: $color-accent;
+		color: $color-accent;
+		font-weight: 600;
+	}
+}
+
+.customBaseWrapper {
+	// flex, items-center, gap handled by Tailwind
+}
+
+.customBaseInput {
+	@include input-field;
+	width: 5rem;
+	font-family: $font-family-mono;
+	text-align: center;
+}
+
+.btnPrimary {
+	@include btn-primary;
+	align-self: flex-start;
+}
+
+// Results grid
+.resultsGrid {
+	// grid, grid-cols, gap handled by Tailwind (including responsive)
+}
+
+.resultTitle {
+	font-size: 0.875rem;
+	font-weight: 600;
+	color: $text-secondary;
+	margin: 0;
+	font-family: $font-family-display;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+}
+
+.resultValue {
+	margin: 0;
+	font-size: 1.125rem;
+	font-weight: 600;
+	color: $color-primary;
+	font-family: $font-family-mono;
+	word-break: break-all;
+	line-height: 1.5;
+}
+
+// Grouped display
+.groupedDisplay {
+	display: flex;
+	align-items: baseline;
+	gap: 0.5rem;
+	flex-wrap: wrap;
+}
+
+.groupedLabel {
+	font-size: 0.75rem;
+	font-weight: 500;
+	color: $text-muted;
+	white-space: nowrap;
+}
+
+.groupedValue {
+	font-size: 0.8rem;
+	font-family: $font-family-mono;
+	color: $text-secondary;
+	word-break: break-all;
+	background: $input-bg;
+	padding: 0.125rem 0.375rem;
+	border-radius: $radius-sm;
+}
+
+// Copy button
+.copyBtn {
+	@extend .copy-btn;
+}
+
+.copyIcon {
+	@extend .copy-icon;
+}
+
+// Bit length representations
+.bitRow {
+	// flex, items-center, justify-between, gap handled by Tailwind
+	padding: 0.625rem 0.75rem;
+	background: $input-bg;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+}
+
+.bitLabel {
+	font-size: 0.875rem;
+	font-weight: 600;
+	color: $text-secondary;
+	white-space: nowrap;
+	min-width: 3.5rem;
+}
+
+.bitValue {
+	font-size: 0.8rem;
+	font-family: $font-family-mono;
+	color: $text-primary;
+	word-break: break-all;
+	line-height: 1.5;
+}
+
+// Hex reference table
+.referenceGrid {
+	display: grid;
+	grid-template-columns: repeat(8, 1fr);
+	gap: 0.5rem;
+
+	@media (max-width: 768px) {
+		grid-template-columns: repeat(4, 1fr);
+	}
+
+	@media (max-width: 480px) {
+		grid-template-columns: repeat(4, 1fr);
+	}
+}
+
+.referenceCell {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.125rem;
+	padding: 0.5rem;
+	background: $input-bg;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	transition: all 0.2s ease;
+
+	&:hover {
+		border-color: $border-medium;
+		background: $bg-glass-hover;
+	}
+}
+
+.referenceHex {
+	font-size: 1.25rem;
+	font-weight: 700;
+	font-family: $font-family-mono;
+	color: $color-primary;
+}
+
+.referenceSub {
+	font-size: 0.625rem;
+	font-family: $font-family-mono;
+	color: $text-muted;
+}

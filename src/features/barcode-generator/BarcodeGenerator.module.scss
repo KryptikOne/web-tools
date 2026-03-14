@@ -1,0 +1,146 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+@use '@/styles/utilities' as util;
+
+// Layout
+.container {
+  @extend .container-wide;
+  display: grid;
+  grid-template-columns: 420px 1fr;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.settingsPanel {}
+
+.previewPanel {}
+
+// Shared Utilities
+.glassCard {
+  @extend .glass-card;
+}
+
+.sectionTitle {
+  @extend .section-title;
+}
+
+.inputLabel {
+  @extend .input-label;
+}
+
+.input {
+  @include input-field;
+}
+
+.slider {
+  @extend .slider;
+}
+
+.sliderHeader {
+  @extend .slider-header;
+}
+
+.sliderLabel {
+  @extend .slider-label;
+}
+
+.sliderValue {
+  @extend .slider-value;
+}
+
+// Format Selector
+.formatBtn {
+  @include btn-preset;
+}
+
+// Color Inputs
+.colorTextInput {
+  padding: 0.75rem 1rem;
+  background: $input-bg;
+  border: 1px solid $input-border;
+  color: $text-primary;
+  font-family: $font-family-mono;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: $input-border-focus;
+    background: $input-bg-focus;
+  }
+}
+
+// Validation Error
+.errorMessage {
+  color: $color-error;
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+.formatHint {
+  color: $text-muted;
+  margin: 0;
+}
+
+// Checkbox Toggle
+.toggleLabel {
+  user-select: none;
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: $color-accent;
+  cursor: pointer;
+}
+
+// Preview
+.previewHeader {
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
+}
+
+.previewInfo {
+  margin: 0;
+  color: $text-muted;
+  font-family: $font-family-mono;
+}
+
+.downloadBtn {
+  @include btn-primary;
+  padding: 0.75rem 1.5rem;
+}
+
+.previewContainer {
+  min-height: 200px;
+  padding: 2rem;
+  background: $input-bg;
+  border: 2px dashed $border-subtle;
+
+  @media (max-width: 768px) {
+    min-height: 150px;
+    padding: 1rem;
+  }
+}
+
+.barcodeCanvas {
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+}
+
+.infoBox {
+  background: $input-bg;
+  border: 1px solid $border-subtle;
+}
+
+.infoIcon {
+  color: $color-accent;
+  margin-top: 0.125rem;
+}
+
+.infoText {
+  @extend .info-text;
+}

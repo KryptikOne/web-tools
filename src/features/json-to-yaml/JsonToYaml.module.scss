@@ -1,0 +1,238 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+// Layout
+.container {
+	@extend .container;
+}
+
+.grid {
+	grid-template-columns: 1fr auto 1fr;
+
+	@media (max-width: 1024px) {
+		grid-template-columns: 1fr;
+	}
+}
+
+// Tab Bar
+.tabBar {
+	background: $bg-glass;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-lg;
+	padding: 0.25rem;
+	display: inline-flex;
+}
+
+.tab {
+	@include btn-preset;
+	padding: 0.5rem 1.25rem;
+	font-size: 0.875rem;
+	border: none;
+	background: transparent;
+	color: $text-secondary;
+	cursor: pointer;
+	transition: all 0.2s ease;
+
+	&:hover {
+		color: $text-primary;
+	}
+
+	&.tabActive {
+		background: $color-accent;
+		color: $text-primary;
+		border-radius: $radius-md;
+	}
+}
+
+// Options Bar
+.optionsBar {
+	background: $bg-glass;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-lg;
+}
+
+.optionGroup {
+}
+
+.optionLabel {
+	color: $text-secondary;
+}
+
+.select {
+	padding: 0.5rem 1rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: $radius-md;
+	color: $text-primary;
+	font-size: 0.875rem;
+	cursor: pointer;
+	transition: all 0.2s ease;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+		background: $input-bg-focus;
+	}
+
+	option {
+		background: $bg-secondary;
+		color: $text-primary;
+	}
+}
+
+// Glass Card
+.glassCard {
+	@extend .glass-card;
+}
+
+.cardHeader {
+}
+
+.cardTitle {
+	color: $text-primary;
+}
+
+.buttonGroup {
+}
+
+// Buttons
+.btnPrimary {
+	@include btn-primary;
+	padding: 0.5rem 1rem;
+	font-size: 0.875rem;
+
+	&.copied {
+		background: $color-success;
+	}
+}
+
+.btnSecondary {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.5rem 1rem;
+	background: $bg-glass;
+	color: $text-secondary;
+	border: 1px solid $border-subtle;
+	border-radius: 0.5rem;
+	font-weight: 500;
+	font-size: 0.875rem;
+	cursor: pointer;
+	transition: all 0.2s ease;
+
+	&:hover:not(:disabled) {
+		background: $bg-glass-hover;
+		border-color: $border-medium;
+		color: $text-primary;
+	}
+
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+}
+
+.btnIcon {
+}
+
+// Textarea
+.textarea {
+	width: 100%;
+	min-height: 300px;
+	max-height: 500px;
+	padding: 1rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: 0.5rem;
+	color: $text-primary;
+	font-size: 0.875rem;
+	font-family: $font-family-mono;
+	line-height: 1.6;
+	transition: all 0.2s ease;
+	overflow-y: auto;
+	resize: vertical;
+	white-space: pre;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+		background: $input-bg-focus;
+	}
+
+	&::placeholder {
+		color: $text-muted;
+		white-space: pre-wrap;
+	}
+
+	&.readOnly {
+		background: $bg-overlay-light;
+		cursor: default;
+	}
+
+	@include custom-scrollbar;
+}
+
+// Error
+.errorMessage {
+	color: $color-error;
+}
+
+// Swap Button
+.swapContainer {
+	@media (max-width: 1024px) {
+		transform: rotate(90deg);
+		padding: 0.5rem 0;
+	}
+}
+
+.swapButton {
+	background: $bg-glass;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	color: $text-secondary;
+	cursor: pointer;
+	transition: all 0.2s ease;
+
+	&:hover {
+		background: $bg-glass-hover;
+		color: $color-accent;
+		border-color: $color-accent;
+		transform: scale(1.05);
+	}
+}
+
+.swapIcon {
+}
+
+// Info Section
+.infoTitle {
+	color: $text-primary;
+}
+
+.infoGrid {
+	@media (max-width: 768px) {
+		grid-template-columns: 1fr;
+	}
+}
+
+.infoSubtitle {
+	font-size: 0.95rem;
+	color: $text-secondary;
+}
+
+.infoText {
+	color: $text-tertiary;
+}
+
+.infoList {
+	li {
+		font-size: 0.875rem;
+		color: $text-tertiary;
+		margin-bottom: 0.25rem;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+}
