@@ -1,0 +1,58 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+.container { @extend .container; }
+.glassCard { @extend .glass-card; margin-bottom: 1.5rem; }
+.sectionTitle { @extend .section-title; }
+.chartTitle { font-size: 1rem; font-weight: 600; color: $text-primary; margin: 0 0 0.75rem 0; font-family: $font-family-display; }
+
+.categoryTabs {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin-bottom: 1.5rem;
+}
+
+.categoryTab {
+	padding: 0.625rem 1rem;
+	background: $input-bg;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	color: $text-secondary;
+	font-size: 0.85rem;
+	font-weight: 500;
+	cursor: pointer;
+	transition: all 0.2s ease;
+
+	&:hover {
+		border-color: $color-accent;
+		color: $text-primary;
+	}
+}
+
+.activeTab {
+	background: $color-accent;
+	color: white;
+	border-color: $color-accent;
+
+	&:hover {
+		color: white;
+	}
+}
+
+.tableWrapper { overflow-x: auto; }
+.referenceTable {
+	width: 100%; border-collapse: collapse; font-size: 0.9rem;
+	th { text-align: left; padding: 0.625rem 0.75rem; background: $input-bg; color: $text-secondary; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.03em; border-bottom: 1px solid $border-subtle; &:first-child { border-radius: $radius-sm 0 0 0; } &:last-child { border-radius: 0 $radius-sm 0 0; } }
+	td { padding: 0.5rem 0.75rem; border-bottom: 1px solid $border-subtle; color: $text-primary; }
+	tr:last-child td { border-bottom: none; }
+	tr:hover td { background: rgba(255, 255, 255, 0.02); }
+}
+
+.tipsGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+.tipCard {
+	padding: 1rem; background: $input-bg; border-radius: $radius-md; border: 1px solid $border-subtle;
+	h4 { font-size: 0.9rem; font-weight: 600; color: $text-primary; margin: 0 0 0.5rem 0; }
+	p { font-size: 0.85rem; color: $text-secondary; line-height: 1.5; margin: 0; }
+}

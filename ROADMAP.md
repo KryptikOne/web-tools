@@ -41,6 +41,15 @@ A collection of utility tools, converters, and generators planned for developmen
 - [x] **Aspect Ratio Calculator** - Calculate aspect ratios and dimensions for video/images
 - [x] **Data Storage Converter** - Convert between bytes, KB, MB, GB, TB with binary/decimal modes
 - [x] **Bandwidth Calculator** - Convert bandwidth units and calculate download times
+- [x] **Pressure Converter** - Convert between PSI, bar, atmospheres, pascals, mmHg, and more
+- [x] **Energy Converter** - Convert between joules, calories, kilocalories, BTU, kWh, and more
+- [x] **Speed / Velocity Converter** - Convert between mph, km/h, m/s, knots, Mach, and more
+- [x] **Power Converter** - Convert between watts, kilowatts, horsepower, BTU/h, and more
+- [x] **Frequency Converter** - Convert between Hz, kHz, MHz, GHz, RPM, and more
+- [x] **Fuel Economy Converter** - Convert between MPG (US/UK), L/100km, km/L
+- [x] **Clothing Size Converter** - Convert between US, UK, EU clothing and shoe sizes
+- [x] **Angle Converter** - Convert between degrees, radians, gradians, turns, and arc units
+- [x] **Time Duration Calculator** - Convert time units, calculate date differences, add/subtract durations
 
 ### Fun & Random
 
@@ -152,64 +161,24 @@ Screen and display calculations.
 
 ---
 
-### Science / Engineering
+### Science / Engineering (Implemented)
 
-#### Pressure Converter
-
-Convert between pressure units.
-
-- **Units:** PSI, bar, atmospheres (atm), pascals (Pa), kilopascals (kPa), mmHg, inHg
-- **Features:** Tire pressure reference, weather/altitude context
-
-#### Energy Converter
-
-Convert between energy units.
-
-- **Units:** joules (J), kilojoules (kJ), calories (cal), kilocalories (kcal/Cal), BTU, kilowatt-hours (kWh), electron volts (eV)
-- **Features:** Food calorie context, electricity cost calculator
-
-#### Speed / Velocity Converter
-
-Convert between speed units.
-
-- **Units:** mph, km/h, m/s, ft/s, knots, Mach
-- **Features:** Wind speed scale (Beaufort), common speed references
-
-#### Power Converter
-
-Convert between power units.
-
-- **Units:** watts (W), kilowatts (kW), horsepower (hp), BTU/hour
-- **Features:** Appliance power consumption reference
-
-#### Frequency Converter
-
-Convert between frequency units.
-
-- **Units:** hertz (Hz), kilohertz (kHz), megahertz (MHz), gigahertz (GHz), RPM
-- **Features:** Audio frequency reference, radio band reference
+- [x] **Pressure Converter** - PSI, bar, atm, Pa, kPa, mmHg, inHg with tire pressure and weather references
+- [x] **Energy Converter** - joules, kJ, calories, kcal, BTU, kWh, eV with food calorie and electricity references
+- [x] **Speed / Velocity Converter** - mph, km/h, m/s, ft/s, knots, Mach with Beaufort wind scale
+- [x] **Power Converter** - watts, kW, hp, BTU/h with appliance and vehicle power references
+- [x] **Frequency Converter** - Hz, kHz, MHz, GHz, RPM with audio and radio band references
 
 ---
 
-### Practical / Niche
+### Practical / Niche (Implemented)
 
-#### Fuel Economy Converter
+- [x] **Fuel Economy Converter** - MPG (US/UK), L/100km, km/L with vehicle efficiency references
+- [x] **Clothing Size Converter** - US, UK, EU sizes for shoes, shirts, pants, and rings
+- [x] **Angle Converter** - degrees, radians, gradians, turns, arc minutes/seconds with trig values
+- [x] **Time Duration Calculator** - duration converter, date difference, add/subtract time
 
-Convert between fuel efficiency units.
-
-- **Units:** MPG (US), MPG (UK), L/100km, km/L
-- **Features:** Trip cost calculator, vehicle comparison tool
-
-#### Clothing Size Converter
-
-Convert between international clothing sizes.
-
-- **Categories:**
-    - Shoes (US, UK, EU, CM)
-    - Shirts/Tops (US, UK, EU)
-    - Pants/Bottoms (US, UK, EU)
-    - Rings
-- **Features:** Men's/Women's/Kids' modes, brand-specific variations
+### Practical / Niche (Planned)
 
 #### Currency Converter
 
@@ -220,23 +189,6 @@ Convert between world currencies.
     - Historical rates
     - Multi-currency comparison
     - Travel budget calculator
-
-#### Angle Converter
-
-Convert between angle units.
-
-- **Units:** degrees, radians, gradians, turns, arc minutes, arc seconds
-- **Features:** Trig function calculator, visual angle representation
-
-#### Time Duration Calculator
-
-Calculate time differences and durations.
-
-- **Features:**
-    - Days/hours/minutes/seconds breakdown
-    - Working days calculator
-    - Age calculator
-    - Countdown/time-until calculator
 
 ---
 
