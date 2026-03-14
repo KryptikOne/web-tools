@@ -83,6 +83,16 @@
   }
 }
 
+// Random Button
+.randomBtn {
+  @include btn-preset;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.8rem;
+}
+
 // Format Buttons
 .formatButtons {}
 

@@ -9,12 +9,13 @@ export interface Tool {
 }
 
 export enum ToolCategory {
-	CODE_WEB = "code-web",
-	COLOR_DESIGN = "color-design",
-	UTILITY_CONVERSION = "utility-conversion",
+	CSS_DESIGN = "css-design",
+	IMAGE_MEDIA = "image-media",
 	TEXT_DATA = "text-data",
-	IMAGE_VISUAL = "image-visual",
-	FUN_RANDOM = "fun-random",
+	ENCODING_DATA = "encoding-data",
+	WEB_DEV = "web-dev",
+	UNIT_CONVERTERS = "unit-converters",
+	CALCULATORS_TIME = "calculators-time",
 }
 
 export interface CategoryInfo {

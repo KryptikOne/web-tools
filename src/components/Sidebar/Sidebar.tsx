@@ -3,7 +3,7 @@
 import { useState, useRef, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { WrenchScrewdriverIcon, DocumentTextIcon, SwatchIcon, PhotoIcon, CodeBracketIcon, CalculatorIcon, SparklesIcon } from "@heroicons/react/24/outline";
+import { WrenchScrewdriverIcon, DocumentTextIcon, SwatchIcon, PhotoIcon, CodeBracketIcon, CalculatorIcon, ArrowsRightLeftIcon, LockClosedIcon, ClockIcon } from "@heroicons/react/24/outline";
 import { CATEGORIES, getToolsByCategory } from "@/config/tools-registry";
 import { ToolCategory } from "@/types/tools";
 import { scrambleText } from "@/lib/textEffects";
@@ -13,12 +13,13 @@ import styles from "./Sidebar.module.scss";
 
 // Map categories to their icons
 const CATEGORY_ICONS: Record<ToolCategory, React.ComponentType<React.SVGProps<SVGSVGElement>>> = {
+	[ToolCategory.CSS_DESIGN]: SwatchIcon,
+	[ToolCategory.IMAGE_MEDIA]: PhotoIcon,
 	[ToolCategory.TEXT_DATA]: DocumentTextIcon,
-	[ToolCategory.COLOR_DESIGN]: SwatchIcon,
-	[ToolCategory.IMAGE_VISUAL]: PhotoIcon,
-	[ToolCategory.CODE_WEB]: CodeBracketIcon,
-	[ToolCategory.UTILITY_CONVERSION]: CalculatorIcon,
-	[ToolCategory.FUN_RANDOM]: SparklesIcon,
+	[ToolCategory.ENCODING_DATA]: LockClosedIcon,
+	[ToolCategory.WEB_DEV]: CodeBracketIcon,
+	[ToolCategory.UNIT_CONVERTERS]: ArrowsRightLeftIcon,
+	[ToolCategory.CALCULATORS_TIME]: CalculatorIcon,
 };
 
 export default function Sidebar() {
