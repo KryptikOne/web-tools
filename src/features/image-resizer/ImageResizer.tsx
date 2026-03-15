@@ -319,6 +319,7 @@ export default function ImageResizer() {
 						accept={ACCEPTED_TYPES.join(",")}
 						onChange={handleFileChange}
 						className="hidden"
+						aria-label="Upload image to resize"
 					/>
 
 					{error && (

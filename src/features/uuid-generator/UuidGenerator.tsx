@@ -173,6 +173,7 @@ export default function UuidGenerator() {
 								value={bulkCount}
 								onChange={(e) => handleBulkCountChange(e.target.value)}
 								className={styles.inputField}
+								aria-label="UUID count"
 							/>
 						</div>
 						<Button onClick={handleGenerateBulk} className={`gap-2 ${styles.secondaryBtn}`}>

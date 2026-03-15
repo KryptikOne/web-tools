@@ -385,6 +385,7 @@ export default function ImageColorExtractor() {
 						accept="image/*"
 						className="hidden"
 						onChange={handleFileInput}
+						aria-label="Upload image for color extraction"
 					/>
 				</div>
 

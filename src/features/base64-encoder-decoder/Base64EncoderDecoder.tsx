@@ -7,45 +7,9 @@ import {
 	TrashIcon,
 } from "@heroicons/react/24/outline";
 import styles from "./Base64EncoderDecoder.module.scss";
+import { encodeToBase64, decodeFromBase64 } from "@/lib/base64Utils";
 
 type Mode = "encode" | "decode";
-
-function encodeToBase64(text: string, urlSafe: boolean, lineBreaks: boolean): string {
-	// UTF-8 support via TextEncoder
-	const encoder = new TextEncoder();
-	const bytes = encoder.encode(text);
-	const binaryString = Array.from(bytes)
-		.map((byte) => String.fromCharCode(byte))
-		.join("");
-	let encoded = btoa(binaryString);
-
-	if (urlSafe) {
-		encoded = encoded.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
-	}
-
-	if (lineBreaks) {
-		encoded = encoded.replace(/(.{76})/g, "$1\n").trimEnd();
-	}
-
-	return encoded;
-}
-
-function decodeFromBase64(input: string, urlSafe: boolean): string {
-	let cleaned = input.replace(/\s/g, "");
-
-	if (urlSafe) {
-		cleaned = cleaned.replace(/-/g, "+").replace(/_/g, "/");
-		// Re-add padding
-		const pad = cleaned.length % 4;
-		if (pad === 2) cleaned += "==";
-		else if (pad === 3) cleaned += "=";
-	}
-
-	const binaryString = atob(cleaned);
-	const bytes = Uint8Array.from(binaryString, (char) => char.charCodeAt(0));
-	const decoder = new TextDecoder();
-	return decoder.decode(bytes);
-}
 
 export default function Base64EncoderDecoder() {
 	const [mode, setMode] = useState<Mode>("encode");

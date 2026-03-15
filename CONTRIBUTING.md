@@ -68,7 +68,7 @@ Every tool follows the same structure:
 - **Processing:** Keep everything client-side — no external API calls unless explicitly required
 - **TypeScript:** Strict mode, no `any` types
 - **Components:** Functional components and hooks only
-- **Utilities:** Check `src/lib/` and `src/hooks/` before writing new helpers
+- **Utilities:** Check `src/lib/` and `src/hooks/` before writing new helpers. All pure, reusable functions must live in `src/lib/` — never define them inside feature components. Tool-specific helpers that are only used by one tool can stay colocated.
 
 ## Commit Messages
 

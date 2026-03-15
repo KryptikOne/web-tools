@@ -413,7 +413,7 @@ export default function ScreenshotBeautifier() {
 							<br />
 							or paste from clipboard (Ctrl+V)
 						</p>
-						<input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileChange} className="hidden" />
+						<input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileChange} className="hidden" aria-label="Upload screenshot" />
 					</div>
 					{image && (
 						<button className={`flex items-center gap-1.5 mt-3 text-sm ${styles.clearBtn}`} onClick={clearImage}>

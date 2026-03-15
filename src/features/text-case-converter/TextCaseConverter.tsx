@@ -7,6 +7,21 @@ import {
 	TrashIcon,
 } from "@heroicons/react/24/outline";
 import styles from "./TextCaseConverter.module.scss";
+import {
+	toUpperCase,
+	toLowerCase,
+	toTitleCase,
+	toSentenceCase,
+	toCamelCase,
+	toPascalCase,
+	toSnakeCase,
+	toKebabCase,
+	toConstantCase,
+	toDotCase,
+	toPathCase,
+	toAlternatingCase,
+	toInverseCase,
+} from "@/lib/textCaseUtils";
 
 type CaseType =
 	| "uppercase"
@@ -44,114 +59,6 @@ const CASE_OPTIONS: CaseOption[] = [
 	{ key: "alternating", label: "aLtErNaTiNg", example: "hElLo WoRlD" },
 	{ key: "inverse", label: "InVeRsE", example: "hELLO wORLD" },
 ];
-
-// Split input into words, preserving intent for joined formats
-function splitIntoWords(text: string): string[] {
-	// Handle camelCase/PascalCase boundaries
-	let normalized = text.replace(/([a-z])([A-Z])/g, "$1 $2");
-	// Handle snake_case, kebab-case, dot.case, path/case
-	normalized = normalized.replace(/[_\-./]/g, " ");
-	// Collapse whitespace
-	return normalized.split(/\s+/).filter((w) => w.length > 0);
-}
-
-function toUpperCase(text: string): string {
-	return text.toUpperCase();
-}
-
-function toLowerCase(text: string): string {
-	return text.toLowerCase();
-}
-
-function toTitleCase(text: string): string {
-	return text.replace(/\S+/g, (word) =>
-		word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-	);
-}
-
-function toSentenceCase(text: string): string {
-	return text
-		.toLowerCase()
-		.replace(/(^\s*|[.!?]\s+)(\w)/g, (match, separator, char) =>
-			separator + char.toUpperCase()
-		);
-}
-
-function toCamelCase(text: string): string {
-	const words = splitIntoWords(text);
-	if (words.length === 0) return "";
-	return words
-		.map((w, i) =>
-			i === 0
-				? w.toLowerCase()
-				: w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()
-		)
-		.join("");
-}
-
-function toPascalCase(text: string): string {
-	const words = splitIntoWords(text);
-	if (words.length === 0) return "";
-	return words
-		.map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
-		.join("");
-}
-
-function toSnakeCase(text: string): string {
-	return splitIntoWords(text)
-		.map((w) => w.toLowerCase())
-		.join("_");
-}
-
-function toKebabCase(text: string): string {
-	return splitIntoWords(text)
-		.map((w) => w.toLowerCase())
-		.join("-");
-}
-
-function toConstantCase(text: string): string {
-	return splitIntoWords(text)
-		.map((w) => w.toUpperCase())
-		.join("_");
-}
-
-function toDotCase(text: string): string {
-	return splitIntoWords(text)
-		.map((w) => w.toLowerCase())
-		.join(".");
-}
-
-function toPathCase(text: string): string {
-	return splitIntoWords(text)
-		.map((w) => w.toLowerCase())
-		.join("/");
-}
-
-function toAlternatingCase(text: string): string {
-	let i = 0;
-	return text
-		.split("")
-		.map((char) => {
-			if (/[a-zA-Z]/.test(char)) {
-				const result = i % 2 === 0 ? char.toLowerCase() : char.toUpperCase();
-				i++;
-				return result;
-			}
-			return char;
-		})
-		.join("");
-}
-
-function toInverseCase(text: string): string {
-	return text
-		.split("")
-		.map((char) => {
-			if (char === char.toUpperCase()) return char.toLowerCase();
-			if (char === char.toLowerCase()) return char.toUpperCase();
-			return char;
-		})
-		.join("");
-}
 
 const CONVERTERS: Record<CaseType, (text: string) => string> = {
 	uppercase: toUpperCase,

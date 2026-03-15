@@ -123,7 +123,7 @@ export default function WeightConverter() {
 								className={styles.numberInput}
 								placeholder="Enter value"
 							/>
-							<select value={fromUnit} onChange={(e) => setFromUnit(e.target.value)} className={styles.unitSelect}>
+							<select value={fromUnit} onChange={(e) => setFromUnit(e.target.value)} className={styles.unitSelect} aria-label="From unit">
 								{WEIGHT_UNITS.map((unit) => (
 									<option key={unit.id} value={unit.id}>
 										{unit.name} ({unit.abbrev})
@@ -141,7 +141,7 @@ export default function WeightConverter() {
 						<label className={styles.inputLabel}>To</label>
 						<div className={styles.inputRow}>
 							<div className={styles.resultDisplay}>{result || "—"}</div>
-							<select value={toUnit} onChange={(e) => setToUnit(e.target.value)} className={styles.unitSelect}>
+							<select value={toUnit} onChange={(e) => setToUnit(e.target.value)} className={styles.unitSelect} aria-label="To unit">
 								{WEIGHT_UNITS.map((unit) => (
 									<option key={unit.id} value={unit.id}>
 										{unit.name} ({unit.abbrev})

@@ -365,6 +365,7 @@ export default function CsvToJson() {
 								accept=".csv,text/csv"
 								onChange={handleFileUpload}
 								className="hidden"
+								aria-label="Upload CSV file"
 							/>
 							<button onClick={handleClear} className={styles.btnSecondary} disabled={!csvInput}>
 								<TrashIcon className="w-4 h-4" />

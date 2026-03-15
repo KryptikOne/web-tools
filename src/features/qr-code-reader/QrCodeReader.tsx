@@ -452,6 +452,7 @@ export default function QrCodeReader() {
 					accept="image/*"
 					onChange={handleFileChange}
 					className="hidden"
+					aria-label="Upload QR code image"
 				/>
 
 				<div

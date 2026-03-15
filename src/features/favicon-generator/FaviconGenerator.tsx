@@ -241,6 +241,7 @@ export default function FaviconGenerator() {
 						accept="image/*"
 						onChange={handleFileSelect}
 						className="hidden"
+						aria-label="Upload image for favicon"
 					/>
 
 					<div

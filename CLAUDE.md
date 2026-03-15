@@ -89,9 +89,7 @@ When creating a new tool, **always complete all of these steps**:
 2. **Create the SCSS module** in `src/features/[tool-name]/[ToolName].module.scss`
 3. **Create the route page** in `src/app/tools/[tool-name]/page.tsx`
 4. **Register the tool** in `src/config/tools-registry.ts` with `implemented: true`
-5. **Update ROADMAP.md**:
-   - Add the tool to "Existing Tools (Implemented)" under the appropriate category
-   - If the tool was listed in "Planned Tools", mark it as `[x]` or move it to the implemented section
+5. **Ensure accessibility**: All form elements (`<input>`, `<select>`, `<textarea>`) must have labels — use `<label>` wrappers, `htmlFor`/`id` pairing, or `aria-label`. Hidden file inputs always need `aria-label`.
 6. **Run `pnpm run build`** to verify everything compiles correctly
 
 ---
@@ -159,16 +157,25 @@ Before implementing any functionality:
 Key utilities in this codebase:
 
 - `src/lib/colorUtils.ts` - Color parsing and conversion (hex, RGB, HSL, HSV, OKLCH)
+- `src/lib/formatUtils.ts` - Formatting helpers (formatBytes)
+- `src/lib/sanitizeUtils.ts` - HTML/SVG sanitization and escaping (security-critical)
+- `src/lib/base64Utils.ts` - UTF-8-aware Base64 encoding/decoding
+- `src/lib/hashUtils.ts` - MD5, ArrayBuffer-to-hex/base64, hex-to-bytes
+- `src/lib/textCaseUtils.ts` - Text case conversions (camelCase, snake_case, kebab-case, etc.)
+- `src/lib/htmlEntityUtils.ts` - HTML entity escaping/unescaping with format options
+- `src/lib/textEffects.ts` - Text scramble animation
 - `src/hooks/useIsMobile.ts` - SSR-safe mobile detection
 - `src/hooks/useClipboard.ts` - Clipboard operations with feedback
 
 **Do not reinvent the wheel.** If a utility exists, use it. If a utility is close but not quite right, extend it rather than duplicating logic elsewhere.
 
+**All pure, reusable utility functions MUST live in `src/lib/`.** Never define reusable logic inside feature component files. Tool-specific helpers that are only used by one tool can stay colocated.
+
 When creating new utilities:
 
 - Add them to the appropriate location (`src/lib/` for pure functions, `src/hooks/` for React hooks)
-- Document them in the styleguide if they're reusable patterns
 - Ensure they're exported and discoverable
+- Update this list so future contributors know what's available
 
 ---
 

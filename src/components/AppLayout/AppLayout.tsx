@@ -3,6 +3,7 @@
 import { ReactNode } from 'react';
 import Sidebar from '@/components/Sidebar/Sidebar';
 import TopBar from '@/components/TopBar/TopBar';
+import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary';
 import styles from './AppLayout.module.scss';
 
 interface AppLayoutProps {
@@ -16,7 +17,9 @@ export default function AppLayout({ children }: AppLayoutProps) {
       <div className={styles.mainWrapper}>
         <TopBar />
         <main className={styles.mainContent}>
-          {children}
+          <ErrorBoundary>
+            {children}
+          </ErrorBoundary>
         </main>
       </div>
     </div>

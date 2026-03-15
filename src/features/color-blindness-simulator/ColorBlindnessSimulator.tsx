@@ -393,6 +393,7 @@ export default function ColorBlindnessSimulator() {
 							accept="image/*"
 							className="hidden"
 							onChange={handleFileInput}
+							aria-label="Upload image for simulation"
 						/>
 					</>
 				)}

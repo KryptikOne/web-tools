@@ -8,6 +8,7 @@ import {
 	ArrowUpTrayIcon,
 } from "@heroicons/react/24/outline";
 import styles from "./ImageCompressor.module.scss";
+import { formatBytes } from "@/lib/formatUtils";
 
 interface ImageFile {
 	id: string;
@@ -37,13 +38,6 @@ const FORMAT_EXTENSIONS: Record<OutputFormat, string> = {
 	"image/png": "png",
 	"image/webp": "webp",
 };
-
-function formatBytes(bytes: number): string {
-	if (bytes === 0) return "0 B";
-	if (bytes < 1024) return `${bytes} B`;
-	if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(2)} KB`;
-	return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
-}
 
 function getImageFormat(type: string): string {
 	if (type.includes("png")) return "PNG";
@@ -361,6 +355,7 @@ export default function ImageCompressor() {
 						multiple
 						onChange={handleFileSelect}
 						className="hidden"
+						aria-label="Upload images to compress"
 					/>
 				</div>
 

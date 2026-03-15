@@ -9,6 +9,8 @@ import {
 	ArrowUpTrayIcon,
 } from "@heroicons/react/24/outline";
 import styles from "./SvgOptimizer.module.scss";
+import { sanitizeSvg } from "@/lib/sanitizeUtils";
+import { formatBytes } from "@/lib/formatUtils";
 
 // --- Types ---
 
@@ -66,16 +68,6 @@ const DEFAULT_ATTRIBUTE_VALUES: Record<string, string> = {
 };
 
 const METADATA_TAGS = ["title", "desc", "metadata"];
-
-// --- Sanitization ---
-
-function sanitizeSvg(svg: string): string {
-	// Remove <script> tags and their contents
-	let sanitized = svg.replace(/<script[\s\S]*?<\/script>/gi, "");
-	// Remove on* event handler attributes
-	sanitized = sanitized.replace(/\s+on\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, "");
-	return sanitized;
-}
 
 // --- Optimization Functions ---
 
@@ -358,13 +350,6 @@ function ToggleOption({ label, checked, onChange }: ToggleOptionProps) {
 	);
 }
 
-function formatBytes(bytes: number): string {
-	if (bytes === 0) return "0 B";
-	if (bytes < 1024) return `${bytes} B`;
-	if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(2)} KB`;
-	return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
-}
-
 export default function SvgOptimizer() {
 	const [inputSvg, setInputSvg] = useState("");
 	const [options, setOptions] = useState<OptimizationOptions>(DEFAULT_OPTIONS);
@@ -460,6 +445,7 @@ export default function SvgOptimizer() {
 					type="file"
 					accept=".svg"
 					className="hidden"
+					aria-label="Upload SVG file"
 					onChange={handleFileUpload}
 				/>
 
@@ -585,6 +571,7 @@ export default function SvgOptimizer() {
 								updateOption("decimalPrecision", parseInt(e.target.value, 10))
 							}
 							className={styles.slider}
+							aria-label="Decimal precision"
 						/>
 					</div>
 				)}

@@ -6,28 +6,10 @@ Project improvement plan covering security hardening, open source governance, qu
 
 ---
 
-## P1 — CI/CD Foundation
-
-- [ ] **Branch protection** — Enable in GitHub repo settings: require CI pass before merge (optional)
-
----
-
-## P3 — Testing Foundation
-
-- [ ] **Test framework setup** — Vitest + React Testing Library + jsdom
-- [ ] **Critical path tests** — Unit tests for encoding/decoding, sanitization, and conversion utilities in `src/lib/`
-- [ ] **Component smoke tests** — Basic render tests for high-risk tools (Markdown Preview, SVG Optimizer, HTML Tag Remover)
-- [ ] **Accessibility tests** — Add jest-axe for automated a11y checking on shared components
-- [ ] **CI integration** — Run tests in GitHub Actions workflow
-
----
-
-## P4 — Quality & Performance
+## Quality & Performance
 
 - [ ] **CHANGELOG.md** — Start tracking changes with semantic versioning
 - [ ] **Bundle size monitoring** — Add `@next/bundle-analyzer` and document baseline
-- [ ] **Error boundary** — Add a global React error boundary component
-- [ ] **Automated a11y audit** — Integrate axe-core or Lighthouse CI for accessibility scoring
 
 ---
 
@@ -50,3 +32,9 @@ Improvements for existing tools:
 - [ ] File upload support (.txt files)
 - [ ] File download (save as .txt or .bin)
 - [ ] Custom delimiter input
+
+### Site-Wide
+
+- [ ] Seasonal font switch/theme switch — load themed fonts/styles based on time of year (e.g., Halloween in October, Christmas in December)
+- [ ] Internationalization (i18n) — language translations and a language switcher so the app is accessible to non-English speakers
+- [ ] Keyboard accessibility audit — Replace non-semantic `onClick` handlers on `<div>`/`<td>` elements with proper `<button>` or ARIA keyboard patterns (TimezoneConverter, KitchenConverter, GradientGenerator)

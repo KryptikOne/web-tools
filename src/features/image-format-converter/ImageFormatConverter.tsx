@@ -294,6 +294,7 @@ export default function ImageFormatConverter() {
 						multiple
 						onChange={handleFileInputChange}
 						className="hidden"
+						aria-label="Upload images to convert"
 					/>
 				</div>
 

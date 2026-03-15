@@ -463,6 +463,7 @@ export default function JsonToYaml() {
 						value={indentSize}
 						onChange={(e) => setIndentSize(Number(e.target.value) as IndentSize)}
 						className={styles.select}
+						aria-label="Indent size"
 					>
 						<option value={2}>2 spaces</option>
 						<option value={4}>4 spaces</option>

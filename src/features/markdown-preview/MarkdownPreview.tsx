@@ -8,6 +8,7 @@ import {
 	DocumentTextIcon,
 } from "@heroicons/react/24/outline";
 import styles from "./MarkdownPreview.module.scss";
+import { sanitizeHtml, escapeHtml } from "@/lib/sanitizeUtils";
 
 const SAMPLE_MARKDOWN = `# Markdown Preview
 
@@ -59,22 +60,6 @@ console.log(greet("World"));
 ---
 
 That's it! Start editing to see your markdown rendered in real time.`;
-
-function sanitizeHtml(html: string): string {
-	return html
-		.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "")
-		.replace(/on\w+="[^"]*"/gi, "")
-		.replace(/on\w+='[^']*'/gi, "")
-		.replace(/javascript:/gi, "");
-}
-
-function escapeHtml(text: string): string {
-	return text
-		.replace(/&/g, "&amp;")
-		.replace(/</g, "&lt;")
-		.replace(/>/g, "&gt;")
-		.replace(/"/g, "&quot;");
-}
 
 function parseMarkdown(md: string): string {
 	let html = md;
