@@ -2,6 +2,22 @@
   "name": "next-tools",
   "version": "0.1.0",
   "private": true,
+  "license": "AGPL-3.0",
+  "author": "KryptikOne",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KryptikOne/web-tools.git"
+  },
+  "keywords": [
+    "web-tools",
+    "developer-tools",
+    "converters",
+    "generators",
+    "nextjs",
+    "react",
+    "typescript",
+    "client-side"
+  ],
   "packageManager": "pnpm@10.4.1",
   "scripts": {
     "dev": "next dev --turbopack",
