@@ -55,8 +55,8 @@
     "eslint": "^9",
     "eslint-config-next": "15.4.6",
     "jest-axe": "^10.0.0",
-    "jsdom": "^29.0.0",
-    "sass": "^1.83.4",
+    "jsdom": "^29.0.1",
+    "sass": "^1.98.0",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^4.1.0"
