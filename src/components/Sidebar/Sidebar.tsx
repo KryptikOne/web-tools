@@ -3,7 +3,7 @@
 import { useState, useRef, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { WrenchScrewdriverIcon, DocumentTextIcon, SwatchIcon, PhotoIcon, CodeBracketIcon, CalculatorIcon, ArrowsRightLeftIcon, LockClosedIcon, ClockIcon } from "@heroicons/react/24/outline";
+import { WrenchScrewdriverIcon, DocumentTextIcon, SwatchIcon, PhotoIcon, CodeBracketIcon, CalculatorIcon, ArrowsRightLeftIcon, LockClosedIcon, ClockIcon, ShieldCheckIcon, GlobeAltIcon } from "@heroicons/react/24/outline";
 import { CATEGORIES, getToolsByCategory } from "@/config/tools-registry";
 import { ToolCategory } from "@/types/tools";
 import { scrambleText } from "@/lib/textEffects";
@@ -20,6 +20,8 @@ const CATEGORY_ICONS: Record<ToolCategory, React.ComponentType<React.SVGProps<SV
 	[ToolCategory.WEB_DEV]: CodeBracketIcon,
 	[ToolCategory.UNIT_CONVERTERS]: ArrowsRightLeftIcon,
 	[ToolCategory.CALCULATORS_TIME]: CalculatorIcon,
+	[ToolCategory.SECURITY_CRYPTO]: ShieldCheckIcon,
+	[ToolCategory.NETWORK]: GlobeAltIcon,
 };
 
 export default function Sidebar() {

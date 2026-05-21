@@ -1,0 +1,165 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+.container {
+	@extend .container;
+}
+
+.optionsBar {
+	background: $bg-glass;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-lg;
+}
+
+.glassCard {
+	@extend .glass-card;
+}
+
+.cardTitle {
+	color: $text-primary;
+}
+
+.cardFooter {
+	color: $text-tertiary;
+}
+
+.checkboxLabel {
+	color: $text-secondary;
+}
+
+.checkbox {
+	accent-color: $color-accent;
+}
+
+.textarea {
+	width: 100%;
+	min-height: 140px;
+	max-height: 320px;
+	padding: 1rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: $radius-md;
+	color: $text-primary;
+	font-size: 1rem;
+	font-family: $font-family-mono;
+	line-height: 1.6;
+	transition: all 0.2s ease;
+	resize: vertical;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+		background: $input-bg-focus;
+	}
+
+	&::placeholder {
+		color: $text-muted;
+	}
+
+	@include custom-scrollbar;
+}
+
+.outputBox {
+	padding: 1rem;
+	background: $bg-overlay-light;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	min-height: 5rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	align-items: flex-start;
+	font-family: $font-family-mono;
+	font-size: 0.95rem;
+	color: $text-primary;
+}
+
+.emptyOutput {
+	color: $text-muted;
+	align-items: center;
+}
+
+.phoneticWord {
+	padding: 0.25rem 0.625rem;
+	background: $bg-glass;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-sm;
+	color: $color-accent;
+	font-weight: 500;
+}
+
+.btnPrimary {
+	@include btn-primary;
+	padding: 0.5rem 1rem;
+	font-size: 0.875rem;
+
+	&.copied {
+		background: $color-success;
+		color: #fff;
+	}
+}
+
+.btnSecondary {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.5rem 1rem;
+	background: $bg-glass;
+	color: $text-secondary;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	font-weight: 500;
+	font-size: 0.875rem;
+	cursor: pointer;
+	transition: all 0.2s ease;
+
+	&:hover:not(:disabled) {
+		background: $bg-glass-hover;
+		border-color: $border-medium;
+		color: $text-primary;
+	}
+
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+}
+
+.alphabetGrid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 0.5rem;
+
+	@media (min-width: 640px) {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	@media (min-width: 1024px) {
+		grid-template-columns: repeat(6, 1fr);
+	}
+}
+
+.alphabetCell {
+	display: flex;
+	align-items: baseline;
+	gap: 0.625rem;
+	padding: 0.5rem 0.75rem;
+	background: $bg-overlay-light;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+}
+
+.letter {
+	font-family: $font-family-mono;
+	font-size: 1rem;
+	font-weight: 700;
+	color: $color-accent;
+	min-width: 1.5rem;
+}
+
+.word {
+	font-family: $font-family-sans;
+	font-size: 0.9rem;
+	color: $text-secondary;
+}

@@ -1,0 +1,118 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+.container {
+	@extend .container;
+}
+
+.glassCard {
+	@extend .glass-card;
+}
+
+.cardTitle {
+	color: $text-primary;
+}
+
+.cardSubtitle {
+	color: $text-muted;
+}
+
+.cardFooter {
+	color: $text-tertiary;
+}
+
+.optionsBar {
+	background: $bg-glass;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-lg;
+}
+
+.label {
+	color: $text-secondary;
+	font-size: 0.8rem;
+	font-weight: 500;
+}
+
+.input {
+	width: 100%;
+	padding: 0.625rem 0.875rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: 0.5rem;
+	color: $text-primary;
+	font-size: 0.875rem;
+	font-family: $font-family-mono;
+	transition: all 0.2s ease;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+		background: $input-bg-focus;
+	}
+
+	&::placeholder {
+		color: $text-muted;
+	}
+}
+
+.checkboxLabel {
+	color: $text-secondary;
+}
+
+.checkbox {
+	accent-color: $color-accent;
+}
+
+.btnPrimary {
+	@include btn-primary;
+	padding: 0.5rem 1rem;
+	font-size: 0.875rem;
+
+	&.copied {
+		background: $color-success;
+	}
+}
+
+.output {
+	width: 100%;
+	padding: 1rem;
+	background: $bg-overlay-light;
+	border: 1px solid $input-border;
+	border-radius: 0.5rem;
+	color: $text-primary;
+	font-family: $font-family-mono;
+	font-size: 1rem;
+	word-break: break-all;
+	min-height: 3rem;
+}
+
+.errorBox {
+	background: rgba(220, 38, 38, 0.1);
+	border: 1px solid rgba(220, 38, 38, 0.3);
+	color: $color-error;
+}
+
+.infoGrid {
+	@media (max-width: 768px) {
+		grid-template-columns: 1fr;
+	}
+}
+
+.infoSubtitle {
+	font-size: 0.95rem;
+	color: $text-secondary;
+}
+
+.infoText {
+	color: $text-tertiary;
+
+	code {
+		padding: 0.125rem 0.375rem;
+		background: $bg-glass;
+		border-radius: $radius-sm;
+		font-family: $font-family-mono;
+		font-size: 0.8rem;
+		color: $text-code;
+	}
+}

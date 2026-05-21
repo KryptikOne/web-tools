@@ -1,0 +1,189 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+.container {
+	@extend .container;
+}
+
+.glassCard {
+	@extend .glass-card;
+}
+
+.cardTitle {
+	color: $text-primary;
+}
+
+.muted {
+	color: $text-muted;
+	font-size: 0.875rem;
+	margin: 0;
+}
+
+.inputGrid {
+	@media (max-width: 768px) {
+		grid-template-columns: 1fr;
+	}
+}
+
+.btnSecondary {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.4rem 0.75rem;
+	background: $bg-glass;
+	color: $text-secondary;
+	border: 1px solid $border-subtle;
+	border-radius: 0.5rem;
+	font-weight: 500;
+	font-size: 0.8rem;
+	cursor: pointer;
+	transition: all 0.2s ease;
+
+	&:hover:not(:disabled) {
+		background: $bg-glass-hover;
+		border-color: $border-medium;
+		color: $text-primary;
+	}
+
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+}
+
+.textarea {
+	width: 100%;
+	min-height: 220px;
+	max-height: 480px;
+	padding: 1rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: 0.5rem;
+	color: $text-primary;
+	font-size: 0.875rem;
+	font-family: $font-family-mono;
+	line-height: 1.6;
+	transition: all 0.2s ease;
+	overflow: auto;
+	resize: vertical;
+	white-space: pre;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+		background: $input-bg-focus;
+	}
+
+	&::placeholder {
+		color: $text-muted;
+	}
+
+	@include custom-scrollbar;
+}
+
+.errorBox {
+	background: rgba(220, 38, 38, 0.1);
+	border: 1px solid rgba(220, 38, 38, 0.3);
+	color: $color-error;
+}
+
+.badge {
+	padding: 0.25rem 0.6rem;
+	border-radius: $radius-md;
+	font-family: $font-family-mono;
+	font-weight: 600;
+	border: 1px solid transparent;
+}
+
+.badgeAdd {
+	background: rgba(34, 197, 94, 0.12);
+	color: $color-success;
+	border-color: rgba(34, 197, 94, 0.3);
+}
+
+.badgeRemove {
+	background: rgba(220, 38, 38, 0.12);
+	color: $color-error;
+	border-color: rgba(220, 38, 38, 0.3);
+}
+
+.badgeChange {
+	background: rgba(245, 158, 11, 0.12);
+	color: $color-warning;
+	border-color: rgba(245, 158, 11, 0.3);
+}
+
+.section {
+	margin-top: 1rem;
+}
+
+.sectionTitle {
+	font-size: 0.75rem;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	margin: 0 0 0.5rem 0;
+	font-family: $font-family-mono;
+}
+
+.sectionAdd { color: $color-success; }
+.sectionRemove { color: $color-error; }
+.sectionChange { color: $color-warning; }
+
+.diffRow {
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	padding: 0.75rem;
+	margin-bottom: 0.5rem;
+	background: $bg-glass;
+}
+
+.add {
+	border-left: 3px solid $color-success;
+}
+.remove {
+	border-left: 3px solid $color-error;
+}
+.change {
+	border-left: 3px solid $color-warning;
+}
+
+.diffPath {
+	font-family: $font-family-mono;
+	font-size: 0.8rem;
+	color: $color-accent;
+	margin-bottom: 0.5rem;
+	word-break: break-all;
+}
+
+.diffValue {
+	font-family: $font-family-mono;
+	font-size: 0.8rem;
+	color: $text-primary;
+	background: $input-bg;
+	border-radius: $radius-sm;
+	padding: 0.5rem;
+	margin: 0;
+	white-space: pre-wrap;
+	word-break: break-word;
+	overflow-x: auto;
+	@include custom-scrollbar;
+}
+
+.changeBody {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0.75rem;
+
+	@media (max-width: 640px) {
+		grid-template-columns: 1fr;
+	}
+}
+
+.changeLabel {
+	font-size: 0.7rem;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: $text-muted;
+	margin-bottom: 0.25rem;
+}

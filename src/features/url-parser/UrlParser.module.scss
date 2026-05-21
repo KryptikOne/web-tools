@@ -1,0 +1,218 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+.container { @extend .container; }
+
+.glassCard { @extend .glass-card; }
+
+.cardTitle { color: $text-primary; }
+.cardSubtitle {
+	color: $text-muted;
+
+	code {
+		padding: 0.05rem 0.3rem;
+		background: $bg-glass;
+		border-radius: $radius-sm;
+		font-family: $font-family-mono;
+		font-size: 0.75rem;
+		color: $text-code;
+	}
+}
+
+.btnPrimary {
+	@include btn-primary;
+	padding: 0.5rem 1rem;
+	font-size: 0.875rem;
+
+	&.copied {
+		background: $color-success;
+		border-color: $color-success;
+	}
+}
+
+.btnSecondary {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.5rem 1rem;
+	background: $bg-glass;
+	color: $text-secondary;
+	border: 1px solid $border-subtle;
+	border-radius: 0.5rem;
+	font-weight: 500;
+	font-size: 0.875rem;
+	cursor: pointer;
+	transition: all 0.2s ease;
+
+	&:hover:not(:disabled) {
+		background: $bg-glass-hover;
+		border-color: $border-medium;
+		color: $text-primary;
+	}
+
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+}
+
+.iconBtn {
+	@include btn-icon;
+}
+
+.copyBtn {
+	@include btn-icon;
+	flex-shrink: 0;
+
+	&.copied {
+		color: $color-success;
+	}
+}
+
+.textarea {
+	width: 100%;
+	min-height: 80px;
+	max-height: 240px;
+	padding: 1rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: 0.5rem;
+	color: $text-primary;
+	font-size: 0.875rem;
+	font-family: $font-family-mono;
+	line-height: 1.6;
+	transition: all 0.2s ease;
+	resize: vertical;
+	word-break: break-all;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+		background: $input-bg-focus;
+	}
+
+	&::placeholder {
+		color: $text-muted;
+	}
+
+	@include custom-scrollbar;
+}
+
+.errorBox {
+	background: rgba(220, 38, 38, 0.1);
+	border: 1px solid rgba(220, 38, 38, 0.3);
+	color: $color-error;
+}
+
+// Components grid
+.componentGrid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 0.5rem;
+}
+
+.componentRow {
+	display: grid;
+	grid-template-columns: 9rem 1fr;
+	align-items: center;
+	gap: 1rem;
+	padding: 0.625rem 0.875rem;
+	background: $input-bg;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+
+	@media (max-width: 640px) {
+		grid-template-columns: 1fr;
+		gap: 0.25rem;
+	}
+}
+
+.componentLabel {
+	font-size: 0.8rem;
+	font-weight: 600;
+	color: $text-secondary;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+}
+
+.componentValueWrap {
+	min-width: 0;
+}
+
+.componentValue {
+	flex: 1;
+	min-width: 0;
+	font-size: 0.875rem;
+	color: $text-primary;
+	word-break: break-all;
+
+	&.mono {
+		font-family: $font-family-mono;
+		color: $text-code;
+	}
+
+	&.empty {
+		color: $text-muted;
+		font-style: italic;
+	}
+}
+
+// Params table
+.paramTable {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.paramRow {
+	display: grid;
+	grid-template-columns: 1fr 1fr auto;
+	gap: 0.5rem;
+	align-items: center;
+}
+
+.paramHeader {
+	font-size: 0.75rem;
+	font-weight: 600;
+	color: $text-muted;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	padding: 0 0.25rem;
+}
+
+.paramInput {
+	width: 100%;
+	padding: 0.5rem 0.75rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: $radius-md;
+	color: $text-primary;
+	font-family: $font-family-mono;
+	font-size: 0.875rem;
+	transition: all 0.2s ease;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+		background: $input-bg-focus;
+	}
+
+	&::placeholder {
+		color: $text-muted;
+	}
+}
+
+// Rebuilt URL
+.rebuiltUrl {
+	display: block;
+	padding: 0.875rem 1rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: $radius-md;
+	color: $text-code;
+	font-family: $font-family-mono;
+	font-size: 0.875rem;
+	word-break: break-all;
+	line-height: 1.6;
+}

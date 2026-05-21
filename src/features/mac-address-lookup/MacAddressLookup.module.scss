@@ -1,0 +1,173 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+.container {
+	@extend .container;
+}
+
+.glassCard {
+	@extend .glass-card;
+}
+
+.cardTitle {
+	color: $text-primary;
+}
+
+.label {
+	color: $text-secondary;
+}
+
+.hint {
+	color: $text-muted;
+
+	code {
+		padding: 0.0625rem 0.25rem;
+		background: $bg-glass;
+		border-radius: $radius-sm;
+		font-family: $font-family-mono;
+		font-size: 0.75rem;
+		color: $text-code;
+	}
+}
+
+.inputWrap {
+	position: relative;
+	display: flex;
+	align-items: center;
+}
+
+.searchIcon {
+	position: absolute;
+	left: 0.875rem;
+	color: $text-muted;
+	pointer-events: none;
+}
+
+.input {
+	width: 100%;
+	padding: 0.75rem 1rem 0.75rem 2.75rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: $radius-md;
+	color: $text-primary;
+	font-family: $font-family-mono;
+	font-size: 0.9rem;
+	transition: all 0.2s ease;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+		background: $input-bg-focus;
+	}
+
+	&::placeholder {
+		color: $text-muted;
+	}
+}
+
+.errorBox {
+	background: rgba(220, 38, 38, 0.1);
+	border: 1px solid rgba(220, 38, 38, 0.3);
+	color: $color-error;
+}
+
+.resultGrid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 0.5rem;
+}
+
+.resultRow {
+	display: grid;
+	grid-template-columns: 180px 1fr;
+	align-items: center;
+	gap: 1rem;
+	padding: 0.75rem 1rem;
+	background: $input-bg;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+
+	@media (max-width: 640px) {
+		grid-template-columns: 1fr;
+		gap: 0.25rem;
+	}
+}
+
+.resultLabel {
+	font-size: 0.875rem;
+	color: $text-secondary;
+	font-weight: 500;
+}
+
+.resultValueWrap {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	justify-content: space-between;
+	min-width: 0;
+}
+
+.resultValue {
+	font-family: $font-family-mono;
+	font-size: 0.9rem;
+	color: $text-code;
+	background: transparent;
+	padding: 0;
+	flex: 1;
+	min-width: 0;
+	word-break: break-all;
+}
+
+.copyBtn {
+	@include btn-icon;
+	flex-shrink: 0;
+
+	&.copied {
+		color: $color-success;
+	}
+}
+
+.tag {
+	display: inline-block;
+	padding: 0.25rem 0.625rem;
+	border-radius: $radius-sm;
+	font-size: 0.8rem;
+	font-weight: 500;
+}
+
+.tagOk {
+	background: rgba(34, 197, 94, 0.12);
+	border: 1px solid rgba(34, 197, 94, 0.3);
+	color: $color-success;
+}
+
+.tagWarn {
+	background: rgba(234, 179, 8, 0.12);
+	border: 1px solid rgba(234, 179, 8, 0.3);
+	color: $color-warning;
+}
+
+.infoGrid {
+	@media (max-width: 768px) {
+		grid-template-columns: 1fr;
+	}
+}
+
+.infoSubtitle {
+	font-size: 0.95rem;
+	color: $text-secondary;
+}
+
+.infoText {
+	color: $text-tertiary;
+
+	code {
+		padding: 0.125rem 0.375rem;
+		background: $bg-glass;
+		border-radius: $radius-sm;
+		font-family: $font-family-mono;
+		font-size: 0.8rem;
+		color: $text-code;
+	}
+}

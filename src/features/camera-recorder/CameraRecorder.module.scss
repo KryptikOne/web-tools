@@ -1,0 +1,167 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+.container {
+	@extend .container;
+}
+
+.glassCard {
+	@extend .glass-card;
+}
+
+.cardTitle {
+	color: $text-primary;
+}
+
+.cardSubtitle {
+	color: $text-muted;
+}
+
+.privacyBanner {
+	border-color: $color-accent-50;
+}
+
+.privacyText {
+	color: $text-secondary;
+}
+
+.previewWrap {
+	position: relative;
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	background: #000;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	overflow: hidden;
+	margin-bottom: 1rem;
+}
+
+.preview {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.previewOverlay {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 1.5rem;
+	text-align: center;
+	background: rgba(0, 0, 0, 0.55);
+}
+
+.overlayText {
+	color: #fff;
+	font-size: 0.95rem;
+	margin: 0;
+}
+
+.overlayError {
+	color: $color-error;
+	font-size: 0.95rem;
+	margin: 0;
+	font-weight: 500;
+}
+
+.recBadge {
+	position: absolute;
+	top: 0.75rem;
+	left: 0.75rem;
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
+	padding: 0.35rem 0.7rem;
+	background: rgba(220, 38, 38, 0.85);
+	color: #fff;
+	font-family: $font-family-mono;
+	font-size: 0.75rem;
+	font-weight: 600;
+	border-radius: 999px;
+	letter-spacing: 0.05em;
+}
+
+.recDot {
+	width: 0.55rem;
+	height: 0.55rem;
+	background: #fff;
+	border-radius: 50%;
+	animation: pulse 1s infinite ease-in-out;
+}
+
+@keyframes pulse {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.4;
+	}
+}
+
+.controls {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.6rem;
+}
+
+.btnAction {
+	@include btn-base;
+	background: $bg-glass;
+	border: 1px solid $border-subtle;
+	color: $text-primary;
+	font-weight: 500;
+	padding: 0.55rem 0.9rem;
+	font-size: 0.875rem;
+
+	&:hover:not(:disabled) {
+		background: $bg-glass-hover;
+		border-color: $border-medium;
+	}
+}
+
+.btnPrimary {
+	background: $color-accent;
+	border-color: $color-accent;
+	color: #fff;
+
+	&:hover:not(:disabled) {
+		opacity: 0.9;
+	}
+}
+
+.btnStop {
+	background: $color-error;
+	border-color: $color-error;
+	color: #fff;
+
+	&:hover:not(:disabled) {
+		opacity: 0.9;
+	}
+}
+
+.mediaPreview {
+	width: 100%;
+	max-height: 320px;
+	object-fit: contain;
+	background: #000;
+	border-radius: $radius-md;
+	border: 1px solid $border-subtle;
+}
+
+.infoText {
+	color: $text-tertiary;
+
+	code {
+		padding: 0.125rem 0.375rem;
+		background: $bg-glass;
+		border-radius: $radius-sm;
+		font-family: $font-family-mono;
+		font-size: 0.8rem;
+		color: $text-code;
+	}
+}

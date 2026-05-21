@@ -1,0 +1,146 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+.container {
+	@extend .container;
+}
+
+.glassCard {
+	@extend .glass-card;
+}
+
+.cardTitle {
+	color: $text-primary;
+}
+
+.cardSubtitle {
+	color: $text-muted;
+}
+
+.btnPrimary {
+	@include btn-primary;
+	padding: 0.5rem 1rem;
+	font-size: 0.875rem;
+
+	&.copied {
+		background: $color-success;
+	}
+}
+
+.inputGroup {
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
+}
+
+.label {
+	display: block;
+	font-size: 0.875rem;
+	font-weight: 500;
+	color: $text-secondary;
+}
+
+.subLabel {
+	display: block;
+	font-size: 0.75rem;
+	font-weight: 500;
+	color: $text-muted;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+}
+
+.input {
+	width: 100%;
+	padding: 0.65rem 0.75rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: $radius-md;
+	color: $text-primary;
+	font-family: $font-family-mono;
+	font-size: 0.95rem;
+	transition: all 0.2s ease;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+		background: $input-bg-focus;
+	}
+}
+
+.progressTrack {
+	width: 100%;
+	height: 12px;
+	background: $bg-overlay-light;
+	border: 1px solid $border-subtle;
+	border-radius: 999px;
+	overflow: hidden;
+}
+
+.progressFill {
+	height: 100%;
+	background: linear-gradient(90deg, $color-accent, $color-primary);
+	transition: width 0.3s ease;
+}
+
+.statBox {
+	padding: 0.85rem 1rem;
+	background: $input-bg;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+}
+
+.statLabel {
+	font-size: 0.75rem;
+	font-weight: 500;
+	color: $text-muted;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+}
+
+.statValue {
+	font-size: 1.05rem;
+	font-weight: 600;
+	color: $text-primary;
+}
+
+.statValueMono {
+	font-size: 1rem;
+	font-weight: 600;
+	color: $text-primary;
+	font-family: $font-family-mono;
+	word-break: break-word;
+}
+
+.infoBox {
+	background: rgba(245, 158, 11, 0.1);
+	border: 1px solid rgba(245, 158, 11, 0.3);
+	color: $color-warning;
+}
+
+.infoGrid {
+	@media (max-width: 768px) {
+		grid-template-columns: 1fr;
+	}
+}
+
+.infoSubtitle {
+	font-size: 0.95rem;
+	color: $text-secondary;
+}
+
+.infoText {
+	color: $text-tertiary;
+
+	code {
+		padding: 0.125rem 0.375rem;
+		background: $bg-glass;
+		border-radius: $radius-sm;
+		font-family: $font-family-mono;
+		font-size: 0.8rem;
+		color: $text-code;
+	}
+}

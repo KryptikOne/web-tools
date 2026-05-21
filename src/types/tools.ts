@@ -16,6 +16,8 @@ export enum ToolCategory {
 	WEB_DEV = "web-dev",
 	UNIT_CONVERTERS = "unit-converters",
 	CALCULATORS_TIME = "calculators-time",
+	SECURITY_CRYPTO = "security-crypto",
+	NETWORK = "network",
 }
 
 export interface CategoryInfo {

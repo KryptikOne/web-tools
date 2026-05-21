@@ -1,0 +1,216 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+.container {
+	@extend .container;
+}
+
+.glassCard {
+	@extend .glass-card;
+}
+
+.cardTitle {
+	color: $text-primary;
+}
+
+.cardSubtitle {
+	color: $text-muted;
+}
+
+.btnPrimary {
+	@include btn-primary;
+	padding: 0.5rem 1rem;
+	font-size: 0.875rem;
+
+	&.copied {
+		background: $color-success;
+	}
+}
+
+.btnSecondary {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.5rem 1rem;
+	background: $bg-glass;
+	color: $text-secondary;
+	border: 1px solid $border-subtle;
+	border-radius: 0.5rem;
+	font-weight: 500;
+	font-size: 0.875rem;
+	cursor: pointer;
+	transition: all 0.2s ease;
+
+	&:hover:not(:disabled) {
+		background: $bg-glass-hover;
+		border-color: $border-medium;
+		color: $text-primary;
+	}
+
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+}
+
+.kbd {
+	display: inline-block;
+	padding: 0.05rem 0.4rem;
+	background: $bg-glass-hover;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-sm;
+	font-family: $font-family-mono;
+	font-size: 0.7rem;
+	color: $text-secondary;
+}
+
+.textarea {
+	width: 100%;
+	min-height: 110px;
+	padding: 1rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: 0.5rem;
+	color: $text-primary;
+	font-family: $font-family-mono;
+	font-size: 0.95rem;
+	line-height: 1.6;
+	resize: vertical;
+	transition: all 0.2s ease;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+		background: $input-bg-focus;
+	}
+
+	&::placeholder {
+		color: $text-muted;
+	}
+
+	@include custom-scrollbar;
+}
+
+.resultBox {
+	padding: 1rem 1.25rem;
+	background: $bg-overlay-light;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	font-family: $font-family-mono;
+	font-size: 1.05rem;
+	color: $text-primary;
+	word-break: break-all;
+	white-space: pre-wrap;
+}
+
+.errorBox {
+	background: rgba(220, 38, 38, 0.1);
+	border: 1px solid rgba(220, 38, 38, 0.3);
+	color: $color-error;
+	font-family: $font-family-mono;
+}
+
+.historyList {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	max-height: 360px;
+	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+
+	@include custom-scrollbar;
+}
+
+.historyItem {
+	display: grid;
+	grid-template-columns: 1fr auto auto;
+	align-items: center;
+	gap: 0.75rem;
+	width: 100%;
+	padding: 0.625rem 0.875rem;
+	background: $input-bg;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	color: $text-primary;
+	font-family: $font-family-mono;
+	font-size: 0.85rem;
+	text-align: left;
+	cursor: pointer;
+	transition: all 0.2s ease;
+
+	&:hover {
+		background: $bg-glass-hover;
+		border-color: $border-medium;
+	}
+}
+
+.historyExpr {
+	@include truncate;
+	color: $text-primary;
+}
+
+.historyResult {
+	color: $color-success;
+	font-weight: 500;
+}
+
+.historyResultError {
+	color: $color-error;
+	font-weight: 500;
+	@include truncate;
+	max-width: 18ch;
+}
+
+.historyIcon {
+	width: 1rem;
+	height: 1rem;
+	color: $text-muted;
+}
+
+.infoGrid {
+	@media (max-width: 768px) {
+		grid-template-columns: 1fr;
+	}
+}
+
+.infoSubtitle {
+	font-size: 0.95rem;
+	color: $text-secondary;
+}
+
+.infoText {
+	color: $text-tertiary;
+
+	code {
+		padding: 0.125rem 0.375rem;
+		background: $bg-glass;
+		border-radius: $radius-sm;
+		font-family: $font-family-mono;
+		font-size: 0.8rem;
+		color: $text-code;
+	}
+}
+
+.infoList {
+	li {
+		font-size: 0.875rem;
+		color: $text-tertiary;
+		margin-bottom: 0.25rem;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+
+		code {
+			padding: 0.125rem 0.375rem;
+			background: $bg-glass;
+			border-radius: $radius-sm;
+			font-family: $font-family-mono;
+			font-size: 0.8rem;
+			color: $text-code;
+		}
+	}
+}

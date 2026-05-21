@@ -1,0 +1,199 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+.container {
+	@extend .container;
+}
+
+.glassCard {
+	@extend .glass-card;
+}
+
+.cardTitle {
+	color: $text-primary;
+}
+
+.cardSubtitle {
+	color: $text-muted;
+}
+
+.errorBox {
+	background: rgba(220, 38, 38, 0.1);
+	border: 1px solid rgba(220, 38, 38, 0.3);
+	color: $color-error;
+}
+
+.searchWrap {
+	position: relative;
+	display: flex;
+	align-items: center;
+}
+
+.searchIcon {
+	position: absolute;
+	left: 0.75rem;
+	color: $text-muted;
+	pointer-events: none;
+}
+
+.searchInput {
+	width: 100%;
+	padding: 0.625rem 2.5rem 0.625rem 2.25rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: $radius-md;
+	color: $text-primary;
+	font-size: 0.875rem;
+	transition: all 0.2s ease;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+		background: $input-bg-focus;
+	}
+
+	&::placeholder {
+		color: $text-muted;
+	}
+}
+
+.clearBtn {
+	position: absolute;
+	right: 0.5rem;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+	background: transparent;
+	color: $text-tertiary;
+	border: none;
+	border-radius: $radius-sm;
+	cursor: pointer;
+	transition: all 0.15s ease;
+
+	&:hover {
+		background: $bg-glass-hover;
+		color: $text-primary;
+	}
+}
+
+.tableWrap {
+	overflow-x: auto;
+	max-height: 600px;
+	overflow-y: auto;
+	@include custom-scrollbar;
+}
+
+.table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 0.875rem;
+
+	thead th {
+		position: sticky;
+		top: 0;
+		background: $bg-glass;
+		color: $text-secondary;
+		font-weight: 600;
+		text-align: left;
+		padding: 0.625rem 0.75rem;
+		border-bottom: 1px solid $border-medium;
+		font-size: 0.8125rem;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		z-index: 1;
+	}
+
+	tbody tr {
+		border-bottom: 1px solid $border-subtle;
+		transition: background 0.15s ease;
+
+		&:hover {
+			background: $bg-glass-hover;
+		}
+
+		&:last-child {
+			border-bottom: none;
+		}
+	}
+
+	td {
+		padding: 0.5rem 0.75rem;
+		color: $text-secondary;
+		vertical-align: middle;
+	}
+}
+
+.ext {
+	font-family: $font-family-mono;
+	font-size: 0.8125rem;
+	color: $color-accent;
+	background: $bg-glass;
+	padding: 0.125rem 0.375rem;
+	border-radius: $radius-sm;
+	white-space: nowrap;
+}
+
+.mime {
+	font-family: $font-family-mono;
+	font-size: 0.8125rem;
+	color: $text-primary;
+	white-space: nowrap;
+}
+
+.desc {
+	color: $text-tertiary;
+	font-size: 0.8125rem;
+}
+
+.actionCol {
+	width: 50px;
+	text-align: right;
+}
+
+.copyBtn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+	background: transparent;
+	color: $text-tertiary;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-sm;
+	cursor: pointer;
+	transition: all 0.15s ease;
+
+	&:hover {
+		background: $bg-glass-hover;
+		color: $color-accent;
+		border-color: $color-accent;
+	}
+
+	&.copied {
+		color: $color-success;
+		border-color: $color-success;
+	}
+}
+
+.emptyRow {
+	padding: 2rem;
+	text-align: center;
+	color: $text-muted;
+	font-style: italic;
+}
+
+.infoText {
+	color: $text-tertiary;
+
+	code {
+		padding: 0.125rem 0.375rem;
+		background: $bg-glass;
+		border-radius: $radius-sm;
+		font-family: $font-family-mono;
+		font-size: 0.8rem;
+		color: $text-code;
+	}
+}

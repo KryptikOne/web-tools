@@ -1,0 +1,138 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+.container { @extend .container; }
+
+.glassCard { @extend .glass-card; }
+
+.cardTitle { color: $text-primary; }
+.cardSubtitle { color: $text-muted; }
+
+.btnPrimary {
+	@include btn-primary;
+	padding: 0.5rem 1rem;
+	font-size: 0.875rem;
+
+	&.copied {
+		background: $color-success;
+		border-color: $color-success;
+	}
+}
+
+.btnSecondary {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.5rem 1rem;
+	background: $bg-glass;
+	color: $text-secondary;
+	border: 1px solid $border-subtle;
+	border-radius: 0.5rem;
+	font-weight: 500;
+	font-size: 0.875rem;
+	cursor: pointer;
+	transition: all 0.2s ease;
+
+	&:hover:not(:disabled) {
+		background: $bg-glass-hover;
+		border-color: $border-medium;
+		color: $text-primary;
+	}
+
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+}
+
+.textarea {
+	width: 100%;
+	min-height: 90px;
+	max-height: 240px;
+	padding: 1rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: $radius-md;
+	color: $text-primary;
+	font-size: 0.875rem;
+	font-family: $font-family-mono;
+	line-height: 1.6;
+	transition: all 0.2s ease;
+	resize: vertical;
+	word-break: break-all;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+		background: $input-bg-focus;
+	}
+
+	&::placeholder {
+		color: $text-muted;
+	}
+
+	@include custom-scrollbar;
+}
+
+.sectionsGrid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+	gap: 1rem;
+	margin-top: 1rem;
+}
+
+.fieldList {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.fieldRow {
+	display: grid;
+	grid-template-columns: 7rem 1fr;
+	gap: 0.75rem;
+	align-items: baseline;
+	padding: 0.5rem 0.75rem;
+	background: $input-bg;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-sm;
+}
+
+.fieldLabel {
+	font-size: 0.75rem;
+	font-weight: 600;
+	color: $text-muted;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+
+.fieldValue {
+	font-size: 0.875rem;
+	color: $text-primary;
+	word-break: break-word;
+}
+
+.mono {
+	font-family: $font-family-mono;
+}
+
+.empty {
+	color: $text-muted;
+	font-style: italic;
+}
+
+.infoGrid {
+	@media (max-width: 768px) {
+		grid-template-columns: 1fr;
+	}
+}
+
+.infoSubtitle {
+	font-size: 0.95rem;
+	color: $text-secondary;
+}
+
+.infoText {
+	color: $text-tertiary;
+}

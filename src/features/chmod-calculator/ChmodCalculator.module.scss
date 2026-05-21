@@ -1,0 +1,170 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+.container {
+	@extend .container;
+}
+
+.glassCard {
+	@extend .glass-card;
+}
+
+.cardTitle {
+	color: $text-primary;
+}
+
+.permGrid {
+	display: grid;
+	grid-template-columns: 1.5fr repeat(3, 1fr) 1fr;
+	gap: 0.5rem 0.75rem;
+	align-items: center;
+}
+
+.permHeaderCell {
+	font-size: 0.75rem;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: $text-muted;
+	font-weight: 600;
+	padding: 0.25rem 0.5rem;
+}
+
+.permRow {
+	display: contents;
+}
+
+.permRowLabel {
+	font-weight: 600;
+	color: $text-primary;
+	padding: 0.5rem;
+}
+
+.checkboxCell {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0.5rem;
+	background: $bg-glass;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	cursor: pointer;
+	transition: background 0.15s ease;
+
+	&:hover {
+		background: $bg-glass-hover;
+	}
+}
+
+.checkbox {
+	accent-color: $color-accent;
+	width: 1.1rem;
+	height: 1.1rem;
+	cursor: pointer;
+}
+
+.permDigit {
+	font-family: $font-family-mono;
+	font-size: 1.25rem;
+	font-weight: 700;
+	color: $color-accent;
+	text-align: center;
+	background: $bg-glass;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	padding: 0.4rem 0.5rem;
+}
+
+.specialRow {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 1rem;
+	margin-top: 1.5rem;
+	padding-top: 1rem;
+	border-top: 1px solid $border-subtle;
+}
+
+.specialLabel {
+	font-weight: 600;
+	color: $text-secondary;
+	font-size: 0.875rem;
+}
+
+.specialOption {
+	color: $text-secondary;
+	font-size: 0.875rem;
+	cursor: pointer;
+}
+
+.fieldRow {
+	display: grid;
+	grid-template-columns: 6rem 1fr auto;
+	gap: 0.75rem;
+	align-items: center;
+	margin-bottom: 0.75rem;
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+
+	@media (max-width: 640px) {
+		grid-template-columns: 1fr;
+	}
+}
+
+.fieldLabel {
+	font-weight: 600;
+	color: $text-secondary;
+	font-size: 0.875rem;
+}
+
+.fieldInput {
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: $radius-md;
+	color: $text-primary;
+	padding: 0.5rem 0.75rem;
+	font-family: $font-family-mono;
+	font-size: 0.95rem;
+	letter-spacing: 0.03em;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+		background: $input-bg-focus;
+	}
+}
+
+.copyBtn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 2.25rem;
+	height: 2.25rem;
+	border-radius: $radius-md;
+	background: $bg-glass;
+	border: 1px solid $border-subtle;
+	color: $text-secondary;
+	cursor: pointer;
+	transition: all 0.15s ease;
+
+	&:hover {
+		background: $bg-glass-hover;
+		color: $text-primary;
+	}
+
+	&.copied {
+		color: $color-success;
+		border-color: $color-success;
+	}
+}
+
+.copyBtnPlaceholder {
+	width: 2.25rem;
+	height: 2.25rem;
+}
+
+.helperText {
+	color: $text-muted;
+}

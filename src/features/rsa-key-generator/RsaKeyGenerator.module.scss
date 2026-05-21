@@ -1,0 +1,93 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+.container {
+	@extend .container;
+}
+
+.glassCard {
+	@extend .glass-card;
+}
+
+.cardTitle {
+	@extend .section-title-sm;
+}
+
+.label {
+	color: $text-secondary;
+}
+
+.select {
+	@include input-field;
+	font-family: $font-family-mono;
+	font-size: 0.875rem;
+}
+
+.btnPrimary {
+	@include btn-primary;
+	padding: 0.6rem 1.1rem;
+	font-size: 0.875rem;
+	background: color-mix(in oklch, $color-accent 25%, $bg-glass);
+	border-color: color-mix(in oklch, $color-accent 40%, $border-medium);
+
+	&:hover:not(:disabled) {
+		background: color-mix(in oklch, $color-accent 35%, $bg-glass);
+	}
+}
+
+.btnSecondary {
+	@include btn-preset;
+	padding: 0.4rem 0.85rem;
+	font-size: 0.8rem;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+}
+
+.spinner {
+	width: 1rem;
+	height: 1rem;
+	border: 2px solid currentColor;
+	border-top-color: transparent;
+	border-radius: 50%;
+	display: inline-block;
+	animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.warningInline {
+	color: $color-warning;
+}
+
+.errorBox {
+	background: rgba(220, 38, 38, 0.1);
+	border: 1px solid rgba(220, 38, 38, 0.3);
+	color: $color-error;
+}
+
+.pemBlock {
+	margin: 0;
+	padding: 1rem;
+	background: $input-bg;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	color: $text-primary;
+	font-family: $font-family-mono;
+	font-size: 0.75rem;
+	line-height: 1.4;
+	white-space: pre-wrap;
+	word-break: break-all;
+	overflow-x: auto;
+	max-height: 360px;
+	@include custom-scrollbar;
+}
+
+.infoText {
+	color: $text-secondary;
+}

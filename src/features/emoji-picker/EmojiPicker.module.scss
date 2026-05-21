@@ -1,0 +1,197 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+.container {
+	@extend .container;
+}
+
+.glassCard {
+	@extend .glass-card;
+}
+
+.cardTitle {
+	color: $text-primary;
+}
+
+.cardSubtitle {
+	color: $text-muted;
+}
+
+.cardFooter {
+	color: $text-tertiary;
+}
+
+.controls {
+	background: $bg-glass;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-lg;
+}
+
+.searchInput {
+	width: 100%;
+	padding: 0.625rem 0.875rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: 0.5rem;
+	color: $text-primary;
+	font-size: 0.875rem;
+	transition: all 0.2s ease;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+		background: $input-bg-focus;
+	}
+
+	&::placeholder {
+		color: $text-muted;
+	}
+}
+
+.select {
+	padding: 0.5rem 0.75rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: 0.5rem;
+	color: $text-primary;
+	font-size: 0.875rem;
+	cursor: pointer;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+	}
+}
+
+.chipRow {
+	@include custom-scrollbar;
+}
+
+.chip {
+	@include btn-base;
+	padding: 0.375rem 0.75rem;
+	font-size: 0.8rem;
+	background: $bg-glass;
+	color: $text-secondary;
+	border: 1px solid $border-subtle;
+	border-radius: 999px;
+	white-space: nowrap;
+
+	&:hover {
+		background: $bg-glass-hover;
+		color: $text-primary;
+	}
+}
+
+.activeChip {
+	background: $bg-glass-hover;
+	color: $color-accent;
+	border-color: $color-accent;
+	font-weight: 600;
+}
+
+.skinTone {
+	@include btn-base;
+	width: 1.75rem;
+	height: 1.75rem;
+	border-radius: 999px;
+	font-size: 1.1rem;
+	background: $bg-glass;
+	border: 1px solid $border-subtle;
+	padding: 0;
+	line-height: 1;
+
+	&:hover {
+		background: $bg-glass-hover;
+	}
+}
+
+.activeSkinTone {
+	border-color: $color-accent;
+	background: $bg-glass-hover;
+}
+
+.grid {
+	max-height: 22rem;
+	overflow-y: auto;
+	@include custom-scrollbar;
+}
+
+.emojiBtn {
+	@include btn-base;
+	font-size: 1.5rem;
+	padding: 0.375rem;
+	background: transparent;
+	border: 1px solid transparent;
+	border-radius: $radius-md;
+	line-height: 1;
+	aspect-ratio: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	&:hover {
+		background: $bg-glass-hover;
+		border-color: $border-subtle;
+		transform: scale(1.1);
+	}
+}
+
+.selectedEmoji {
+	font-size: 3rem;
+	line-height: 1;
+}
+
+.codepoint {
+	color: $text-code;
+	font-family: $font-family-mono;
+}
+
+.btnPrimary {
+	@include btn-primary;
+	padding: 0.5rem 1rem;
+	font-size: 0.875rem;
+
+	&.copied {
+		background: $color-success;
+	}
+}
+
+.loadingText {
+	color: $text-muted;
+}
+
+.emptyText {
+	color: $text-muted;
+}
+
+.errorBox {
+	background: rgba(220, 38, 38, 0.1);
+	border: 1px solid rgba(220, 38, 38, 0.3);
+	color: $color-error;
+}
+
+.infoGrid {
+	@media (max-width: 768px) {
+		grid-template-columns: 1fr;
+	}
+}
+
+.infoSubtitle {
+	font-size: 0.95rem;
+	color: $text-secondary;
+}
+
+.infoText {
+	color: $text-tertiary;
+
+	code {
+		padding: 0.125rem 0.375rem;
+		background: $bg-glass;
+		border-radius: $radius-sm;
+		font-family: $font-family-mono;
+		font-size: 0.8rem;
+		color: $text-code;
+	}
+}
