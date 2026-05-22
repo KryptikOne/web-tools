@@ -6,9 +6,8 @@ import favoritesReducer, {
 	selectFavoriteIds,
 	selectIsFavorite,
 	selectShowOnlyFavorites,
+	STORAGE_KEY,
 } from "@/store/slices/favoritesSlice";
-
-const STORAGE_KEY = "favorites-state";
 
 const stateWith = (overrides: Partial<ReturnType<typeof favoritesReducer>> = {}) =>
 	({ favorites: { ids: [], showOnlyFavorites: false, ...overrides } } as never);
@@ -72,6 +71,13 @@ describe("favoritesSlice", () => {
 	it("hydrateFavorites is a no-op when localStorage is empty", () => {
 		const state = favoritesReducer(undefined, hydrateFavorites());
 		expect(state).toEqual({ ids: [], showOnlyFavorites: false });
+	});
+
+	it("hydrateFavorites does not write to localStorage", () => {
+		const pristine = JSON.stringify({ ids: ["color-picker"], showOnlyFavorites: false });
+		localStorage.setItem(STORAGE_KEY, pristine);
+		favoritesReducer(undefined, hydrateFavorites());
+		expect(localStorage.getItem(STORAGE_KEY)).toBe(pristine);
 	});
 
 	it("selectFavoriteIds returns the ids array", () => {

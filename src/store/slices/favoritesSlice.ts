@@ -6,7 +6,7 @@ interface FavoritesState {
 	showOnlyFavorites: boolean;
 }
 
-const STORAGE_KEY = "favorites-state";
+export const STORAGE_KEY = "favorites-state";
 
 function loadFromStorage(): Partial<FavoritesState> {
 	if (typeof window === "undefined") return {};
