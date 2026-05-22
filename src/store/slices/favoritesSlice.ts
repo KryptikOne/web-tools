@@ -79,12 +79,12 @@ export const selectIsFavorite = (id: string) => (state: RootState) =>
 	state.favorites.ids.includes(id);
 export const selectShowOnlyFavorites = (state: RootState) => state.favorites.showOnlyFavorites;
 
+const TOOLS_BY_ID = new Map(TOOLS_REGISTRY.map((t) => [t.id, t]));
+
 export const selectFavoriteTools = (state: RootState): Tool[] => {
-	const ids = state.favorites.ids;
-	const byId = new Map(TOOLS_REGISTRY.map((t) => [t.id, t]));
 	const result: Tool[] = [];
-	for (const id of ids) {
-		const tool = byId.get(id);
+	for (const id of state.favorites.ids) {
+		const tool = TOOLS_BY_ID.get(id);
 		if (tool && tool.implemented) result.push(tool);
 	}
 	return result;

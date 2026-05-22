@@ -1,3 +1,4 @@
+import { describe, it, expect, beforeEach, vi } from "vitest";
 import favoritesReducer, {
 	hydrateFavorites,
 	toggleFavorite,
@@ -10,6 +11,24 @@ import favoritesReducer, {
 	STORAGE_KEY,
 } from "@/store/slices/favoritesSlice";
 import { ToolCategory } from "@/types/tools";
+
+vi.mock("@/config/tools-registry", async (importOriginal) => {
+	const original = await importOriginal<typeof import("@/config/tools-registry")>();
+	return {
+		...original,
+		TOOLS_REGISTRY: [
+			...original.TOOLS_REGISTRY,
+			{
+				id: "stub-unimplemented",
+				name: "Stub Unimplemented",
+				description: "Test stub",
+				category: "css-design",
+				route: "/tools/stub-unimplemented",
+				implemented: false,
+			},
+		],
+	};
+});
 
 const stateWith = (overrides: Partial<ReturnType<typeof favoritesReducer>> = {}) =>
 	({ favorites: { ids: [], showOnlyFavorites: false, ...overrides } } as never);
@@ -110,10 +129,10 @@ describe("selectFavoriteTools", () => {
 	});
 
 	it("filters out unimplemented tools", () => {
-		const state = stateWith({ ids: ["color-picker", "made-up-tool"] });
+		const state = stateWith({ ids: ["color-picker", "stub-unimplemented"] });
 		const tools = selectFavoriteTools(state);
 		expect(tools.every((t) => t.implemented)).toBe(true);
-		expect(tools.find((t) => t.id === "made-up-tool")).toBeUndefined();
+		expect(tools.find((t) => t.id === "stub-unimplemented")).toBeUndefined();
 	});
 
 	it("returns the actual Tool objects, with name and route", () => {
