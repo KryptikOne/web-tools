@@ -1,5 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "@/store";
+import { TOOLS_REGISTRY } from "@/config/tools-registry";
+import type { Tool } from "@/types/tools";
 
 interface FavoritesState {
 	ids: string[];
@@ -76,5 +78,16 @@ export const selectFavoriteIds = (state: RootState) => state.favorites.ids;
 export const selectIsFavorite = (id: string) => (state: RootState) =>
 	state.favorites.ids.includes(id);
 export const selectShowOnlyFavorites = (state: RootState) => state.favorites.showOnlyFavorites;
+
+export const selectFavoriteTools = (state: RootState): Tool[] => {
+	const ids = state.favorites.ids;
+	const byId = new Map(TOOLS_REGISTRY.map((t) => [t.id, t]));
+	const result: Tool[] = [];
+	for (const id of ids) {
+		const tool = byId.get(id);
+		if (tool && tool.implemented) result.push(tool);
+	}
+	return result;
+};
 
 export default favoritesSlice.reducer;

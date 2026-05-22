@@ -6,8 +6,10 @@ import favoritesReducer, {
 	selectFavoriteIds,
 	selectIsFavorite,
 	selectShowOnlyFavorites,
+	selectFavoriteTools,
 	STORAGE_KEY,
 } from "@/store/slices/favoritesSlice";
+import { ToolCategory } from "@/types/tools";
 
 const stateWith = (overrides: Partial<ReturnType<typeof favoritesReducer>> = {}) =>
 	({ favorites: { ids: [], showOnlyFavorites: false, ...overrides } } as never);
@@ -91,5 +93,37 @@ describe("favoritesSlice", () => {
 
 	it("selectShowOnlyFavorites returns the flag", () => {
 		expect(selectShowOnlyFavorites(stateWith({ showOnlyFavorites: true }))).toBe(true);
+	});
+});
+
+describe("selectFavoriteTools", () => {
+	it("returns tools matching ids, in id order", () => {
+		const state = stateWith({ ids: ["jwt-decoder", "color-picker"] });
+		const tools = selectFavoriteTools(state);
+		expect(tools.map((t) => t.id)).toEqual(["jwt-decoder", "color-picker"]);
+	});
+
+	it("filters out unknown ids", () => {
+		const state = stateWith({ ids: ["color-picker", "does-not-exist"] });
+		const tools = selectFavoriteTools(state);
+		expect(tools.map((t) => t.id)).toEqual(["color-picker"]);
+	});
+
+	it("filters out unimplemented tools", () => {
+		const state = stateWith({ ids: ["color-picker", "made-up-tool"] });
+		const tools = selectFavoriteTools(state);
+		expect(tools.every((t) => t.implemented)).toBe(true);
+		expect(tools.find((t) => t.id === "made-up-tool")).toBeUndefined();
+	});
+
+	it("returns the actual Tool objects, with name and route", () => {
+		const state = stateWith({ ids: ["color-picker"] });
+		const tools = selectFavoriteTools(state);
+		expect(tools[0]).toMatchObject({
+			id: "color-picker",
+			name: "Color Picker",
+			route: "/tools/color-picker",
+			category: ToolCategory.CSS_DESIGN,
+		});
 	});
 });
