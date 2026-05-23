@@ -75,16 +75,15 @@ describe("SvgOptimizer", () => {
 		expect(screen.getByText("Upload SVG")).toBeInTheDocument();
 	});
 
-	it("renders optimization options", async () => {
+	it("renders global settings and plugin list", async () => {
 		const { default: SvgOptimizer } = await import(
 			"@/features/svg-optimizer/SvgOptimizer"
 		);
 		render(<SvgOptimizer />);
 
-		expect(screen.getByText("Optimization Options")).toBeInTheDocument();
-		expect(screen.getByText("Remove comments")).toBeInTheDocument();
-		expect(screen.getByText("Remove metadata")).toBeInTheDocument();
-		expect(screen.getByText("Minify (remove whitespace)")).toBeInTheDocument();
+		expect(screen.getByText("Global settings")).toBeInTheDocument();
+		expect(screen.getByText("Plugins")).toBeInTheDocument();
+		expect(screen.getByText("Reset to defaults")).toBeInTheDocument();
 	});
 
 	it("renders textarea with placeholder", async () => {
@@ -94,7 +93,7 @@ describe("SvgOptimizer", () => {
 		render(<SvgOptimizer />);
 
 		expect(
-			screen.getByPlaceholderText("Paste your SVG code here...")
+			screen.getByPlaceholderText("Paste your SVG code here…")
 		).toBeInTheDocument();
 	});
 
@@ -105,7 +104,7 @@ describe("SvgOptimizer", () => {
 		render(<SvgOptimizer />);
 
 		expect(
-			screen.getByText(/Drag and drop an SVG file here/)
+			screen.getByText(/Drag and drop an SVG file/)
 		).toBeInTheDocument();
 	});
 });

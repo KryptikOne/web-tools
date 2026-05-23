@@ -2,7 +2,7 @@
 
 Project improvement plan covering security hardening, open source governance, quality assurance, and new features.
 
-82 tools are currently implemented across 7 categories (CSS & Design, Image & Media, Text & Data, Encoding & Data, Web Dev Tools, Unit Converters, Calculators & Time). See the [tools registry](src/config/tools-registry.ts) for the full list.
+131 tools are currently implemented across 9 categories (CSS & Design, Image & Media, Text & Data, Encoding & Data, Web Dev Tools, Unit Converters, Calculators & Time, Security & Crypto, Network). See the [tools registry](src/config/tools-registry.ts) for the full list.
 
 ---
 

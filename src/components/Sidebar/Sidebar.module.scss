@@ -123,7 +123,7 @@
 
 .toolLink {
   color: $text-secondary;
-  border-radius: $radius-md;
+  // border-radius: $radius-md;
   transition: all 0.2s ease;
 
   &:hover:not(.disabled) {
@@ -150,7 +150,7 @@
       bottom: 0;
       width: 3px;
       background: linear-gradient(135deg, $color-accent 0%, $color-primary 100%);
-      border-radius: 3px 0 0 3px;
+      // border-radius: 3px 0 0 3px;
     }
 
     &:hover:not(.disabled) {

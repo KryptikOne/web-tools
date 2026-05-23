@@ -1,0 +1,110 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+.container {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+	@extend .glass-card;
+}
+
+.tabBar {
+	display: inline-flex;
+	gap: 0.25rem;
+	padding: 0.25rem;
+	background: $bg-glass;
+	border-radius: $radius-md;
+	width: fit-content;
+}
+
+.tab {
+	padding: 0.375rem 0.875rem;
+	background: transparent;
+	border: none;
+	border-radius: $radius-sm;
+	color: $text-secondary;
+	cursor: pointer;
+	font-size: 0.875rem;
+	transition: background 0.15s ease, color 0.15s ease;
+
+	&[aria-pressed="true"] {
+		background: $bg-glass-hover;
+		color: $text-primary;
+	}
+}
+
+.panes {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0.75rem;
+
+	@media (max-width: 768px) {
+		grid-template-columns: 1fr;
+	}
+}
+
+.pane {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.paneHeader {
+	font-size: 0.8125rem;
+	color: $text-secondary;
+}
+
+.paneBody {
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	min-height: 14rem;
+	overflow: hidden;
+}
+
+.imageBody {
+	@include checkerboard-bg;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.5rem;
+
+	img {
+		max-width: 100%;
+		max-height: 13rem;
+		height: auto;
+		display: block;
+	}
+}
+
+.codeBody {
+	padding: 0;
+}
+
+.codeBody pre {
+	margin: 0;
+	padding: 0.75rem;
+	font-family: $font-family-mono;
+	font-size: 0.75rem;
+	color: $text-primary;
+	overflow: auto;
+	max-height: 16rem;
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.empty {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: $text-muted;
+	font-size: 0.875rem;
+	text-align: center;
+	padding: 1rem;
+}
+
+.error {
+	color: $color-error;
+	font-size: 0.875rem;
+	padding: 0.75rem;
+}
