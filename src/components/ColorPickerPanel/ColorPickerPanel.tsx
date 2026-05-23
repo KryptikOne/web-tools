@@ -176,7 +176,7 @@ function DesktopColorPicker({
 	);
 
 	const handleCanvasInteraction = useCallback(
-		(e: React.MouseEvent<HTMLCanvasElement>) => {
+		(e: React.PointerEvent<HTMLCanvasElement>) => {
 			if (disabled) return;
 			const canvas = canvasRef.current;
 			if (!canvas) return;
@@ -193,7 +193,7 @@ function DesktopColorPicker({
 	);
 
 	const handleHueInteraction = useCallback(
-		(e: React.MouseEvent<HTMLCanvasElement>) => {
+		(e: React.PointerEvent<HTMLCanvasElement>) => {
 			if (disabled) return;
 			const canvas = hueRef.current;
 			if (!canvas) return;
@@ -249,14 +249,21 @@ function DesktopColorPicker({
 					width={280}
 					height={180}
 					className={`w-full h-auto rounded-lg cursor-crosshair block ${styles.colorCanvas}`}
-					onMouseDown={(e) => {
+					onPointerDown={(e) => {
 						if (disabled) return;
+						e.currentTarget.setPointerCapture(e.pointerId);
 						setIsDraggingCanvas(true);
 						handleCanvasInteraction(e);
 					}}
-					onMouseMove={(e) => isDraggingCanvas && handleCanvasInteraction(e)}
-					onMouseUp={() => setIsDraggingCanvas(false)}
-					onMouseLeave={() => setIsDraggingCanvas(false)}
+					onPointerMove={(e) => isDraggingCanvas && handleCanvasInteraction(e)}
+					onPointerUp={(e) => {
+						e.currentTarget.releasePointerCapture(e.pointerId);
+						setIsDraggingCanvas(false);
+					}}
+					onPointerCancel={(e) => {
+						e.currentTarget.releasePointerCapture(e.pointerId);
+						setIsDraggingCanvas(false);
+					}}
 				/>
 				{/* Canvas cursor */}
 				<div
@@ -275,14 +282,21 @@ function DesktopColorPicker({
 					width={280}
 					height={20}
 					className="w-full h-5 rounded cursor-crosshair block"
-					onMouseDown={(e) => {
+					onPointerDown={(e) => {
 						if (disabled) return;
+						e.currentTarget.setPointerCapture(e.pointerId);
 						setIsDraggingHue(true);
 						handleHueInteraction(e);
 					}}
-					onMouseMove={(e) => isDraggingHue && handleHueInteraction(e)}
-					onMouseUp={() => setIsDraggingHue(false)}
-					onMouseLeave={() => setIsDraggingHue(false)}
+					onPointerMove={(e) => isDraggingHue && handleHueInteraction(e)}
+					onPointerUp={(e) => {
+						e.currentTarget.releasePointerCapture(e.pointerId);
+						setIsDraggingHue(false);
+					}}
+					onPointerCancel={(e) => {
+						e.currentTarget.releasePointerCapture(e.pointerId);
+						setIsDraggingHue(false);
+					}}
 				/>
 				{/* Hue cursor */}
 				<div className={styles.hueCursor} style={{ left: `${(hsv[0] / 360) * 100}%` }} />
