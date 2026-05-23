@@ -29,6 +29,11 @@ export default function StarButton({ toolId, size = "md", variant = "topbar" }: 
 	const favorited = isFavorite(toolId);
 
 	const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+		// preventDefault is required even though this is type="button": the
+		// StarButton renders inside the sidebar's <Link>, which is an <a>
+		// element. Without preventDefault, the browser's native anchor
+		// navigation fires and triggers a full page reload.
+		e.preventDefault();
 		e.stopPropagation();
 		toggle(toolId);
 	};
