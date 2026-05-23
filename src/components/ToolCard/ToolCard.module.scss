@@ -82,3 +82,13 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.card:hover [data-variant="card"] {
+  opacity: 1;
+}

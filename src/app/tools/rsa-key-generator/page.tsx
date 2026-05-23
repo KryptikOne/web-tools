@@ -1,5 +1,6 @@
 import ToolLayout from "@/components/ToolLayout/ToolLayout";
 import RsaKeyGenerator from "@/features/rsa-key-generator/RsaKeyGenerator";
+import { getToolById } from "@/config/tools-registry";
 
 export const metadata = {
 	title: "RSA Key Pair Generator - Web Tools",
@@ -8,8 +9,9 @@ export const metadata = {
 };
 
 export default function RsaKeyGeneratorPage() {
+	const tool = getToolById("rsa-key-generator")!;
 	return (
-		<ToolLayout>
+		<ToolLayout title={tool.name} description={tool.description}>
 			<RsaKeyGenerator />
 		</ToolLayout>
 	);

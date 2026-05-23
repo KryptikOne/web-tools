@@ -7,7 +7,7 @@
 }
 
 .header {
-	margin-bottom: 2rem;
+	margin-bottom: 1.25rem;
 }
 
 .headerContent {
@@ -38,12 +38,12 @@
 }
 
 .categorySection {
-	margin-bottom: 2.5rem;
+	margin-bottom: 1.5rem;
 }
 
 .categoryHeader {
-	margin-bottom: 1.25rem;
-	padding-bottom: 0.75rem;
+	margin-bottom: 0.75rem;
+	padding-bottom: 0.5rem;
 	border-bottom: 1px solid $border-subtle;
 }
 
@@ -64,7 +64,7 @@
 .toolsGrid {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-	gap: 1.25rem;
+	gap: 1rem;
 
 	@media (max-width: 640px) {
 		grid-template-columns: 1fr;

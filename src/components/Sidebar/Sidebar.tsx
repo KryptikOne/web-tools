@@ -3,12 +3,14 @@
 import { useState, useRef, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { WrenchScrewdriverIcon, DocumentTextIcon, SwatchIcon, PhotoIcon, CodeBracketIcon, CalculatorIcon, ArrowsRightLeftIcon, LockClosedIcon, ClockIcon, ShieldCheckIcon, GlobeAltIcon } from "@heroicons/react/24/outline";
+import { WrenchScrewdriverIcon, DocumentTextIcon, SwatchIcon, PhotoIcon, CodeBracketIcon, CalculatorIcon, ArrowsRightLeftIcon, LockClosedIcon, ClockIcon, ShieldCheckIcon, GlobeAltIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { CATEGORIES, getToolsByCategory } from "@/config/tools-registry";
 import { ToolCategory } from "@/types/tools";
-import { scrambleText } from "@/lib/textEffects";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { closeMobileMenu } from "@/store/slices/uiSlice";
+import StarButton from "@/components/StarButton/StarButton";
+import FavoritesSection from "@/components/Sidebar/FavoritesSection";
+import ExpandCollapseAll from "@/components/Sidebar/ExpandCollapseAll";
 import styles from "./Sidebar.module.scss";
 
 // Map categories to their icons
@@ -40,6 +42,14 @@ export default function Sidebar() {
 		setExpandedCategories(newExpanded);
 	};
 
+	const expandAll = () => {
+		setExpandedCategories(new Set(Object.keys(CATEGORIES) as ToolCategory[]));
+	};
+
+	const collapseAll = () => {
+		setExpandedCategories(new Set());
+	};
+
 	const handleCloseMobileMenu = () => {
 		dispatch(closeMobileMenu());
 	};
@@ -66,6 +76,9 @@ export default function Sidebar() {
 					</Link>
 
 					<nav className="flex-1 py-4 overflow-y-auto">
+						<ExpandCollapseAll onExpandAll={expandAll} onCollapseAll={collapseAll} />
+						<FavoritesSection />
+
 						{Object.values(CATEGORIES).map((category) => {
 							const tools = getToolsByCategory(category.id);
 							const isExpanded = expandedCategories.has(category.id);
@@ -77,15 +90,16 @@ export default function Sidebar() {
 									{(() => {
 										const CategoryIcon = CATEGORY_ICONS[category.id];
 										return (
-											<button className={`w-full flex items-center gap-2 px-5 py-3 text-sm font-semibold uppercase tracking-wide cursor-pointer ${styles.categoryHeader}`} onClick={() => toggleCategory(category.id)}>
+											<button className={`w-full flex items-center gap-2 px-5 py-3 text-sm font-semibold uppercase tracking-wide cursor-pointer ${styles.categoryHeader}`} onClick={() => toggleCategory(category.id)} aria-expanded={isExpanded}>
 												<CategoryIcon className={`w-4.5 h-4.5 shrink-0 ${styles.categoryIcon}`} />
 												<span className="flex-1 text-left whitespace-nowrap">{category.name}</span>
+												<ChevronRightIcon className={`w-4 h-4 shrink-0 ${styles.chevron} ${isExpanded ? styles.chevronExpanded : ""}`} />
 											</button>
 										);
 									})()}
 
-									{isExpanded && (
-										<div className="flex flex-col gap-0.5 px-2">
+									<div className={`${styles.categoryItems} ${isExpanded ? styles.expanded : ""}`}>
+										<div className={`flex flex-col gap-0.5 ${styles.categoryItemsInner}`}>
 											{tools.map((tool) => {
 												const isActive = pathname === tool.route;
 												return (
@@ -94,7 +108,7 @@ export default function Sidebar() {
 														onClick={tool.implemented ? handleCloseMobileMenu : undefined}
 														key={tool.id}
 														href={tool.implemented ? tool.route : "#"}
-														className={`flex items-center justify-between gap-2 px-4 py-3 no-underline text-[0.9rem] relative ${styles.toolLink} ${isActive ? styles.active : ""} ${!tool.implemented ? styles.disabled : ""}`}
+														className={`flex items-center justify-between gap-2 px-3 py-1.5 no-underline text-[0.9rem] relative ${styles.toolLink} ${isActive ? styles.active : ""} ${!tool.implemented ? styles.disabled : ""}`}
 														title={tool.description}
 													>
 														<span
@@ -106,11 +120,12 @@ export default function Sidebar() {
 															{tool.name}
 														</span>
 														{!tool.implemented && <span className={styles.comingSoon}>Soon</span>}
+														{tool.implemented && <StarButton toolId={tool.id} variant="sidebar" size="sm" />}
 													</Link>
 												);
 											})}
 										</div>
-									)}
+									</div>
 								</div>
 							);
 						})}

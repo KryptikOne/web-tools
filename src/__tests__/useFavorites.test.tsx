@@ -7,9 +7,10 @@ import { useFavorites } from "@/hooks/useFavorites";
 
 function makeWrapper() {
 	const store = configureStore({ reducer: { favorites: favoritesReducer } });
-	return ({ children }: { children: React.ReactNode }) => (
-		<Provider store={store}>{children}</Provider>
-	);
+	function Wrapper({ children }: { children: React.ReactNode }) {
+		return <Provider store={store}>{children}</Provider>;
+	}
+	return Wrapper;
 }
 
 describe("useFavorites", () => {
@@ -21,7 +22,6 @@ describe("useFavorites", () => {
 		const { result } = renderHook(() => useFavorites(), { wrapper: makeWrapper() });
 		expect(result.current.favoriteIds).toEqual([]);
 		expect(result.current.favorites).toEqual([]);
-		expect(result.current.showOnlyMode).toBe(false);
 	});
 
 	it("isFavorite reflects current state", () => {
@@ -46,14 +46,5 @@ describe("useFavorites", () => {
 		act(() => result.current.toggle("jwt-decoder"));
 		act(() => result.current.reorder(["jwt-decoder", "color-picker"]));
 		expect(result.current.favoriteIds).toEqual(["jwt-decoder", "color-picker"]);
-	});
-
-	it("toggleMode flips showOnlyMode", () => {
-		const { result } = renderHook(() => useFavorites(), { wrapper: makeWrapper() });
-		expect(result.current.showOnlyMode).toBe(false);
-		act(() => result.current.toggleMode());
-		expect(result.current.showOnlyMode).toBe(true);
-		act(() => result.current.toggleMode());
-		expect(result.current.showOnlyMode).toBe(false);
 	});
 });

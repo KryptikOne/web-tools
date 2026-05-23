@@ -1,5 +1,6 @@
 import ToolLayout from "@/components/ToolLayout/ToolLayout";
 import HmacGenerator from "@/features/hmac-generator/HmacGenerator";
+import { getToolById } from "@/config/tools-registry";
 
 export const metadata = {
 	title: "HMAC Generator - Web Tools",
@@ -8,8 +9,9 @@ export const metadata = {
 };
 
 export default function HmacGeneratorPage() {
+	const tool = getToolById("hmac-generator")!;
 	return (
-		<ToolLayout>
+		<ToolLayout title={tool.name} description={tool.description}>
 			<HmacGenerator />
 		</ToolLayout>
 	);

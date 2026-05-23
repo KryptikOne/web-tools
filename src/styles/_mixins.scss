@@ -5,7 +5,7 @@
   background: $bg-glass;
   border: 1px solid $border-subtle;
   border-radius: $radius-xl;
-  padding: $spacing-xl;
+  padding: $spacing-lg;
 }
 
 @mixin glass-card-frosted {
@@ -202,7 +202,7 @@
 }
 
 // Two Column Layout
-@mixin two-column-grid($breakpoint: 1024px, $gap: 1.5rem) {
+@mixin two-column-grid($breakpoint: 1024px, $gap: 1rem) {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: $gap;

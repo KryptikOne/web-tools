@@ -1,5 +1,6 @@
 import ToolLayout from "@/components/ToolLayout/ToolLayout";
 import UlidGenerator from "@/features/ulid-generator/UlidGenerator";
+import { getToolById } from "@/config/tools-registry";
 
 export const metadata = {
 	title: "ULID Generator - Web Tools",
@@ -8,8 +9,9 @@ export const metadata = {
 };
 
 export default function UlidGeneratorPage() {
+	const tool = getToolById("ulid-generator")!;
 	return (
-		<ToolLayout>
+		<ToolLayout title={tool.name} description={tool.description}>
 			<UlidGenerator />
 		</ToolLayout>
 	);

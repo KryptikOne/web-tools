@@ -3,28 +3,23 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
 	toggleFavorite,
 	reorderFavorites,
-	setShowOnlyFavorites,
 	selectFavoriteIds,
 	selectFavoriteTools,
-	selectShowOnlyFavorites,
 } from "@/store/slices/favoritesSlice";
 import type { Tool } from "@/types/tools";
 
-interface UseFavoritesResult {
+export interface UseFavoritesResult {
 	favorites: Tool[];
 	favoriteIds: string[];
 	isFavorite: (id: string) => boolean;
 	toggle: (id: string) => void;
 	reorder: (ids: string[]) => void;
-	showOnlyMode: boolean;
-	toggleMode: () => void;
 }
 
 export function useFavorites(): UseFavoritesResult {
 	const dispatch = useAppDispatch();
 	const favoriteIds = useAppSelector(selectFavoriteIds);
 	const favorites = useAppSelector(selectFavoriteTools);
-	const showOnlyMode = useAppSelector(selectShowOnlyFavorites);
 
 	const isFavorite = useCallback(
 		(id: string) => favoriteIds.includes(id),
@@ -42,9 +37,6 @@ export function useFavorites(): UseFavoritesResult {
 		},
 		[dispatch]
 	);
-	const toggleMode = useCallback(() => {
-		dispatch(setShowOnlyFavorites(!showOnlyMode));
-	}, [dispatch, showOnlyMode]);
 
-	return { favorites, favoriteIds, isFavorite, toggle, reorder, showOnlyMode, toggleMode };
+	return { favorites, favoriteIds, isFavorite, toggle, reorder };
 }

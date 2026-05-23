@@ -2,44 +2,15 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import {
-	SunIcon,
-	MoonIcon,
-	SwatchIcon,
-	ArrowTrendingUpIcon,
-	EyeSlashIcon,
-	ClockIcon,
-	CalculatorIcon,
-	Square2StackIcon,
-	PaintBrushIcon,
-	CubeIcon,
-	FunnelIcon,
-	Squares2X2Icon,
-	TableCellsIcon,
-} from "@heroicons/react/24/outline";
+import { SunIcon, MoonIcon } from "@heroicons/react/24/outline";
 import { TOOLS_REGISTRY } from "@/config/tools-registry";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { hydrateTheme, toggleTheme } from "@/store/slices/themeSlice";
+import { hydrateFavorites } from "@/store/slices/favoritesSlice";
 import { toggleMobileMenu } from "@/store/slices/uiSlice";
+import StarButton from "@/components/StarButton/StarButton";
 import styles from "./TopBar.module.scss";
 
-// Map tool IDs to their icons
-const TOOL_ICONS: Record<string, React.ComponentType<React.SVGProps<SVGSVGElement>>> = {
-	"color-picker": SwatchIcon,
-	"cubic-bezier": ArrowTrendingUpIcon,
-	"invisible-character-remover": EyeSlashIcon,
-	"palette-generator": PaintBrushIcon,
-	"gradient-generator": Square2StackIcon,
-	"box-shadow-generator": CubeIcon,
-	"border-radius-generator": Squares2X2Icon,
-	"css-filter-generator": FunnelIcon,
-	"background-pattern-generator": Squares2X2Icon,
-	"epoch-converter": ClockIcon,
-	"px-rem-calculator": CalculatorIcon,
-	"aspect-ratio-calculator": CalculatorIcon,
-	"percentage-calculator": CalculatorIcon,
-	"html-entities": TableCellsIcon,
-};
 
 export default function TopBar() {
 	const dispatch = useAppDispatch();
@@ -49,11 +20,11 @@ export default function TopBar() {
 
 	// Find the current tool based on pathname
 	const currentTool = TOOLS_REGISTRY.find((tool) => tool.route === pathname);
-	const ToolIcon = currentTool ? TOOL_ICONS[currentTool.id] : null;
 
-	// Hydrate theme from localStorage on mount
+	// Hydrate theme and favorites from localStorage on mount
 	useEffect(() => {
 		dispatch(hydrateTheme());
+		dispatch(hydrateFavorites());
 	}, [dispatch]);
 
 	const handleToggleTheme = () => {
@@ -71,6 +42,7 @@ export default function TopBar() {
 					<>
 						{/* {ToolIcon && <ToolIcon className={styles.pageIcon} />} */}
 						<h1 className={styles.pageTitle}>{currentTool.name}</h1>
+						<StarButton toolId={currentTool.id} variant="topbar" size="md" />
 					</>
 				)}
 			</div>

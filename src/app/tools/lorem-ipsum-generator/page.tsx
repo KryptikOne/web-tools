@@ -1,9 +1,11 @@
 import ToolLayout from '@/components/ToolLayout/ToolLayout';
 import LoremIpsumGenerator from '@/features/lorem-ipsum-generator/LoremIpsumGenerator';
+import { getToolById } from "@/config/tools-registry";
 
 export default function LoremIpsumGeneratorPage() {
+	const tool = getToolById("lorem-ipsum-generator")!;
   return (
-    <ToolLayout>
+    <ToolLayout title={tool.name} description={tool.description}>
       <LoremIpsumGenerator />
     </ToolLayout>
   );

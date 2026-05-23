@@ -1,0 +1,103 @@
+@use '@/styles/variables' as *;
+
+.section {
+	margin-bottom: $spacing-md;
+	padding-bottom: $spacing-md;
+	border-bottom: 1px solid $border-subtle;
+}
+
+.header {
+	display: flex;
+	align-items: center;
+	gap: $spacing-sm;
+	padding: 0.75rem 1.25rem;
+	color: $text-tertiary;
+	font-size: 0.875rem;
+	font-weight: 600;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+}
+
+.headerIcon {
+	width: 1rem;
+	height: 1rem;
+	color: $color-accent-secondary;
+}
+
+.emptyHint {
+	padding: 0 1.25rem 0.5rem;
+	color: $text-muted;
+	font-size: 0.8125rem;
+	line-height: 1.4;
+	margin: 0;
+}
+
+.list {
+	display: flex;
+	flex-direction: column;
+	gap: 0.125rem;
+	padding: 0 0.5rem;
+}
+
+.row {
+	display: flex;
+	align-items: center;
+	gap: $spacing-sm;
+	padding: 0.5rem 0.5rem;
+	border-radius: $radius-md;
+	color: $text-secondary;
+	text-decoration: none;
+	transition: background 0.15s ease, color 0.15s ease;
+
+	&:hover {
+		background: linear-gradient(135deg, $color-accent-20 0%, $color-primary-20 100%);
+		color: $text-primary;
+	}
+
+	&.active {
+		background: linear-gradient(135deg, $color-accent-50 0%, $color-primary-50 100%);
+		color: $text-primary;
+		font-weight: 500;
+	}
+
+	&.dragging {
+		opacity: 0.5;
+	}
+}
+
+.dragHandle {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 1.25rem;
+	height: 1.25rem;
+	color: $text-muted;
+	cursor: grab;
+	opacity: 0;
+	transition: opacity 0.15s ease, color 0.15s ease;
+
+	@media (max-width: 768px) {
+		opacity: 1;
+	}
+
+	&:hover {
+		color: $text-secondary;
+	}
+
+	&:active {
+		cursor: grabbing;
+	}
+
+	.row:hover & {
+		opacity: 1;
+	}
+}
+
+.name {
+	flex: 1;
+	font-family: $font-family-mono;
+	font-size: 0.9rem;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

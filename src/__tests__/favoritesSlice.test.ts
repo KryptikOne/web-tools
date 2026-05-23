@@ -3,10 +3,8 @@ import favoritesReducer, {
 	hydrateFavorites,
 	toggleFavorite,
 	reorderFavorites,
-	setShowOnlyFavorites,
 	selectFavoriteIds,
 	selectIsFavorite,
-	selectShowOnlyFavorites,
 	selectFavoriteTools,
 	STORAGE_KEY,
 } from "@/store/slices/favoritesSlice";
@@ -31,16 +29,16 @@ vi.mock("@/config/tools-registry", async (importOriginal) => {
 });
 
 const stateWith = (overrides: Partial<ReturnType<typeof favoritesReducer>> = {}) =>
-	({ favorites: { ids: [], showOnlyFavorites: false, ...overrides } } as never);
+	({ favorites: { ids: [], ...overrides } } as never);
 
 describe("favoritesSlice", () => {
 	beforeEach(() => {
 		localStorage.clear();
 	});
 
-	it("starts with empty ids and showOnlyFavorites=false", () => {
+	it("starts with empty ids", () => {
 		const state = favoritesReducer(undefined, { type: "@@INIT" });
-		expect(state).toEqual({ ids: [], showOnlyFavorites: false });
+		expect(state.ids).toEqual([]);
 	});
 
 	it("toggleFavorite adds an id when missing", () => {
@@ -68,34 +66,28 @@ describe("favoritesSlice", () => {
 		expect(state.ids).toEqual(["c", "a", "b"]);
 	});
 
-	it("setShowOnlyFavorites updates the flag", () => {
-		const state = favoritesReducer(undefined, setShowOnlyFavorites(true));
-		expect(state.showOnlyFavorites).toBe(true);
-	});
-
 	it("persists state to localStorage on mutating actions", () => {
 		favoritesReducer(undefined, toggleFavorite("color-picker"));
 		const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
 		expect(stored.ids).toEqual(["color-picker"]);
 	});
 
-	it("hydrateFavorites loads ids and flag from localStorage", () => {
+	it("hydrateFavorites loads ids from localStorage", () => {
 		localStorage.setItem(
 			STORAGE_KEY,
-			JSON.stringify({ ids: ["uuid-generator", "hash-generator"], showOnlyFavorites: true })
+			JSON.stringify({ ids: ["uuid-generator", "hash-generator"] })
 		);
 		const state = favoritesReducer(undefined, hydrateFavorites());
 		expect(state.ids).toEqual(["uuid-generator", "hash-generator"]);
-		expect(state.showOnlyFavorites).toBe(true);
 	});
 
 	it("hydrateFavorites is a no-op when localStorage is empty", () => {
 		const state = favoritesReducer(undefined, hydrateFavorites());
-		expect(state).toEqual({ ids: [], showOnlyFavorites: false });
+		expect(state).toEqual({ ids: [] });
 	});
 
 	it("hydrateFavorites does not write to localStorage", () => {
-		const pristine = JSON.stringify({ ids: ["color-picker"], showOnlyFavorites: false });
+		const pristine = JSON.stringify({ ids: ["color-picker"] });
 		localStorage.setItem(STORAGE_KEY, pristine);
 		favoritesReducer(undefined, hydrateFavorites());
 		expect(localStorage.getItem(STORAGE_KEY)).toBe(pristine);
@@ -108,10 +100,6 @@ describe("favoritesSlice", () => {
 	it("selectIsFavorite returns true when id is present", () => {
 		expect(selectIsFavorite("a")(stateWith({ ids: ["a", "b"] }))).toBe(true);
 		expect(selectIsFavorite("z")(stateWith({ ids: ["a", "b"] }))).toBe(false);
-	});
-
-	it("selectShowOnlyFavorites returns the flag", () => {
-		expect(selectShowOnlyFavorites(stateWith({ showOnlyFavorites: true }))).toBe(true);
 	});
 });
 

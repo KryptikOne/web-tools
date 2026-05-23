@@ -28,7 +28,7 @@
   background: $bg-glass;
   border: 1px solid $border-subtle;
   border-radius: $radius-lg;
-  padding: 1.5rem;
+  padding: 1rem;
   transition: all 0.3s ease;
 }
 
@@ -198,7 +198,7 @@
 .info-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
+  gap: 1rem;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
@@ -241,7 +241,7 @@
 .grid-2col {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
+  gap: 1rem;
 
   @media (max-width: 1024px) {
     grid-template-columns: 1fr;
@@ -251,7 +251,7 @@
 .grid-2col-768 {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
+  gap: 1rem;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;

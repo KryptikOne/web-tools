@@ -1,11 +1,10 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction, createSelector } from "@reduxjs/toolkit";
 import type { RootState } from "@/store";
 import { TOOLS_REGISTRY } from "@/config/tools-registry";
 import type { Tool } from "@/types/tools";
 
 interface FavoritesState {
 	ids: string[];
-	showOnlyFavorites: boolean;
 }
 
 export const STORAGE_KEY = "favorites-state";
@@ -35,7 +34,6 @@ function saveToStorage(state: FavoritesState) {
 
 const initialState: FavoritesState = {
 	ids: [],
-	showOnlyFavorites: false,
 };
 
 const favoritesSlice = createSlice({
@@ -45,9 +43,6 @@ const favoritesSlice = createSlice({
 		hydrateFavorites: (state) => {
 			const stored = loadFromStorage();
 			if (Array.isArray(stored.ids)) state.ids = stored.ids;
-			if (typeof stored.showOnlyFavorites === "boolean") {
-				state.showOnlyFavorites = stored.showOnlyFavorites;
-			}
 		},
 		toggleFavorite: (state, action: PayloadAction<string>) => {
 			const id = action.payload;
@@ -63,31 +58,32 @@ const favoritesSlice = createSlice({
 			state.ids = action.payload;
 			saveToStorage(state);
 		},
-		setShowOnlyFavorites: (state, action: PayloadAction<boolean>) => {
-			state.showOnlyFavorites = action.payload;
-			saveToStorage(state);
-		},
 	},
 });
 
-export const { hydrateFavorites, toggleFavorite, reorderFavorites, setShowOnlyFavorites } =
-	favoritesSlice.actions;
+export const {
+	hydrateFavorites,
+	toggleFavorite,
+	reorderFavorites,
+} = favoritesSlice.actions;
 
 // Selectors
 export const selectFavoriteIds = (state: RootState) => state.favorites.ids;
 export const selectIsFavorite = (id: string) => (state: RootState) =>
 	state.favorites.ids.includes(id);
-export const selectShowOnlyFavorites = (state: RootState) => state.favorites.showOnlyFavorites;
 
 const TOOLS_BY_ID = new Map(TOOLS_REGISTRY.map((t) => [t.id, t]));
 
-export const selectFavoriteTools = (state: RootState): Tool[] => {
-	const result: Tool[] = [];
-	for (const id of state.favorites.ids) {
-		const tool = TOOLS_BY_ID.get(id);
-		if (tool && tool.implemented) result.push(tool);
+export const selectFavoriteTools = createSelector(
+	selectFavoriteIds,
+	(ids): Tool[] => {
+		const result: Tool[] = [];
+		for (const id of ids) {
+			const tool = TOOLS_BY_ID.get(id);
+			if (tool && tool.implemented) result.push(tool);
+		}
+		return result;
 	}
-	return result;
-};
+);
 
 export default favoritesSlice.reducer;

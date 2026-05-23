@@ -27,20 +27,24 @@ beforeAll(() => {
 
 describe("Accessibility — Shared Components", () => {
 	it("ToolCard has no a11y violations", async () => {
-		const { default: ToolCard } = await import(
-			"@/components/ToolCard/ToolCard"
-		);
+		const { Provider } = await import("react-redux");
+		const { configureStore } = await import("@reduxjs/toolkit");
+		const { default: favoritesReducer } = await import("@/store/slices/favoritesSlice");
+		const store = configureStore({ reducer: { favorites: favoritesReducer } });
+		const { default: ToolCard } = await import("@/components/ToolCard/ToolCard");
 		const { container } = render(
-			<ToolCard
-				tool={{
-					id: "test-tool",
-					name: "Test Tool",
-					description: "A test tool description",
-					category: ToolCategory.CSS_DESIGN,
-					route: "/tools/test-tool",
-					implemented: true,
-				}}
-			/>
+			<Provider store={store}>
+				<ToolCard
+					tool={{
+						id: "test-tool",
+						name: "Test Tool",
+						description: "A test tool description",
+						category: ToolCategory.CSS_DESIGN,
+						route: "/tools/test-tool",
+						implemented: true,
+					}}
+				/>
+			</Provider>
 		);
 		const results = await axe(container);
 		expect(results).toHaveNoViolations();

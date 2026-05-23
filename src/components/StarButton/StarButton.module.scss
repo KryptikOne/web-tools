@@ -1,0 +1,72 @@
+@use '@/styles/variables' as *;
+
+.starButton {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background: transparent;
+	border: none;
+	color: $text-muted;
+	cursor: pointer;
+	padding: 0.25rem;
+	border-radius: $radius-sm;
+	transition: color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+
+	&:hover {
+		color: $color-accent-secondary;
+		background: $bg-glass-hover;
+	}
+
+	&:active {
+		transform: scale(0.9);
+	}
+
+	&.favorited {
+		color: $color-accent-secondary;
+	}
+}
+
+.sizeSm svg {
+	width: 1rem;
+	height: 1rem;
+}
+
+.sizeMd svg {
+	width: 1.25rem;
+	height: 1.25rem;
+}
+
+.sizeLg svg {
+	width: 1.5rem;
+	height: 1.5rem;
+}
+
+.variantSidebar {
+	opacity: 0;
+	transition: opacity 0.15s ease, color 0.15s ease, background 0.15s ease;
+
+	@media (max-width: 768px) {
+		opacity: 1;
+	}
+
+	&.favorited {
+		opacity: 1;
+	}
+}
+
+.variantCard {
+	opacity: 0;
+	transition: opacity 0.15s ease, color 0.15s ease, background 0.15s ease;
+
+	@media (max-width: 768px) {
+		opacity: 1;
+	}
+
+	&.favorited {
+		opacity: 1;
+	}
+}
+
+.variantTopbar {
+	opacity: 1;
+}
