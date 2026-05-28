@@ -1,16 +1,17 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useMemo } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { WrenchScrewdriverIcon, DocumentTextIcon, SwatchIcon, PhotoIcon, CodeBracketIcon, CalculatorIcon, ArrowsRightLeftIcon, LockClosedIcon, ClockIcon, ShieldCheckIcon, GlobeAltIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { CATEGORIES, getToolsByCategory } from "@/config/tools-registry";
-import { ToolCategory } from "@/types/tools";
+import { ToolCategory, type Tool } from "@/types/tools";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { closeMobileMenu } from "@/store/slices/uiSlice";
 import StarButton from "@/components/StarButton/StarButton";
 import FavoritesSection from "@/components/Sidebar/FavoritesSection";
 import ExpandCollapseAll from "@/components/Sidebar/ExpandCollapseAll";
+import SidebarSearch from "@/components/Sidebar/SidebarSearch";
 import styles from "./Sidebar.module.scss";
 
 // Map categories to their icons
@@ -28,9 +29,62 @@ const CATEGORY_ICONS: Record<ToolCategory, React.ComponentType<React.SVGProps<SV
 
 export default function Sidebar() {
 	const [expandedCategories, setExpandedCategories] = useState<Set<ToolCategory>>(new Set(Object.keys(CATEGORIES) as ToolCategory[]));
+	const [query, setQuery] = useState("");
+	// Snapshot of expand state captured when search begins, restored when it ends.
+	const preSearchExpanded = useRef<Set<ToolCategory> | null>(null);
 	const pathname = usePathname();
+	const router = useRouter();
 	const dispatch = useAppDispatch();
 	const mobileMenuOpen = useAppSelector((state) => state.ui.mobileMenuOpen);
+
+	const normalizedQuery = query.trim().toLowerCase();
+	const isSearching = normalizedQuery.length > 0;
+
+	const filteredByCategory = useMemo(() => {
+		const map = new Map<ToolCategory, Tool[]>();
+		for (const category of Object.values(CATEGORIES)) {
+			const tools = getToolsByCategory(category.id);
+			const filtered = isSearching ? tools.filter((t) => t.name.toLowerCase().includes(normalizedQuery)) : tools;
+			map.set(category.id, filtered);
+		}
+		return map;
+	}, [isSearching, normalizedQuery]);
+
+	const matchCount = useMemo(() => {
+		if (!isSearching) return 0;
+		let n = 0;
+		filteredByCategory.forEach((tools) => {
+			n += tools.length;
+		});
+		return n;
+	}, [filteredByCategory, isSearching]);
+
+	const handleQueryChange = (next: string) => {
+		const wasSearching = isSearching;
+		const willSearch = next.trim().length > 0;
+		if (!wasSearching && willSearch) {
+			preSearchExpanded.current = expandedCategories;
+			setExpandedCategories(new Set(Object.keys(CATEGORIES) as ToolCategory[]));
+		} else if (wasSearching && !willSearch && preSearchExpanded.current) {
+			setExpandedCategories(preSearchExpanded.current);
+			preSearchExpanded.current = null;
+		}
+		setQuery(next);
+	};
+
+	const handleSubmit = () => {
+		if (!isSearching) return;
+		for (const category of Object.values(CATEGORIES)) {
+			const tools = filteredByCategory.get(category.id) ?? [];
+			const target = tools.find((t) => t.implemented);
+			if (target) {
+				handleQueryChange("");
+				dispatch(closeMobileMenu());
+				router.push(target.route);
+				return;
+			}
+		}
+	};
 
 	const toggleCategory = (category: ToolCategory) => {
 		const newExpanded = new Set(expandedCategories);
@@ -76,11 +130,16 @@ export default function Sidebar() {
 					</Link>
 
 					<nav className="flex-1 py-4 overflow-y-auto">
-						<ExpandCollapseAll onExpandAll={expandAll} onCollapseAll={collapseAll} />
-						<FavoritesSection />
+						<SidebarSearch query={query} onQueryChange={handleQueryChange} onSubmit={handleSubmit} matchCount={matchCount} />
+						{!isSearching && <ExpandCollapseAll onExpandAll={expandAll} onCollapseAll={collapseAll} />}
+						<FavoritesSection query={normalizedQuery} />
+
+						{isSearching && matchCount === 0 && (
+							<p className={styles.noResults}>No tools match &ldquo;{query.trim()}&rdquo;</p>
+						)}
 
 						{Object.values(CATEGORIES).map((category) => {
-							const tools = getToolsByCategory(category.id);
+							const tools = filteredByCategory.get(category.id) ?? [];
 							const isExpanded = expandedCategories.has(category.id);
 
 							if (tools.length === 0) return null;

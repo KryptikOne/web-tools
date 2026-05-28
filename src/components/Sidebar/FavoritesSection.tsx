@@ -73,16 +73,28 @@ function SortableRow({ tool, isActive }: { tool: Tool; isActive: boolean }) {
 	);
 }
 
-export default function FavoritesSection() {
+interface FavoritesSectionProps {
+	query?: string;
+}
+
+export default function FavoritesSection({ query = "" }: FavoritesSectionProps) {
 	const { favorites, reorder } = useFavorites();
 	const pathname = usePathname();
 	const [activeId, setActiveId] = useState<string | null>(null);
+
+	const isSearching = query.length > 0;
+	const visibleFavorites = isSearching
+		? favorites.filter((t) => t.name.toLowerCase().includes(query))
+		: favorites;
 
 	const sensors = useSensors(
 		useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
 		useSensor(TouchSensor, { activationConstraint: { delay: 150, tolerance: 5 } }),
 		useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
 	);
+
+	// Hide the favorites section entirely while searching if nothing matches.
+	if (isSearching && visibleFavorites.length === 0) return null;
 
 	const handleDragEnd = (event: DragEndEvent) => {
 		setActiveId(null);
@@ -115,11 +127,11 @@ export default function FavoritesSection() {
 					onDragCancel={() => setActiveId(null)}
 				>
 					<SortableContext
-						items={favorites.map((t) => t.id)}
+						items={visibleFavorites.map((t) => t.id)}
 						strategy={verticalListSortingStrategy}
 					>
 						<div className={styles.list}>
-							{favorites.map((tool) => (
+							{visibleFavorites.map((tool) => (
 								<SortableRow
 									key={tool.id}
 									tool={tool}
