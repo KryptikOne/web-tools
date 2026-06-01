@@ -77,14 +77,14 @@
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@vitejs/plugin-react": "^6.0.1",
+    "@vitejs/plugin-react": "^6.0.2",
     "eslint": "^9",
     "eslint-config-next": "15.4.6",
     "jest-axe": "^10.0.0",
-    "jsdom": "^29.0.0",
-    "sass": "^1.83.4",
+    "jsdom": "^29.1.1",
+    "sass": "^1.100.0",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "vitest": "^4.1.0"
+    "vitest": "^4.1.7"
   }
 }
