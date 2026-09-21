@@ -1,573 +1,318 @@
 "use client";
 
-import { useState, useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
+import { ClipboardDocumentIcon, CheckIcon } from "@heroicons/react/24/outline";
+import SegmentedControl from "@/components/SegmentedControl";
+import { useClipboard } from "@/hooks/useClipboard";
 import {
-	ClipboardDocumentIcon,
-	CheckIcon,
-	ClockIcon,
-	InformationCircleIcon,
-} from "@heroicons/react/24/outline";
+	CRON_FIELDS,
+	CRON_PRESETS,
+	createDefaultCronField,
+	cronFieldToString,
+	describeCronExpression,
+	getNextCronRuns,
+	isValidCronExpression,
+	parseCronExpression,
+	parseCronToken,
+	type CronField,
+	type CronFieldMode,
+} from "@/lib/cronUtils";
+import { COMMON_TIME_ZONES, LOCAL_TIME_ZONE, resolveTimeZone } from "@/lib/dateTimeUtils";
 import styles from "./CronExpressionGenerator.module.scss";
 
-// ─── Types ───────────────────────────────────────────────────────────────────
-
-type FieldMode = "every" | "specific" | "range" | "step";
-
-interface CronField {
-	mode: FieldMode;
-	specific: string;
-	rangeStart: string;
-	rangeEnd: string;
-	stepBase: string;
-	stepValue: string;
-}
-
-interface Preset {
-	label: string;
-	expression: string;
-	description: string;
-}
-
-// ─── Constants ───────────────────────────────────────────────────────────────
-
-const FIELD_NAMES = ["Minute", "Hour", "Day of Month", "Month", "Day of Week"] as const;
-
-const FIELD_RANGES: { min: number; max: number; labels?: Record<number, string> }[] = [
-	{ min: 0, max: 59 },
-	{ min: 0, max: 23 },
-	{ min: 1, max: 31 },
-	{ min: 1, max: 12, labels: { 1: "Jan", 2: "Feb", 3: "Mar", 4: "Apr", 5: "May", 6: "Jun", 7: "Jul", 8: "Aug", 9: "Sep", 10: "Oct", 11: "Nov", 12: "Dec" } },
-	{ min: 0, max: 6, labels: { 0: "Sun", 1: "Mon", 2: "Tue", 3: "Wed", 4: "Thu", 5: "Fri", 6: "Sat" } },
-];
-
-const PRESETS: Preset[] = [
-	{ label: "Every Minute", expression: "* * * * *", description: "Runs every minute" },
-	{ label: "Every 5 Minutes", expression: "*/5 * * * *", description: "Runs every 5 minutes" },
-	{ label: "Every 15 Minutes", expression: "*/15 * * * *", description: "Runs every 15 minutes" },
-	{ label: "Every Hour", expression: "0 * * * *", description: "At minute 0 of every hour" },
-	{ label: "Every 2 Hours", expression: "0 */2 * * *", description: "At minute 0 every 2 hours" },
-	{ label: "Daily at Midnight", expression: "0 0 * * *", description: "Every day at 00:00" },
-	{ label: "Daily at Noon", expression: "0 12 * * *", description: "Every day at 12:00" },
-	{ label: "Every Weekday", expression: "0 9 * * 1-5", description: "At 09:00 Monday through Friday" },
-	{ label: "Every Weekend", expression: "0 9 * * 0,6", description: "At 09:00 on Saturday and Sunday" },
-	{ label: "Weekly (Sunday)", expression: "0 0 * * 0", description: "At 00:00 every Sunday" },
-	{ label: "Monthly (1st)", expression: "0 0 1 * *", description: "At 00:00 on the 1st of every month" },
-	{ label: "Quarterly", expression: "0 0 1 1,4,7,10 *", description: "At 00:00 on the 1st of Jan, Apr, Jul, Oct" },
+const MODE_OPTIONS: { value: CronFieldMode; label: string }[] = [
+	{ value: "every", label: "Every" },
+	{ value: "specific", label: "Value" },
+	{ value: "range", label: "Range" },
+	{ value: "step", label: "Step" },
 ];
 
 const REFERENCE_DATA = [
 	{ field: "Minute", range: "0-59", specials: "* , - /", example: "*/5 = every 5 minutes" },
 	{ field: "Hour", range: "0-23", specials: "* , - /", example: "9-17 = 9 AM to 5 PM" },
-	{ field: "Day of Month", range: "1-31", specials: "* , - /", example: "1,15 = 1st and 15th" },
-	{ field: "Month", range: "1-12", specials: "* , - /", example: "1-6 = January to June" },
-	{ field: "Day of Week", range: "0-6 (Sun=0)", specials: "* , - /", example: "1-5 = weekdays" },
+	{ field: "Day of month", range: "1-31", specials: "* , - /", example: "1,15 = 1st and 15th" },
+	{ field: "Month", range: "1-12 or JAN-DEC", specials: "* , - /", example: "1-6 = January to June" },
+	{ field: "Day of week", range: "0-6 or SUN-SAT (Sun=0)", specials: "* , - /", example: "1-5 = weekdays" },
 ];
 
-// ─── Helpers ─────────────────────────────────────────────────────────────────
-
-function createDefaultField(): CronField {
-	return { mode: "every", specific: "", rangeStart: "", rangeEnd: "", stepBase: "*", stepValue: "2" };
+function fieldsToExpression(fields: CronField[]): string {
+	return fields.map((f, i) => cronFieldToString(f, i)).join(" ");
 }
-
-function fieldToString(field: CronField, index: number): string {
-	const { min } = FIELD_RANGES[index];
-	switch (field.mode) {
-		case "every":
-			return "*";
-		case "specific":
-			return field.specific.trim() || "*";
-		case "range": {
-			const start = field.rangeStart || String(min);
-			const end = field.rangeEnd || String(min);
-			return `${start}-${end}`;
-		}
-		case "step": {
-			const base = field.stepBase || "*";
-			const step = field.stepValue || "2";
-			return `${base}/${step}`;
-		}
-		default:
-			return "*";
-	}
-}
-
-/** Parse a single cron field token back into a CronField. */
-function parseFieldToken(token: string): CronField {
-	const field = createDefaultField();
-	if (token === "*") {
-		field.mode = "every";
-		return field;
-	}
-	if (token.includes("/")) {
-		field.mode = "step";
-		const [base, step] = token.split("/");
-		field.stepBase = base;
-		field.stepValue = step;
-		return field;
-	}
-	if (token.includes("-") && !token.includes(",")) {
-		field.mode = "range";
-		const [start, end] = token.split("-");
-		field.rangeStart = start;
-		field.rangeEnd = end;
-		return field;
-	}
-	field.mode = "specific";
-	field.specific = token;
-	return field;
-}
-
-// ─── Human-readable description ──────────────────────────────────────────────
-
-function describeExpression(expression: string): string {
-	const parts = expression.trim().split(/\s+/);
-	if (parts.length !== 5) return "Invalid cron expression (expected 5 fields)";
-
-	const [minute, hour, dom, month, dow] = parts;
-
-	// Check for well-known patterns first
-	if (expression === "* * * * *") return "Every minute";
-	if (minute.startsWith("*/") && hour === "*" && dom === "*" && month === "*" && dow === "*") {
-		return `Every ${minute.slice(2)} minutes`;
-	}
-	if (hour.startsWith("*/") && minute === "0" && dom === "*" && month === "*" && dow === "*") {
-		return `Every ${hour.slice(2)} hours`;
-	}
-
-	const segments: string[] = [];
-
-	// Minute / Hour
-	if (minute === "*" && hour === "*") {
-		segments.push("Every minute");
-	} else if (minute === "*") {
-		segments.push("Every minute");
-	} else if (minute.includes("/")) {
-		segments.push(`Every ${minute.split("/")[1]} minutes`);
-	} else {
-		// specific minute
-	}
-
-	if (hour === "*" && minute !== "*") {
-		segments.push("of every hour");
-	} else if (hour.includes("/")) {
-		segments.push(`every ${hour.split("/")[1]} hours`);
-	} else if (hour.includes("-")) {
-		const [s, e] = hour.split("-");
-		segments.push(`between ${formatHour(s)} and ${formatHour(e)}`);
-	} else if (hour !== "*") {
-		if (minute !== "*" && !minute.includes("/")) {
-			segments.push(`at ${formatHour(hour)}:${minute.padStart(2, "0")}`);
-		} else {
-			segments.push(`during hour ${hour}`);
-		}
-	}
-
-	// Day of month
-	if (dom !== "*") {
-		if (dom.includes(",")) {
-			segments.push(`on day ${dom} of the month`);
-		} else if (dom.includes("-")) {
-			segments.push(`on days ${dom} of the month`);
-		} else if (dom.includes("/")) {
-			segments.push(`every ${dom.split("/")[1]} days`);
-		} else {
-			segments.push(`on day ${dom} of the month`);
-		}
-	}
-
-	// Month
-	if (month !== "*") {
-		const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-		if (month.includes(",")) {
-			const names = month.split(",").map((m) => monthNames[parseInt(m, 10) - 1] || m);
-			segments.push(`in ${names.join(", ")}`);
-		} else if (month.includes("-")) {
-			const [s, e] = month.split("-");
-			segments.push(`from ${monthNames[parseInt(s, 10) - 1] || s} to ${monthNames[parseInt(e, 10) - 1] || e}`);
-		} else {
-			segments.push(`in ${monthNames[parseInt(month, 10) - 1] || month}`);
-		}
-	}
-
-	// Day of week
-	if (dow !== "*") {
-		const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-		if (dow.includes(",")) {
-			const names = dow.split(",").map((d) => dayNames[parseInt(d, 10)] || d);
-			segments.push(`on ${names.join(" and ")}`);
-		} else if (dow.includes("-")) {
-			const [s, e] = dow.split("-");
-			segments.push(`${dayNames[parseInt(s, 10)] || s} through ${dayNames[parseInt(e, 10)] || e}`);
-		} else {
-			segments.push(`on ${dayNames[parseInt(dow, 10)] || dow}`);
-		}
-	}
-
-	return segments.join(" ") || "Every minute";
-}
-
-function formatHour(h: string): string {
-	const n = parseInt(h, 10);
-	if (isNaN(n)) return h;
-	if (n === 0) return "12 AM";
-	if (n === 12) return "12 PM";
-	return n > 12 ? `${n - 12} PM` : `${n} AM`;
-}
-
-// ─── Next run calculator ─────────────────────────────────────────────────────
-
-function expandField(token: string, min: number, max: number): number[] {
-	if (token === "*") {
-		return Array.from({ length: max - min + 1 }, (_, i) => i + min);
-	}
-	const results = new Set<number>();
-	for (const part of token.split(",")) {
-		if (part.includes("/")) {
-			const [base, stepStr] = part.split("/");
-			const step = parseInt(stepStr, 10);
-			const start = base === "*" ? min : parseInt(base, 10);
-			for (let i = start; i <= max; i += step) {
-				results.add(i);
-			}
-		} else if (part.includes("-")) {
-			const [s, e] = part.split("-").map(Number);
-			for (let i = s; i <= e; i++) {
-				results.add(i);
-			}
-		} else {
-			results.add(parseInt(part, 10));
-		}
-	}
-	return Array.from(results).filter((n) => n >= min && n <= max).sort((a, b) => a - b);
-}
-
-function getNextRuns(expression: string, count: number): Date[] {
-	const parts = expression.trim().split(/\s+/);
-	if (parts.length !== 5) return [];
-
-	const minutes = expandField(parts[0], 0, 59);
-	const hours = expandField(parts[1], 0, 23);
-	const doms = expandField(parts[2], 1, 31);
-	const months = expandField(parts[3], 1, 12);
-	const dows = expandField(parts[4], 0, 6);
-
-	if (!minutes.length || !hours.length || !doms.length || !months.length || !dows.length) return [];
-
-	const minuteSet = new Set(minutes);
-	const hourSet = new Set(hours);
-	const domSet = new Set(doms);
-	const monthSet = new Set(months);
-	const dowSet = new Set(dows);
-
-	const runs: Date[] = [];
-	const now = new Date();
-	const cursor = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + 1, 0, 0);
-
-	const maxIterations = 525600; // 1 year of minutes
-	for (let i = 0; i < maxIterations && runs.length < count; i++) {
-		const m = cursor.getMinutes();
-		const h = cursor.getHours();
-		const d = cursor.getDate();
-		const mo = cursor.getMonth() + 1;
-		const wd = cursor.getDay();
-
-		if (minuteSet.has(m) && hourSet.has(h) && domSet.has(d) && monthSet.has(mo) && dowSet.has(wd)) {
-			runs.push(new Date(cursor));
-		}
-		cursor.setMinutes(cursor.getMinutes() + 1);
-	}
-
-	return runs;
-}
-
-// ─── Component ───────────────────────────────────────────────────────────────
 
 export default function CronExpressionGenerator() {
-	const [fields, setFields] = useState<CronField[]>(() =>
-		Array.from({ length: 5 }, () => createDefaultField())
+	const [fields, setFields] = useState<CronField[]>(() => {
+		const initial = Array.from({ length: 5 }, () => createDefaultCronField());
+		initial[0] = { ...initial[0], mode: "specific", specific: "30" };
+		initial[1] = { ...initial[1], mode: "specific", specific: "9" };
+		initial[4] = { ...initial[4], mode: "range", rangeStart: "1", rangeEnd: "5" };
+		return initial;
+	});
+	const [expressionInput, setExpressionInput] = useState(() => "30 9 * * 1-5");
+	const [tokenDrafts, setTokenDrafts] = useState<Record<number, string>>({});
+	const [timeZone, setTimeZone] = useState(LOCAL_TIME_ZONE);
+	const { copy, isCopied } = useClipboard();
+
+	const expression = useMemo(() => fieldsToExpression(fields), [fields]);
+	const isValid = useMemo(() => isValidCronExpression(expression), [expression]);
+	const description = useMemo(
+		() => (isValid ? describeCronExpression(expression) : "Invalid cron expression"),
+		[expression, isValid]
 	);
-	const [manualInput, setManualInput] = useState("");
-	const [isManualMode, setIsManualMode] = useState(false);
-	const [copiedField, setCopiedField] = useState<string | null>(null);
+	const nextRuns = useMemo(
+		() => (isValid ? getNextCronRuns(expression, 10, timeZone) : []),
+		[expression, isValid, timeZone]
+	);
 
-	// Build expression from fields
-	const expression = useMemo(() => {
-		if (isManualMode) return manualInput.trim();
-		return fields.map((f, i) => fieldToString(f, i)).join(" ");
-	}, [fields, isManualMode, manualInput]);
-
-	const isValidExpression = useMemo(() => {
-		const parts = expression.split(/\s+/);
-		return parts.length === 5 && parts.every((p) => /^[\d*,\-/]+$/.test(p));
-	}, [expression]);
-
-	const description = useMemo(() => {
-		if (!isValidExpression) return "Invalid cron expression";
-		return describeExpression(expression);
-	}, [expression, isValidExpression]);
-
-	const nextRuns = useMemo(() => {
-		if (!isValidExpression) return [];
-		return getNextRuns(expression, 10);
-	}, [expression, isValidExpression]);
-
-	const updateField = useCallback((index: number, updates: Partial<CronField>) => {
-		setFields((prev) => {
-			const next = [...prev];
-			next[index] = { ...next[index], ...updates };
-			return next;
-		});
+	/** Apply new fields from the builder rows and mirror them into the expression box. */
+	const commitFields = useCallback((next: CronField[]) => {
+		setFields(next);
+		setExpressionInput(fieldsToExpression(next));
+		setTokenDrafts({});
 	}, []);
 
-	const applyPreset = useCallback((preset: Preset) => {
-		const parts = preset.expression.split(/\s+/);
-		if (parts.length !== 5) return;
-		setFields(parts.map((token) => parseFieldToken(token)));
-		setIsManualMode(false);
-		setManualInput("");
-	}, []);
+	const updateField = useCallback(
+		(index: number, updates: Partial<CronField>) => {
+			const next = fields.map((f, i) => (i === index ? { ...f, ...updates } : f));
+			commitFields(next);
+		},
+		[fields, commitFields]
+	);
 
-	const loadManualExpression = useCallback(() => {
-		const parts = manualInput.trim().split(/\s+/);
-		if (parts.length !== 5) return;
-		setFields(parts.map((token) => parseFieldToken(token)));
-		setIsManualMode(false);
-		setManualInput("");
-	}, [manualInput]);
-
-	const copyToClipboard = async (value: string, field: string) => {
-		try {
-			await navigator.clipboard.writeText(value);
-			setCopiedField(field);
-			setTimeout(() => setCopiedField(null), 2000);
-		} catch (err) {
-			console.error("Failed to copy:", err);
+	const handleExpressionInput = (value: string) => {
+		setExpressionInput(value);
+		const parsed = parseCronExpression(value);
+		if (parsed) {
+			setFields(parsed);
+			setTokenDrafts({});
 		}
 	};
 
+	const handleTokenInput = (index: number, value: string) => {
+		setTokenDrafts((prev) => ({ ...prev, [index]: value }));
+		const token = value.trim();
+		if (!token) return;
+		const next = fields.map((f, i) => (i === index ? parseCronToken(token, index) : f));
+		setFields(next);
+		setExpressionInput(fieldsToExpression(next));
+	};
+
+	const applyPreset = (preset: string) => {
+		const parsed = parseCronExpression(preset);
+		if (parsed) commitFields(parsed);
+	};
+
+	const tz = resolveTimeZone(timeZone);
+	const formatRun = (d: Date) =>
+		d.toLocaleString("en-US", {
+			timeZone: tz,
+			weekday: "short",
+			year: "numeric",
+			month: "short",
+			day: "numeric",
+			hour: "2-digit",
+			minute: "2-digit",
+		});
+
 	return (
 		<div className={styles.container}>
-			{/* Expression Output */}
-			<div className={styles.glassCard}>
-				<div className={`flex items-center gap-3 mb-4`}>
-					<ClockIcon className={`w-6 h-6 ${styles.accentIcon}`} />
-					<h2 className={styles.sectionTitle}>Cron Expression</h2>
-				</div>
-				<div className={`flex items-center gap-4 p-4 rounded-lg ${styles.expressionDisplay}`}>
-					<code className={styles.expressionValue}>{expression || "* * * * *"}</code>
-					<button
-						className={`${styles.copyBtn} ${copiedField === "expression" ? styles.copied : ""}`}
-						onClick={() => copyToClipboard(expression, "expression")}
-						title="Copy expression"
-					>
-						{copiedField === "expression" ? (
-							<CheckIcon className={styles.copyIcon} />
-						) : (
-							<ClipboardDocumentIcon className={styles.copyIcon} />
-						)}
-					</button>
-				</div>
-				<p className={styles.descriptionText}>{description}</p>
-			</div>
-
-			{/* Manual Input Mode */}
-			<div className={styles.glassCard}>
-				<div className={`flex items-center gap-3 mb-4`}>
-					<InformationCircleIcon className={`w-6 h-6 ${styles.accentIcon}`} />
-					<h2 className={styles.sectionTitle}>Paste &amp; Explain</h2>
-				</div>
-				<div className={`flex gap-3 ${styles.manualRow}`}>
+			<div className={styles.panel}>
+				{/* Expression */}
+				<div className={styles.expressionRow}>
+					<label htmlFor="cron-expression" className={styles.rowLabel}>
+						Expression
+					</label>
 					<input
+						id="cron-expression"
 						type="text"
-						value={manualInput}
-						onChange={(e) => {
-							setManualInput(e.target.value);
-							setIsManualMode(true);
-						}}
-						className={styles.input}
-						placeholder="Paste a cron expression, e.g. 0 */2 * * 1-5"
+						value={expressionInput}
+						onChange={(e) => handleExpressionInput(e.target.value)}
+						className={`${styles.expressionInput} ${isValid ? "" : styles.invalid}`}
+						placeholder="* * * * *"
+						spellCheck={false}
+						autoComplete="off"
 					/>
-					<button className={styles.btnPrimary} onClick={loadManualExpression}>
-						Load into Builder
+					<button
+						type="button"
+						className={`${styles.copyBtn} ${isCopied("expression") ? styles.copied : ""}`}
+						onClick={() => copy(expression, "expression")}
+						disabled={!isValid}
+					>
+						{isCopied("expression") ? <CheckIcon className="w-4 h-4" /> : <ClipboardDocumentIcon className="w-4 h-4" />}
+						{isCopied("expression") ? "Copied" : "Copy"}
 					</button>
 				</div>
-			</div>
 
-			{/* Presets */}
-			<div className={styles.glassCard}>
-				<h2 className={styles.sectionTitle}>Common Presets</h2>
-				<div className={`flex flex-wrap gap-2 ${styles.presetsGrid}`}>
-					{PRESETS.map((preset) => (
-						<button
-							key={preset.expression}
-							className={`${styles.presetBtn} ${expression === preset.expression ? styles.active : ""}`}
-							onClick={() => applyPreset(preset)}
-							title={preset.description}
-						>
-							{preset.label}
-						</button>
-					))}
-				</div>
-			</div>
-
-			{/* Field Builder */}
-			<div className={styles.glassCard}>
-				<h2 className={styles.sectionTitle}>Expression Builder</h2>
-				<div className={`flex flex-col gap-4`}>
-					{FIELD_NAMES.map((name, index) => {
-						const field = fields[index];
-						const range = FIELD_RANGES[index];
-						return (
-							<div key={name} className={`flex flex-col gap-2 p-4 rounded-lg ${styles.fieldRow}`}>
-								<div className={`flex items-center justify-between`}>
-									<label className={styles.fieldLabel}>
-										{name}
-										<span className={styles.fieldRange}>
-											({range.min}-{range.max})
-										</span>
-									</label>
-									<code className={styles.fieldPreview}>{fieldToString(field, index)}</code>
-								</div>
-								<div className={`flex flex-wrap items-center gap-3 ${styles.fieldControls}`}>
-									<select
-										className={styles.modeSelect}
-										value={field.mode}
-										onChange={(e) => {
-											updateField(index, { mode: e.target.value as FieldMode });
-											setIsManualMode(false);
-										}}
-									>
-										<option value="every">Every (*)</option>
-										<option value="specific">Specific</option>
-										<option value="range">Range</option>
-										<option value="step">Step (/)</option>
-									</select>
-
-									{field.mode === "specific" && (
-										<input
-											type="text"
-											className={styles.fieldInput}
-											value={field.specific}
-											onChange={(e) => {
-												updateField(index, { specific: e.target.value });
-												setIsManualMode(false);
-											}}
-											placeholder={
-												range.labels
-													? `e.g. ${Object.keys(range.labels).slice(0, 3).join(",")}`
-													: `e.g. ${range.min},${range.min + 1}`
-											}
-										/>
-									)}
-
-									{field.mode === "range" && (
-										<div className={`flex items-center gap-2`}>
-											<input
-												type="number"
-												className={styles.fieldInputSmall}
-												min={range.min}
-												max={range.max}
-												value={field.rangeStart}
-												onChange={(e) => {
-													updateField(index, { rangeStart: e.target.value });
-													setIsManualMode(false);
-												}}
-												placeholder={String(range.min)}
-											/>
-											<span className={styles.rangeSeparator}>to</span>
-											<input
-												type="number"
-												className={styles.fieldInputSmall}
-												min={range.min}
-												max={range.max}
-												value={field.rangeEnd}
-												onChange={(e) => {
-													updateField(index, { rangeEnd: e.target.value });
-													setIsManualMode(false);
-												}}
-												placeholder={String(range.max)}
-											/>
-										</div>
-									)}
-
-									{field.mode === "step" && (
-										<div className={`flex items-center gap-2`}>
-											<input
-												type="text"
-												className={styles.fieldInputSmall}
-												value={field.stepBase}
-												onChange={(e) => {
-													updateField(index, { stepBase: e.target.value });
-													setIsManualMode(false);
-												}}
-												placeholder="*"
-											/>
-											<span className={styles.rangeSeparator}>/</span>
-											<input
-												type="number"
-												className={styles.fieldInputSmall}
-												min={1}
-												value={field.stepValue}
-												onChange={(e) => {
-													updateField(index, { stepValue: e.target.value });
-													setIsManualMode(false);
-												}}
-												placeholder="2"
-											/>
-										</div>
-									)}
-
-									{field.mode !== "every" && range.labels && (
-										<div className={styles.labelHint}>
-											{Object.entries(range.labels).map(([val, lbl]) => (
-												<span key={val} className={styles.labelTag}>
-													{val}={lbl}
-												</span>
-											))}
-										</div>
-									)}
-								</div>
-							</div>
-						);
-					})}
-				</div>
-			</div>
-
-			{/* Next Runs */}
-			{nextRuns.length > 0 && (
-				<div className={styles.glassCard}>
-					<h2 className={styles.sectionTitle}>Next Run Times</h2>
-					<div className={`${styles.runsList}`}>
-						{nextRuns.map((date, i) => (
-							<div key={i} className={`flex items-center gap-3 ${styles.runItem}`}>
-								<span className={styles.runIndex}>{i + 1}</span>
-								<span className={styles.runDate}>
-									{date.toLocaleString("en-US", {
-										weekday: "short",
-										year: "numeric",
-										month: "short",
-										day: "numeric",
-										hour: "2-digit",
-										minute: "2-digit",
-										hour12: true,
-									})}
-								</span>
-							</div>
+				{/* Presets */}
+				<div className={styles.presetsRow}>
+					<span className={styles.rowLabel}>Presets</span>
+					<div className="flex flex-wrap gap-1.5">
+						{CRON_PRESETS.map((preset) => (
+							<button
+								key={preset.expression}
+								type="button"
+								className={`${styles.presetBtn} ${expression === preset.expression ? styles.active : ""}`}
+								onClick={() => applyPreset(preset.expression)}
+								title={preset.description}
+							>
+								{preset.label}
+							</button>
 						))}
 					</div>
 				</div>
-			)}
 
-			{/* Reference Table */}
-			<div className={styles.glassCard}>
-				<h2 className={styles.sectionTitle}>Cron Syntax Reference</h2>
+				{/* Field rows */}
+				{CRON_FIELDS.map((spec, index) => {
+					const field = fields[index];
+					const token = tokenDrafts[index] ?? cronFieldToString(field, index);
+					return (
+						<div key={spec.name} className={styles.fieldRow}>
+							<span className={styles.rowLabel}>
+								{spec.name}
+								<span className={styles.rowRange}>
+									{spec.min}–{spec.max}
+								</span>
+							</span>
+							<div className={styles.fieldControls}>
+								<SegmentedControl<CronFieldMode>
+									label={`${spec.name} mode`}
+									size="sm"
+									fill={false}
+									value={field.mode}
+									onChange={(mode) => updateField(index, { mode })}
+									options={MODE_OPTIONS}
+								/>
+
+								{field.mode === "specific" && (
+									<input
+										type="text"
+										aria-label={`${spec.name} value`}
+										className={styles.smallInput}
+										value={field.specific}
+										onChange={(e) => updateField(index, { specific: e.target.value })}
+										placeholder={spec.labels ? "e.g. 1,3,5" : `${spec.min},${spec.min + 1}`}
+									/>
+								)}
+								{field.mode === "range" && (
+									<div className="flex items-center gap-2">
+										<input
+											type="number"
+											aria-label={`${spec.name} from`}
+											className={styles.smallInput}
+											min={spec.min}
+											max={spec.max}
+											value={field.rangeStart}
+											onChange={(e) => updateField(index, { rangeStart: e.target.value })}
+											placeholder={String(spec.min)}
+										/>
+										<span className={styles.sep}>–</span>
+										<input
+											type="number"
+											aria-label={`${spec.name} to`}
+											className={styles.smallInput}
+											min={spec.min}
+											max={spec.max}
+											value={field.rangeEnd}
+											onChange={(e) => updateField(index, { rangeEnd: e.target.value })}
+											placeholder={String(spec.max)}
+										/>
+									</div>
+								)}
+								{field.mode === "step" && (
+									<div className="flex items-center gap-2">
+										<input
+											type="text"
+											aria-label={`${spec.name} step base`}
+											className={styles.smallInput}
+											value={field.stepBase}
+											onChange={(e) => updateField(index, { stepBase: e.target.value })}
+											placeholder="*"
+										/>
+										<span className={styles.sep}>/</span>
+										<input
+											type="number"
+											aria-label={`${spec.name} step`}
+											className={styles.smallInput}
+											min={1}
+											value={field.stepValue}
+											onChange={(e) => updateField(index, { stepValue: e.target.value })}
+											placeholder="2"
+										/>
+									</div>
+								)}
+
+								<input
+									type="text"
+									aria-label={`${spec.name} field`}
+									className={`${styles.tokenInput} ${isValidCronExpression(fields.map((f, i) => (i === index ? token : cronFieldToString(f, i))).join(" ")) ? "" : styles.invalid}`}
+									value={token}
+									onChange={(e) => handleTokenInput(index, e.target.value)}
+									spellCheck={false}
+									autoComplete="off"
+								/>
+							</div>
+							{field.mode !== "every" && spec.labels && (
+								<div className={styles.labelHint}>
+									{Object.entries(spec.labels).map(([val, lbl]) => (
+										<span key={val} className={styles.labelTag}>
+											{val}={lbl}
+										</span>
+									))}
+								</div>
+							)}
+						</div>
+					);
+				})}
+
+				{/* Result */}
+				<div className={styles.resultRow}>
+					<code className={`${styles.expressionValue} ${isValid ? "" : styles.invalidText}`}>{expression}</code>
+				</div>
+				<div className={styles.descriptionRow}>{description}</div>
+
+				{/* Next runs */}
+				<div className={styles.runsRow}>
+					<div className={styles.runsHeader}>
+						<span className={styles.rowLabel}>Next runs</span>
+						<label className="sr-only" htmlFor="cron-timezone">
+							Time zone
+						</label>
+						<select
+							id="cron-timezone"
+							className={styles.tzSelect}
+							value={timeZone}
+							onChange={(e) => setTimeZone(e.target.value)}
+						>
+							{COMMON_TIME_ZONES.map((z) => (
+								<option key={z.value} value={z.value}>
+									{z.label}
+								</option>
+							))}
+						</select>
+					</div>
+					{nextRuns.length === 0 ? (
+						<span className={styles.hint}>{isValid ? "No runs in the next five years." : "Fix the expression to see upcoming runs."}</span>
+					) : (
+						<div className="flex flex-wrap gap-1.5">
+							{nextRuns.map((d, i) => (
+								<span key={i} className={styles.runChip}>
+									{formatRun(d)}
+								</span>
+							))}
+						</div>
+					)}
+				</div>
+			</div>
+
+			{/* Reference */}
+			<div className={`mt-6 ${styles.glassCard}`}>
+				<h2 className={styles.sectionTitle}>Cron syntax reference</h2>
 				<div className={styles.tableWrapper}>
 					<table className={styles.referenceTable}>
 						<thead>
 							<tr>
 								<th>Field</th>
 								<th>Range</th>
-								<th>Special Characters</th>
+								<th>Special characters</th>
 								<th>Example</th>
 							</tr>
 						</thead>
@@ -585,17 +330,18 @@ export default function CronExpressionGenerator() {
 				</div>
 				<div className={`mt-4 ${styles.infoGrid}`}>
 					<div className={styles.infoItem}>
-						<h3 className={styles.infoSubtitle}>Special Characters</h3>
+						<h3 className={styles.infoSubtitle}>Special characters</h3>
 						<p className={styles.infoText}>
 							<code>*</code> matches all values. <code>,</code> separates list items (e.g. <code>1,3,5</code>).
 							<code>-</code> defines a range (e.g. <code>1-5</code>). <code>/</code> defines a step (e.g. <code>*/10</code>).
 						</p>
 					</div>
 					<div className={styles.infoItem}>
-						<h3 className={styles.infoSubtitle}>Day of Week</h3>
+						<h3 className={styles.infoSubtitle}>Day of week and day of month</h3>
 						<p className={styles.infoText}>
-							Sunday is <code>0</code>, Saturday is <code>6</code>. Some systems also accept <code>7</code> as Sunday.
-							Three-letter abbreviations (SUN-SAT) are supported by some implementations.
+							Sunday is <code>0</code> (or <code>7</code>), Saturday is <code>6</code>. Names such as <code>MON-FRI</code> and{" "}
+							<code>JAN</code> are accepted and normalised. When both day fields are restricted, standard cron runs on days
+							matching <em>either</em> one.
 						</p>
 					</div>
 				</div>

@@ -1,0 +1,237 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+.container {
+	@extend .container;
+}
+
+.glassCard {
+	@extend .glass-card;
+}
+
+.cardTitle {
+	color: $text-primary;
+}
+
+.dropZone {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	padding: 2.5rem 1.5rem;
+	background: $bg-glass;
+	border: 2px dashed $border-medium;
+	border-radius: $radius-xl;
+	cursor: pointer;
+	text-align: center;
+	transition: all $transition-base;
+
+	&:hover,
+	&.dragging {
+		border-color: $color-accent;
+		background: $color-accent-20;
+	}
+
+	&:focus-within {
+		outline: 2px solid $color-accent;
+		outline-offset: 2px;
+	}
+}
+
+.dropIcon {
+	width: 2rem;
+	height: 2rem;
+	color: $text-tertiary;
+}
+
+.dropTitle {
+	font-size: 1.05rem;
+	font-weight: 600;
+	color: $text-primary;
+}
+
+.dropHint {
+	font-size: 0.85rem;
+	color: $text-tertiary;
+}
+
+.optionsBar {
+	background: $bg-glass;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-lg;
+}
+
+.optionsTitle {
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: $text-tertiary;
+}
+
+.checkboxLabel {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 0.875rem;
+	color: $text-secondary;
+	cursor: pointer;
+
+	input {
+		accent-color: $color-accent;
+	}
+}
+
+.summary {
+	color: $text-secondary;
+}
+
+.error {
+	margin: 0.75rem 0 0;
+	font-size: 0.875rem;
+	color: $color-error;
+}
+
+.clean {
+	color: $color-success;
+}
+
+.card {
+	@include glass-card;
+	padding: 1rem;
+}
+
+.cardMain {
+	display: flex;
+	gap: 1rem;
+	align-items: flex-start;
+
+	@media (max-width: 560px) {
+		flex-direction: column;
+	}
+}
+
+.thumb {
+	width: 96px;
+	height: 96px;
+	object-fit: cover;
+	border-radius: $radius-md;
+	border: 1px solid $border-subtle;
+	background: $bg-overlay-light;
+	flex-shrink: 0;
+}
+
+.fileName {
+	color: $text-primary;
+}
+
+.fileMeta {
+	color: $text-tertiary;
+	font-family: $font-family-mono;
+}
+
+.iconBtn {
+	@include btn-icon;
+}
+
+.tag {
+	display: inline-block;
+	padding: 0.2rem 0.55rem;
+	border-radius: $radius-sm;
+	font-family: $font-family-mono;
+	font-size: 0.72rem;
+	border: 1px solid;
+}
+
+.tagRemove {
+	color: $color-error;
+	border-color: color-mix(in oklab, $color-error 40%, transparent);
+	background: color-mix(in oklab, $color-error 12%, transparent);
+	text-decoration: line-through;
+}
+
+.tagKeep {
+	color: $text-secondary;
+	border-color: $border-subtle;
+	background: $bg-overlay-light;
+}
+
+.exifGrid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+	gap: 0.35rem 1rem;
+	margin: 0;
+	padding: 0.75rem;
+	background: $bg-overlay-light;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+}
+
+.exifRow {
+	display: grid;
+	grid-template-columns: 5.5rem 1fr;
+	gap: 0.5rem;
+	font-size: 0.82rem;
+
+	dt {
+		color: $text-tertiary;
+	}
+
+	dd {
+		margin: 0;
+		color: $text-primary;
+		font-family: $font-family-mono;
+		overflow-wrap: anywhere;
+	}
+}
+
+.gpsRow {
+	grid-column: 1 / -1;
+
+	dt {
+		color: $color-error;
+	}
+}
+
+.mapLink {
+	color: $color-accent;
+	text-decoration: underline;
+}
+
+.cardActions {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 0.75rem;
+	padding-top: 0.75rem;
+	border-top: 1px solid $border-subtle;
+}
+
+.btnPrimary {
+	@include btn-primary;
+	padding: 0.5rem 1rem;
+	font-size: 0.875rem;
+}
+
+.btnSecondary {
+	@include btn-secondary;
+	padding: 0.5rem 1rem;
+	font-size: 0.875rem;
+	color: $text-secondary;
+}
+
+.infoList {
+	margin: 0;
+	padding-left: 1.25rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	color: $text-secondary;
+	font-size: 0.9rem;
+	line-height: 1.6;
+
+	strong {
+		color: $text-primary;
+	}
+}

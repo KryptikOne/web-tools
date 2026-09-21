@@ -167,9 +167,18 @@ Key utilities in this codebase:
 - `src/lib/natoPhoneticUtils.ts` - Spelling alphabets (NATO, DIN 5009, German 1996): spell text, read calls, auto-detect
 - `src/lib/morseUtils.ts` - International Morse code table + charToMorse
 - `src/lib/semaphoreUtils.ts` - Flag semaphore positions and arm angles
-- `src/lib/downloadUtils.ts` - downloadTextFile (client-side file download)
+- `src/lib/downloadUtils.ts` - downloadBlob / downloadTextFile / downloadBytes (client-side file download)
+- `src/lib/contrastUtils.ts` - WCAG contrast ratio, checks, ratings, and lightness-based auto-fix
+- `src/lib/cipherUtils.ts` - Classical ciphers (Caesar, Vigenère, Affine, Rail fence…), codes, English-likeness scoring, auto-decode
+- `src/lib/cronUtils.ts` - Cron field model, parsing/normalising, plain-English description, time-zone aware next runs
+- `src/lib/numberBaseUtils.ts` - Base conversion (2–36, sign, fraction, BigInt), two's complement, bitwise ops
+- `src/lib/dateTimeUtils.ts` - Time-zone aware parts/format/parse, unix parsing, date arithmetic, relative time
+- `src/lib/unitDefinitions.ts` - Unit categories + definitions shared by every unit converter, convertUnits, formatUnitValue
+- `src/lib/imageMetadataUtils.ts` - Inspect/strip EXIF, XMP, ICC and comments from JPEG/PNG/WebP (no re-encode)
 - `src/hooks/useIsMobile.ts` - SSR-safe mobile detection
 - `src/hooks/useClipboard.ts` - Clipboard operations with feedback
+- `src/components/SegmentedControl` - Joined radio-button group for mode/tab switches
+- `src/components/UnitConverterPanel` - Live "edit any row, all rows update" unit list driven by `unitDefinitions`
 
 **Do not reinvent the wheel.** If a utility exists, use it. If a utility is close but not quite right, extend it rather than duplicating logic elsewhere.
 

@@ -1,28 +1,8 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
+import UnitConverterPanel from "@/components/UnitConverterPanel";
+import { getUnitCategory } from "@/lib/unitDefinitions";
 import styles from "./PowerConverter.module.scss";
-
-interface ConversionUnit {
-	id: string;
-	name: string;
-	abbrev: string;
-	toBase: (value: number) => number;
-	fromBase: (value: number) => number;
-}
-
-// Power units (base: Watts)
-const POWER_UNITS: ConversionUnit[] = [
-	{ id: "w", name: "Watts", abbrev: "W", toBase: (v) => v, fromBase: (v) => v },
-	{ id: "kw", name: "Kilowatts", abbrev: "kW", toBase: (v) => v * 1000, fromBase: (v) => v / 1000 },
-	{ id: "mw", name: "Megawatts", abbrev: "MW", toBase: (v) => v * 1000000, fromBase: (v) => v / 1000000 },
-	{ id: "hp", name: "Horsepower (mechanical)", abbrev: "hp", toBase: (v) => v * 745.7, fromBase: (v) => v / 745.7 },
-	{ id: "ps", name: "Metric Horsepower", abbrev: "PS", toBase: (v) => v * 735.499, fromBase: (v) => v / 735.499 },
-	{ id: "btuh", name: "BTU per hour", abbrev: "BTU/h", toBase: (v) => v * 0.29307, fromBase: (v) => v / 0.29307 },
-	{ id: "ftlbs", name: "Foot-pounds per second", abbrev: "ft·lbf/s", toBase: (v) => v * 1.35582, fromBase: (v) => v / 1.35582 },
-	{ id: "cals", name: "Calories per second", abbrev: "cal/s", toBase: (v) => v * 4.184, fromBase: (v) => v / 4.184 },
-];
 
 const APPLIANCE_POWER = [
 	{ appliance: "LED light bulb", power: "10 W", hp: "0.013 hp" },
@@ -49,98 +29,11 @@ const VEHICLE_POWER = [
 	{ vehicle: "Freight locomotive", hp: "4,000-6,000 hp", kw: "2,983-4,474 kW" },
 ];
 
-function formatNumber(num: number): string {
-	if (num === 0) return "0";
-	if (Math.abs(num) < 0.0001) return num.toExponential(2);
-	if (Math.abs(num) >= 1000000) return num.toLocaleString(undefined, { maximumFractionDigits: 2 });
-	if (Number.isInteger(num)) return num.toString();
-	return num.toFixed(Math.abs(num) < 1 ? 4 : 2).replace(/\.?0+$/, "");
-}
-
 export default function PowerConverter() {
-	const [fromUnit, setFromUnit] = useState<string>("hp");
-	const [toUnit, setToUnit] = useState<string>("kw");
-	const [inputValue, setInputValue] = useState<string>("1");
-
-	const convert = useCallback(() => {
-		const value = parseFloat(inputValue);
-		if (isNaN(value)) return "";
-
-		const from = POWER_UNITS.find((u) => u.id === fromUnit);
-		const to = POWER_UNITS.find((u) => u.id === toUnit);
-
-		if (!from || !to) return "";
-
-		const baseValue = from.toBase(value);
-		const result = to.fromBase(baseValue);
-
-		return formatNumber(result);
-	}, [inputValue, fromUnit, toUnit]);
-
-	const swapUnits = () => {
-		const temp = fromUnit;
-		setFromUnit(toUnit);
-		setToUnit(temp);
-	};
-
-	const result = convert();
-
 	return (
 		<div className={styles.container}>
-			<div className={styles.glassCard}>
-				<h2 className={styles.sectionTitle}>Power Converter</h2>
-
-				<div className={styles.converterGrid}>
-					<div className={styles.converterInput}>
-						<label className={styles.inputLabel}>From</label>
-						<div className={styles.inputRow}>
-							<input
-								type="number"
-								inputMode="decimal"
-								value={inputValue}
-								onChange={(e) => setInputValue(e.target.value)}
-								className={styles.numberInput}
-								placeholder="Enter value"
-							/>
-							<select value={fromUnit} onChange={(e) => setFromUnit(e.target.value)} className={styles.unitSelect}>
-								{POWER_UNITS.map((unit) => (
-									<option key={unit.id} value={unit.id}>
-										{unit.name} ({unit.abbrev})
-									</option>
-								))}
-							</select>
-						</div>
-					</div>
-
-					<button className={styles.swapButton} onClick={swapUnits} title="Swap units">
-						<ArrowsRightLeftIcon className="w-5 h-5" />
-					</button>
-
-					<div className={styles.converterInput}>
-						<label className={styles.inputLabel}>To</label>
-						<div className={styles.inputRow}>
-							<div className={styles.resultDisplay}>{result || "—"}</div>
-							<select value={toUnit} onChange={(e) => setToUnit(e.target.value)} className={styles.unitSelect}>
-								{POWER_UNITS.map((unit) => (
-									<option key={unit.id} value={unit.id}>
-										{unit.name} ({unit.abbrev})
-									</option>
-								))}
-							</select>
-						</div>
-					</div>
-				</div>
-
-				{result && (
-					<div className={styles.resultSummary}>
-						<span className={styles.resultText}>
-							{inputValue} {POWER_UNITS.find((u) => u.id === fromUnit)?.abbrev} ={" "}
-							<strong>
-								{result} {POWER_UNITS.find((u) => u.id === toUnit)?.abbrev}
-							</strong>
-						</span>
-					</div>
-				)}
+			<div className="mb-6">
+				<UnitConverterPanel category={getUnitCategory("power")!} initialUnitId="hp" initialValue="1" />
 			</div>
 
 			<div className={styles.chartsGrid}>

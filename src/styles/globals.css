@@ -152,6 +152,25 @@ body {
 	box-sizing: border-box;
 }
 
+/* ================================
+   FORM CONTROLS
+   ================================ */
+
+/* Consistent dropdown chevron. `:not([multiple])` lifts specificity above the
+   single-class padding in feature modules without needing !important. */
+select:not([multiple]) {
+	appearance: none;
+	padding-right: 2.25rem;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23a3a3a3' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 0.75rem center;
+	background-size: 1rem;
+}
+
+html[data-theme="light"] select:not([multiple]) {
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23525252' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+}
+
 /* Text Selection Styles */
 html[data-theme="dark"] ::selection,
 html:not([data-theme]) ::selection {

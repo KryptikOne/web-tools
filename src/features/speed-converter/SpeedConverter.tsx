@@ -1,26 +1,8 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
+import UnitConverterPanel from "@/components/UnitConverterPanel";
+import { getUnitCategory } from "@/lib/unitDefinitions";
 import styles from "./SpeedConverter.module.scss";
-
-interface ConversionUnit {
-	id: string;
-	name: string;
-	abbrev: string;
-	toBase: (value: number) => number;
-	fromBase: (value: number) => number;
-}
-
-// Speed units (base: meters per second)
-const SPEED_UNITS: ConversionUnit[] = [
-	{ id: "ms", name: "Meters per second", abbrev: "m/s", toBase: (v) => v, fromBase: (v) => v },
-	{ id: "kmh", name: "Kilometers per hour", abbrev: "km/h", toBase: (v) => v / 3.6, fromBase: (v) => v * 3.6 },
-	{ id: "mph", name: "Miles per hour", abbrev: "mph", toBase: (v) => v * 0.44704, fromBase: (v) => v / 0.44704 },
-	{ id: "fps", name: "Feet per second", abbrev: "ft/s", toBase: (v) => v * 0.3048, fromBase: (v) => v / 0.3048 },
-	{ id: "knots", name: "Knots", abbrev: "kn", toBase: (v) => v * 0.514444, fromBase: (v) => v / 0.514444 },
-	{ id: "mach", name: "Mach (sea level)", abbrev: "Mach", toBase: (v) => v * 343, fromBase: (v) => v / 343 },
-];
 
 const SPEED_REFERENCES = [
 	{ description: "Walking (casual)", speed: "3.1 mph / 5 km/h" },
@@ -60,98 +42,11 @@ const COMMON_CONVERSIONS = [
 	{ from: "Mach 1", to: "767 mph / 1,235 km/h" },
 ];
 
-function formatNumber(num: number): string {
-	if (num === 0) return "0";
-	if (Math.abs(num) < 0.0001) return num.toExponential(2);
-	if (Math.abs(num) >= 1000000) return num.toLocaleString(undefined, { maximumFractionDigits: 2 });
-	if (Number.isInteger(num)) return num.toString();
-	return num.toFixed(Math.abs(num) < 1 ? 4 : 2).replace(/\.?0+$/, "");
-}
-
 export default function SpeedConverter() {
-	const [fromUnit, setFromUnit] = useState<string>("mph");
-	const [toUnit, setToUnit] = useState<string>("kmh");
-	const [inputValue, setInputValue] = useState<string>("1");
-
-	const convert = useCallback(() => {
-		const value = parseFloat(inputValue);
-		if (isNaN(value)) return "";
-
-		const from = SPEED_UNITS.find((u) => u.id === fromUnit);
-		const to = SPEED_UNITS.find((u) => u.id === toUnit);
-
-		if (!from || !to) return "";
-
-		const baseValue = from.toBase(value);
-		const result = to.fromBase(baseValue);
-
-		return formatNumber(result);
-	}, [inputValue, fromUnit, toUnit]);
-
-	const swapUnits = () => {
-		const temp = fromUnit;
-		setFromUnit(toUnit);
-		setToUnit(temp);
-	};
-
-	const result = convert();
-
 	return (
 		<div className={styles.container}>
-			<div className={styles.glassCard}>
-				<h2 className={styles.sectionTitle}>Speed / Velocity Converter</h2>
-
-				<div className={styles.converterGrid}>
-					<div className={styles.converterInput}>
-						<label className={styles.inputLabel}>From</label>
-						<div className={styles.inputRow}>
-							<input
-								type="number"
-								inputMode="decimal"
-								value={inputValue}
-								onChange={(e) => setInputValue(e.target.value)}
-								className={styles.numberInput}
-								placeholder="Enter value"
-							/>
-							<select value={fromUnit} onChange={(e) => setFromUnit(e.target.value)} className={styles.unitSelect}>
-								{SPEED_UNITS.map((unit) => (
-									<option key={unit.id} value={unit.id}>
-										{unit.name} ({unit.abbrev})
-									</option>
-								))}
-							</select>
-						</div>
-					</div>
-
-					<button className={styles.swapButton} onClick={swapUnits} title="Swap units">
-						<ArrowsRightLeftIcon className="w-5 h-5" />
-					</button>
-
-					<div className={styles.converterInput}>
-						<label className={styles.inputLabel}>To</label>
-						<div className={styles.inputRow}>
-							<div className={styles.resultDisplay}>{result || "—"}</div>
-							<select value={toUnit} onChange={(e) => setToUnit(e.target.value)} className={styles.unitSelect}>
-								{SPEED_UNITS.map((unit) => (
-									<option key={unit.id} value={unit.id}>
-										{unit.name} ({unit.abbrev})
-									</option>
-								))}
-							</select>
-						</div>
-					</div>
-				</div>
-
-				{result && (
-					<div className={styles.resultSummary}>
-						<span className={styles.resultText}>
-							{inputValue} {SPEED_UNITS.find((u) => u.id === fromUnit)?.abbrev} ={" "}
-							<strong>
-								{result} {SPEED_UNITS.find((u) => u.id === toUnit)?.abbrev}
-							</strong>
-						</span>
-					</div>
-				)}
+			<div className="mb-6">
+				<UnitConverterPanel category={getUnitCategory("speed")!} initialUnitId="mph" initialValue="1" />
 			</div>
 
 			<div className={styles.chartsGrid}>

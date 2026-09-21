@@ -1,0 +1,250 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+.container {
+	@extend .container;
+}
+
+.panel {
+	@include glass-card;
+	padding: 0;
+	overflow: hidden;
+}
+
+.colorRow {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	padding: 0.875rem 1.25rem;
+	border-bottom: 1px solid $border-subtle;
+}
+
+.rowLabel {
+	font-size: 0.72rem;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: $text-tertiary;
+}
+
+.hexInput {
+	width: 9rem;
+	max-width: 100%;
+	padding: 0.35rem 0.5rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: $radius-sm;
+	color: $text-primary;
+	font-family: $font-family-mono;
+	font-size: 0.95rem;
+	text-transform: lowercase;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+	}
+
+	&.invalid {
+		border-color: $color-error;
+	}
+}
+
+.actions {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	border-bottom: 1px solid $border-subtle;
+}
+
+.actionBtn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	padding: 0.8rem 1rem;
+	background: transparent;
+	border: none;
+	border-right: 1px solid $border-subtle;
+	color: $text-secondary;
+	font-size: 0.875rem;
+	font-weight: 500;
+	cursor: pointer;
+	transition: background $transition-base, color $transition-base;
+
+	&:last-child {
+		border-right: none;
+	}
+
+	&:hover:not(:disabled) {
+		background: $bg-glass-hover;
+		color: $text-primary;
+	}
+
+	&:disabled {
+		opacity: 0.45;
+		cursor: not-allowed;
+	}
+}
+
+.ratioBlock {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.25rem;
+	padding: 1.5rem 1rem;
+	border-bottom: 1px solid $border-subtle;
+	text-align: center;
+}
+
+.ratioLabel {
+	font-size: 0.72rem;
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: $text-tertiary;
+}
+
+.ratioValue {
+	font-family: $font-family-display;
+	font-size: clamp(2.25rem, 6vw, 3.5rem);
+	font-weight: 700;
+	line-height: 1.1;
+	color: $text-primary;
+}
+
+.ratingExcellent { color: $color-success; }
+.ratingGood { color: $color-success; }
+.ratingFair { color: $color-warning; }
+.ratingPoor { color: $color-error; }
+
+.ratioRating {
+	font-size: 0.9rem;
+	color: $text-secondary;
+}
+
+.sectionHeading {
+	padding: 0.75rem 1.25rem;
+	font-weight: 600;
+	color: $text-primary;
+	border-bottom: 1px solid $border-subtle;
+}
+
+.preview {
+	padding: 2rem 1.5rem;
+	background: $bg-overlay-light;
+	border-bottom: 1px solid $border-subtle;
+
+	p {
+		margin: 0;
+	}
+}
+
+.previewLarge {
+	font-size: 2rem;
+	font-weight: 700;
+	line-height: 1.2;
+	margin-bottom: 0.75rem !important;
+}
+
+.previewNormal {
+	font-size: 1rem;
+	margin-bottom: 0.5rem !important;
+}
+
+.previewSmall {
+	font-size: 0.875rem;
+}
+
+.checks {
+	border-bottom: 1px solid $border-subtle;
+}
+
+.check {
+	display: grid;
+	grid-template-columns: 4rem 1fr 3.5rem;
+	align-items: center;
+	border-bottom: 1px solid $border-subtle;
+
+	&:last-child {
+		border-bottom: none;
+	}
+}
+
+.checkLevel {
+	padding: 0.75rem 1.25rem;
+	font-family: $font-family-mono;
+	font-size: 0.8rem;
+	font-weight: 700;
+	color: $text-secondary;
+	border-right: 1px solid $border-subtle;
+	text-align: center;
+}
+
+.checkText {
+	padding: 0.75rem 1rem;
+	color: $text-primary;
+}
+
+.checkRatio {
+	margin-left: 0.35rem;
+	font-family: $font-family-mono;
+	font-size: 0.8rem;
+	color: $text-tertiary;
+}
+
+.checkStatus {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	align-self: stretch;
+	border-left: 1px solid $border-subtle;
+}
+
+.pass .checkStatus {
+	color: $color-success;
+	background: color-mix(in oklab, $color-success 15%, transparent);
+}
+
+.fail .checkStatus {
+	color: $color-error;
+	background: color-mix(in oklab, $color-error 15%, transparent);
+}
+
+.about {
+	margin: 0;
+	padding: 0.75rem 1.25rem 0.25rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
+	font-size: 0.875rem;
+
+	div {
+		display: flex;
+		gap: 0.5rem;
+		flex-wrap: wrap;
+	}
+
+	dt {
+		font-weight: 600;
+		color: $text-primary;
+		min-width: 6.5rem;
+	}
+
+	dd {
+		margin: 0;
+		color: $text-secondary;
+	}
+}
+
+.footnote {
+	margin: 0;
+	padding: 0.75rem 1.25rem 1.25rem;
+	font-size: 0.82rem;
+	color: $text-tertiary;
+	line-height: 1.6;
+}
+
+.link {
+	color: $color-accent;
+	text-decoration: underline;
+}

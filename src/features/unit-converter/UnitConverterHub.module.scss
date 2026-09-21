@@ -1,0 +1,53 @@
+@use "@/styles/variables" as *;
+@use "@/styles/utilities" as util;
+
+.container {
+	@extend .container;
+}
+
+.tabs {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.35rem;
+	margin-bottom: 1rem;
+}
+
+.tab {
+	padding: 0.45rem 0.85rem;
+	background: $bg-glass;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	color: $text-secondary;
+	font-size: 0.85rem;
+	font-weight: 500;
+	cursor: pointer;
+	transition: all $transition-base;
+
+	&:hover {
+		background: $bg-glass-hover;
+		color: $text-primary;
+		border-color: $border-medium;
+	}
+
+	&:focus-visible {
+		outline: 2px solid $color-accent;
+		outline-offset: 2px;
+	}
+}
+
+.tabActive {
+	background: $color-accent;
+	border-color: $color-accent;
+	color: #fff;
+	font-weight: 600;
+}
+
+.panel {
+	min-width: 0;
+}
+
+.description {
+	margin: 0 0 1rem;
+	font-size: 0.9rem;
+	color: $text-secondary;
+}

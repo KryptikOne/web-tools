@@ -1,341 +1,267 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { ClipboardDocumentIcon, CheckIcon, ClockIcon, ArrowPathIcon } from "@heroicons/react/24/outline";
+import { useEffect, useMemo, useState } from "react";
+import { ClipboardDocumentIcon, CheckIcon, ClockIcon } from "@heroicons/react/24/outline";
+import SegmentedControl from "@/components/SegmentedControl";
+import { useClipboard } from "@/hooks/useClipboard";
+import {
+	COMMON_TIME_ZONES,
+	DATE_UNITS,
+	LOCAL_TIME_ZONE,
+	addToDate,
+	formatDateTimeLocal,
+	parseDateTimeLocal,
+	parseLooseDate,
+	parseUnixTimestamp,
+	relativeTime,
+	resolveTimeZone,
+	toRfc2822,
+	type DateUnit,
+} from "@/lib/dateTimeUtils";
 import styles from "./EpochConverter.module.scss";
 
-const TIMEZONES = [
-	{ value: "local", label: "Local Time" },
-	{ value: "UTC", label: "UTC" },
-	{ value: "America/New_York", label: "Eastern Time (ET)" },
-	{ value: "America/Chicago", label: "Central Time (CT)" },
-	{ value: "America/Denver", label: "Mountain Time (MT)" },
-	{ value: "America/Los_Angeles", label: "Pacific Time (PT)" },
-	{ value: "Europe/London", label: "London (GMT/BST)" },
-	{ value: "Europe/Paris", label: "Paris (CET/CEST)" },
-	{ value: "Europe/Berlin", label: "Berlin (CET/CEST)" },
-	{ value: "Asia/Tokyo", label: "Tokyo (JST)" },
-	{ value: "Asia/Shanghai", label: "Shanghai (CST)" },
-	{ value: "Asia/Singapore", label: "Singapore (SGT)" },
-	{ value: "Australia/Sydney", label: "Sydney (AEST/AEDT)" },
+type Tab = "convert" | "math";
+type FormatId = "unix" | "unixMs" | "iso" | "rfc" | "local";
+
+interface FormatDef {
+	id: FormatId;
+	label: string;
+	hint?: string;
+	format: (d: Date, tz?: string) => string;
+	parse: (text: string, tz?: string) => Date | null;
+}
+
+const FORMATS: FormatDef[] = [
+	{ id: "unix", label: "Unix (seconds)", format: (d) => String(Math.floor(d.getTime() / 1000)), parse: (t) => parseUnixTimestamp(t) },
+	{ id: "unixMs", label: "Unix (milliseconds)", format: (d) => String(d.getTime()), parse: (t) => parseUnixTimestamp(t) },
+	{ id: "iso", label: "ISO 8601", format: (d) => d.toISOString(), parse: parseLooseDate },
+	{ id: "rfc", label: "RFC 2822", format: (d) => toRfc2822(d), parse: parseLooseDate },
+	{ id: "local", label: "Date & time", hint: "in the selected zone", format: (d, tz) => formatDateTimeLocal(d, tz), parse: (t, tz) => parseDateTimeLocal(t, tz) },
 ];
 
-export default function EpochConverter() {
-	const [currentEpochSeconds, setCurrentEpochSeconds] = useState<number>(Math.floor(Date.now() / 1000));
-	const [currentEpochMs, setCurrentEpochMs] = useState<number>(Date.now());
-	const [epochInput, setEpochInput] = useState<string>("");
-	const [dateInput, setDateInput] = useState<string>("");
-	const [timeInput, setTimeInput] = useState<string>("");
-	const [timezone, setTimezone] = useState<string>("local");
-	const [epochResult, setEpochResult] = useState<string>("");
-	const [dateResult, setDateResult] = useState<string>("");
-	const [copiedField, setCopiedField] = useState<string | null>(null);
-	const [epochError, setEpochError] = useState<string>("");
-	const [dateError, setDateError] = useState<string>("");
+function longFormat(d: Date, tz?: string): string {
+	return d.toLocaleString("en-US", {
+		timeZone: tz,
+		weekday: "long",
+		year: "numeric",
+		month: "long",
+		day: "numeric",
+		hour: "2-digit",
+		minute: "2-digit",
+		second: "2-digit",
+		timeZoneName: "short",
+	});
+}
 
-	// Update current epoch every 100ms for smooth millisecond display
+export default function EpochConverter() {
+	const [now, setNow] = useState(() => Date.now());
+	const [tab, setTab] = useState<Tab>("convert");
+	const [timeZone, setTimeZone] = useState(LOCAL_TIME_ZONE);
+	const [date, setDate] = useState<Date>(() => new Date(Math.floor(Date.now() / 1000) * 1000));
+	const [draft, setDraft] = useState<{ id: FormatId; text: string; invalid: boolean } | null>(null);
+	const { copy, isCopied } = useClipboard();
+
+	// Date math
+	const [mathStart, setMathStart] = useState<string>(() => formatDateTimeLocal(new Date()));
+	const [mathOp, setMathOp] = useState<"add" | "subtract">("add");
+	const [mathAmount, setMathAmount] = useState("7");
+	const [mathUnit, setMathUnit] = useState<DateUnit>("days");
+
 	useEffect(() => {
-		const interval = setInterval(() => {
-			setCurrentEpochSeconds(Math.floor(Date.now() / 1000));
-			setCurrentEpochMs(Date.now());
-		}, 100);
+		const interval = setInterval(() => setNow(Date.now()), 100);
 		return () => clearInterval(interval);
 	}, []);
 
-	const formatDateForTimezone = useCallback((date: Date, tz: string): string => {
-		try {
-			if (tz === "local") {
-				return date.toLocaleString("en-US", {
-					weekday: "long",
-					year: "numeric",
-					month: "long",
-					day: "numeric",
-					hour: "2-digit",
-					minute: "2-digit",
-					second: "2-digit",
-					hour12: true,
-				});
-			}
-			return date.toLocaleString("en-US", {
-				timeZone: tz,
-				weekday: "long",
-				year: "numeric",
-				month: "long",
-				day: "numeric",
-				hour: "2-digit",
-				minute: "2-digit",
-				second: "2-digit",
-				hour12: true,
-				timeZoneName: "short",
-			});
-		} catch {
-			return date.toLocaleString();
-		}
-	}, []);
+	const tz = resolveTimeZone(timeZone);
 
-	const convertEpochToDate = useCallback(() => {
-		setEpochError("");
-		const epoch = parseInt(epochInput, 10);
-
-		if (isNaN(epoch)) {
-			setEpochError("Please enter a valid epoch timestamp");
-			setDateResult("");
-			return;
-		}
-
-		// Handle both seconds and milliseconds
-		const epochMs = epoch.toString().length > 10 ? epoch : epoch * 1000;
-		const date = new Date(epochMs);
-
-		if (isNaN(date.getTime())) {
-			setEpochError("Invalid epoch timestamp");
-			setDateResult("");
-			return;
-		}
-
-		setDateResult(formatDateForTimezone(date, timezone));
-	}, [epochInput, timezone, formatDateForTimezone]);
-
-	const convertDateToEpoch = useCallback(() => {
-		setDateError("");
-
-		if (!dateInput || !timeInput) {
-			setDateError("Please enter both date and time");
-			setEpochResult("");
-			return;
-		}
-
-		try {
-			const dateTimeString = `${dateInput}T${timeInput}`;
-			let date: Date;
-
-			if (timezone === "local") {
-				date = new Date(dateTimeString);
-			} else if (timezone === "UTC") {
-				date = new Date(dateTimeString + "Z");
-			} else {
-				// For other timezones, we need to calculate the offset
-				const tempDate = new Date(dateTimeString);
-				const utcDate = new Date(tempDate.toLocaleString("en-US", { timeZone: "UTC" }));
-				const tzDate = new Date(tempDate.toLocaleString("en-US", { timeZone: timezone }));
-				const offset = utcDate.getTime() - tzDate.getTime();
-				date = new Date(tempDate.getTime() + offset);
-			}
-
-			if (isNaN(date.getTime())) {
-				setDateError("Invalid date/time format");
-				setEpochResult("");
-				return;
-			}
-
-			const epochSeconds = Math.floor(date.getTime() / 1000);
-			setEpochResult(epochSeconds.toString());
-		} catch {
-			setDateError("Invalid date/time format");
-			setEpochResult("");
-		}
-	}, [dateInput, timeInput, timezone]);
-
-	const setCurrentEpochInput = () => {
-		setEpochInput(currentEpochSeconds.toString());
-		setEpochError("");
+	const handleField = (def: FormatDef, text: string) => {
+		const parsed = text.trim() ? def.parse(text, tz) : null;
+		setDraft({ id: def.id, text, invalid: !parsed });
+		if (parsed) setDate(parsed);
 	};
 
-	const setCurrentDateTime = () => {
-		const now = new Date();
-		const dateStr = now.toISOString().split("T")[0];
-		const timeStr = now.toTimeString().slice(0, 8);
-		setDateInput(dateStr);
-		setTimeInput(timeStr);
-		setDateError("");
-	};
+	const mathResult = useMemo(() => {
+		const start = parseDateTimeLocal(mathStart, tz) ?? parseLooseDate(mathStart);
+		const amount = Number(mathAmount);
+		if (!start || !Number.isFinite(amount)) return null;
+		return { start, result: addToDate(start, mathOp === "add" ? amount : -amount, mathUnit, tz) };
+	}, [mathStart, mathAmount, mathOp, mathUnit, tz]);
 
-	const copyToClipboard = async (value: string, field: string) => {
-		try {
-			await navigator.clipboard.writeText(value);
-			setCopiedField(field);
-			setTimeout(() => setCopiedField(null), 2000);
-		} catch (err) {
-			console.error("Failed to copy:", err);
-		}
-	};
-
-	const formatEpoch = (epoch: number): string => {
-		return epoch.toString();
-	};
+	const nowDate = new Date(now);
 
 	return (
 		<div className={styles.container}>
-			{/* Live Epoch Display */}
-			<div className={`mb-6 ${styles.liveSection}`}>
-				<div className={styles.glassCard}>
-					<div className={`flex items-center gap-3 mb-4 ${styles.liveHeader}`}>
-						<ClockIcon className={`w-6 h-6 ${styles.liveIcon}`} />
-						<h2 className={styles.liveTitle}>Current Unix Timestamp</h2>
+			{/* Live clock */}
+			<div className={styles.liveBar}>
+				<div className={styles.liveMain}>
+					<ClockIcon className={styles.liveIcon} />
+					<div className="min-w-0">
+						<span className={styles.liveLabel}>Current time</span>
+						<span className={styles.liveText}>{longFormat(nowDate, tz)}</span>
 					</div>
-					<div className={`grid grid-cols-2 gap-6 max-md:grid-cols-1 max-md:gap-4 ${styles.liveDisplayGrid}`}>
-						<div className={`flex flex-col gap-2 ${styles.liveDisplayItem}`}>
-							<span className={styles.liveDisplayLabel}>Seconds</span>
-							<div className={`flex items-center gap-4 ${styles.liveDisplay}`}>
-								<span className={styles.epochValue}>{formatEpoch(currentEpochSeconds)}</span>
-								<button className={`${styles.copyBtn} ${copiedField === "liveSeconds" ? styles.copied : ""}`} onClick={() => copyToClipboard(currentEpochSeconds.toString(), "liveSeconds")} title="Copy to clipboard">
-									{copiedField === "liveSeconds" ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
-								</button>
-							</div>
-						</div>
-						<div className={`flex flex-col gap-2 ${styles.liveDisplayItem}`}>
-							<span className={styles.liveDisplayLabel}>Milliseconds</span>
-							<div className={`flex items-center gap-4 ${styles.liveDisplay}`}>
-								<span className={styles.epochValue}>{formatEpoch(currentEpochMs)}</span>
-								<button className={`${styles.copyBtn} ${copiedField === "liveMs" ? styles.copied : ""}`} onClick={() => copyToClipboard(currentEpochMs.toString(), "liveMs")} title="Copy to clipboard">
-									{copiedField === "liveMs" ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
-								</button>
-							</div>
-						</div>
-					</div>
-					<p className={styles.liveSubtext}>Time since January 1, 1970 00:00:00 UTC</p>
+				</div>
+				<div className={styles.liveValues}>
+					{(["unix", "unixMs"] as const).map((id) => {
+						const value = id === "unix" ? String(Math.floor(now / 1000)) : String(now);
+						return (
+							<button key={id} type="button" className={styles.liveValue} onClick={() => copy(value, `live-${id}`)} title="Copy">
+								<span className={styles.liveMono}>{value}</span>
+								{isCopied(`live-${id}`) ? <CheckIcon className="w-4 h-4" /> : <ClipboardDocumentIcon className="w-4 h-4" />}
+							</button>
+						);
+					})}
 				</div>
 			</div>
 
-			{/* Timezone Selector */}
-			<div className={`flex items-center gap-4 mb-6 px-6 py-4 rounded-xl ${styles.timezoneSection}`}>
-				<label className={styles.timezoneLabel}>Timezone for conversions:</label>
-				<select className={styles.timezoneSelect} value={timezone} onChange={(e) => setTimezone(e.target.value)}>
-					{TIMEZONES.map((tz) => (
-						<option key={tz.value} value={tz.value}>
-							{tz.label}
-						</option>
-					))}
-				</select>
+			<div className="grid gap-3 md:grid-cols-[1fr_auto] items-center mt-4">
+				<SegmentedControl<Tab>
+					label="Section"
+					value={tab}
+					onChange={setTab}
+					options={[
+						{ value: "convert", label: "Convert" },
+						{ value: "math", label: "Date math" },
+					]}
+				/>
+				<div className="flex items-center gap-2">
+					<label htmlFor="epoch-tz" className={styles.tzLabel}>
+						Zone
+					</label>
+					<select id="epoch-tz" className={styles.tzSelect} value={timeZone} onChange={(e) => { setTimeZone(e.target.value); setDraft(null); }}>
+						{COMMON_TIME_ZONES.map((z) => (
+							<option key={z.value} value={z.value}>{z.label}</option>
+						))}
+					</select>
+				</div>
 			</div>
 
-			{/* Conversion Grid */}
-			<div className={`grid grid-cols-2 gap-6 mb-6 max-[900px]:grid-cols-1 ${styles.conversionGrid}`}>
-				{/* Epoch to Date */}
-				<div className={styles.glassCard}>
-					<h2 className={styles.sectionTitle}>Epoch → Date/Time</h2>
-
-					<div className={`mb-4 ${styles.inputGroup}`}>
-						<label className={styles.inputLabel}>Unix Timestamp (seconds)</label>
-						<div className={`relative ${styles.inputWrapper}`}>
-							<input
-								type="number"
-								inputMode="numeric"
-								value={epochInput}
-								onChange={(e) => {
-									setEpochInput(e.target.value);
-									setEpochError("");
-								}}
-								className={styles.input}
-								placeholder="Enter epoch seconds..."
-							/>
+			{tab === "convert" && (
+				<>
+					<div className={`mt-4 ${styles.panel}`}>
+						{FORMATS.map((def) => {
+							const text = draft?.id === def.id ? draft.text : def.format(date, tz);
+							const invalid = draft?.id === def.id && draft.invalid;
+							const inputId = `epoch-${def.id}`;
+							return (
+								<div key={def.id} className={styles.row}>
+									<label htmlFor={inputId} className={styles.rowLabel}>
+										{def.label}
+										{def.hint && <span className={styles.rowHint}>{def.hint}</span>}
+									</label>
+									<input
+										id={inputId}
+										type="text"
+										value={text}
+										onChange={(e) => handleField(def, e.target.value)}
+										onBlur={() => setDraft(null)}
+										className={`${styles.rowInput} ${invalid ? styles.invalid : ""}`}
+										spellCheck={false}
+										autoComplete="off"
+									/>
+									<button type="button" className={styles.rowCopy} onClick={() => copy(def.format(date, tz), def.id)} aria-label={`Copy ${def.label}`}>
+										{isCopied(def.id) ? <CheckIcon className="w-4 h-4" /> : <ClipboardDocumentIcon className="w-4 h-4" />}
+									</button>
+								</div>
+							);
+						})}
+						<div className={styles.footerRow}>
+							<span className={styles.footerText}>
+								{longFormat(date, tz)} · {relativeTime(date, nowDate)}
+							</span>
+							<button type="button" className={styles.btnSecondary} onClick={() => { setDate(new Date(Math.floor(Date.now() / 1000) * 1000)); setDraft(null); }}>
+								<ClockIcon className="w-4 h-4" />
+								Use current time
+							</button>
 						</div>
-						{epochError && <p className={styles.errorText}>{epochError}</p>}
 					</div>
+				</>
+			)}
 
-					<div className={`flex gap-3 mt-5 ${styles.buttonRow}`}>
-						<button className={styles.btnSecondary} onClick={setCurrentEpochInput}>
-							<ClockIcon className={`w-4 h-4 ${styles.btnIcon}`} />
-							Set Current
-						</button>
-						<button className={styles.btnPrimary} onClick={convertEpochToDate}>
-							<ArrowPathIcon className={`w-4 h-4 ${styles.btnIcon}`} />
-							Convert
+			{tab === "math" && (
+				<div className={`mt-4 ${styles.panel}`}>
+					<div className={styles.row}>
+						<label htmlFor="math-start" className={styles.rowLabel}>Starting date &amp; time</label>
+						<input
+							id="math-start"
+							type="text"
+							value={mathStart}
+							onChange={(e) => setMathStart(e.target.value)}
+							className={`${styles.rowInput} ${mathResult ? "" : styles.invalid}`}
+							placeholder="YYYY-MM-DD HH:mm:ss"
+							spellCheck={false}
+							autoComplete="off"
+						/>
+						<button type="button" className={styles.rowCopy} onClick={() => setMathStart(formatDateTimeLocal(new Date(), tz))} title="Use now">
+							<ClockIcon className="w-4 h-4" />
 						</button>
 					</div>
-
-					{dateResult && (
-						<div className={`mt-5 p-4 rounded-lg ${styles.resultBox}`}>
-							<div className={`flex items-center justify-between mb-2 ${styles.resultHeader}`}>
-								<span className={styles.resultLabel}>Result:</span>
-								<button className={`${styles.copyBtn} ${copiedField === "dateResult" ? styles.copied : ""}`} onClick={() => copyToClipboard(dateResult, "dateResult")} title="Copy to clipboard">
-									{copiedField === "dateResult" ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
+					<div className={styles.mathRow}>
+						<SegmentedControl<"add" | "subtract">
+							label="Operation"
+							size="sm"
+							fill={false}
+							value={mathOp}
+							onChange={setMathOp}
+							options={[
+								{ value: "add", label: "Add" },
+								{ value: "subtract", label: "Subtract" },
+							]}
+						/>
+						<label className="sr-only" htmlFor="math-amount">Amount</label>
+						<input id="math-amount" type="number" value={mathAmount} onChange={(e) => setMathAmount(e.target.value)} className={styles.amountInput} />
+						<label className="sr-only" htmlFor="math-unit">Unit</label>
+						<select id="math-unit" value={mathUnit} onChange={(e) => setMathUnit(e.target.value as DateUnit)} className={styles.tzSelect}>
+							{DATE_UNITS.map((u) => (
+								<option key={u.id} value={u.id}>{u.label}</option>
+							))}
+						</select>
+					</div>
+					{mathResult ? (
+						<>
+							<div className={styles.resultBlock}>
+								<span className={styles.resultBig}>{longFormat(mathResult.result, tz)}</span>
+								<span className={styles.footerText}>{relativeTime(mathResult.result, nowDate)}</span>
+							</div>
+							{FORMATS.map((def) => (
+								<div key={def.id} className={styles.row}>
+									<span className={styles.rowLabel}>{def.label}</span>
+									<code className={styles.rowValue}>{def.format(mathResult.result, tz)}</code>
+									<button type="button" className={styles.rowCopy} onClick={() => copy(def.format(mathResult.result, tz), `math-${def.id}`)} aria-label={`Copy ${def.label}`}>
+										{isCopied(`math-${def.id}`) ? <CheckIcon className="w-4 h-4" /> : <ClipboardDocumentIcon className="w-4 h-4" />}
+									</button>
+								</div>
+							))}
+							<div className={styles.footerRow}>
+								<button type="button" className={styles.btnSecondary} onClick={() => { setDate(mathResult.result); setDraft(null); setTab("convert"); }}>
+									Open result in Convert
 								</button>
 							</div>
-							<p className={styles.resultValue}>{dateResult}</p>
-						</div>
+						</>
+					) : (
+						<p className={styles.hint}>Enter a starting date as YYYY-MM-DD HH:mm:ss, an ISO string, or a Unix timestamp.</p>
 					)}
 				</div>
+			)}
 
-				{/* Date to Epoch */}
-				<div className={styles.glassCard}>
-					<h2 className={styles.sectionTitle}>Date/Time → Epoch</h2>
-
-					<div className={`mb-4 ${styles.inputGroup}`}>
-						<label className={styles.inputLabel}>Date</label>
-						<input
-							type="date"
-							value={dateInput}
-							onChange={(e) => {
-								setDateInput(e.target.value);
-								setDateError("");
-							}}
-							className={styles.input}
-						/>
-					</div>
-
-					<div className={`mb-4 ${styles.inputGroup}`}>
-						<label className={styles.inputLabel}>Time</label>
-						<input
-							type="time"
-							value={timeInput}
-							onChange={(e) => {
-								setTimeInput(e.target.value);
-								setDateError("");
-							}}
-							className={styles.input}
-							step="1"
-						/>
-					</div>
-
-					{dateError && <p className={styles.errorText}>{dateError}</p>}
-
-					<div className={`flex gap-3 mt-5 ${styles.buttonRow}`}>
-						<button className={styles.btnSecondary} onClick={setCurrentDateTime}>
-							<ClockIcon className={`w-4 h-4 ${styles.btnIcon}`} />
-							Set Current
-						</button>
-						<button className={styles.btnPrimary} onClick={convertDateToEpoch}>
-							<ArrowPathIcon className={`w-4 h-4 ${styles.btnIcon}`} />
-							Convert
-						</button>
-					</div>
-
-					{epochResult && (
-						<div className={`mt-5 p-4 rounded-lg ${styles.resultBox}`}>
-							<div className={`flex items-center justify-between mb-2 ${styles.resultHeader}`}>
-								<span className={styles.resultLabel}>Result:</span>
-								<button className={`${styles.copyBtn} ${copiedField === "epochResult" ? styles.copied : ""}`} onClick={() => copyToClipboard(epochResult, "epochResult")} title="Copy to clipboard">
-									{copiedField === "epochResult" ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
-								</button>
-							</div>
-							<p className={styles.resultValue}>{epochResult}</p>
-						</div>
-					)}
-				</div>
-			</div>
-
-			{/* Info Section */}
-			<div className={styles.glassCard}>
-				<h2 className={styles.sectionTitle}>About Unix Timestamps</h2>
+			{/* Info */}
+			<div className={`mt-6 ${styles.glassCard}`}>
+				<h2 className={styles.sectionTitle}>About Unix timestamps</h2>
 				<div className={styles.infoGrid}>
 					<div className={styles.infoItem}>
-						<h3 className={styles.infoSubtitle}>What is a Unix Timestamp?</h3>
-						<p className={styles.infoText}>A Unix timestamp (or Epoch time) is the number of seconds that have elapsed since January 1, 1970 at 00:00:00 UTC. It&apos;s a widely used format for representing dates and times in computing systems.</p>
+						<h3 className={styles.infoSubtitle}>What is a Unix timestamp?</h3>
+						<p className={styles.infoText}>The number of seconds since January 1, 1970 at 00:00:00 UTC. It is timezone-independent, easy to compare and store, and used by databases, APIs, logs and most languages.</p>
 					</div>
 					<div className={styles.infoItem}>
-						<h3 className={styles.infoSubtitle}>Common Uses</h3>
-						<p className={styles.infoText}>Unix timestamps are used in databases, APIs, log files, and many programming languages. They&apos;re timezone-independent and easy to compare mathematically, making them ideal for storing and manipulating dates.</p>
+						<h3 className={styles.infoSubtitle}>Seconds vs milliseconds</h3>
+						<p className={styles.infoText}>Ten-digit values are seconds, thirteen-digit values are milliseconds. JavaScript&apos;s <code>Date.now()</code> returns milliseconds. Both fields above accept either.</p>
 					</div>
 					<div className={styles.infoItem}>
-						<h3 className={styles.infoSubtitle}>Seconds vs Milliseconds</h3>
-						<p className={styles.infoText}>
-							This converter accepts both formats. Timestamps with 10 digits are in seconds, while 13-digit timestamps are in milliseconds. JavaScript&apos;s <code>Date.now()</code> returns milliseconds.
-						</p>
+						<h3 className={styles.infoSubtitle}>Time zones</h3>
+						<p className={styles.infoText}>Unix, ISO and RFC 2822 values are absolute. Only the &ldquo;Date &amp; time&rdquo; row and the date-math calendar arithmetic depend on the selected zone.</p>
 					</div>
 					<div className={styles.infoItem}>
-						<h3 className={styles.infoSubtitle}>Year 2038 Problem</h3>
-						<p className={styles.infoText}>32-bit systems storing Unix time as a signed integer will overflow on January 19, 2038. Modern 64-bit systems use 64-bit integers, extending the range to billions of years.</p>
+						<h3 className={styles.infoSubtitle}>Year 2038 problem</h3>
+						<p className={styles.infoText}>32-bit signed Unix time overflows on January 19, 2038. Modern 64-bit systems extend the range to billions of years.</p>
 					</div>
 				</div>
 			</div>

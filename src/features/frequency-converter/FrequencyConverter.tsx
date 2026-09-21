@@ -1,28 +1,8 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
+import UnitConverterPanel from "@/components/UnitConverterPanel";
+import { getUnitCategory } from "@/lib/unitDefinitions";
 import styles from "./FrequencyConverter.module.scss";
-
-interface ConversionUnit {
-	id: string;
-	name: string;
-	abbrev: string;
-	toBase: (value: number) => number;
-	fromBase: (value: number) => number;
-}
-
-// Frequency units (base: Hertz)
-const FREQUENCY_UNITS: ConversionUnit[] = [
-	{ id: "hz", name: "Hertz", abbrev: "Hz", toBase: (v) => v, fromBase: (v) => v },
-	{ id: "khz", name: "Kilohertz", abbrev: "kHz", toBase: (v) => v * 1000, fromBase: (v) => v / 1000 },
-	{ id: "mhz", name: "Megahertz", abbrev: "MHz", toBase: (v) => v * 1e6, fromBase: (v) => v / 1e6 },
-	{ id: "ghz", name: "Gigahertz", abbrev: "GHz", toBase: (v) => v * 1e9, fromBase: (v) => v / 1e9 },
-	{ id: "thz", name: "Terahertz", abbrev: "THz", toBase: (v) => v * 1e12, fromBase: (v) => v / 1e12 },
-	{ id: "rpm", name: "RPM", abbrev: "RPM", toBase: (v) => v / 60, fromBase: (v) => v * 60 },
-	{ id: "rads", name: "Radians per second", abbrev: "rad/s", toBase: (v) => v / (2 * Math.PI), fromBase: (v) => v * (2 * Math.PI) },
-	{ id: "bpm", name: "Beats per minute", abbrev: "BPM", toBase: (v) => v / 60, fromBase: (v) => v * 60 },
-];
 
 const AUDIO_FREQUENCIES = [
 	{ range: "Sub-bass", frequency: "20-60 Hz", description: "Felt more than heard, rumble" },
@@ -59,98 +39,11 @@ const COMMON_CONVERSIONS = [
 	{ from: "1 Hz", to: "6.283 rad/s" },
 ];
 
-function formatNumber(num: number): string {
-	if (num === 0) return "0";
-	if (Math.abs(num) < 0.0001) return num.toExponential(2);
-	if (Math.abs(num) >= 1000000) return num.toLocaleString(undefined, { maximumFractionDigits: 2 });
-	if (Number.isInteger(num)) return num.toString();
-	return num.toFixed(Math.abs(num) < 1 ? 4 : 2).replace(/\.?0+$/, "");
-}
-
 export default function FrequencyConverter() {
-	const [fromUnit, setFromUnit] = useState<string>("mhz");
-	const [toUnit, setToUnit] = useState<string>("ghz");
-	const [inputValue, setInputValue] = useState<string>("1");
-
-	const convert = useCallback(() => {
-		const value = parseFloat(inputValue);
-		if (isNaN(value)) return "";
-
-		const from = FREQUENCY_UNITS.find((u) => u.id === fromUnit);
-		const to = FREQUENCY_UNITS.find((u) => u.id === toUnit);
-
-		if (!from || !to) return "";
-
-		const baseValue = from.toBase(value);
-		const result = to.fromBase(baseValue);
-
-		return formatNumber(result);
-	}, [inputValue, fromUnit, toUnit]);
-
-	const swapUnits = () => {
-		const temp = fromUnit;
-		setFromUnit(toUnit);
-		setToUnit(temp);
-	};
-
-	const result = convert();
-
 	return (
 		<div className={styles.container}>
-			<div className={styles.glassCard}>
-				<h2 className={styles.sectionTitle}>Frequency Converter</h2>
-
-				<div className={styles.converterGrid}>
-					<div className={styles.converterInput}>
-						<label className={styles.inputLabel}>From</label>
-						<div className={styles.inputRow}>
-							<input
-								type="number"
-								inputMode="decimal"
-								value={inputValue}
-								onChange={(e) => setInputValue(e.target.value)}
-								className={styles.numberInput}
-								placeholder="Enter value"
-							/>
-							<select value={fromUnit} onChange={(e) => setFromUnit(e.target.value)} className={styles.unitSelect}>
-								{FREQUENCY_UNITS.map((unit) => (
-									<option key={unit.id} value={unit.id}>
-										{unit.name} ({unit.abbrev})
-									</option>
-								))}
-							</select>
-						</div>
-					</div>
-
-					<button className={styles.swapButton} onClick={swapUnits} title="Swap units">
-						<ArrowsRightLeftIcon className="w-5 h-5" />
-					</button>
-
-					<div className={styles.converterInput}>
-						<label className={styles.inputLabel}>To</label>
-						<div className={styles.inputRow}>
-							<div className={styles.resultDisplay}>{result || "—"}</div>
-							<select value={toUnit} onChange={(e) => setToUnit(e.target.value)} className={styles.unitSelect}>
-								{FREQUENCY_UNITS.map((unit) => (
-									<option key={unit.id} value={unit.id}>
-										{unit.name} ({unit.abbrev})
-									</option>
-								))}
-							</select>
-						</div>
-					</div>
-				</div>
-
-				{result && (
-					<div className={styles.resultSummary}>
-						<span className={styles.resultText}>
-							{inputValue} {FREQUENCY_UNITS.find((u) => u.id === fromUnit)?.abbrev} ={" "}
-							<strong>
-								{result} {FREQUENCY_UNITS.find((u) => u.id === toUnit)?.abbrev}
-							</strong>
-						</span>
-					</div>
-				)}
+			<div className="mb-6">
+				<UnitConverterPanel category={getUnitCategory("frequency")!} initialUnitId="mhz" initialValue="1" />
 			</div>
 
 			<div className={styles.chartsGrid}>

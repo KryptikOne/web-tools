@@ -1,5 +1,5 @@
-import DistanceConverter from "@/features/distance-converter/DistanceConverter";
+import UnitConverterHub from "@/features/unit-converter/UnitConverterHub";
 
 export default function DistanceConverterPage() {
-	return <DistanceConverter />;
+	return <UnitConverterHub initialTab="length" />;
 }

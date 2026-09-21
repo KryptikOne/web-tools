@@ -1,5 +1,5 @@
-import PressureConverter from "@/features/pressure-converter/PressureConverter";
+import UnitConverterHub from "@/features/unit-converter/UnitConverterHub";
 
 export default function PressureConverterPage() {
-	return <PressureConverter />;
+	return <UnitConverterHub initialTab="pressure" />;
 }

@@ -1,32 +1,8 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
+import UnitConverterPanel from "@/components/UnitConverterPanel";
+import { getUnitCategory } from "@/lib/unitDefinitions";
 import styles from "./DataStorageConverter.module.scss";
-
-type BaseMode = "binary" | "decimal";
-
-interface ConversionUnit {
-	id: string;
-	name: string;
-	abbrev: string;
-	binaryMultiplier: number; // Base 1024
-	decimalMultiplier: number; // Base 1000
-}
-
-// Storage units (base: bytes)
-const STORAGE_UNITS: ConversionUnit[] = [
-	{ id: "b", name: "Bytes", abbrev: "B", binaryMultiplier: 1, decimalMultiplier: 1 },
-	{ id: "kb", name: "Kilobytes", abbrev: "KB", binaryMultiplier: 1024, decimalMultiplier: 1000 },
-	{ id: "mb", name: "Megabytes", abbrev: "MB", binaryMultiplier: 1024 ** 2, decimalMultiplier: 1000 ** 2 },
-	{ id: "gb", name: "Gigabytes", abbrev: "GB", binaryMultiplier: 1024 ** 3, decimalMultiplier: 1000 ** 3 },
-	{ id: "tb", name: "Terabytes", abbrev: "TB", binaryMultiplier: 1024 ** 4, decimalMultiplier: 1000 ** 4 },
-	{ id: "pb", name: "Petabytes", abbrev: "PB", binaryMultiplier: 1024 ** 5, decimalMultiplier: 1000 ** 5 },
-	{ id: "kib", name: "Kibibytes", abbrev: "KiB", binaryMultiplier: 1024, decimalMultiplier: 1024 },
-	{ id: "mib", name: "Mebibytes", abbrev: "MiB", binaryMultiplier: 1024 ** 2, decimalMultiplier: 1024 ** 2 },
-	{ id: "gib", name: "Gibibytes", abbrev: "GiB", binaryMultiplier: 1024 ** 3, decimalMultiplier: 1024 ** 3 },
-	{ id: "tib", name: "Tebibytes", abbrev: "TiB", binaryMultiplier: 1024 ** 4, decimalMultiplier: 1024 ** 4 },
-];
 
 const STORAGE_COMPARISON = [
 	{ name: "1 TB HDD (advertised)", binary: "931.32 GiB", decimal: "1,000 GB", note: "Marketing uses decimal" },
@@ -57,125 +33,11 @@ const STORAGE_CAPACITY_EXAMPLES = [
 	{ capacity: "2 TB", songs: "~500,000", photos: "~500,000", hdVideo: "~222 hrs" },
 ];
 
-function formatNumber(num: number): string {
-	if (num === 0) return "0";
-	if (Math.abs(num) < 0.0001) return num.toExponential(2);
-	if (Math.abs(num) >= 1000000) return num.toLocaleString(undefined, { maximumFractionDigits: 2 });
-	if (Number.isInteger(num)) return num.toLocaleString();
-	return num.toFixed(Math.abs(num) < 1 ? 4 : 2).replace(/\.?0+$/, "");
-}
-
 export default function DataStorageConverter() {
-	const [fromUnit, setFromUnit] = useState<string>("gb");
-	const [toUnit, setToUnit] = useState<string>("mb");
-	const [inputValue, setInputValue] = useState<string>("1");
-	const [baseMode, setBaseMode] = useState<BaseMode>("binary");
-
-	const convert = useCallback(() => {
-		const value = parseFloat(inputValue);
-		if (isNaN(value)) return "";
-
-		const from = STORAGE_UNITS.find((u) => u.id === fromUnit);
-		const to = STORAGE_UNITS.find((u) => u.id === toUnit);
-
-		if (!from || !to) return "";
-
-		const fromMultiplier = baseMode === "binary" ? from.binaryMultiplier : from.decimalMultiplier;
-		const toMultiplier = baseMode === "binary" ? to.binaryMultiplier : to.decimalMultiplier;
-
-		const bytes = value * fromMultiplier;
-		const result = bytes / toMultiplier;
-
-		return formatNumber(result);
-	}, [inputValue, fromUnit, toUnit, baseMode]);
-
-	const swapUnits = () => {
-		const temp = fromUnit;
-		setFromUnit(toUnit);
-		setToUnit(temp);
-	};
-
-	const result = convert();
-
 	return (
 		<div className={styles.container}>
-			{/* Converter Section */}
-			<div className={styles.glassCard}>
-				<h2 className={styles.sectionTitle}>Data Storage Converter</h2>
-
-				{/* Base Mode Toggle */}
-				<div className={styles.modeToggle}>
-					<button
-						className={`${styles.modeBtn} ${baseMode === "binary" ? styles.active : ""}`}
-						onClick={() => setBaseMode("binary")}
-					>
-						Binary (1024)
-					</button>
-					<button
-						className={`${styles.modeBtn} ${baseMode === "decimal" ? styles.active : ""}`}
-						onClick={() => setBaseMode("decimal")}
-					>
-						Decimal (1000)
-					</button>
-				</div>
-				<p className={styles.modeHint}>
-					{baseMode === "binary"
-						? "Binary: Used by operating systems, RAM (1 KB = 1,024 bytes)"
-						: "Decimal: Used by storage manufacturers, networking (1 KB = 1,000 bytes)"}
-				</p>
-
-				{/* Converter Interface */}
-				<div className={styles.converterGrid}>
-					<div className={styles.converterInput}>
-						<label className={styles.inputLabel}>From</label>
-						<div className={styles.inputRow}>
-							<input
-								type="number"
-								inputMode="decimal"
-								value={inputValue}
-								onChange={(e) => setInputValue(e.target.value)}
-								className={styles.numberInput}
-								placeholder="Enter value"
-							/>
-							<select value={fromUnit} onChange={(e) => setFromUnit(e.target.value)} className={styles.unitSelect}>
-								{STORAGE_UNITS.map((unit) => (
-									<option key={unit.id} value={unit.id}>
-										{unit.name} ({unit.abbrev})
-									</option>
-								))}
-							</select>
-						</div>
-					</div>
-
-					<button className={styles.swapButton} onClick={swapUnits} title="Swap units">
-						<ArrowsRightLeftIcon className="w-5 h-5" />
-					</button>
-
-					<div className={styles.converterInput}>
-						<label className={styles.inputLabel}>To</label>
-						<div className={styles.inputRow}>
-							<div className={styles.resultDisplay}>{result || "—"}</div>
-							<select value={toUnit} onChange={(e) => setToUnit(e.target.value)} className={styles.unitSelect}>
-								{STORAGE_UNITS.map((unit) => (
-									<option key={unit.id} value={unit.id}>
-										{unit.name} ({unit.abbrev})
-									</option>
-								))}
-							</select>
-						</div>
-					</div>
-				</div>
-
-				{result && (
-					<div className={styles.resultSummary}>
-						<span className={styles.resultText}>
-							{inputValue} {STORAGE_UNITS.find((u) => u.id === fromUnit)?.abbrev} ={" "}
-							<strong>
-								{result} {STORAGE_UNITS.find((u) => u.id === toUnit)?.abbrev}
-							</strong>
-						</span>
-					</div>
-				)}
+			<div className="mb-6">
+				<UnitConverterPanel category={getUnitCategory("data")!} initialUnitId="gb" initialValue="1" />
 			</div>
 
 			{/* Binary vs Decimal Comparison */}

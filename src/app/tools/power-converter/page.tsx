@@ -1,5 +1,5 @@
-import PowerConverter from "@/features/power-converter/PowerConverter";
+import UnitConverterHub from "@/features/unit-converter/UnitConverterHub";
 
 export default function PowerConverterPage() {
-	return <PowerConverter />;
+	return <UnitConverterHub initialTab="power" />;
 }

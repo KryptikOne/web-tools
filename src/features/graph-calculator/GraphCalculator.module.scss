@@ -1,0 +1,272 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+.container {
+	@extend .container-wide;
+}
+
+.layout {
+	display: grid;
+	grid-template-columns: 320px 1fr;
+	gap: 1rem;
+	align-items: start;
+
+	@media (max-width: 900px) {
+		grid-template-columns: 1fr;
+	}
+}
+
+.sidebar {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+
+	@media (max-width: 900px) {
+		order: 2;
+	}
+}
+
+.glassCard {
+	@include glass-card;
+	padding: 1rem;
+}
+
+.cardTitle {
+	margin: 0 0 0.75rem;
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: $text-tertiary;
+}
+
+.fnRow {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+}
+
+.fnLine {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.swatch {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 1.5rem;
+	height: 1.5rem;
+	flex-shrink: 0;
+	border: 2px solid;
+	border-radius: 50%;
+	color: #fff;
+	cursor: pointer;
+	padding: 0;
+}
+
+.fnLabel {
+	font-family: $font-family-mono;
+	font-size: 0.85rem;
+	color: $text-secondary;
+	white-space: nowrap;
+}
+
+.fnInput {
+	flex: 1;
+	min-width: 0;
+	padding: 0.45rem 0.6rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: $radius-sm;
+	color: $text-primary;
+	font-family: $font-family-mono;
+	font-size: 0.9rem;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+	}
+
+	&.invalid {
+		border-color: $color-error;
+	}
+}
+
+.iconBtn {
+	@include btn-icon;
+	padding: 0.25rem;
+
+	&:disabled {
+		opacity: 0.3;
+		cursor: not-allowed;
+	}
+}
+
+.errorText {
+	padding-left: 2rem;
+	font-size: 0.72rem;
+	color: $color-error;
+}
+
+.btnSecondary {
+	@include btn-secondary;
+	margin-top: 0.75rem;
+	padding: 0.4rem 0.8rem;
+	font-size: 0.8rem;
+	color: $text-secondary;
+
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+}
+
+.rangeGrid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0.5rem;
+}
+
+.rangeField {
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
+
+	span {
+		font-family: $font-family-mono;
+		font-size: 0.75rem;
+		color: $text-tertiary;
+		white-space: nowrap;
+	}
+}
+
+.rangeInput {
+	width: 100%;
+	min-width: 0;
+	padding: 0.35rem 0.5rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: $radius-sm;
+	color: $text-primary;
+	font-family: $font-family-mono;
+	font-size: 0.85rem;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+	}
+}
+
+.chip {
+	@include btn-preset;
+	display: inline-flex;
+	align-items: center;
+	padding: 0.3rem 0.6rem;
+	font-size: 0.75rem;
+	font-family: $font-family-mono;
+}
+
+.traceList {
+	list-style: none;
+	margin: 0.75rem 0 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.35rem;
+
+	li {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: 0.82rem;
+	}
+}
+
+.traceHead {
+	font-family: $font-family-mono;
+	color: $text-tertiary;
+}
+
+.traceDot {
+	width: 0.6rem;
+	height: 0.6rem;
+	border-radius: 50%;
+	flex-shrink: 0;
+}
+
+.traceExpr {
+	flex: 1;
+	font-family: $font-family-mono;
+	color: $text-secondary;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.traceVal {
+	font-family: $font-family-mono;
+	font-weight: 600;
+	color: $text-primary;
+}
+
+.plotCard {
+	@include glass-card;
+	position: relative;
+	padding: 0.5rem;
+}
+
+.plot {
+	display: block;
+	width: 100%;
+	height: auto;
+	border-radius: $radius-md;
+	touch-action: none;
+	cursor: crosshair;
+}
+
+.plotBg {
+	fill: $bg-overlay-light;
+}
+
+.grid {
+	stroke: $border-subtle;
+	stroke-width: 1;
+}
+
+.axis {
+	stroke: $text-tertiary;
+	stroke-width: 1.5;
+}
+
+.tick {
+	fill: $text-muted;
+	font-family: $font-family-mono;
+	font-size: 11px;
+}
+
+.probeLine {
+	stroke: $color-accent;
+	stroke-width: 1;
+	stroke-dasharray: 4 4;
+	opacity: 0.7;
+}
+
+.probeDot {
+	stroke: #fff;
+	stroke-width: 1.5;
+}
+
+.loading {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 0.85rem;
+	color: $text-tertiary;
+	background: color-mix(in oklab, var(--bg-primary) 60%, transparent);
+	border-radius: $radius-xl;
+}

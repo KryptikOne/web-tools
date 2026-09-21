@@ -1,5 +1,5 @@
-import AngleConverter from "@/features/angle-converter/AngleConverter";
+import UnitConverterHub from "@/features/unit-converter/UnitConverterHub";
 
 export default function AngleConverterPage() {
-	return <AngleConverter />;
+	return <UnitConverterHub initialTab="angle" />;
 }

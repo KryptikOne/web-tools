@@ -1,33 +1,8 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
+import UnitConverterPanel from "@/components/UnitConverterPanel";
+import { getUnitCategory } from "@/lib/unitDefinitions";
 import styles from "./VolumeConverter.module.scss";
-
-interface ConversionUnit {
-	id: string;
-	name: string;
-	abbrev: string;
-	toBase: (value: number) => number; // Convert to base unit (liters)
-	fromBase: (value: number) => number; // Convert from base unit
-}
-
-// Volume units (base: liters)
-const VOLUME_UNITS: ConversionUnit[] = [
-	{ id: "ml", name: "Milliliters", abbrev: "mL", toBase: (v) => v / 1000, fromBase: (v) => v * 1000 },
-	{ id: "l", name: "Liters", abbrev: "L", toBase: (v) => v, fromBase: (v) => v },
-	{ id: "cubm", name: "Cubic Meters", abbrev: "m³", toBase: (v) => v * 1000, fromBase: (v) => v / 1000 },
-	{ id: "floz_us", name: "Fluid Ounces (US)", abbrev: "fl oz", toBase: (v) => v * 0.0295735, fromBase: (v) => v / 0.0295735 },
-	{ id: "floz_uk", name: "Fluid Ounces (UK)", abbrev: "fl oz UK", toBase: (v) => v * 0.0284131, fromBase: (v) => v / 0.0284131 },
-	{ id: "cup_us", name: "Cups (US)", abbrev: "cup", toBase: (v) => v * 0.236588, fromBase: (v) => v / 0.236588 },
-	{ id: "pt_us", name: "Pints (US)", abbrev: "pt", toBase: (v) => v * 0.473176, fromBase: (v) => v / 0.473176 },
-	{ id: "qt_us", name: "Quarts (US)", abbrev: "qt", toBase: (v) => v * 0.946353, fromBase: (v) => v / 0.946353 },
-	{ id: "gal_us", name: "Gallons (US)", abbrev: "gal", toBase: (v) => v * 3.78541, fromBase: (v) => v / 3.78541 },
-	{ id: "gal_uk", name: "Gallons (UK)", abbrev: "gal UK", toBase: (v) => v * 4.54609, fromBase: (v) => v / 4.54609 },
-	{ id: "cubin", name: "Cubic Inches", abbrev: "in³", toBase: (v) => v * 0.0163871, fromBase: (v) => v / 0.0163871 },
-	{ id: "cubft", name: "Cubic Feet", abbrev: "ft³", toBase: (v) => v * 28.3168, fromBase: (v) => v / 28.3168 },
-	{ id: "cubyd", name: "Cubic Yards", abbrev: "yd³", toBase: (v) => v * 764.555, fromBase: (v) => v / 764.555 },
-];
 
 // Quick conversion reference
 const US_TO_METRIC = [
@@ -81,100 +56,11 @@ const US_UK_COMPARISON = [
 	{ unit: "Gallon", us: "3.785 L", uk: "4.546 L", note: "UK 20% larger" },
 ];
 
-function formatNumber(num: number): string {
-	if (num === 0) return "0";
-	if (Math.abs(num) < 0.0001) return num.toExponential(2);
-	if (Math.abs(num) >= 1000000) return num.toLocaleString(undefined, { maximumFractionDigits: 2 });
-	if (Number.isInteger(num)) return num.toLocaleString();
-	return num.toFixed(Math.abs(num) < 1 ? 4 : 2).replace(/\.?0+$/, "");
-}
-
 export default function VolumeConverter() {
-	const [fromUnit, setFromUnit] = useState<string>("gal_us");
-	const [toUnit, setToUnit] = useState<string>("l");
-	const [inputValue, setInputValue] = useState<string>("1");
-
-	const convert = useCallback(() => {
-		const value = parseFloat(inputValue);
-		if (isNaN(value)) return "";
-
-		const from = VOLUME_UNITS.find((u) => u.id === fromUnit);
-		const to = VOLUME_UNITS.find((u) => u.id === toUnit);
-
-		if (!from || !to) return "";
-
-		const baseValue = from.toBase(value);
-		const result = to.fromBase(baseValue);
-
-		return formatNumber(result);
-	}, [inputValue, fromUnit, toUnit]);
-
-	const swapUnits = () => {
-		const temp = fromUnit;
-		setFromUnit(toUnit);
-		setToUnit(temp);
-	};
-
-	const result = convert();
-
 	return (
 		<div className={styles.container}>
-			{/* Converter Section */}
-			<div className={styles.glassCard}>
-				<h2 className={styles.sectionTitle}>Volume Converter</h2>
-
-				{/* Converter Interface */}
-				<div className={styles.converterGrid}>
-					<div className={styles.converterInput}>
-						<label className={styles.inputLabel}>From</label>
-						<div className={styles.inputRow}>
-							<input
-								type="number"
-								inputMode="decimal"
-								value={inputValue}
-								onChange={(e) => setInputValue(e.target.value)}
-								className={styles.numberInput}
-								placeholder="Enter value"
-							/>
-							<select value={fromUnit} onChange={(e) => setFromUnit(e.target.value)} className={styles.unitSelect}>
-								{VOLUME_UNITS.map((unit) => (
-									<option key={unit.id} value={unit.id}>
-										{unit.name} ({unit.abbrev})
-									</option>
-								))}
-							</select>
-						</div>
-					</div>
-
-					<button className={styles.swapButton} onClick={swapUnits} title="Swap units">
-						<ArrowsRightLeftIcon className="w-5 h-5" />
-					</button>
-
-					<div className={styles.converterInput}>
-						<label className={styles.inputLabel}>To</label>
-						<div className={styles.inputRow}>
-							<div className={styles.resultDisplay}>{result || "—"}</div>
-							<select value={toUnit} onChange={(e) => setToUnit(e.target.value)} className={styles.unitSelect}>
-								{VOLUME_UNITS.map((unit) => (
-									<option key={unit.id} value={unit.id}>
-										{unit.name} ({unit.abbrev})
-									</option>
-								))}
-							</select>
-						</div>
-					</div>
-				</div>
-
-				{result && (
-					<div className={styles.resultSummary}>
-						<span className={styles.resultText}>
-							{inputValue} {VOLUME_UNITS.find((u) => u.id === fromUnit)?.abbrev} ={" "}
-							<strong>
-								{result} {VOLUME_UNITS.find((u) => u.id === toUnit)?.abbrev}
-							</strong>
-						</span>
-					</div>
-				)}
+			<div className="mb-6">
+				<UnitConverterPanel category={getUnitCategory("volume")!} initialUnitId="gal_us" initialValue="1" />
 			</div>
 
 			{/* Reference Charts */}

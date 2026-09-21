@@ -1,5 +1,5 @@
-import SpeedConverter from "@/features/speed-converter/SpeedConverter";
+import UnitConverterHub from "@/features/unit-converter/UnitConverterHub";
 
 export default function SpeedConverterPage() {
-	return <SpeedConverter />;
+	return <UnitConverterHub initialTab="speed" />;
 }

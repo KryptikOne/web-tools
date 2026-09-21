@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, useEffect, useMemo, useCallback } from "react";
+import Link from "next/link";
 import { ColorUtils } from "@/lib/colorUtils";
+import { contrastRatio } from "@/lib/contrastUtils";
 import { ClipboardDocumentIcon, CheckIcon, ArrowPathIcon, SwatchIcon, BookmarkIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { Button } from "@/components/ui/button";
-import { ColorPickerPopover } from "@/components/ColorPickerPopover";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { hydrateColorPicker, setOklch, setAlpha, saveColor, loadColor, clearSavedColors, SavedColor } from "@/store/slices/colorPickerSlice";
 import styles from "./ColorPicker.module.scss";
@@ -21,10 +22,6 @@ export default function ColorPicker() {
 	const [hexCopied, setHexCopied] = useState(false);
 	const [showColorList, setShowColorList] = useState(false);
 	const [accessibilityLevel, setAccessibilityLevel] = useState<AccessibilityLevel>("none");
-
-	// Contrast checker state (local, not persisted)
-	const [foregroundHex, setForegroundHex] = useState("#000000");
-	const [backgroundHex, setBackgroundHex] = useState("#ffffff");
 
 	// Hydrate from localStorage on mount
 	useEffect(() => {
@@ -89,27 +86,7 @@ export default function ColorPicker() {
 		}
 	};
 
-	// Calculate relative luminance
-	const getLuminance = useCallback((r: number, g: number, b: number) => {
-		const [rs, gs, bs] = [r, g, b].map((c) => {
-			c = c / 255;
-			return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
-		});
-		return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs;
-	}, []);
-
-	// Calculate contrast ratio
-	const calculateContrast = useCallback(
-		(rgb1: [number, number, number], rgb2: [number, number, number]) => {
-			const l1 = getLuminance(...rgb1);
-			const l2 = getLuminance(...rgb2);
-			const lighter = Math.max(l1, l2);
-			const darker = Math.min(l1, l2);
-
-			return (lighter + 0.05) / (darker + 0.05);
-		},
-		[getLuminance],
-	);
+	const calculateContrast = contrastRatio;
 
 	// Check if a color meets contrast requirements on both black and white
 	const meetsContrastOnBothBackgrounds = useCallback(
@@ -186,34 +163,6 @@ export default function ColorPicker() {
 	const handleLoadColor = (color: SavedColor) => {
 		dispatch(loadColor(color));
 		setInputValue("");
-	};
-
-	// Calculate contrast ratio between foreground and background
-	const fgBgContrastRatio = useMemo(() => {
-		const fgRgb = ColorUtils.hexToRgb(foregroundHex, [0, 0, 0]);
-		const bgRgb = ColorUtils.hexToRgb(backgroundHex, [0, 0, 0]);
-		return calculateContrast(fgRgb, bgRgb);
-	}, [foregroundHex, backgroundHex, calculateContrast]);
-
-	// WCAG compliance levels for fg/bg contrast
-	const wcagLevels = useMemo(
-		() => [
-			{ level: "Normal Text AA", ratio: 4.5, passes: fgBgContrastRatio >= 4.5 },
-			{ level: "Normal Text AAA", ratio: 7, passes: fgBgContrastRatio >= 7 },
-			{ level: "Large Text AA", ratio: 3, passes: fgBgContrastRatio >= 3 },
-			{ level: "Large Text AAA", ratio: 4.5, passes: fgBgContrastRatio >= 4.5 },
-		],
-		[fgBgContrastRatio],
-	);
-
-	// Sync current color to foreground when it changes
-	const syncColorToForeground = () => {
-		setForegroundHex(colorFormats.hex);
-	};
-
-	// Sync current color to background
-	const syncColorToBackground = () => {
-		setBackgroundHex(colorFormats.hex);
 	};
 
 	// WCAG compliance check
@@ -467,63 +416,6 @@ export default function ColorPicker() {
 						</div>
 					</div>
 
-					{/* Custom Color Contrast Checker */}
-					<div className={`mb-8 pt-8 ${styles.customContrastChecker}`}>
-						<h4 className={`text-sm font-semibold mb-4 ${styles.subsectionTitle}`}>Custom Color Checker</h4>
-
-						{/* Foreground / Background Inputs */}
-						<div className={`mb-6 ${styles.contrastInputs}`}>
-							<div className={`flex flex-col gap-2`}>
-								<label className={`text-sm font-medium ${styles.contrastLabel}`}>Foreground</label>
-								<div className={`flex gap-2 items-center`}>
-									<ColorPickerPopover color={foregroundHex} onChange={setForegroundHex} swatchSize="md" />
-									<input type="text" value={foregroundHex} onChange={(e) => setForegroundHex(e.target.value)} className={`flex-1 rounded-md font-mono text-sm uppercase ${styles.hexInputSmall}`} maxLength={7} />
-									<Button onClick={syncColorToForeground} className={`rounded-md text-xs font-medium whitespace-nowrap ${styles.syncBtn}`} title="Use current color as foreground">
-										← Use Current
-									</Button>
-								</div>
-							</div>
-
-							<div className={`flex flex-col gap-2`}>
-								<label className={`text-sm font-medium ${styles.contrastLabel}`}>Background</label>
-								<div className={`flex gap-2 items-center`}>
-									<ColorPickerPopover color={backgroundHex} onChange={setBackgroundHex} swatchSize="md" />
-									<input type="text" value={backgroundHex} onChange={(e) => setBackgroundHex(e.target.value)} className={`flex-1 rounded-md font-mono text-sm uppercase ${styles.hexInputSmall}`} maxLength={7} />
-									<Button onClick={syncColorToBackground} className={`rounded-md text-xs font-medium whitespace-nowrap ${styles.syncBtn}`} title="Use current color as background">
-										← Use Current
-									</Button>
-								</div>
-							</div>
-						</div>
-
-						{/* Preview Area */}
-						<div className={`p-8 rounded-lg text-center mb-6 ${styles.contrastPreview}`} style={{ backgroundColor: backgroundHex, color: foregroundHex }}>
-							<p className={`text-base leading-6 m-0 mb-4`}>Normal text (16px)</p>
-							<p className={`text-2xl font-bold leading-6 m-0`}>Large text (24px bold)</p>
-						</div>
-
-						{/* Contrast Ratio Display */}
-						<div className={`flex flex-col items-center gap-1 p-6 rounded-lg mb-6 text-lg ${styles.contrastRatioDisplay}`}>
-							<span className={`text-3xl font-bold leading-none ${styles.ratioValue}`}>
-								{fgBgContrastRatio.toFixed(2)}:1
-							</span>
-							<span className={`text-xs font-semibold uppercase tracking-wide ${styles.ratioLabel}`}>Contrast Ratio</span>
-						</div>
-
-						{/* WCAG Compliance Cards */}
-						<div className={styles.wcagCards}>
-							{wcagLevels.map((item) => (
-								<div key={item.level} className={`p-4 rounded-lg ${styles.wcagCard} ${item.passes ? styles.wcagPass : styles.wcagFail}`}>
-									<div className={`flex justify-between items-center mb-1`}>
-										<span className={`text-xs font-semibold ${styles.wcagCardLevel}`}>{item.level}</span>
-										<span className={`text-xs font-bold tracking-wide ${styles.wcagCardStatus}`}>{item.passes ? "✓ PASS" : "✗ FAIL"}</span>
-									</div>
-									<div className={`text-xs font-mono ${styles.wcagCardRatio}`}>Required: {item.ratio}:1</div>
-								</div>
-							))}
-						</div>
-					</div>
-
 					{/* WCAG Requirements Info */}
 					<div className={`pt-8 ${styles.wcagInfo}`}>
 						<h4 className={`text-sm font-semibold mb-4 ${styles.subsectionTitle}`}>WCAG Contrast Requirements</h4>
@@ -547,8 +439,8 @@ export default function ColorPicker() {
 						</div>
 						<div className={`p-4 rounded-md ${styles.noteBox}`}>
 							<p className={`m-0 text-xs`}>
-								<strong className="font-bold">Tip:</strong> Use the accessibility toggle above to generate random colors that automatically meet AA or AAA contrast requirements on both light and dark
-								backgrounds.
+								<strong className="font-bold">Tip:</strong> Use the accessibility toggle above to generate random colors that meet AA or AAA on both light and dark backgrounds. To test a specific foreground and background pair, open the{" "}
+								<Link href={`/tools/contrast-checker`} className={styles.inlineLink}>Contrast Checker</Link>.
 							</p>
 						</div>
 					</div>

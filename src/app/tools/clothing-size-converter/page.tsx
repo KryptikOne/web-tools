@@ -1,5 +1,5 @@
-import ClothingSizeConverter from "@/features/clothing-size-converter/ClothingSizeConverter";
+import UnitConverterHub from "@/features/unit-converter/UnitConverterHub";
 
 export default function ClothingSizeConverterPage() {
-	return <ClothingSizeConverter />;
+	return <UnitConverterHub initialTab="clothing" />;
 }

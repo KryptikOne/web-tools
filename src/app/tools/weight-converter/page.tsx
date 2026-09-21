@@ -1,5 +1,5 @@
-import WeightConverter from "@/features/weight-converter/WeightConverter";
+import UnitConverterHub from "@/features/unit-converter/UnitConverterHub";
 
 export default function WeightConverterPage() {
-	return <WeightConverter />;
+	return <UnitConverterHub initialTab="weight" />;
 }

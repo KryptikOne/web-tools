@@ -1,232 +1,278 @@
-@use '@/styles/variables' as *;
-@use '@/styles/mixins' as *;
-@use '@/styles/utilities' as util;
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
 
-// Layout
 .container {
-  @extend .container;
+	@extend .container;
 }
 
-.liveSection {
-  // mb handled by Tailwind
-}
-
-// Shared Utilities
 .glassCard {
-  @extend .glass-card;
-}
-
-.liveHeader {
-  // flex, items-center, gap, mb handled by Tailwind
-}
-
-.liveIcon {
-  // w, h handled by Tailwind
-  color: $color-primary;
-}
-
-.liveTitle {
-  color: $text-secondary;
-  margin: 0;
-  font-family: $font-family-display;
-}
-
-.liveDisplayGrid {
-  // grid, grid-cols, gap handled by Tailwind (including responsive)
-}
-
-.liveDisplayItem {
-  // flex, flex-col, gap handled by Tailwind
-}
-
-.liveDisplayLabel {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: $text-muted;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.liveDisplay {
-  // flex, items-center, gap handled by Tailwind
-}
-
-.epochValue {
-  font-size: 2rem;
-  font-weight: 700;
-  font-family: $font-family-mono;
-  color: $color-primary;
-  letter-spacing: 0.02em;
-
-  @media (max-width: 600px) {
-    font-size: 1.5rem;
-  }
-
-  @media (max-width: 480px) {
-    font-size: 1.25rem;
-  }
-}
-
-.liveSubtext {
-  margin: 0.75rem 0 0 0;
-  font-size: 0.875rem;
-  color: $text-muted;
-}
-
-.timezoneSection {
-  // flex, items-center, gap, mb, p, rounded handled by Tailwind
-  background: $bg-glass;
-  border: 1px solid $border-subtle;
-
-  @media (max-width: 600px) {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
-
-.timezoneLabel {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: $text-secondary;
-  white-space: nowrap;
-}
-
-.timezoneSelect {
-  flex: 1;
-  max-width: 300px;
-  padding: 0.625rem 1rem;
-  background: $input-bg;
-  border: 1px solid $input-border;
-  border-radius: 0.5rem;
-  color: $text-primary;
-  font-size: 0.875rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-
-  &:focus {
-    outline: none;
-    border-color: $input-border-focus;
-    background: $input-bg-focus;
-  }
-
-  option {
-    background: $bg-secondary;
-    color: $text-primary;
-  }
-
-  @media (max-width: 600px) {
-    max-width: 100%;
-    width: 100%;
-  }
-}
-
-.conversionGrid {
-  // grid, grid-cols, gap, mb handled by Tailwind (including responsive)
+	@extend .glass-card;
 }
 
 .sectionTitle {
-  @extend .section-title;
+	@extend .section-title;
 }
 
-.inputGroup {
-  // mb handled by Tailwind
+.liveBar {
+	@include glass-card;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 1rem;
+	flex-wrap: wrap;
+	padding: 1rem 1.25rem;
 }
 
-.inputLabel {
-  @extend .input-label;
+.liveMain {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	min-width: 0;
 }
 
-.inputWrapper {
-  // relative handled by Tailwind
+.liveIcon {
+	width: 1.5rem;
+	height: 1.5rem;
+	color: $color-primary;
+	flex-shrink: 0;
 }
 
-.input {
-  @extend .input-field;
-
-  &::placeholder {
-    font-family: inherit;
-  }
-
-  &::-webkit-calendar-picker-indicator {
-    filter: invert(0.7);
-    cursor: pointer;
-  }
+.liveLabel {
+	display: block;
+	font-size: 0.7rem;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: $text-tertiary;
 }
 
-.errorText {
-  margin: 0.5rem 0 0 0;
-  font-size: 0.8rem;
-  color: $color-error;
+.liveText {
+	display: block;
+	font-size: 0.95rem;
+	color: $text-primary;
 }
 
-.buttonRow {
-  // flex, gap, mt handled by Tailwind
+.liveValues {
+	display: flex;
+	gap: 0.5rem;
+	flex-wrap: wrap;
 }
 
-.btnPrimary {
-  @include btn-primary;
-  flex: 1;
-  padding: 0.75rem 1rem;
+.liveValue {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.4rem 0.7rem;
+	background: $input-bg;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	color: $text-muted;
+	cursor: pointer;
+	transition: all $transition-base;
+
+	&:hover {
+		border-color: $border-medium;
+		color: $text-primary;
+	}
+}
+
+.liveMono {
+	font-family: $font-family-mono;
+	font-size: 1rem;
+	font-weight: 600;
+	color: $color-primary;
+	font-variant-numeric: tabular-nums;
+}
+
+.tzLabel {
+	font-size: 0.72rem;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: $text-tertiary;
+}
+
+.tzSelect {
+	padding: 0.5rem 0.7rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: $radius-md;
+	color: $text-primary;
+	font-size: 0.85rem;
+	cursor: pointer;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+	}
+}
+
+.panel {
+	@include glass-card;
+	padding: 0;
+	overflow: hidden;
+}
+
+.row {
+	display: grid;
+	grid-template-columns: 11rem 1fr 3rem;
+	align-items: stretch;
+	border-bottom: 1px solid $border-subtle;
+
+	@media (max-width: 640px) {
+		grid-template-columns: 1fr 3rem;
+
+		.rowLabel {
+			grid-column: 1 / -1;
+			padding: 0.5rem 1rem 0;
+			border: none;
+		}
+	}
+}
+
+.rowLabel {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 0 1rem;
+	font-size: 0.85rem;
+	font-weight: 600;
+	color: $text-primary;
+	border-right: 1px solid $border-subtle;
+}
+
+.rowHint {
+	font-size: 0.7rem;
+	font-weight: 400;
+	color: $text-tertiary;
+}
+
+.rowInput,
+.rowValue {
+	min-width: 0;
+	padding: 0.8rem 1rem;
+	background: transparent;
+	border: none;
+	color: $text-primary;
+	font-family: $font-family-mono;
+	font-size: 0.95rem;
+	overflow-wrap: anywhere;
+}
+
+.rowInput {
+	&:focus {
+		outline: none;
+		background: $input-bg-focus;
+	}
+
+	&.invalid {
+		color: $color-error;
+	}
+}
+
+.rowValue {
+	display: flex;
+	align-items: center;
+}
+
+.rowCopy {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: transparent;
+	border: none;
+	border-left: 1px solid $border-subtle;
+	color: $text-muted;
+	cursor: pointer;
+	transition: all $transition-base;
+
+	&:hover {
+		background: $bg-glass-hover;
+		color: $text-primary;
+	}
+}
+
+.footerRow {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 0.75rem;
+	flex-wrap: wrap;
+	padding: 0.75rem 1rem;
+}
+
+.footerText {
+	font-size: 0.85rem;
+	color: $text-secondary;
 }
 
 .btnSecondary {
-  @include btn-secondary;
-  flex: 1;
-  padding: 0.75rem 1rem;
+	@include btn-secondary;
+	padding: 0.45rem 0.9rem;
+	font-size: 0.82rem;
+	color: $text-secondary;
 }
 
-.btnIcon {
-  // w, h handled by Tailwind
+.mathRow {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.75rem;
+	padding: 0.75rem 1rem;
+	border-bottom: 1px solid $border-subtle;
 }
 
-.resultBox {
-  // mt, p, rounded handled by Tailwind
-  background: $input-bg;
-  border: 1px solid $border-subtle;
+.amountInput {
+	width: 7rem;
+	padding: 0.45rem 0.7rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: $radius-md;
+	color: $text-primary;
+	font-family: $font-family-mono;
+	font-size: 0.95rem;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+	}
 }
 
-.resultHeader {
-  // flex, items-center, justify-between, mb handled by Tailwind
+.resultBlock {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	padding: 1rem;
+	border-bottom: 1px solid $border-subtle;
+	background: $bg-overlay-light;
 }
 
-.resultLabel {
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: $text-muted;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+.resultBig {
+	font-size: 1.15rem;
+	font-weight: 600;
+	color: $text-primary;
 }
 
-.resultValue {
-  margin: 0;
-  font-size: 1rem;
-  font-weight: 600;
-  color: $color-primary;
-  font-family: $font-family-mono;
-  word-break: break-word;
+.hint {
+	margin: 0;
+	padding: 1rem;
+	font-size: 0.875rem;
+	color: $text-tertiary;
 }
 
-.copyBtn {
-  @extend .copy-btn;
-}
-
-.copyIcon {
-  @extend .copy-icon;
-}
-
-// Info Section
 .infoGrid {
-  @extend .info-grid;
+	@extend .info-grid;
 }
 
 .infoItem {
-  @extend .info-item;
+	@extend .info-item;
 }
 
 .infoSubtitle {
-  @extend .info-subtitle;
+	@extend .info-subtitle;
 }
 
 .infoText {
-  @extend .info-text;
+	@extend .info-text;
 }

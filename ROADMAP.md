@@ -13,6 +13,12 @@ Project improvement plan covering security hardening, open source governance, qu
 
 ---
 
+## Scheduled — Dedicated Sessions
+
+- [ ] **Recipe Table** — Write a recipe in a small text DSL and render it as a Cooking-for-Engineers style action table (ingredients down the left, steps merging across columns), with serving scaling, metric/imperial switching, copy-as-HTML and print/PDF. Inspired by delphi.tools' Recipe Table. Needs its own design + build session: the parser is small, the table layout algorithm (nested column spans) is the real work. Design our own DSL rather than copying ClaraScript.
+
+---
+
 ## Backlog — New Tools (Requires APIs)
 
 These tools are on hold — they require external API integrations.

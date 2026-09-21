@@ -1,30 +1,8 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
+import UnitConverterPanel from "@/components/UnitConverterPanel";
+import { getUnitCategory } from "@/lib/unitDefinitions";
 import styles from "./AreaConverter.module.scss";
-
-interface ConversionUnit {
-	id: string;
-	name: string;
-	abbrev: string;
-	toBase: (value: number) => number; // Convert to base unit (square meters)
-	fromBase: (value: number) => number; // Convert from base unit
-}
-
-// Area units (base: square meters)
-const AREA_UNITS: ConversionUnit[] = [
-	{ id: "sqmm", name: "Square Millimeters", abbrev: "mm²", toBase: (v) => v / 1000000, fromBase: (v) => v * 1000000 },
-	{ id: "sqcm", name: "Square Centimeters", abbrev: "cm²", toBase: (v) => v / 10000, fromBase: (v) => v * 10000 },
-	{ id: "sqm", name: "Square Meters", abbrev: "m²", toBase: (v) => v, fromBase: (v) => v },
-	{ id: "sqkm", name: "Square Kilometers", abbrev: "km²", toBase: (v) => v * 1000000, fromBase: (v) => v / 1000000 },
-	{ id: "ha", name: "Hectares", abbrev: "ha", toBase: (v) => v * 10000, fromBase: (v) => v / 10000 },
-	{ id: "sqin", name: "Square Inches", abbrev: "in²", toBase: (v) => v * 0.00064516, fromBase: (v) => v / 0.00064516 },
-	{ id: "sqft", name: "Square Feet", abbrev: "ft²", toBase: (v) => v * 0.092903, fromBase: (v) => v / 0.092903 },
-	{ id: "sqyd", name: "Square Yards", abbrev: "yd²", toBase: (v) => v * 0.836127, fromBase: (v) => v / 0.836127 },
-	{ id: "acre", name: "Acres", abbrev: "ac", toBase: (v) => v * 4046.86, fromBase: (v) => v / 4046.86 },
-	{ id: "sqmi", name: "Square Miles", abbrev: "mi²", toBase: (v) => v * 2589988, fromBase: (v) => v / 2589988 },
-];
 
 // Quick conversion reference
 const IMPERIAL_TO_METRIC = [
@@ -71,100 +49,11 @@ const LAND_MEASUREMENT = [
 	{ description: "Rhode Island", size: "1,545 mi² / 4,001 km²" },
 ];
 
-function formatNumber(num: number): string {
-	if (num === 0) return "0";
-	if (Math.abs(num) < 0.0001) return num.toExponential(2);
-	if (Math.abs(num) >= 1000000) return num.toLocaleString(undefined, { maximumFractionDigits: 2 });
-	if (Number.isInteger(num)) return num.toLocaleString();
-	return num.toFixed(Math.abs(num) < 1 ? 4 : 2).replace(/\.?0+$/, "");
-}
-
 export default function AreaConverter() {
-	const [fromUnit, setFromUnit] = useState<string>("sqft");
-	const [toUnit, setToUnit] = useState<string>("sqm");
-	const [inputValue, setInputValue] = useState<string>("1000");
-
-	const convert = useCallback(() => {
-		const value = parseFloat(inputValue);
-		if (isNaN(value)) return "";
-
-		const from = AREA_UNITS.find((u) => u.id === fromUnit);
-		const to = AREA_UNITS.find((u) => u.id === toUnit);
-
-		if (!from || !to) return "";
-
-		const baseValue = from.toBase(value);
-		const result = to.fromBase(baseValue);
-
-		return formatNumber(result);
-	}, [inputValue, fromUnit, toUnit]);
-
-	const swapUnits = () => {
-		const temp = fromUnit;
-		setFromUnit(toUnit);
-		setToUnit(temp);
-	};
-
-	const result = convert();
-
 	return (
 		<div className={styles.container}>
-			{/* Converter Section */}
-			<div className={styles.glassCard}>
-				<h2 className={styles.sectionTitle}>Area Converter</h2>
-
-				{/* Converter Interface */}
-				<div className={styles.converterGrid}>
-					<div className={styles.converterInput}>
-						<label className={styles.inputLabel}>From</label>
-						<div className={styles.inputRow}>
-							<input
-								type="number"
-								inputMode="decimal"
-								value={inputValue}
-								onChange={(e) => setInputValue(e.target.value)}
-								className={styles.numberInput}
-								placeholder="Enter value"
-							/>
-							<select value={fromUnit} onChange={(e) => setFromUnit(e.target.value)} className={styles.unitSelect}>
-								{AREA_UNITS.map((unit) => (
-									<option key={unit.id} value={unit.id}>
-										{unit.name} ({unit.abbrev})
-									</option>
-								))}
-							</select>
-						</div>
-					</div>
-
-					<button className={styles.swapButton} onClick={swapUnits} title="Swap units">
-						<ArrowsRightLeftIcon className="w-5 h-5" />
-					</button>
-
-					<div className={styles.converterInput}>
-						<label className={styles.inputLabel}>To</label>
-						<div className={styles.inputRow}>
-							<div className={styles.resultDisplay}>{result || "—"}</div>
-							<select value={toUnit} onChange={(e) => setToUnit(e.target.value)} className={styles.unitSelect}>
-								{AREA_UNITS.map((unit) => (
-									<option key={unit.id} value={unit.id}>
-										{unit.name} ({unit.abbrev})
-									</option>
-								))}
-							</select>
-						</div>
-					</div>
-				</div>
-
-				{result && (
-					<div className={styles.resultSummary}>
-						<span className={styles.resultText}>
-							{inputValue} {AREA_UNITS.find((u) => u.id === fromUnit)?.abbrev} ={" "}
-							<strong>
-								{result} {AREA_UNITS.find((u) => u.id === toUnit)?.abbrev}
-							</strong>
-						</span>
-					</div>
-				)}
+			<div className="mb-6">
+				<UnitConverterPanel category={getUnitCategory("area")!} initialUnitId="sqft" initialValue="1000" />
 			</div>
 
 			{/* Reference Charts */}

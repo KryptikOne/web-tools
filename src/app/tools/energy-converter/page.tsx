@@ -1,5 +1,5 @@
-import EnergyConverter from "@/features/energy-converter/EnergyConverter";
+import UnitConverterHub from "@/features/unit-converter/UnitConverterHub";
 
 export default function EnergyConverterPage() {
-	return <EnergyConverter />;
+	return <UnitConverterHub initialTab="energy" />;
 }

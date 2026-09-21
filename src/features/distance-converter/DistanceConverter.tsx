@@ -1,29 +1,8 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
+import UnitConverterPanel from "@/components/UnitConverterPanel";
+import { getUnitCategory } from "@/lib/unitDefinitions";
 import styles from "./DistanceConverter.module.scss";
-
-interface ConversionUnit {
-	id: string;
-	name: string;
-	abbrev: string;
-	toBase: (value: number) => number; // Convert to base unit (meters)
-	fromBase: (value: number) => number; // Convert from base unit
-}
-
-// Distance units (base: meters)
-const DISTANCE_UNITS: ConversionUnit[] = [
-	{ id: "mm", name: "Millimeters", abbrev: "mm", toBase: (v) => v / 1000, fromBase: (v) => v * 1000 },
-	{ id: "cm", name: "Centimeters", abbrev: "cm", toBase: (v) => v / 100, fromBase: (v) => v * 100 },
-	{ id: "m", name: "Meters", abbrev: "m", toBase: (v) => v, fromBase: (v) => v },
-	{ id: "km", name: "Kilometers", abbrev: "km", toBase: (v) => v * 1000, fromBase: (v) => v / 1000 },
-	{ id: "in", name: "Inches", abbrev: "in", toBase: (v) => v * 0.0254, fromBase: (v) => v / 0.0254 },
-	{ id: "ft", name: "Feet", abbrev: "ft", toBase: (v) => v * 0.3048, fromBase: (v) => v / 0.3048 },
-	{ id: "yd", name: "Yards", abbrev: "yd", toBase: (v) => v * 0.9144, fromBase: (v) => v / 0.9144 },
-	{ id: "mi", name: "Miles", abbrev: "mi", toBase: (v) => v * 1609.344, fromBase: (v) => v / 1609.344 },
-	{ id: "nmi", name: "Nautical Miles", abbrev: "nmi", toBase: (v) => v * 1852, fromBase: (v) => v / 1852 },
-];
 
 // Quick conversion reference
 const COMMON_CONVERSIONS = [
@@ -59,100 +38,11 @@ const COMMON_DISTANCES = [
 	{ description: "Marathon", value: "42.195 km / 26.2 mi" },
 ];
 
-function formatNumber(num: number): string {
-	if (num === 0) return "0";
-	if (Math.abs(num) < 0.0001) return num.toExponential(2);
-	if (Math.abs(num) >= 1000000) return num.toLocaleString(undefined, { maximumFractionDigits: 2 });
-	if (Number.isInteger(num)) return num.toString();
-	return num.toFixed(Math.abs(num) < 1 ? 4 : 2).replace(/\.?0+$/, "");
-}
-
 export default function DistanceConverter() {
-	const [fromUnit, setFromUnit] = useState<string>("mi");
-	const [toUnit, setToUnit] = useState<string>("km");
-	const [inputValue, setInputValue] = useState<string>("1");
-
-	const convert = useCallback(() => {
-		const value = parseFloat(inputValue);
-		if (isNaN(value)) return "";
-
-		const from = DISTANCE_UNITS.find((u) => u.id === fromUnit);
-		const to = DISTANCE_UNITS.find((u) => u.id === toUnit);
-
-		if (!from || !to) return "";
-
-		const baseValue = from.toBase(value);
-		const result = to.fromBase(baseValue);
-
-		return formatNumber(result);
-	}, [inputValue, fromUnit, toUnit]);
-
-	const swapUnits = () => {
-		const temp = fromUnit;
-		setFromUnit(toUnit);
-		setToUnit(temp);
-	};
-
-	const result = convert();
-
 	return (
 		<div className={styles.container}>
-			{/* Converter Section */}
-			<div className={styles.glassCard}>
-				<h2 className={styles.sectionTitle}>Distance / Length Converter</h2>
-
-				{/* Converter Interface */}
-				<div className={styles.converterGrid}>
-					<div className={styles.converterInput}>
-						<label className={styles.inputLabel}>From</label>
-						<div className={styles.inputRow}>
-							<input
-								type="number"
-								inputMode="decimal"
-								value={inputValue}
-								onChange={(e) => setInputValue(e.target.value)}
-								className={styles.numberInput}
-								placeholder="Enter value"
-							/>
-							<select value={fromUnit} onChange={(e) => setFromUnit(e.target.value)} className={styles.unitSelect}>
-								{DISTANCE_UNITS.map((unit) => (
-									<option key={unit.id} value={unit.id}>
-										{unit.name} ({unit.abbrev})
-									</option>
-								))}
-							</select>
-						</div>
-					</div>
-
-					<button className={styles.swapButton} onClick={swapUnits} title="Swap units">
-						<ArrowsRightLeftIcon className="w-5 h-5" />
-					</button>
-
-					<div className={styles.converterInput}>
-						<label className={styles.inputLabel}>To</label>
-						<div className={styles.inputRow}>
-							<div className={styles.resultDisplay}>{result || "—"}</div>
-							<select value={toUnit} onChange={(e) => setToUnit(e.target.value)} className={styles.unitSelect}>
-								{DISTANCE_UNITS.map((unit) => (
-									<option key={unit.id} value={unit.id}>
-										{unit.name} ({unit.abbrev})
-									</option>
-								))}
-							</select>
-						</div>
-					</div>
-				</div>
-
-				{result && (
-					<div className={styles.resultSummary}>
-						<span className={styles.resultText}>
-							{inputValue} {DISTANCE_UNITS.find((u) => u.id === fromUnit)?.abbrev} ={" "}
-							<strong>
-								{result} {DISTANCE_UNITS.find((u) => u.id === toUnit)?.abbrev}
-							</strong>
-						</span>
-					</div>
-				)}
+			<div className="mb-6">
+				<UnitConverterPanel category={getUnitCategory("length")!} initialUnitId="mi" initialValue="1" />
 			</div>
 
 			{/* Reference Charts */}

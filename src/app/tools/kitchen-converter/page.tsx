@@ -1,5 +1,5 @@
-import KitchenConverter from "@/features/kitchen-converter/KitchenConverter";
+import UnitConverterHub from "@/features/unit-converter/UnitConverterHub";
 
 export default function KitchenConverterPage() {
-	return <KitchenConverter />;
+	return <UnitConverterHub initialTab="kitchen" />;
 }

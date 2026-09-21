@@ -1,0 +1,103 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.panel {
+	@include glass-card;
+	padding: 0;
+	overflow: hidden;
+}
+
+.variantRow {
+	padding: 0.6rem 1rem;
+	border-bottom: 1px solid $border-subtle;
+}
+
+.row {
+	display: grid;
+	grid-template-columns: minmax(9rem, 14rem) 1fr 3rem;
+	align-items: stretch;
+	border-bottom: 1px solid $border-subtle;
+	transition: background $transition-base;
+
+	&:last-child {
+		border-bottom: none;
+	}
+
+	@media (max-width: 560px) {
+		grid-template-columns: minmax(7rem, 9rem) 1fr 2.5rem;
+	}
+}
+
+.rowActive {
+	background: $color-accent-20;
+}
+
+.rowLabel {
+	display: flex;
+	align-items: baseline;
+	gap: 0.4rem;
+	padding: 0 1rem;
+	border-right: 1px solid $border-subtle;
+	cursor: pointer;
+	min-width: 0;
+	align-self: stretch;
+	align-items: center;
+}
+
+.unitName {
+	font-size: 0.9rem;
+	font-weight: 600;
+	color: $text-primary;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.unitAbbrev {
+	font-family: $font-family-mono;
+	font-size: 0.75rem;
+	color: $text-tertiary;
+	white-space: nowrap;
+}
+
+.rowInput {
+	min-width: 0;
+	padding: 0.75rem 1rem;
+	background: transparent;
+	border: none;
+	color: $text-primary;
+	font-family: $font-family-mono;
+	font-size: 1rem;
+	text-align: right;
+
+	&:focus {
+		outline: none;
+		background: $input-bg-focus;
+	}
+
+	&::placeholder {
+		color: $text-muted;
+	}
+}
+
+.rowCopy {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: transparent;
+	border: none;
+	border-left: 1px solid $border-subtle;
+	color: $text-muted;
+	cursor: pointer;
+	transition: all $transition-base;
+
+	&:hover:not(:disabled) {
+		background: $bg-glass-hover;
+		color: $text-primary;
+	}
+
+	&:disabled {
+		opacity: 0.4;
+		cursor: not-allowed;
+	}
+}

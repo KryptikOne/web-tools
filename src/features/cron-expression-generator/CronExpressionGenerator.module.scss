@@ -1,301 +1,332 @@
-@use '@/styles/variables' as *;
-@use '@/styles/mixins' as *;
-@use '@/styles/utilities' as util;
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
 
-// Layout
 .container {
-  @extend .container;
+	@extend .container;
 }
 
-// Shared Utilities
 .glassCard {
-  @extend .glass-card;
-  margin-bottom: 1.5rem;
+	@extend .glass-card;
 }
 
 .sectionTitle {
-  @extend .section-title;
+	@extend .section-title;
 }
 
-.accentIcon {
-  color: $color-primary;
+.panel {
+	@include glass-card;
+	padding: 0;
+	overflow: hidden;
 }
 
-// Expression Display
-.expressionDisplay {
-  // flex, items-center, gap, p, rounded handled by Tailwind
-  background: $input-bg;
-  border: 1px solid $border-subtle;
+.rowLabel {
+	font-size: 0.72rem;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: $text-tertiary;
+	white-space: nowrap;
 }
 
-.expressionValue {
-  font-size: 1.75rem;
-  font-weight: 700;
-  font-family: $font-family-mono;
-  color: $color-primary;
-  letter-spacing: 0.05em;
-  flex: 1;
-  word-break: break-all;
-
-  @media (max-width: 600px) {
-    font-size: 1.25rem;
-  }
+.rowRange {
+	margin-left: 0.4rem;
+	font-weight: 400;
+	letter-spacing: 0;
+	text-transform: none;
+	color: $text-muted;
 }
 
-.descriptionText {
-  margin: 0.75rem 0 0 0;
-  font-size: 0.95rem;
-  color: $text-secondary;
-  font-style: italic;
+.expressionRow {
+	display: grid;
+	grid-template-columns: 7.5rem 1fr auto;
+	align-items: stretch;
+	border-bottom: 1px solid $border-subtle;
+
+	.rowLabel {
+		display: flex;
+		align-items: center;
+		padding: 0 1rem;
+		border-right: 1px solid $border-subtle;
+	}
+
+	@media (max-width: 640px) {
+		grid-template-columns: 1fr auto;
+
+		.rowLabel {
+			display: none;
+		}
+	}
 }
 
-// Copy Button
+.expressionInput {
+	width: 100%;
+	padding: 0.85rem 1rem;
+	background: transparent;
+	border: none;
+	color: $text-primary;
+	font-family: $font-family-mono;
+	font-size: 1.05rem;
+
+	&:focus {
+		outline: none;
+		background: $input-bg-focus;
+	}
+
+	&.invalid {
+		color: $color-error;
+	}
+}
+
 .copyBtn {
-  @extend .copy-btn;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0 1.25rem;
+	background: $color-accent;
+	border: none;
+	color: #fff;
+	font-size: 0.875rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: filter $transition-base;
+
+	&:hover:not(:disabled) {
+		filter: brightness(1.1);
+	}
+
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+
+	&.copied {
+		background: $color-success;
+	}
 }
 
-.copyIcon {
-  @extend .copy-icon;
-}
+.presetsRow {
+	display: grid;
+	grid-template-columns: 7.5rem 1fr;
+	align-items: center;
+	gap: 0.75rem;
+	padding: 0.6rem 1rem;
+	border-bottom: 1px solid $border-subtle;
 
-// Manual Input
-.manualRow {
-  // flex, gap handled by Tailwind
-
-  @media (max-width: 600px) {
-    flex-direction: column;
-  }
-}
-
-.input {
-  @extend .input-field;
-
-  &::placeholder {
-    font-family: $font-family-mono;
-    font-size: 0.875rem;
-  }
-}
-
-.btnPrimary {
-  @include btn-primary;
-  white-space: nowrap;
-  padding: 0.75rem 1.25rem;
-}
-
-// Presets
-.presetsGrid {
-  // flex, flex-wrap, gap handled by Tailwind
+	@media (max-width: 640px) {
+		grid-template-columns: 1fr;
+	}
 }
 
 .presetBtn {
-  @include btn-preset;
-  font-size: 0.8125rem;
+	@include btn-preset;
+	padding: 0.3rem 0.6rem;
+	font-size: 0.75rem;
 }
 
-// Field Builder
 .fieldRow {
-  // flex, flex-col, gap, p, rounded handled by Tailwind
-  background: $input-bg;
-  border: 1px solid $border-subtle;
-  transition: border-color $transition-base;
+	display: grid;
+	grid-template-columns: 7.5rem 1fr;
+	align-items: center;
+	gap: 0.5rem 0.75rem;
+	padding: 0.6rem 1rem;
+	border-bottom: 1px solid $border-subtle;
 
-  &:hover {
-    border-color: $border-medium;
-  }
-}
-
-.fieldLabel {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: $text-primary;
-}
-
-.fieldRange {
-  margin-left: 0.375rem;
-  font-size: 0.75rem;
-  font-weight: 400;
-  color: $text-muted;
-}
-
-.fieldPreview {
-  font-family: $font-family-mono;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: $color-accent;
-  padding: 0.25rem 0.5rem;
-  background: $bg-glass;
-  border-radius: $radius-sm;
+	@media (max-width: 640px) {
+		grid-template-columns: 1fr;
+	}
 }
 
 .fieldControls {
-  // flex, flex-wrap, items-center, gap handled by Tailwind
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
 }
 
-.modeSelect {
-  padding: 0.5rem 0.75rem;
-  background: $bg-glass;
-  border: 1px solid $border-subtle;
-  border-radius: $radius-md;
-  color: $text-primary;
-  font-size: 0.8125rem;
-  cursor: pointer;
-  transition: all $transition-base;
+.smallInput {
+	width: 6.5rem;
+	padding: 0.4rem 0.6rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: $radius-sm;
+	color: $text-primary;
+	font-family: $font-family-mono;
+	font-size: 0.875rem;
 
-  &:focus {
-    outline: none;
-    border-color: $input-border-focus;
-    background: $input-bg-focus;
-  }
-
-  option {
-    background: $bg-secondary;
-    color: $text-primary;
-  }
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+	}
 }
 
-.fieldInput {
-  @include input-field;
-  max-width: 200px;
-  padding: 0.5rem 0.75rem;
-  font-size: 0.8125rem;
-  font-family: $font-family-mono;
+.tokenInput {
+	flex: 1 1 8rem;
+	min-width: 6rem;
+	padding: 0.4rem 0.6rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: $radius-sm;
+	color: $color-accent;
+	font-family: $font-family-mono;
+	font-size: 0.875rem;
+	font-weight: 600;
 
-  @media (max-width: 600px) {
-    max-width: 100%;
-  }
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+	}
+
+	&.invalid {
+		border-color: $color-error;
+		color: $color-error;
+	}
 }
 
-.fieldInputSmall {
-  @include input-field;
-  width: 70px;
-  padding: 0.5rem;
-  font-size: 0.8125rem;
-  font-family: $font-family-mono;
-  text-align: center;
-
-  &::-webkit-inner-spin-button,
-  &::-webkit-outer-spin-button {
-    opacity: 1;
-  }
-}
-
-.rangeSeparator {
-  font-size: 0.8125rem;
-  font-weight: 500;
-  color: $text-muted;
+.sep {
+	color: $text-muted;
+	font-family: $font-family-mono;
 }
 
 .labelHint {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.25rem;
-  margin-top: 0.25rem;
+	grid-column: 2;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.3rem;
+
+	@media (max-width: 640px) {
+		grid-column: 1;
+	}
 }
 
 .labelTag {
-  font-size: 0.6875rem;
-  font-family: $font-family-mono;
-  color: $text-muted;
-  padding: 0.125rem 0.375rem;
-  background: $bg-glass;
-  border-radius: $radius-sm;
+	padding: 0.1rem 0.4rem;
+	background: $bg-glass;
+	border-radius: $radius-sm;
+	font-family: $font-family-mono;
+	font-size: 0.7rem;
+	color: $text-muted;
 }
 
-// Next Runs
-.runsList {
-  @include custom-scrollbar;
-  max-height: 400px;
-  overflow-y: auto;
+.resultRow {
+	padding: 0.9rem 1rem;
+	border-bottom: 1px solid $border-subtle;
 }
 
-.runItem {
-  // flex, items-center, gap handled by Tailwind
-  padding: 0.625rem 0.75rem;
-  border-bottom: 1px solid $border-subtle;
-
-  &:last-child {
-    border-bottom: none;
-  }
+.expressionValue {
+	font-family: $font-family-mono;
+	font-size: 1.5rem;
+	font-weight: 700;
+	letter-spacing: 0.05em;
+	color: $text-primary;
+	overflow-wrap: anywhere;
 }
 
-.runIndex {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 50%;
-  background: $bg-glass;
-  font-size: 0.6875rem;
-  font-weight: 600;
-  color: $text-muted;
-  flex-shrink: 0;
+.invalidText {
+	color: $color-error;
 }
 
-.runDate {
-  font-size: 0.875rem;
-  font-family: $font-family-mono;
-  color: $text-primary;
+.descriptionRow {
+	padding: 0.75rem 1rem;
+	border-bottom: 1px solid $border-subtle;
+	font-family: $font-family-mono;
+	font-size: 0.9rem;
+	color: $text-secondary;
 }
 
-// Reference Table
+.runsRow {
+	display: flex;
+	flex-direction: column;
+	gap: 0.6rem;
+	padding: 0.75rem 1rem;
+}
+
+.runsHeader {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.75rem;
+	flex-wrap: wrap;
+}
+
+.tzSelect {
+	padding: 0.35rem 0.6rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: $radius-sm;
+	color: $text-primary;
+	font-size: 0.8rem;
+	cursor: pointer;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+	}
+}
+
+.runChip {
+	padding: 0.3rem 0.6rem;
+	background: $bg-overlay-light;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-sm;
+	font-family: $font-family-mono;
+	font-size: 0.78rem;
+	color: $text-primary;
+}
+
+.hint {
+	font-size: 0.85rem;
+	color: $text-tertiary;
+}
+
+// Reference
 .tableWrapper {
-  @include custom-scrollbar;
-  overflow-x: auto;
+	overflow-x: auto;
 }
 
 .referenceTable {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.8125rem;
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 0.875rem;
 
-  th,
-  td {
-    padding: 0.625rem 0.75rem;
-    text-align: left;
-    border-bottom: 1px solid $border-subtle;
-  }
+	th,
+	td {
+		padding: 0.6rem 0.75rem;
+		text-align: left;
+		border-bottom: 1px solid $border-subtle;
+	}
 
-  th {
-    font-weight: 600;
-    color: $text-secondary;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    background: $bg-glass;
-  }
+	th {
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: $text-secondary;
+		background: $input-bg;
+	}
 
-  td {
-    color: $text-primary;
+	td {
+		color: $text-primary;
+	}
 
-    code {
-      padding: 0.125rem 0.375rem;
-      background: $bg-glass;
-      border-radius: $radius-sm;
-      font-family: $font-family-mono;
-      font-size: 0.75rem;
-      color: $text-code;
-    }
-  }
-
-  tr:last-child td {
-    border-bottom: none;
-  }
+	code {
+		font-family: $font-family-mono;
+		font-size: 0.8rem;
+		color: $text-code;
+	}
 }
 
-// Info Section
 .infoGrid {
-  @extend .info-grid;
+	@extend .info-grid;
 }
 
 .infoItem {
-  @extend .info-item;
+	@extend .info-item;
 }
 
 .infoSubtitle {
-  @extend .info-subtitle;
+	@extend .info-subtitle;
 }
 
 .infoText {
-  @extend .info-text;
+	@extend .info-text;
 }

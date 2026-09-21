@@ -1,0 +1,225 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+.container {
+	@extend .container;
+}
+
+.glassCard {
+	@extend .glass-card;
+}
+
+.cardTitle {
+	color: $text-primary;
+}
+
+.hint {
+	color: $text-tertiary;
+}
+
+.textarea {
+	@extend .input-field;
+	min-height: 120px;
+	line-height: 1.6;
+	resize: vertical;
+	@include custom-scrollbar;
+}
+
+.chip {
+	@include btn-preset;
+	padding: 0.3rem 0.65rem;
+	font-size: 0.78rem;
+}
+
+.btnPrimary {
+	@include btn-primary;
+	padding: 0.5rem 1rem;
+	font-size: 0.875rem;
+
+	&.copied {
+		background: $color-success;
+		color: #fff;
+	}
+}
+
+.btnSecondary {
+	@include btn-secondary;
+	padding: 0.5rem 1rem;
+	font-size: 0.875rem;
+	color: $text-secondary;
+
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+}
+
+.iconBtn {
+	@include btn-icon;
+}
+
+.candidates {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+.candidate {
+	background: $bg-overlay-light;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	padding: 0.75rem 1rem;
+}
+
+.candidateHeader {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+}
+
+.candidateLabel {
+	flex: 1;
+	font-weight: 600;
+	color: $text-primary;
+}
+
+.candidateScore {
+	font-family: $font-family-mono;
+	font-size: 0.85rem;
+	color: $text-secondary;
+}
+
+.bar {
+	height: 4px;
+	margin: 0.5rem 0;
+	background: $bg-glass;
+	border-radius: 2px;
+	overflow: hidden;
+}
+
+.barFill {
+	height: 100%;
+	background: $color-accent;
+	transition: width $transition-base;
+}
+
+.candidateOutput,
+.output {
+	margin: 0;
+	padding: 0.75rem;
+	background: $input-bg;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-sm;
+	font-family: $font-family-mono;
+	font-size: 0.9rem;
+	color: $text-primary;
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
+	min-height: 2.5rem;
+}
+
+.output:empty::before {
+	content: "";
+}
+
+.tweak {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	margin-top: 0.5rem;
+	background: none;
+	border: none;
+	padding: 0;
+	color: $color-accent;
+	font-size: 0.8rem;
+	cursor: pointer;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+.manualGrid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 1rem;
+}
+
+.field {
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
+}
+
+.fieldLabel {
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	color: $text-tertiary;
+}
+
+.input,
+.select {
+	@extend .input-field;
+	padding: 0.55rem 0.75rem;
+	font-size: 0.9rem;
+}
+
+.select {
+	font-family: $font-family-sans;
+	cursor: pointer;
+}
+
+.error {
+	margin: 0;
+	padding: 0.75rem;
+	border-radius: $radius-sm;
+	background: color-mix(in oklab, $color-error 12%, transparent);
+	color: $color-error;
+	font-size: 0.875rem;
+}
+
+.referenceToggle {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	background: none;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	text-align: left;
+}
+
+.reference {
+	margin-top: 1rem;
+	color: $text-secondary;
+	font-size: 0.9rem;
+	line-height: 1.6;
+
+	h4 {
+		margin: 1rem 0 0.35rem;
+		font-size: 0.8rem;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: $text-tertiary;
+	}
+
+	ul {
+		margin: 0;
+		padding-left: 1.25rem;
+	}
+
+	p {
+		margin: 0;
+	}
+
+	strong {
+		color: $text-primary;
+	}
+}

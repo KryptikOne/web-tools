@@ -1,5 +1,5 @@
-import FrequencyConverter from "@/features/frequency-converter/FrequencyConverter";
+import UnitConverterHub from "@/features/unit-converter/UnitConverterHub";
 
 export default function FrequencyConverterPage() {
-	return <FrequencyConverter />;
+	return <UnitConverterHub initialTab="frequency" />;
 }

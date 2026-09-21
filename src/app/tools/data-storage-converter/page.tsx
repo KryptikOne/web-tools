@@ -1,5 +1,5 @@
-import DataStorageConverter from "@/features/data-storage-converter/DataStorageConverter";
+import UnitConverterHub from "@/features/unit-converter/UnitConverterHub";
 
 export default function DataStorageConverterPage() {
-	return <DataStorageConverter />;
+	return <UnitConverterHub initialTab="data" />;
 }

@@ -1,23 +1,8 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
+import UnitConverterPanel from "@/components/UnitConverterPanel";
+import { getUnitCategory } from "@/lib/unitDefinitions";
 import styles from "./TemperatureConverter.module.scss";
-
-interface ConversionUnit {
-	id: string;
-	name: string;
-	abbrev: string;
-	toBase: (value: number) => number; // Convert to base unit (Celsius)
-	fromBase: (value: number) => number; // Convert from base unit
-}
-
-// Temperature units (base: Celsius)
-const TEMP_UNITS: ConversionUnit[] = [
-	{ id: "c", name: "Celsius", abbrev: "°C", toBase: (v) => v, fromBase: (v) => v },
-	{ id: "f", name: "Fahrenheit", abbrev: "°F", toBase: (v) => ((v - 32) * 5) / 9, fromBase: (v) => (v * 9) / 5 + 32 },
-	{ id: "k", name: "Kelvin", abbrev: "K", toBase: (v) => v - 273.15, fromBase: (v) => v + 273.15 },
-];
 
 // Common temperature reference points
 const REFERENCE_POINTS = [
@@ -60,99 +45,11 @@ const FORMULAS = [
 	{ from: "Kelvin to Fahrenheit", formula: "°F = (K - 273.15) × 9/5 + 32" },
 ];
 
-function formatNumber(num: number): string {
-	if (num === 0) return "0";
-	if (Math.abs(num) >= 10000) return num.toLocaleString(undefined, { maximumFractionDigits: 2 });
-	if (Number.isInteger(num)) return num.toString();
-	return num.toFixed(2).replace(/\.?0+$/, "");
-}
-
 export default function TemperatureConverter() {
-	const [fromUnit, setFromUnit] = useState<string>("f");
-	const [toUnit, setToUnit] = useState<string>("c");
-	const [inputValue, setInputValue] = useState<string>("72");
-
-	const convert = useCallback(() => {
-		const value = parseFloat(inputValue);
-		if (isNaN(value)) return "";
-
-		const from = TEMP_UNITS.find((u) => u.id === fromUnit);
-		const to = TEMP_UNITS.find((u) => u.id === toUnit);
-
-		if (!from || !to) return "";
-
-		const baseValue = from.toBase(value);
-		const result = to.fromBase(baseValue);
-
-		return formatNumber(result);
-	}, [inputValue, fromUnit, toUnit]);
-
-	const swapUnits = () => {
-		const temp = fromUnit;
-		setFromUnit(toUnit);
-		setToUnit(temp);
-	};
-
-	const result = convert();
-
 	return (
 		<div className={styles.container}>
-			{/* Converter Section */}
-			<div className={styles.glassCard}>
-				<h2 className={styles.sectionTitle}>Temperature Converter</h2>
-
-				{/* Converter Interface */}
-				<div className={styles.converterGrid}>
-					<div className={styles.converterInput}>
-						<label className={styles.inputLabel}>From</label>
-						<div className={styles.inputRow}>
-							<input
-								type="number"
-								inputMode="decimal"
-								value={inputValue}
-								onChange={(e) => setInputValue(e.target.value)}
-								className={styles.numberInput}
-								placeholder="Enter temperature"
-							/>
-							<select value={fromUnit} onChange={(e) => setFromUnit(e.target.value)} className={styles.unitSelect}>
-								{TEMP_UNITS.map((unit) => (
-									<option key={unit.id} value={unit.id}>
-										{unit.name} ({unit.abbrev})
-									</option>
-								))}
-							</select>
-						</div>
-					</div>
-
-					<button className={styles.swapButton} onClick={swapUnits} title="Swap units">
-						<ArrowsRightLeftIcon className="w-5 h-5" />
-					</button>
-
-					<div className={styles.converterInput}>
-						<label className={styles.inputLabel}>To</label>
-						<div className={styles.inputRow}>
-							<div className={styles.resultDisplay}>{result || "—"}</div>
-							<select value={toUnit} onChange={(e) => setToUnit(e.target.value)} className={styles.unitSelect}>
-								{TEMP_UNITS.map((unit) => (
-									<option key={unit.id} value={unit.id}>
-										{unit.name} ({unit.abbrev})
-									</option>
-								))}
-							</select>
-						</div>
-					</div>
-				</div>
-
-				{result && (
-					<div className={styles.resultSummary}>
-						<span className={styles.resultText}>
-							{inputValue} {TEMP_UNITS.find((u) => u.id === fromUnit)?.abbrev} ={" "}
-							<strong>
-								{result} {TEMP_UNITS.find((u) => u.id === toUnit)?.abbrev}
-							</strong>
-						</span>
-					</div>
-				)}
+			<div className="mb-6">
+				<UnitConverterPanel category={getUnitCategory("temperature")!} initialUnitId="f" initialValue="72" />
 			</div>
 
 			{/* Reference Points */}

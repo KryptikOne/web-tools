@@ -214,3 +214,167 @@
 		}
 	}
 }
+
+// ── Calculator surface ──────────────────────────────────────────────────────
+.calculator {
+	@include glass-card;
+	padding: 0;
+	overflow: hidden;
+}
+
+.display {
+	padding: 0.75rem 1rem 0.5rem;
+	border-bottom: 1px solid $border-subtle;
+}
+
+.displayBar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 0.75rem;
+	flex-wrap: wrap;
+	margin-bottom: 0.5rem;
+}
+
+.btnSecondary {
+	&.active {
+		border-color: $color-accent;
+		color: $color-accent;
+	}
+
+	&.copied {
+		color: $color-success;
+	}
+}
+
+.constants {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.35rem;
+	margin-bottom: 0.5rem;
+}
+
+.constBtn {
+	display: inline-flex;
+	flex-direction: column;
+	align-items: center;
+	min-width: 3rem;
+	padding: 0.3rem 0.5rem;
+	background: $bg-overlay-light;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-sm;
+	color: $text-primary;
+	cursor: pointer;
+	transition: all $transition-base;
+
+	span {
+		font-size: 0.95rem;
+		font-weight: 600;
+	}
+
+	small {
+		font-family: $font-family-mono;
+		font-size: 0.6rem;
+		color: $text-muted;
+	}
+
+	&:hover {
+		border-color: $color-accent;
+	}
+}
+
+.resultLine {
+	min-height: 2.25rem;
+	padding: 0.25rem 0.25rem 0;
+	font-family: $font-family-mono;
+	font-size: 1.4rem;
+	font-weight: 600;
+	color: $color-primary;
+	text-align: right;
+	overflow-wrap: anywhere;
+}
+
+.resultError {
+	font-size: 0.9rem;
+	font-weight: 500;
+	color: $color-error;
+}
+
+.keypad {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	gap: 1px;
+	background: $border-subtle;
+}
+
+.key {
+	min-height: 3.25rem;
+	padding: 0.5rem 0.25rem;
+	background: $bg-glass;
+	border: none;
+	color: $text-primary;
+	font-family: $font-family-mono;
+	font-size: 1rem;
+	cursor: pointer;
+	transition: background $transition-fast;
+
+	&:hover:not(:disabled) {
+		background: $bg-glass-hover;
+	}
+
+	&:active:not(:disabled) {
+		background: $bg-glass-active;
+	}
+
+	&:focus-visible {
+		outline: 2px solid $color-accent;
+		outline-offset: -2px;
+	}
+
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+}
+
+.key-num {
+	font-size: 1.15rem;
+	font-weight: 600;
+	background: $bg-overlay-light;
+}
+
+.key-op {
+	font-size: 1.15rem;
+	color: $color-accent;
+	font-weight: 600;
+}
+
+.key-fn {
+	font-size: 0.85rem;
+	color: $text-secondary;
+}
+
+.key-accent {
+	background: $color-accent;
+	color: #fff;
+	font-size: 1.25rem;
+	font-weight: 700;
+
+	&:hover:not(:disabled) {
+		background: $color-accent;
+		filter: brightness(1.1);
+	}
+}
+
+.key-danger {
+	color: $color-error;
+	font-weight: 600;
+}
+
+.kbdHint {
+	margin: 0;
+	padding: 0.6rem 1rem;
+	font-size: 0.75rem;
+	color: $text-muted;
+	border-top: 1px solid $border-subtle;
+}

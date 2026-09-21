@@ -1,5 +1,5 @@
-import FuelEconomyConverter from "@/features/fuel-economy-converter/FuelEconomyConverter";
+import UnitConverterHub from "@/features/unit-converter/UnitConverterHub";
 
 export default function FuelEconomyConverterPage() {
-	return <FuelEconomyConverter />;
+	return <UnitConverterHub initialTab="fuel" />;
 }

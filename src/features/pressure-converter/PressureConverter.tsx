@@ -1,28 +1,8 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
+import UnitConverterPanel from "@/components/UnitConverterPanel";
+import { getUnitCategory } from "@/lib/unitDefinitions";
 import styles from "./PressureConverter.module.scss";
-
-interface ConversionUnit {
-	id: string;
-	name: string;
-	abbrev: string;
-	toBase: (value: number) => number;
-	fromBase: (value: number) => number;
-}
-
-// Pressure units (base: Pascals)
-const PRESSURE_UNITS: ConversionUnit[] = [
-	{ id: "pa", name: "Pascals", abbrev: "Pa", toBase: (v) => v, fromBase: (v) => v },
-	{ id: "kpa", name: "Kilopascals", abbrev: "kPa", toBase: (v) => v * 1000, fromBase: (v) => v / 1000 },
-	{ id: "mpa", name: "Megapascals", abbrev: "MPa", toBase: (v) => v * 1000000, fromBase: (v) => v / 1000000 },
-	{ id: "bar", name: "Bar", abbrev: "bar", toBase: (v) => v * 100000, fromBase: (v) => v / 100000 },
-	{ id: "atm", name: "Atmospheres", abbrev: "atm", toBase: (v) => v * 101325, fromBase: (v) => v / 101325 },
-	{ id: "psi", name: "PSI", abbrev: "psi", toBase: (v) => v * 6894.76, fromBase: (v) => v / 6894.76 },
-	{ id: "mmhg", name: "mmHg (Torr)", abbrev: "mmHg", toBase: (v) => v * 133.322, fromBase: (v) => v / 133.322 },
-	{ id: "inhg", name: "Inches of Mercury", abbrev: "inHg", toBase: (v) => v * 3386.39, fromBase: (v) => v / 3386.39 },
-];
 
 const COMMON_CONVERSIONS = [
 	{ from: "1 atm", to: "101.325 kPa" },
@@ -54,98 +34,11 @@ const WEATHER_PRESSURE = [
 	{ condition: "Category 5 hurricane", inhg: "< 27.17 inHg", hpa: "< 920 hPa" },
 ];
 
-function formatNumber(num: number): string {
-	if (num === 0) return "0";
-	if (Math.abs(num) < 0.0001) return num.toExponential(2);
-	if (Math.abs(num) >= 1000000) return num.toLocaleString(undefined, { maximumFractionDigits: 2 });
-	if (Number.isInteger(num)) return num.toString();
-	return num.toFixed(Math.abs(num) < 1 ? 4 : 2).replace(/\.?0+$/, "");
-}
-
 export default function PressureConverter() {
-	const [fromUnit, setFromUnit] = useState<string>("psi");
-	const [toUnit, setToUnit] = useState<string>("kpa");
-	const [inputValue, setInputValue] = useState<string>("1");
-
-	const convert = useCallback(() => {
-		const value = parseFloat(inputValue);
-		if (isNaN(value)) return "";
-
-		const from = PRESSURE_UNITS.find((u) => u.id === fromUnit);
-		const to = PRESSURE_UNITS.find((u) => u.id === toUnit);
-
-		if (!from || !to) return "";
-
-		const baseValue = from.toBase(value);
-		const result = to.fromBase(baseValue);
-
-		return formatNumber(result);
-	}, [inputValue, fromUnit, toUnit]);
-
-	const swapUnits = () => {
-		const temp = fromUnit;
-		setFromUnit(toUnit);
-		setToUnit(temp);
-	};
-
-	const result = convert();
-
 	return (
 		<div className={styles.container}>
-			<div className={styles.glassCard}>
-				<h2 className={styles.sectionTitle}>Pressure Converter</h2>
-
-				<div className={styles.converterGrid}>
-					<div className={styles.converterInput}>
-						<label className={styles.inputLabel}>From</label>
-						<div className={styles.inputRow}>
-							<input
-								type="number"
-								inputMode="decimal"
-								value={inputValue}
-								onChange={(e) => setInputValue(e.target.value)}
-								className={styles.numberInput}
-								placeholder="Enter value"
-							/>
-							<select value={fromUnit} onChange={(e) => setFromUnit(e.target.value)} className={styles.unitSelect}>
-								{PRESSURE_UNITS.map((unit) => (
-									<option key={unit.id} value={unit.id}>
-										{unit.name} ({unit.abbrev})
-									</option>
-								))}
-							</select>
-						</div>
-					</div>
-
-					<button className={styles.swapButton} onClick={swapUnits} title="Swap units">
-						<ArrowsRightLeftIcon className="w-5 h-5" />
-					</button>
-
-					<div className={styles.converterInput}>
-						<label className={styles.inputLabel}>To</label>
-						<div className={styles.inputRow}>
-							<div className={styles.resultDisplay}>{result || "—"}</div>
-							<select value={toUnit} onChange={(e) => setToUnit(e.target.value)} className={styles.unitSelect}>
-								{PRESSURE_UNITS.map((unit) => (
-									<option key={unit.id} value={unit.id}>
-										{unit.name} ({unit.abbrev})
-									</option>
-								))}
-							</select>
-						</div>
-					</div>
-				</div>
-
-				{result && (
-					<div className={styles.resultSummary}>
-						<span className={styles.resultText}>
-							{inputValue} {PRESSURE_UNITS.find((u) => u.id === fromUnit)?.abbrev} ={" "}
-							<strong>
-								{result} {PRESSURE_UNITS.find((u) => u.id === toUnit)?.abbrev}
-							</strong>
-						</span>
-					</div>
-				)}
+			<div className="mb-6">
+				<UnitConverterPanel category={getUnitCategory("pressure")!} initialUnitId="psi" initialValue="1" />
 			</div>
 
 			<div className={styles.chartsGrid}>

@@ -1,0 +1,66 @@
+@use "@/styles/variables" as *;
+
+.group {
+	display: inline-flex;
+	max-width: 100%;
+	background: $bg-glass;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	overflow: auto hidden;
+}
+
+.fill {
+	display: flex;
+	width: 100%;
+
+	.segment {
+		flex: 1 1 0;
+	}
+}
+
+.segment {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.4rem;
+	padding: 0.625rem 0.875rem;
+	background: transparent;
+	border: none;
+	border-right: 1px solid $border-subtle;
+	color: $text-secondary;
+	font-size: 0.875rem;
+	font-weight: 500;
+	cursor: pointer;
+	transition: background $transition-base, color $transition-base;
+	white-space: nowrap;
+
+	&:last-child {
+		border-right: none;
+	}
+
+	&:hover:not(:disabled) {
+		background: $bg-glass-hover;
+		color: $text-primary;
+	}
+
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+
+	&:focus-visible {
+		outline: 2px solid $color-accent;
+		outline-offset: -2px;
+	}
+
+	&.active {
+		background: $color-accent;
+		color: #fff;
+		font-weight: 600;
+	}
+}
+
+.sm .segment {
+	padding: 0.4rem 0.7rem;
+	font-size: 0.8rem;
+}

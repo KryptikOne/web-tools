@@ -1,5 +1,5 @@
-import TemperatureConverter from "@/features/temperature-converter/TemperatureConverter";
+import UnitConverterHub from "@/features/unit-converter/UnitConverterHub";
 
 export default function TemperatureConverterPage() {
-	return <TemperatureConverter />;
+	return <UnitConverterHub initialTab="temperature" />;
 }

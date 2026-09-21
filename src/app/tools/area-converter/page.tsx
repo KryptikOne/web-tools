@@ -1,5 +1,5 @@
-import AreaConverter from "@/features/area-converter/AreaConverter";
+import UnitConverterHub from "@/features/unit-converter/UnitConverterHub";
 
 export default function AreaConverterPage() {
-	return <AreaConverter />;
+	return <UnitConverterHub initialTab="area" />;
 }

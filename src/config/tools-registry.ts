@@ -387,7 +387,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 	{
 		id: "number-base-converter",
 		name: "Number Base Converter",
-		description: "Convert between binary, octal, decimal, and hexadecimal number bases",
+		description: "Convert between binary, octal, decimal, hex and custom bases live, toggle bits, and run bitwise operations",
 		category: ToolCategory.ENCODING_DATA,
 		route: "/tools/number-base-converter",
 		implemented: true,
@@ -436,8 +436,8 @@ export const TOOLS_REGISTRY: Tool[] = [
 	},
 	{
 		id: "epoch-converter",
-		name: "Epoch Converter",
-		description: "Convert Unix timestamps to dates",
+		name: "Epoch & Time Calculator",
+		description: "Convert Unix timestamps, ISO and RFC dates live in any time zone, plus date arithmetic",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/epoch-converter",
 		implemented: true,
@@ -445,7 +445,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 	{
 		id: "cron-expression-generator",
 		name: "Cron Expression Generator",
-		description: "Build and explain cron schedules with an interactive editor",
+		description: "Build a cron expression field by field or paste one to decode it, with next runs in any time zone",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/cron-expression-generator",
 		implemented: true,
@@ -508,6 +508,14 @@ export const TOOLS_REGISTRY: Tool[] = [
 	},
 
 	// ── Unit Converters (17) ───────────────────────────────────────────
+	{
+		id: "unit-converter",
+		name: "Unit Converter",
+		description: "Every unit converter on one page: length, weight, temperature, data, speed and more as live side-by-side fields",
+		category: ToolCategory.UNIT_CONVERTERS,
+		route: "/tools/unit-converter",
+		implemented: true,
+	},
 	{
 		id: "distance-converter",
 		name: "Distance / Length Converter",
@@ -688,8 +696,8 @@ export const TOOLS_REGISTRY: Tool[] = [
 	},
 	{
 		id: "math-expression-evaluator",
-		name: "Math Expression Evaluator",
-		description: "Evaluate arbitrary math expressions with functions, constants, units, and bignumbers",
+		name: "Scientific Calculator",
+		description: "Scientific calculator with a keypad, DEG/RAD modes, history, and a full expression engine with units and bignumbers",
 		category: ToolCategory.CALCULATORS_TIME,
 		route: "/tools/math-expression-evaluator",
 		implemented: true,
@@ -1124,6 +1132,46 @@ export const TOOLS_REGISTRY: Tool[] = [
 		description: "Capture photos and record video locally from your webcam",
 		category: ToolCategory.IMAGE_MEDIA,
 		route: "/tools/camera-recorder",
+		implemented: true,
+	},
+	{
+		id: "metadata-stripper",
+		name: "Metadata Stripper",
+		description: "Inspect and strip EXIF, GPS, XMP and comments from JPEG, PNG and WebP images without re-encoding",
+		category: ToolCategory.IMAGE_MEDIA,
+		route: "/tools/metadata-stripper",
+		implemented: true,
+	},
+	{
+		id: "cipher-decoder",
+		name: "Cipher Decoder",
+		description: "Decode classical ciphers manually or auto-detect Caesar, Vigenère, Atbash, Morse, Base64 and more",
+		category: ToolCategory.SECURITY_CRYPTO,
+		route: "/tools/cipher-decoder",
+		implemented: true,
+	},
+	{
+		id: "contrast-checker",
+		name: "Contrast Checker",
+		description: "Check WCAG 2.1 colour contrast, preview text sizes, and auto-fix a foreground to AA or AAA",
+		category: ToolCategory.CSS_DESIGN,
+		route: "/tools/contrast-checker",
+		implemented: true,
+	},
+	{
+		id: "graph-calculator",
+		name: "Graph Calculator",
+		description: "Plot and trace multiple functions with zoom presets and adjustable ranges",
+		category: ToolCategory.CALCULATORS_TIME,
+		route: "/tools/graph-calculator",
+		implemented: true,
+	},
+	{
+		id: "algebra-calculator",
+		name: "Algebra Calculator",
+		description: "Symbolic algebra: simplify, expand, factor, solve, differentiate and integrate expressions",
+		category: ToolCategory.CALCULATORS_TIME,
+		route: "/tools/algebra-calculator",
 		implemented: true,
 	},
 ];
