@@ -6,12 +6,6 @@
 	@extend .container;
 }
 
-.optionsBar {
-	background: $bg-glass;
-	border: 1px solid $border-subtle;
-	border-radius: $radius-lg;
-}
-
 .glassCard {
 	@extend .glass-card;
 }
@@ -20,21 +14,65 @@
 	color: $text-primary;
 }
 
-.cardFooter {
+.hint {
 	color: $text-tertiary;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
 }
 
-.checkboxLabel {
+// Segmented controls
+.segmented {
+	display: flex;
+	background: $bg-glass;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	overflow: hidden;
+}
+
+.segment {
+	flex: 1 1 0;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.4rem;
+	padding: 0.625rem 0.75rem;
+	background: transparent;
+	border: none;
+	border-right: 1px solid $border-subtle;
 	color: $text-secondary;
+	font-size: 0.875rem;
+	font-weight: 500;
+	cursor: pointer;
+	transition: all $transition-base;
+	white-space: nowrap;
+
+	&:last-child {
+		border-right: none;
+	}
+
+	&:hover {
+		background: $bg-glass-hover;
+		color: $text-primary;
+	}
+
+	&.active {
+		background: $color-accent;
+		color: #fff;
+		font-weight: 600;
+	}
 }
 
-.checkbox {
-	accent-color: $color-accent;
+.segmentHint {
+	font-size: 0.7rem;
+	font-weight: 400;
+	opacity: 0.8;
+	text-transform: lowercase;
 }
 
+// Input / output
 .textarea {
 	width: 100%;
-	min-height: 140px;
+	min-height: 120px;
 	max-height: 320px;
 	padding: 1rem;
 	background: $input-bg;
@@ -60,33 +98,68 @@
 	@include custom-scrollbar;
 }
 
-.outputBox {
+.output {
+	margin-top: 0.75rem;
 	padding: 1rem;
+	min-height: 5rem;
 	background: $bg-overlay-light;
 	border: 1px solid $border-subtle;
 	border-radius: $radius-md;
-	min-height: 5rem;
+	display: flex;
+	align-items: flex-start;
+}
+
+.placeholder {
+	color: $text-muted;
+	font-size: 0.9rem;
+}
+
+.pairs {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 0.5rem;
-	align-items: flex-start;
+	gap: 0.5rem 1rem;
+	align-items: baseline;
+}
+
+.pair {
+	display: inline-flex;
+	align-items: baseline;
+	gap: 0.35rem;
+}
+
+.pairChar {
 	font-family: $font-family-mono;
-	font-size: 0.95rem;
+	font-size: 0.75rem;
+	color: $text-tertiary;
+	min-width: 0.75rem;
+	text-align: right;
+}
+
+.pairWord {
+	font-family: $font-family-mono;
+	font-size: 1.05rem;
+	font-weight: 700;
 	color: $text-primary;
 }
 
-.emptyOutput {
+.break {
+	font-family: $font-family-mono;
 	color: $text-muted;
-	align-items: center;
+	padding: 0 0.25rem;
 }
 
-.phoneticWord {
-	padding: 0.25rem 0.625rem;
-	background: $bg-glass;
-	border: 1px solid $border-subtle;
-	border-radius: $radius-sm;
-	color: $color-accent;
-	font-weight: 500;
+.readOut {
+	margin: 0;
+	font-family: $font-family-mono;
+	font-size: clamp(1.25rem, 3vw, 1.75rem);
+	font-weight: 700;
+	line-height: 1.4;
+	color: $text-primary;
+	overflow-wrap: anywhere;
+}
+
+.actions {
+	flex-wrap: wrap;
 }
 
 .btnPrimary {
@@ -101,65 +174,201 @@
 }
 
 .btnSecondary {
-	display: inline-flex;
-	align-items: center;
-	gap: 0.5rem;
+	@include btn-secondary;
 	padding: 0.5rem 1rem;
-	background: $bg-glass;
-	color: $text-secondary;
-	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
-	font-weight: 500;
 	font-size: 0.875rem;
-	cursor: pointer;
-	transition: all 0.2s ease;
+	color: $text-secondary;
 
 	&:hover:not(:disabled) {
-		background: $bg-glass-hover;
-		border-color: $border-medium;
 		color: $text-primary;
 	}
-
-	&:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
-	}
 }
 
-.alphabetGrid {
+// Chart
+.chart {
 	display: grid;
-	grid-template-columns: repeat(2, 1fr);
+	grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
 	gap: 0.5rem;
-
-	@media (min-width: 640px) {
-		grid-template-columns: repeat(3, 1fr);
-	}
-
-	@media (min-width: 1024px) {
-		grid-template-columns: repeat(6, 1fr);
-	}
 }
 
-.alphabetCell {
-	display: flex;
-	align-items: baseline;
-	gap: 0.625rem;
-	padding: 0.5rem 0.75rem;
+.cell {
+	position: relative;
+	display: grid;
+	grid-template-columns: 1fr auto;
+	grid-template-rows: auto auto auto;
+	grid-template-areas:
+		"letter morse"
+		"letter sema"
+		"word flag";
+	align-items: end;
+	gap: 0.25rem 0.5rem;
+	padding: 0.625rem 0.75rem;
+	min-height: 112px;
 	background: $bg-overlay-light;
 	border: 1px solid $border-subtle;
 	border-radius: $radius-md;
+	color: $text-primary;
+	text-align: left;
+	cursor: pointer;
+	transition: all $transition-base;
+
+	&:hover {
+		background: $bg-glass-hover;
+		border-color: $border-medium;
+		transform: translateY(-1px);
+	}
+
+	&:focus-visible {
+		outline: 2px solid $color-accent;
+		outline-offset: 2px;
+	}
 }
 
-.letter {
-	font-family: $font-family-mono;
-	font-size: 1rem;
+.cellActive {
+	background: $color-accent-20;
+	border-color: $color-accent-50;
+}
+
+.cellExtra {
+	grid-template-areas:
+		"letter letter"
+		"letter letter"
+		"word word";
+}
+
+.cellLetter {
+	grid-area: letter;
+	align-self: start;
+	font-family: $font-family-display;
+	font-size: 2.25rem;
 	font-weight: 700;
-	color: $color-accent;
-	min-width: 1.5rem;
+	line-height: 1;
+	color: $text-primary;
 }
 
-.word {
-	font-family: $font-family-sans;
-	font-size: 0.9rem;
+.cellWord {
+	grid-area: word;
+	font-family: $font-family-mono;
+	font-size: 0.85rem;
 	color: $text-secondary;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.morse {
+	grid-area: morse;
+	display: inline-flex;
+	align-items: center;
+	gap: 3px;
+	height: 6px;
+	justify-self: end;
+
+	i {
+		display: block;
+		height: 3px;
+		border-radius: 2px;
+		background: $text-secondary;
+	}
+}
+
+.dot {
+	width: 3px;
+}
+
+.dash {
+	width: 9px;
+}
+
+.semaphore {
+	grid-area: sema;
+	width: 26px;
+	height: 26px;
+	justify-self: end;
+	fill: none;
+	stroke: $text-secondary;
+	stroke-width: 1.5;
+	stroke-linecap: round;
+}
+
+.semaphoreHub {
+	fill: $text-secondary;
+	stroke: none;
+}
+
+.flag {
+	grid-area: flag;
+	width: 34px;
+	height: auto;
+	justify-self: end;
+	border-radius: 2px;
+}
+
+.digits {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	gap: 0.5rem;
+	margin-top: 0.5rem;
+
+	@media (min-width: 768px) {
+		grid-template-columns: repeat(10, 1fr);
+	}
+}
+
+.digit {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 0.15rem;
+	padding: 0.5rem 0.625rem;
+	background: $bg-overlay-light;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	color: $text-primary;
+	cursor: pointer;
+	transition: all $transition-base;
+	min-width: 0;
+
+	&:hover {
+		background: $bg-glass-hover;
+		border-color: $border-medium;
+	}
+
+	&:focus-visible {
+		outline: 2px solid $color-accent;
+		outline-offset: 2px;
+	}
+}
+
+.digitChar {
+	font-family: $font-family-display;
+	font-size: 1.25rem;
+	font-weight: 700;
+	line-height: 1;
+}
+
+.digitWord {
+	font-family: $font-family-mono;
+	font-size: 0.75rem;
+	color: $text-secondary;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 100%;
+}
+
+// Info
+.infoList {
+	margin: 0;
+	padding-left: 1.25rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	color: $text-secondary;
+	font-size: 0.9rem;
+	line-height: 1.6;
+
+	strong {
+		color: $text-primary;
+	}
 }

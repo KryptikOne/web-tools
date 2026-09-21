@@ -1043,7 +1043,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 	{
 		id: "nato-phonetic-converter",
 		name: "NATO Phonetic Alphabet",
-		description: "Spell text using the NATO phonetic alphabet",
+		description: "Spell text with the NATO, DIN 5009 or German alphabet, and read calls back to text",
 		category: ToolCategory.TEXT_DATA,
 		route: "/tools/nato-phonetic-converter",
 		implemented: true,

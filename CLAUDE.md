@@ -164,6 +164,10 @@ Key utilities in this codebase:
 - `src/lib/textCaseUtils.ts` - Text case conversions (camelCase, snake_case, kebab-case, etc.)
 - `src/lib/htmlEntityUtils.ts` - HTML entity escaping/unescaping with format options
 - `src/lib/textEffects.ts` - Text scramble animation
+- `src/lib/natoPhoneticUtils.ts` - Spelling alphabets (NATO, DIN 5009, German 1996): spell text, read calls, auto-detect
+- `src/lib/morseUtils.ts` - International Morse code table + charToMorse
+- `src/lib/semaphoreUtils.ts` - Flag semaphore positions and arm angles
+- `src/lib/downloadUtils.ts` - downloadTextFile (client-side file download)
 - `src/hooks/useIsMobile.ts` - SSR-safe mobile detection
 - `src/hooks/useClipboard.ts` - Clipboard operations with feedback
 

@@ -42,3 +42,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Playwright MCP browser-verification output (screenshots, snapshots, console logs).
+# Session scratch only — never committed.
+.playwright-mcp/
