@@ -3,7 +3,9 @@
 import { useState, useRef, useCallback, useMemo } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { WrenchScrewdriverIcon, DocumentTextIcon, SwatchIcon, PhotoIcon, CodeBracketIcon, CalculatorIcon, ArrowsRightLeftIcon, LockClosedIcon, ClockIcon, ShieldCheckIcon, GlobeAltIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { WrenchScrewdriverIcon, DocumentTextIcon, SwatchIcon, PhotoIcon, CodeBracketIcon, CalculatorIcon, ArrowsRightLeftIcon, LockClosedIcon, ClockIcon, ShieldCheckIcon, GlobeAltIcon, ChevronRightIcon,
+	CakeIcon,
+} from "@heroicons/react/24/outline";
 import { CATEGORIES, getToolsByCategory } from "@/config/tools-registry";
 import { ToolCategory, type Tool } from "@/types/tools";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
@@ -25,6 +27,7 @@ const CATEGORY_ICONS: Record<ToolCategory, React.ComponentType<React.SVGProps<SV
 	[ToolCategory.CALCULATORS_TIME]: CalculatorIcon,
 	[ToolCategory.SECURITY_CRYPTO]: ShieldCheckIcon,
 	[ToolCategory.NETWORK]: GlobeAltIcon,
+	[ToolCategory.KITCHEN]: CakeIcon,
 };
 
 export default function Sidebar() {

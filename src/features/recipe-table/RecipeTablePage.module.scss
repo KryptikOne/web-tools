@@ -1,0 +1,459 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+.container {
+	@extend .container-wide;
+}
+
+.notice {
+	margin: 0 0 0.75rem;
+	padding: 0.6rem 0.9rem;
+	border-radius: $radius-md;
+	background: color-mix(in oklab, $color-warning 15%, transparent);
+	border: 1px solid color-mix(in oklab, $color-warning 40%, transparent);
+	color: $text-primary;
+	font-size: 0.85rem;
+}
+
+.sharedBanner {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 0.75rem;
+	flex-wrap: wrap;
+	margin: 0 0 0.75rem;
+	padding: 0.6rem 0.9rem;
+	border-radius: $radius-md;
+	background: $color-accent-20;
+	border: 1px solid $color-accent-50;
+	color: $text-primary;
+	font-size: 0.9rem;
+	font-weight: 500;
+}
+
+.mobileBar {
+	display: none;
+	justify-content: space-between;
+	align-items: center;
+	gap: 0.75rem;
+	margin-bottom: 0.75rem;
+
+	@media (max-width: 900px) {
+		display: flex;
+	}
+}
+
+.layout {
+	display: grid;
+	grid-template-columns: 240px minmax(280px, 1fr) minmax(0, 1.6fr);
+	gap: 1rem;
+	align-items: start;
+
+	@media (max-width: 1200px) {
+		grid-template-columns: 220px minmax(0, 1fr);
+		grid-template-areas: "rail editor" "rail table";
+	}
+
+	@media (max-width: 900px) {
+		grid-template-columns: 1fr;
+		grid-template-areas: none;
+	}
+}
+
+.rail {
+	@include glass-card;
+	padding: 0.75rem;
+	max-height: calc(100vh - 8rem);
+	overflow-y: auto;
+	@include custom-scrollbar;
+
+	@media (max-width: 1200px) {
+		grid-area: rail;
+	}
+
+	@media (max-width: 900px) {
+		display: none;
+		max-height: none;
+
+		&.railOpen {
+			display: block;
+		}
+	}
+}
+
+.editorPane,
+.tablePane {
+	min-width: 0;
+
+	@media (max-width: 900px) {
+		display: none;
+
+		&.paneActive {
+			display: block;
+		}
+	}
+}
+
+.editorPane {
+	@media (max-width: 1200px) {
+		grid-area: editor;
+	}
+}
+
+.tablePane {
+	@media (max-width: 1200px) {
+		grid-area: table;
+	}
+}
+
+// ── List ────────────────────────────────────────────────────────────────────
+.list {
+	display: flex;
+	flex-direction: column;
+	gap: 0.6rem;
+}
+
+.listHeader {
+	display: flex;
+	gap: 0.5rem;
+	align-items: center;
+}
+
+.search {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	gap: 0.35rem;
+	padding: 0 0.5rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: $radius-sm;
+	color: $text-muted;
+	min-width: 0;
+
+	&:focus-within {
+		border-color: $input-border-focus;
+	}
+}
+
+.searchInput {
+	flex: 1;
+	min-width: 0;
+	padding: 0.4rem 0;
+	background: transparent;
+	border: none;
+	color: $text-primary;
+	font-size: 0.85rem;
+
+	&:focus {
+		outline: none;
+	}
+}
+
+.tagRow {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.3rem;
+}
+
+.recipeItems {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+}
+
+.recipeItem {
+	display: flex;
+	align-items: center;
+	border-radius: $radius-sm;
+	transition: background $transition-fast;
+
+	&:hover {
+		background: $bg-glass-hover;
+	}
+
+	.recipeItemActions {
+		display: none;
+	}
+
+	&:hover .recipeItemActions,
+	&:focus-within .recipeItemActions {
+		display: flex;
+	}
+}
+
+.recipeItemActive {
+	background: $color-accent-20;
+
+	&:hover {
+		background: $color-accent-20;
+	}
+}
+
+.recipeItemMain {
+	flex: 1;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 0.1rem;
+	padding: 0.4rem 0.5rem;
+	background: none;
+	border: none;
+	color: $text-primary;
+	text-align: left;
+	cursor: pointer;
+}
+
+.recipeItemTitle {
+	font-size: 0.875rem;
+	font-weight: 600;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	max-width: 100%;
+}
+
+.recipeItemTags {
+	font-size: 0.7rem;
+	color: $text-tertiary;
+	display: flex;
+	gap: 0.35rem;
+	align-items: center;
+}
+
+.sampleTag {
+	padding: 0 0.35rem;
+	border: 1px dashed $border-medium;
+	border-radius: $radius-sm;
+}
+
+.recipeItemActions {
+	gap: 0.1rem;
+	padding-right: 0.25rem;
+}
+
+.listEmpty {
+	padding: 0.5rem;
+	font-size: 0.8rem;
+	color: $text-tertiary;
+}
+
+// ── Editor ──────────────────────────────────────────────────────────────────
+.editor {
+	@include glass-card;
+	padding: 0.75rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.6rem;
+}
+
+.editorToolbar {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.35rem;
+}
+
+.textarea {
+	width: 100%;
+	min-height: 420px;
+	padding: 0.75rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: $radius-md;
+	color: $text-primary;
+	font-family: $font-family-mono;
+	font-size: 0.875rem;
+	line-height: 1.55;
+	resize: vertical;
+	tab-size: 2;
+	@include custom-scrollbar;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+	}
+
+	&:read-only {
+		opacity: 0.85;
+	}
+}
+
+.cheatSheet {
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	padding: 0.6rem 0.75rem;
+	background: $bg-overlay-light;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	font-size: 0.78rem;
+
+	div {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 0.2rem;
+	}
+
+	dt {
+		color: $text-secondary;
+	}
+
+	dd {
+		margin: 0;
+	}
+
+	pre {
+		margin: 0;
+		padding: 0.3rem 0.5rem;
+		background: $input-bg;
+		border-radius: $radius-sm;
+		font-family: $font-family-mono;
+		font-size: 0.75rem;
+		color: $text-code;
+		white-space: pre-wrap;
+	}
+}
+
+.errorList {
+	margin: 0;
+	padding: 0.5rem 0.75rem;
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	gap: 0.2rem;
+	border-radius: $radius-sm;
+	background: color-mix(in oklab, $color-error 10%, transparent);
+	font-size: 0.78rem;
+	color: $text-secondary;
+}
+
+.errorLink {
+	background: none;
+	border: none;
+	padding: 0;
+	font-family: $font-family-mono;
+	color: $color-error;
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+// ── Toolbar + table ─────────────────────────────────────────────────────────
+.toolbar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.6rem 1rem;
+	margin-bottom: 0.75rem;
+}
+
+.toolbarGroup {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.35rem;
+}
+
+.toolbarLabel {
+	font-size: 0.72rem;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: $text-tertiary;
+}
+
+.stepBtn {
+	@include btn-icon;
+	border: 1px solid $border-subtle;
+	padding: 0.35rem;
+
+	&:disabled {
+		opacity: 0.4;
+		cursor: not-allowed;
+	}
+}
+
+.servesInput {
+	width: 3.5rem;
+	padding: 0.35rem 0.4rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	border-radius: $radius-sm;
+	color: $text-primary;
+	font-family: $font-family-mono;
+	text-align: center;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+	}
+}
+
+.tableCard {
+	@include glass-card;
+	padding: 1rem;
+}
+
+// ── Buttons shared across the tool ─────────────────────────────────────────
+.btnPrimary {
+	@include btn-primary;
+	padding: 0.4rem 0.8rem;
+	font-size: 0.8rem;
+	background: $color-accent;
+	border-color: $color-accent;
+	color: #fff;
+
+	&:hover:not(:disabled) {
+		background: $color-accent;
+		filter: brightness(1.1);
+	}
+}
+
+.toolBtn {
+	@include btn-secondary;
+	padding: 0.4rem 0.7rem;
+	font-size: 0.8rem;
+	color: $text-secondary;
+}
+
+.chip {
+	@include btn-preset;
+	padding: 0.25rem 0.6rem;
+	font-size: 0.75rem;
+
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+}
+
+.chipGhost {
+	margin-left: auto;
+	background: transparent;
+}
+
+.chipActive {
+	background: $color-accent-20;
+	border-color: $color-accent;
+	color: $color-accent;
+}
+
+.iconBtn {
+	@include btn-icon;
+	padding: 0.3rem;
+}
+
+.linkBtn {
+	background: none;
+	border: none;
+	padding: 0;
+	color: $color-accent;
+	font-size: 0.8rem;
+	cursor: pointer;
+	text-decoration: underline;
+}

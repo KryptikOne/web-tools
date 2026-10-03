@@ -5,6 +5,7 @@ import themeReducer from "./slices/themeSlice";
 import uiReducer from "./slices/uiSlice";
 import userPreferencesReducer from "./slices/userPreferencesSlice";
 import favoritesReducer from "./slices/favoritesSlice";
+import recipesReducer from "./slices/recipesSlice";
 
 export const store = configureStore({
 	reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
 		ui: uiReducer,
 		userPreferences: userPreferencesReducer,
 		favorites: favoritesReducer,
+		recipes: recipesReducer,
 	},
 });
 

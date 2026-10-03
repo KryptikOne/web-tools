@@ -175,6 +175,7 @@ Key utilities in this codebase:
 - `src/lib/dateTimeUtils.ts` - Time-zone aware parts/format/parse, unix parsing, date arithmetic, relative time
 - `src/lib/unitDefinitions.ts` - Unit categories + definitions shared by every unit converter, convertUnits, formatUnitValue
 - `src/lib/imageMetadataUtils.ts` - Inspect/strip EXIF, XMP, ICC and comments from JPEG/PNG/WebP (no re-encode)
+- `src/lib/recipeUtils/` - Recipe DSL: parseRecipe, layoutRecipe (Cooking for Engineers grid), quantities (parse/scale/convert/sum), toHtml/toMarkdown, share-link encode/decode, sample recipes
 - `src/hooks/useIsMobile.ts` - SSR-safe mobile detection
 - `src/hooks/useClipboard.ts` - Clipboard operations with feedback
 - `src/components/SegmentedControl` - Joined radio-button group for mode/tab switches

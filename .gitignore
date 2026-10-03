@@ -46,3 +46,6 @@ next-env.d.ts
 # Playwright MCP browser-verification output (screenshots, snapshots, console logs).
 # Session scratch only — never committed.
 .playwright-mcp/
+
+# Agent design specs and implementation plans stay local (never in a public repo)
+docs/superpowers/

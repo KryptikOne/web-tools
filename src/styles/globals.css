@@ -171,6 +171,30 @@ html[data-theme="light"] select:not([multiple]) {
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23525252' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
 }
 
+/* ================================
+   PRINT: RECIPE TABLE
+   While the recipe tool is open it adds body.recipe-print. When printing,
+   the tool renders the recipe into a portal directly under <body> marked
+   data-print-root; everything else is hidden. Landscape is requested by a
+   <style> tag the tool injects, so other pages keep their default.
+   ================================ */
+[data-print-root] {
+	display: none;
+}
+
+@media print {
+	body.recipe-print > *:not([data-print-root]) {
+		display: none !important;
+	}
+
+	body.recipe-print [data-print-root] {
+		display: block;
+		padding: 0;
+		background: #fff;
+		color: #000;
+	}
+}
+
 /* Text Selection Styles */
 html[data-theme="dark"] ::selection,
 html:not([data-theme]) ::selection {

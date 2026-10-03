@@ -46,6 +46,11 @@ export const CATEGORIES: Record<ToolCategory, CategoryInfo> = {
 		name: "Network",
 		description: "IP/MAC address tools, subnet math, and network utilities",
 	},
+	[ToolCategory.KITCHEN]: {
+		id: ToolCategory.KITCHEN,
+		name: "Kitchen & Food",
+		description: "Recipes, cooking measurements, and dining calculators",
+	},
 };
 
 export const TOOLS_REGISTRY: Tool[] = [
@@ -616,7 +621,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		id: "kitchen-converter",
 		name: "Kitchen Converter",
 		description: "Convert cooking measurements between imperial and metric, with handy reference charts",
-		category: ToolCategory.UNIT_CONVERTERS,
+		category: ToolCategory.KITCHEN,
 		route: "/tools/kitchen-converter",
 		implemented: true,
 	},
@@ -666,7 +671,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		id: "tip-calculator",
 		name: "Tip Calculator",
 		description: "Calculate tips with preset or custom percentages, split bills between multiple people",
-		category: ToolCategory.CALCULATORS_TIME,
+		category: ToolCategory.KITCHEN,
 		route: "/tools/tip-calculator",
 		implemented: true,
 	},
@@ -1172,6 +1177,14 @@ export const TOOLS_REGISTRY: Tool[] = [
 		description: "Symbolic algebra: simplify, expand, factor, solve, differentiate and integrate expressions",
 		category: ToolCategory.CALCULATORS_TIME,
 		route: "/tools/algebra-calculator",
+		implemented: true,
+	},
+	{
+		id: "recipe-table",
+		name: "Recipe Table",
+		description: "Write recipes in plain text and render them as Cooking for Engineers action tables, with scaling, unit switching, and a saved notebook",
+		category: ToolCategory.KITCHEN,
+		route: "/tools/recipe-table",
 		implemented: true,
 	},
 ];

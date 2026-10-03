@@ -18,6 +18,7 @@ export enum ToolCategory {
 	CALCULATORS_TIME = "calculators-time",
 	SECURITY_CRYPTO = "security-crypto",
 	NETWORK = "network",
+	KITCHEN = "kitchen",
 }
 
 export interface CategoryInfo {

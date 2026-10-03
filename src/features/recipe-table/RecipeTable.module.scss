@@ -1,0 +1,225 @@
+@use "@/styles/variables" as *;
+
+.recipe {
+	color: $text-primary;
+	min-width: 0;
+}
+
+.header {
+	margin-bottom: 0.75rem;
+}
+
+.title {
+	margin: 0 0 0.25rem;
+	font-family: $font-family-display;
+	font-size: 1.35rem;
+	font-weight: 700;
+}
+
+.meta {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
+	margin: 0;
+	font-size: 0.85rem;
+	color: $text-secondary;
+}
+
+.tag {
+	padding: 0.1rem 0.5rem;
+	background: $bg-glass;
+	border: 1px solid $border-subtle;
+	border-radius: 999px;
+	font-size: 0.72rem;
+	color: $text-tertiary;
+}
+
+.source {
+	color: $color-accent;
+	text-decoration: underline;
+}
+
+.totals {
+	margin: 0 0 1rem;
+	padding: 0.6rem 0.9rem;
+	list-style: none;
+	columns: 2;
+	column-gap: 1.5rem;
+	background: $bg-overlay-light;
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
+	font-size: 0.85rem;
+
+	li {
+		break-inside: avoid;
+		padding: 0.15rem 0;
+	}
+
+	strong {
+		font-family: $font-family-mono;
+		font-weight: 600;
+	}
+
+	@media (max-width: 560px) {
+		columns: 1;
+	}
+}
+
+.tableWrap {
+	overflow-x: auto;
+	margin-bottom: 1rem;
+}
+
+.table {
+	border-collapse: collapse;
+	width: 100%;
+	font-size: 0.85rem;
+	table-layout: auto;
+
+	td {
+		border: 1px solid $border-medium;
+		padding: 0.45rem 0.65rem;
+		vertical-align: middle;
+	}
+}
+
+.banner {
+	text-align: center;
+	font-style: italic;
+	color: $text-secondary;
+	background: $bg-glass;
+}
+
+.bannerLoose {
+	margin: 0 0 0.75rem;
+	font-style: italic;
+	font-size: 0.85rem;
+	color: $text-secondary;
+}
+
+.leafCell {
+	background: $bg-overlay-light;
+	min-width: 9rem;
+}
+
+.leaf {
+	display: inline-flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.35rem;
+}
+
+.leafMarker {
+	color: $color-accent;
+}
+
+.leafAmount {
+	font-family: $font-family-mono;
+	font-weight: 600;
+	white-space: nowrap;
+}
+
+.leafName {
+	color: $text-primary;
+}
+
+.leafPrep {
+	font-size: 0.75rem;
+	color: $text-tertiary;
+}
+
+.leafError {
+	color: $color-error;
+
+	.leafName {
+		color: $color-error;
+	}
+}
+
+.stepCell {
+	text-align: center;
+	background: $bg-glass;
+	min-width: 5.5rem;
+
+	> * {
+		display: block;
+	}
+}
+
+.stepAction {
+	font-weight: 600;
+	color: $text-primary;
+}
+
+.stepDuration {
+	font-family: $font-family-mono;
+	font-size: 0.75rem;
+	color: $text-tertiary;
+}
+
+.chip {
+	display: inline-block !important;
+	margin-top: 0.3rem;
+	padding: 0.1rem 0.45rem;
+	border: 1px solid $border-medium;
+	border-radius: $radius-sm;
+	font-size: 0.7rem;
+	font-weight: 400;
+}
+
+.chipDiscard {
+	border-style: dashed;
+	color: $text-tertiary;
+}
+
+.chipKeep {
+	color: $color-accent;
+	border-color: $color-accent-50;
+}
+
+.footnote {
+	margin-top: 0.3rem;
+	font-size: 0.72rem;
+	font-weight: 400;
+	font-style: italic;
+	color: $text-tertiary;
+}
+
+.empty {
+	margin: 0;
+	padding: 1.5rem;
+	text-align: center;
+	font-size: 0.9rem;
+	color: $text-tertiary;
+	border: 1px dashed $border-medium;
+	border-radius: $radius-md;
+}
+
+.errors {
+	margin: 0.75rem 0 0;
+	padding-left: 1.25rem;
+	font-size: 0.8rem;
+	color: $color-error;
+}
+
+@media print {
+	.recipe {
+		color: #000;
+	}
+
+	.table td {
+		border-color: #999;
+	}
+
+	.leafCell,
+	.stepCell,
+	.banner,
+	.totals {
+		background: #fff !important;
+	}
+
+	.table {
+		break-inside: avoid;
+	}
+}
