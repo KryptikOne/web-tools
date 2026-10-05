@@ -50,6 +50,7 @@
     "js-yaml": "^4.1.1",
     "jsqr": "^1.4.0",
     "libphonenumber-js": "^1.13.2",
+    "lowlight": "^3.3.0",
     "mathjs": "^15.2.0",
     "microdiff": "^1.5.0",
     "nerdamer": "^1.1.13",

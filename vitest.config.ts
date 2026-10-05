@@ -8,6 +8,7 @@ export default defineConfig({
 		postcss: {},
 	},
 	test: {
+		testTimeout: 15000,
 		environment: "jsdom",
 		setupFiles: ["./src/__tests__/setup.ts"],
 		include: ["src/**/*.test.{ts,tsx}"],

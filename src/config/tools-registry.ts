@@ -310,7 +310,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 	{
 		id: "diff-checker",
 		name: "Diff Checker",
-		description: "Compare two texts and highlight differences line by line",
+		description: "Compare two texts side by side or unified, with word and character-level highlighting, syntax colouring and moved-line detection",
 		category: ToolCategory.TEXT_DATA,
 		route: "/tools/diff-checker",
 		implemented: true,

@@ -2,17 +2,20 @@
 @use "@/styles/mixins" as *;
 @use "@/styles/utilities" as util;
 
+$add: $theme-color-success;
+$del: $theme-color-error;
+$move: $theme-color-accent;
+
 // Layout
 .container {
 	@extend .container;
+	// Near-opaque code surface shared by the inputs and the diff output, so the
+	// page behind the glass cards doesn't bleed through the code.
+	--diff-surface: color-mix(in oklab, var(--bg-secondary) 90%, transparent);
 }
 
-.inputGrid {
-	grid-template-columns: 1fr 1fr;
-
-	@media (max-width: 1024px) {
-		grid-template-columns: 1fr;
-	}
+:global(html[data-theme="light"]) .container {
+	--diff-surface: color-mix(in oklab, #ffffff 85%, transparent);
 }
 
 // Options Bar
@@ -20,9 +23,6 @@
 	background: $bg-glass;
 	border: 1px solid $border-subtle;
 	border-radius: $radius-lg;
-}
-
-.optionGroup {
 }
 
 .checkboxLabel {
@@ -38,28 +38,15 @@
 	@extend .glass-card;
 }
 
-.cardHeader {
-}
-
 .cardTitle {
 	color: $text-primary;
 }
 
-.lineCount {
+.mutedText {
 	color: $text-tertiary;
 }
 
 // Buttons
-.btnPrimary {
-	@include btn-primary;
-	padding: 0.5rem 1rem;
-	font-size: 0.875rem;
-
-	&.copied {
-		background: $color-success;
-	}
-}
-
 .btnSecondary {
 	display: flex;
 	align-items: center;
@@ -84,15 +71,41 @@
 		opacity: 0.5;
 		cursor: not-allowed;
 	}
+
+	&.copied {
+		color: $add;
+		border-color: color-mix(in oklab, #{$add} 50%, transparent);
+	}
+}
+
+.iconBtn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 2rem;
+	height: 2rem;
+	flex-shrink: 0;
+	color: $text-secondary;
+	background: $bg-glass;
+	border: 1px solid $border-subtle;
+	border-radius: 0.5rem;
+	cursor: pointer;
+	transition: all 0.2s ease;
+
+	&:hover {
+		background: $bg-glass-hover;
+		border-color: $border-medium;
+		color: $text-primary;
+	}
 }
 
 // Textarea
 .textarea {
 	width: 100%;
-	min-height: 250px;
+	min-height: 220px;
 	max-height: 500px;
 	padding: 1rem;
-	background: $input-bg;
+	background: var(--diff-surface);
 	border: 1px solid $input-border;
 	border-radius: 0.5rem;
 	color: $text-primary;
@@ -108,157 +121,359 @@
 	&:focus {
 		outline: none;
 		border-color: $input-border-focus;
-		background: $input-bg-focus;
 	}
 
 	&::placeholder {
 		color: $text-muted;
 	}
 
+	&.dragging {
+		border-style: dashed;
+		border-color: $color-accent;
+		background: color-mix(in oklab, #{$color-accent} 8%, transparent);
+	}
+
 	@include custom-scrollbar;
 }
 
-// Stats Bar
-.statsBar {
-	background: $bg-glass;
-	border: 1px solid $border-subtle;
-	border-radius: $radius-lg;
-}
-
-.statItem {
-	color: $text-secondary;
-}
-
-.statCounts {
-}
-
+// Diffstat
 .statAdded {
-	color: $color-success;
+	color: $add;
 }
 
 .statRemoved {
-	color: $color-error;
+	color: $del;
 }
 
-.statUnchanged {
-	color: $text-tertiary;
+.statMoved {
+	color: $move;
 }
 
-// Section Title
-.sectionTitle {
-	@extend .section-title;
+.statBlock {
+	width: 0.5rem;
+	height: 0.5rem;
+	border-radius: 1px;
 }
 
-// Diff Output
-.diffOutput {
+.blockAdded {
+	background: $add;
+}
+
+.blockRemoved {
+	background: $del;
+}
+
+.blockNeutral {
+	background: $border-medium;
+}
+
+// Syntax language picker (chevron and theming come from the global select styles)
+.select {
+	padding: 0.375rem 2.25rem 0.375rem 0.625rem;
+	font-size: 0.875rem;
+	color: $text-secondary;
+	background-color: $bg-glass;
 	border: 1px solid $border-subtle;
 	border-radius: $radius-md;
-	overflow: hidden;
+	cursor: pointer;
+}
+
+// Diff body
+// Syntax colours follow GitHub's highlight.js themes (github-dark / github).
+.diffBody {
+	--syn-keyword: #ff7b72;
+	--syn-entity: #d2a8ff;
+	--syn-constant: #79c0ff;
+	--syn-string: #a5d6ff;
+	--syn-builtin: #ffa657;
+	--syn-comment: #8b949e;
+	--syn-tag: #7ee787;
+	--syn-section: #1f6feb;
+	--syn-bullet: #f2cc60;
+
+	border: 1px solid $border-subtle;
+	border-radius: $radius-md;
 	font-family: $font-family-mono;
 	font-size: 0.8125rem;
-	line-height: 1.7;
-	max-height: 600px;
-	overflow-y: auto;
+	line-height: 1.6;
+	tab-size: 4;
+	max-height: 75vh;
+	overflow: auto;
+	background: var(--diff-surface);
+
+	&:focus-visible {
+		outline: 2px solid $color-accent;
+		outline-offset: 2px;
+	}
 
 	@include custom-scrollbar;
 }
 
-.diffLine {
-	display: flex;
-	align-items: stretch;
-	min-height: 1.7em;
+:global(html[data-theme="light"]) .diffBody {
+	--syn-keyword: #d73a49;
+	--syn-entity: #6f42c1;
+	--syn-constant: #005cc5;
+	--syn-string: #032f62;
+	--syn-builtin: #e36209;
+	--syn-comment: #6a737d;
+	--syn-tag: #22863a;
+	--syn-section: #005cc5;
+	--syn-bullet: #735c0f;
+}
+
+.synKeyword {
+	color: var(--syn-keyword);
+}
+
+.synEntity {
+	color: var(--syn-entity);
+}
+
+.synConstant {
+	color: var(--syn-constant);
+}
+
+.synString {
+	color: var(--syn-string);
+}
+
+.synBuiltin {
+	color: var(--syn-builtin);
+}
+
+.synComment {
+	color: var(--syn-comment);
+}
+
+.synTag {
+	color: var(--syn-tag);
+}
+
+.synSection {
+	color: var(--syn-section);
+	font-weight: 700;
+}
+
+.synBullet {
+	color: var(--syn-bullet);
+}
+
+.fileHeader {
+	position: sticky;
+	top: 0;
+	z-index: 1;
+	background: $bg-glass-primary;
+	backdrop-filter: blur(8px);
 	border-bottom: 1px solid $border-subtle;
+}
+
+.fileName {
+	padding: 0.375rem 0.75rem;
+	color: $text-secondary;
+	font-size: 0.75rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+
+	& + & {
+		border-left: 1px solid $border-subtle;
+	}
+}
+
+.splitRow {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.side {
+	display: grid;
+	grid-template-columns: var(--num-width) 1.25rem minmax(0, 1fr);
+
+	& + & {
+		border-left: 1px solid $border-subtle;
+	}
+}
+
+.unifiedRow {
+	display: grid;
+	grid-template-columns: var(--num-width) var(--num-width) 1.25rem minmax(0, 1fr);
+}
+
+.num {
+	padding: 0 0.5rem;
+	text-align: right;
+	font-size: 0.75rem;
+	line-height: calc(0.8125rem * 1.6);
+	color: $text-muted;
+	user-select: none;
+}
+
+.sign {
+	text-align: center;
+	user-select: none;
+}
+
+.code {
+	padding-right: 0.75rem;
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
+}
+
+// Line states: GitHub-style tinted line, stronger gutter, strongest for changed text
+.equal {
+	.code {
+		color: $text-secondary;
+	}
+}
+
+.removed {
+	background: color-mix(in oklab, #{$del} 12%, transparent);
+
+	.num {
+		background: color-mix(in oklab, #{$del} 18%, transparent);
+		color: $text-secondary;
+	}
+
+	.sign {
+		color: $del;
+	}
+
+	.code {
+		color: $text-primary;
+	}
+}
+
+.added {
+	background: color-mix(in oklab, #{$add} 12%, transparent);
+
+	.num {
+		background: color-mix(in oklab, #{$add} 18%, transparent);
+		color: $text-secondary;
+	}
+
+	.sign {
+		color: $add;
+	}
+
+	.code {
+		color: $text-primary;
+	}
+}
+
+.moved {
+	background: color-mix(in oklab, #{$move} 12%, transparent);
+
+	.num {
+		background: color-mix(in oklab, #{$move} 20%, transparent);
+		color: $text-secondary;
+	}
+
+	.sign {
+		color: $move;
+	}
+
+	.code {
+		color: $text-primary;
+	}
+}
+
+.moveTag {
+	float: right;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.25rem;
+	margin-left: 0.75rem;
+	padding: 0 0.5rem;
+	font-family: inherit;
+	font-size: 0.6875rem;
+	line-height: 1.6;
+	color: $move;
+	background: color-mix(in oklab, #{$move} 12%, transparent);
+	border: 1px solid color-mix(in oklab, #{$move} 40%, transparent);
+	border-radius: 999px;
+	cursor: pointer;
+	user-select: none;
+	transition: background 0.15s ease;
+
+	&:hover,
+	&:focus-visible {
+		background: color-mix(in oklab, #{$move} 24%, transparent);
+	}
+
+	&:focus-visible {
+		outline: 2px solid $move;
+		outline-offset: 1px;
+	}
+}
+
+.empty {
+	background: repeating-linear-gradient(
+		-45deg,
+		transparent 0 6px,
+		color-mix(in oklab, #{$text-muted} 10%, transparent) 6px 7px
+	);
+}
+
+.hlRemoved,
+.hlAdded {
+	border-radius: 2px;
+	box-decoration-break: clone;
+	-webkit-box-decoration-break: clone;
+}
+
+.hlRemoved {
+	background: color-mix(in oklab, #{$del} 40%, transparent);
+}
+
+.hlAdded {
+	background: color-mix(in oklab, #{$add} 40%, transparent);
+}
+
+// Current change (navigation target)
+.current {
+	box-shadow: inset 3px 0 0 $color-accent;
+}
+
+// Collapsed unchanged lines
+.gapRow {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	width: 100%;
+	padding: 0.25rem 0.75rem;
+	font-family: inherit;
+	font-size: 0.75rem;
+	text-align: left;
+	color: $text-secondary;
+	background: color-mix(in oklab, #{$color-accent} 8%, transparent);
+	border: none;
+	border-block: 1px solid $border-subtle;
+	cursor: pointer;
+	transition: background 0.15s ease, color 0.15s ease;
+
+	&:first-child {
+		border-top: none;
+	}
 
 	&:last-child {
 		border-bottom: none;
 	}
-}
 
-.diffLineAdded {
-	background: oklch(70% 0.18 145 / 0.12);
-
-	.lineNum {
-		background: oklch(70% 0.18 145 / 0.15);
-		color: $color-success;
+	&:hover,
+	&:focus-visible {
+		background: color-mix(in oklab, #{$color-accent} 16%, transparent);
+		color: $text-primary;
 	}
 
-	.linePrefix {
-		color: $color-success;
-		font-weight: 700;
-	}
-
-	.lineContent {
-		color: $color-success;
+	&:focus-visible {
+		outline: 2px solid $color-accent;
+		outline-offset: -2px;
 	}
 }
 
-.diffLineRemoved {
-	background: oklch(65% 0.2 25 / 0.12);
-
-	.lineNum {
-		background: oklch(65% 0.2 25 / 0.15);
-		color: $color-error;
-	}
-
-	.linePrefix {
-		color: $color-error;
-		font-weight: 700;
-	}
-
-	.lineContent {
-		color: $color-error;
-	}
-}
-
-.diffLineUnchanged {
-	background: transparent;
-
-	.lineNum {
-		color: $text-muted;
-	}
-
-	.linePrefix {
-		color: $text-muted;
-	}
-
-	.lineContent {
-		color: $text-tertiary;
-	}
-}
-
-.lineNum {
-	display: inline-flex;
-	align-items: center;
-	justify-content: flex-end;
-	width: 3rem;
-	min-width: 3rem;
-	padding: 0 0.5rem;
-	font-size: 0.75rem;
-	border-right: 1px solid $border-subtle;
-	user-select: none;
-	flex-shrink: 0;
-}
-
-.linePrefix {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	width: 1.5rem;
-	min-width: 1.5rem;
-	flex-shrink: 0;
-	user-select: none;
-}
-
-.lineContent {
-	flex: 1;
-	padding: 0 0.75rem;
-	white-space: pre-wrap;
-	word-break: break-all;
-	display: flex;
-	align-items: center;
-}
-
-// Empty State
-.emptyText {
+.hunkHeader {
 	color: $text-muted;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
