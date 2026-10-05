@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Michroma, Ubuntu_Mono } from "next/font/google";
 import "@/styles/globals.css";
 import ReduxProvider from "@/providers/ReduxProvider";
-import AppLayout from "@/components/AppLayout/AppLayout";
 import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
@@ -34,9 +33,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 	return (
 		<html lang="en">
 			<body className={`${geistSans.variable} ${michroma.variable} ${ubuntuMono.variable} antialiased`}>
-				<ReduxProvider>
-					<AppLayout>{children}</AppLayout>
-				</ReduxProvider>
+				<ReduxProvider>{children}</ReduxProvider>
 				{isProduction && (
 					<>
 						<Analytics />

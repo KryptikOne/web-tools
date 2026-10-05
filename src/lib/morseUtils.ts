@@ -17,3 +17,16 @@ export const MORSE_CODE: Record<string, string> = {
 export function charToMorse(ch: string): string | undefined {
 	return MORSE_CODE[ch.toUpperCase()];
 }
+
+/**
+ * Morse for a whole string: letters separated by spaces, words by " / ".
+ * Characters with no code are dropped.
+ */
+export function textToMorse(text: string): string {
+	return text
+		.trim()
+		.split(/\s+/)
+		.map((word) => Array.from(word).map(charToMorse).filter(Boolean).join(" "))
+		.filter(Boolean)
+		.join(" / ");
+}
