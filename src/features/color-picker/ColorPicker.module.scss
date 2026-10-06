@@ -55,7 +55,7 @@
   font-size: 18px;
   font-weight: 600;
   margin-bottom: $spacing-lg;
-  font-family: $font-family-display;
+  font-family: var(--font-geist-sans), $font-family-sans;
 }
 
 .sliderGroup {
@@ -241,7 +241,7 @@
 
   &.active {
     background: $color-primary-50;
-    border-color: $color-primary;
+    border-color: $theme-color-primary;
     color: $text-primary;
   }
 }
@@ -291,7 +291,7 @@
 .syncBtn {
   padding: $spacing-sm $spacing-md;
   background: $color-primary-50;
-  border: 1px solid $color-primary;
+  border: 1px solid $theme-color-primary;
   color: $text-primary;
   cursor: pointer;
   transition: all $transition-base;

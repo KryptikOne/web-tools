@@ -40,20 +40,23 @@
 // ======================
 // TYPOGRAPHY
 // ======================
+// Section headings use the body face; Michroma is reserved for the page title.
 .section-title {
   font-size: 1.125rem;
   font-weight: 600;
+  letter-spacing: -0.01em;
   color: $text-primary;
   margin: 0 0 1.25rem 0;
-  font-family: $font-family-display;
+  font-family: var(--font-geist-sans), $font-family-sans;
 }
 
 .section-title-sm {
   font-size: 1rem;
   font-weight: 600;
+  letter-spacing: -0.01em;
   color: $text-primary;
   margin: 0 0 1rem 0;
-  font-family: $font-family-display;
+  font-family: var(--font-geist-sans), $font-family-sans;
 }
 
 // ======================
@@ -205,11 +208,10 @@
   }
 }
 
+// Flat, hairline-separated entries (no card-inside-a-card).
 .info-item {
-  padding: 1rem;
-  background: $input-bg;
-  border-radius: $radius-md;
-  border: 1px solid $border-subtle;
+  padding-top: 0.875rem;
+  border-top: 1px solid $border-subtle;
 }
 
 .info-subtitle {

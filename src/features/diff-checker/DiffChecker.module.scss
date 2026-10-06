@@ -55,7 +55,7 @@ $move: $theme-color-accent;
 	background: $bg-glass;
 	color: $text-secondary;
 	border: 1px solid $border-subtle;
-	border-radius: 0.5rem;
+	border-radius: $radius-md;
 	font-weight: 500;
 	font-size: 0.875rem;
 	cursor: pointer;
@@ -88,7 +88,7 @@ $move: $theme-color-accent;
 	color: $text-secondary;
 	background: $bg-glass;
 	border: 1px solid $border-subtle;
-	border-radius: 0.5rem;
+	border-radius: $radius-md;
 	cursor: pointer;
 	transition: all 0.2s ease;
 
@@ -107,7 +107,7 @@ $move: $theme-color-accent;
 	padding: 1rem;
 	background: var(--diff-surface);
 	border: 1px solid $input-border;
-	border-radius: 0.5rem;
+	border-radius: $radius-md;
 	color: $text-primary;
 	font-size: 0.875rem;
 	font-family: $font-family-mono;
@@ -152,7 +152,7 @@ $move: $theme-color-accent;
 .statBlock {
 	width: 0.5rem;
 	height: 0.5rem;
-	border-radius: 1px;
+	border-radius: $radius-sm;
 }
 
 .blockAdded {
@@ -416,7 +416,7 @@ $move: $theme-color-accent;
 
 .hlRemoved,
 .hlAdded {
-	border-radius: 2px;
+	border-radius: $radius-sm;
 	box-decoration-break: clone;
 	-webkit-box-decoration-break: clone;
 }

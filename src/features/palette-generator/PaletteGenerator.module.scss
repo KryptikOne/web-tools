@@ -166,7 +166,7 @@
 
 .sectionTitle {
 	color: $text-primary;
-	font-family: $font-family-display;
+	font-family: var(--font-geist-sans), $font-family-sans;
 }
 
 // Harmony Selection
@@ -302,7 +302,7 @@
 // Info Section
 .infoTitle {
 	color: $text-primary;
-	font-family: $font-family-display;
+	font-family: var(--font-geist-sans), $font-family-sans;
 }
 
 .infoGrid {

@@ -36,7 +36,7 @@
 	background: $bg-glass;
 	color: $text-secondary;
 	border: 1px solid $border-subtle;
-	border-radius: 0.5rem;
+	border-radius: $radius-md;
 	font-weight: 500;
 	font-size: 0.875rem;
 	cursor: pointer;
@@ -71,7 +71,7 @@
 	padding: 1rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: 0.5rem;
+	border-radius: $radius-md;
 	color: $text-primary;
 	font-family: $font-family-mono;
 	font-size: 0.95rem;
@@ -289,7 +289,7 @@
 	font-family: $font-family-mono;
 	font-size: 1.4rem;
 	font-weight: 600;
-	color: $color-primary;
+	color: $theme-color-primary;
 	text-align: right;
 	overflow-wrap: anywhere;
 }
@@ -355,13 +355,13 @@
 }
 
 .key-accent {
-	background: $color-accent;
+	background: $color-accent-fill;
 	color: #fff;
 	font-size: 1.25rem;
 	font-weight: 700;
 
 	&:hover:not(:disabled) {
-		background: $color-accent;
+		background: $color-accent-fill;
 		filter: brightness(1.1);
 	}
 }

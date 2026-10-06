@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SunIcon, MoonIcon } from "@heroicons/react/24/outline";
 import { TOOLS_REGISTRY } from "@/config/tools-registry";
@@ -38,6 +39,10 @@ export default function TopBar() {
 	return (
 		<header className={styles.topBar}>
 			<div className={styles.leftSection}>
+				{/* Terminal-style location, echoing the landing page prompt. */}
+				<Link href="/tools" className={`${styles.path} ${currentTool ? styles.pathWithTitle : ""}`}>
+					~/tools{currentTool ? "/" : ""}
+				</Link>
 				{currentTool && (
 					<>
 						{/* {ToolIcon && <ToolIcon className={styles.pageIcon} />} */}

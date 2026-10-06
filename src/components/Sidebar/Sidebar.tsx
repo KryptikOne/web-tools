@@ -3,7 +3,7 @@
 import { useState, useRef, useCallback, useMemo } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { WrenchScrewdriverIcon, DocumentTextIcon, SwatchIcon, PhotoIcon, CodeBracketIcon, CalculatorIcon, ArrowsRightLeftIcon, LockClosedIcon, ClockIcon, ShieldCheckIcon, GlobeAltIcon, ChevronRightIcon,
+import { DocumentTextIcon, SwatchIcon, PhotoIcon, CodeBracketIcon, CalculatorIcon, ArrowsRightLeftIcon, LockClosedIcon, ClockIcon, ShieldCheckIcon, GlobeAltIcon, ChevronRightIcon,
 	CakeIcon,
 } from "@heroicons/react/24/outline";
 import { CATEGORIES, getToolsByCategory } from "@/config/tools-registry";
@@ -127,9 +127,11 @@ export default function Sidebar() {
 
 			<aside className={`${styles.sidebar} ${mobileMenuOpen ? styles.sidebarOpen : ""}`}>
 				<div className={`h-full flex flex-col overflow-y-auto overflow-x-hidden ${styles.sidebarContent}`}>
-					<Link href="/tools" className={`flex items-center gap-2 px-5 h-16 no-underline ${styles.logo}`}>
-						<WrenchScrewdriverIcon className={`w-7 h-7 shrink-0 ${styles.logoIcon}`} />
-						<span className={`text-xl font-bold whitespace-nowrap ${styles.logoText}`}>Tools</span>
+					<Link href="/" className={`flex items-center px-5 h-16 shrink-0 no-underline ${styles.logo}`} aria-label="bittbott.dev home">
+						<span className="flex items-baseline gap-0.5">
+							<span className={`whitespace-nowrap ${styles.logoText}`}>BITTBOTT</span>
+							<span className={styles.logoSuffix}>.dev</span>
+						</span>
 					</Link>
 
 					<nav className="flex-1 py-4 overflow-y-auto">

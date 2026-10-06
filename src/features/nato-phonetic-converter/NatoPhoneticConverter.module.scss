@@ -56,7 +56,7 @@
 	}
 
 	&.active {
-		background: $color-accent;
+		background: $color-accent-fill;
 		color: #fff;
 		font-weight: 600;
 	}
@@ -239,7 +239,7 @@
 .cellLetter {
 	grid-area: letter;
 	align-self: start;
-	font-family: $font-family-display;
+	font-family: var(--font-ubuntu-mono), $font-family-mono;
 	font-size: 2.25rem;
 	font-weight: 700;
 	line-height: 1;
@@ -267,7 +267,7 @@
 	i {
 		display: block;
 		height: 3px;
-		border-radius: 2px;
+		border-radius: $radius-sm;
 		background: $text-secondary;
 	}
 }
@@ -301,7 +301,7 @@
 	width: 34px;
 	height: auto;
 	justify-self: end;
-	border-radius: 2px;
+	border-radius: $radius-sm;
 }
 
 .digits {
@@ -341,7 +341,7 @@
 }
 
 .digitChar {
-	font-family: $font-family-display;
+	font-family: var(--font-ubuntu-mono), $font-family-mono;
 	font-size: 1.25rem;
 	font-weight: 700;
 	line-height: 1;

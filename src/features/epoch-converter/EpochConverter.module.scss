@@ -34,7 +34,7 @@
 .liveIcon {
 	width: 1.5rem;
 	height: 1.5rem;
-	color: $color-primary;
+	color: $theme-color-primary;
 	flex-shrink: 0;
 }
 
@@ -81,7 +81,7 @@
 	font-family: $font-family-mono;
 	font-size: 1rem;
 	font-weight: 600;
-	color: $color-primary;
+	color: $theme-color-primary;
 	font-variant-numeric: tabular-nums;
 }
 

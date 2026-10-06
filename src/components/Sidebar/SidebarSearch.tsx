@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import styles from "./SidebarSearch.module.scss";
 
 interface SidebarSearchProps {
@@ -51,12 +51,14 @@ export default function SidebarSearch({ query, onQueryChange, onSubmit, matchCou
 		<div className={styles.wrapper}>
 			<label className={styles.field}>
 				<span className="sr-only">Search tools</span>
-				<MagnifyingGlassIcon className={styles.icon} aria-hidden="true" />
+				<span className={styles.prompt} aria-hidden="true">
+					$
+				</span>
 				<input
 					ref={inputRef}
 					type="text"
 					className={styles.input}
-					placeholder="Search tools…"
+					placeholder="search tools"
 					value={query}
 					onChange={(e) => onQueryChange(e.target.value)}
 					onKeyDown={handleKeyDown}

@@ -5,7 +5,7 @@
 .container { @extend .container; }
 .glassCard { @extend .glass-card; margin-bottom: 1.5rem; }
 .sectionTitle { @extend .section-title; }
-.chartTitle { font-size: 1rem; font-weight: 600; color: $text-primary; margin: 0 0 0.75rem 0; font-family: $font-family-display; }
+.chartTitle { font-size: 1rem; font-weight: 600; color: $text-primary; margin: 0 0 0.75rem 0; font-family: var(--font-geist-sans), $font-family-sans; }
 
 .categoryTabs {
 	display: flex;
@@ -32,7 +32,7 @@
 }
 
 .activeTab {
-	background: $color-accent;
+	background: $color-accent-fill;
 	color: white;
 	border-color: $color-accent;
 

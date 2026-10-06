@@ -69,14 +69,14 @@
 
 .btnPrimary {
 	@include btn-base;
-	background: $color-accent;
+	background: $color-accent-fill;
 	color: white;
 	font-weight: 600;
 	padding: 0.625rem 1rem;
 	border: 1px solid transparent;
 
 	&:hover:not(:disabled) {
-		background: $color-accent;
+		background: $color-accent-fill;
 		filter: brightness(1.1);
 		transform: translateY(-1px);
 	}

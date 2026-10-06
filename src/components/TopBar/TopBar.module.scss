@@ -31,10 +31,31 @@
   overflow: hidden;
 }
 
+.path {
+  flex-shrink: 0;
+  margin-right: -0.5rem; // sit tight against the title
+  font-family: var(--font-ubuntu-mono), $font-family-mono;
+  font-size: 1rem;
+  color: $text-muted;
+  text-decoration: none;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $theme-color-primary;
+  }
+}
+
+// On phones the title needs the room.
+.pathWithTitle {
+  @media (max-width: 640px) {
+    display: none;
+  }
+}
+
 .pageIcon {
   width: 1.5rem;
   height: 1.5rem;
-  color: $color-primary;
+  color: $theme-color-primary;
   flex-shrink: 0;
 }
 
@@ -143,7 +164,7 @@
     width: 20px;
     height: 2px;
     background-color: $text-secondary;
-    border-radius: 2px;
+    border-radius: $radius-sm;
     position: absolute;
     transition: transform 0.22s ease, background-color 0.2s ease;
   }

@@ -97,13 +97,13 @@
 	height: 4px;
 	margin: 0.5rem 0;
 	background: $bg-glass;
-	border-radius: 2px;
+	border-radius: $radius-sm;
 	overflow: hidden;
 }
 
 .barFill {
 	height: 100%;
-	background: $color-accent;
+	background: $color-accent-fill;
 	transition: width $transition-base;
 }
 

@@ -49,7 +49,7 @@
 
 .dieName {
 	color: $text-primary;
-	font-family: $font-family-display;
+	font-family: var(--font-ubuntu-mono), $font-family-mono;
 }
 
 .dieCount {
@@ -59,7 +59,7 @@
 	height: 22px;
 	padding: 0 6px;
 	background: var(--die-color);
-	border-radius: 11px;
+	border-radius: $radius-sm;
 }
 
 .controlBtn {
@@ -103,7 +103,7 @@
 	@include btn-primary;
 	padding: 1rem 2.5rem;
 	border-radius: $radius-lg;
-	font-family: $font-family-display;
+	font-family: var(--font-ubuntu-mono), $font-family-mono;
 }
 
 .spinning {
@@ -148,7 +148,7 @@
 
 .resultValue {
 	color: $text-primary;
-	font-family: $font-family-display;
+	font-family: var(--font-ubuntu-mono), $font-family-mono;
 }
 
 .resultLabel {
@@ -167,7 +167,7 @@
 
 .totalValue {
 	color: $color-accent;
-	font-family: $font-family-display;
+	font-family: var(--font-ubuntu-mono), $font-family-mono;
 }
 
 // History Section

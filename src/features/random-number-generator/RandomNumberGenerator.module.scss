@@ -72,7 +72,7 @@
 	@include btn-primary;
 	padding: 0.875rem 2rem;
 	border-radius: $radius-lg;
-	font-family: $font-family-display;
+	font-family: var(--font-ubuntu-mono), $font-family-mono;
 }
 
 // Copy button

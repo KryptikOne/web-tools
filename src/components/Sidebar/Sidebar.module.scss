@@ -60,7 +60,7 @@
 
   &::-webkit-scrollbar-thumb {
     background: $scrollbar-thumb;
-    border-radius: 3px;
+    border-radius: $radius-sm;
 
     &:hover {
       background: $scrollbar-thumb-hover;
@@ -68,40 +68,36 @@
   }
 }
 
+// Wordmark: Michroma like the landing's display face, ".dev" in mono, both lime.
 .logo {
   border-bottom: 1px solid $border-subtle;
-  transition: all 0.2s ease;
-
-  background: linear-gradient(135deg, #ff6b6b 5%, #feca57 33%, #48dbfb 66%, #1dd1a1 100%);
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-fill-color: transparent;
-
-  &:hover {
-    background: linear-gradient(135deg, #ff6b6b 5%, #feca57 33%, #48dbfb 66%, #1dd1a1 100%);
-    color: transparent;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-fill-color: transparent;
-  }
-}
-
-.logoIcon {
-  color: $color-primary;
+  color: $theme-color-primary;
 }
 
 .logoText {
-  color: $color-primary;
-  font-family: $font-family-display;
+  font-family: var(--font-michroma), $font-family-display;
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+
+.logoSuffix {
+  font-family: var(--font-ubuntu-mono), $font-family-mono;
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1;
+  transition: color $transition-fast;
+
+  .logo:hover & {
+    color: $theme-color-violet;
+  }
 }
 
 .categoryHeader {
   background: none;
   border: none;
   color: $text-tertiary;
+  font-family: var(--font-ubuntu-mono), $font-family-mono;
   letter-spacing: 0.05em;
   transition: all 0.2s ease;
 
@@ -112,7 +108,7 @@
 }
 
 .categoryIcon {
-  color: $color-primary;
+  color: $theme-color-primary;
   opacity: 0.8;
   transition: opacity 0.2s ease;
 
@@ -121,13 +117,13 @@
   }
 }
 
+// Hover is the visitor (violet tint); the current page is the machine (lime bar + tint).
 .toolLink {
   color: $text-secondary;
-  // border-radius: $radius-md;
-  transition: all 0.2s ease;
+  transition: background $transition-fast, color $transition-fast;
 
   &:hover:not(.disabled) {
-    background: linear-gradient(135deg, $color-accent-20 0%, $color-primary-20 100%);
+    background: color-mix(in oklab, $theme-color-violet 12%, transparent);
     color: $text-primary;
   }
 
@@ -136,25 +132,22 @@
   }
 
   &.active {
-    background: linear-gradient(135deg, $color-accent-50 0%, $color-primary-50 100%);
+    background: $theme-color-sel;
     color: $text-primary;
     font-weight: 500;
-    border-top-left-radius: 0.1875rem;
-    border-bottom-left-radius: 0.1875rem;
 
     &::before {
       content: '';
       position: absolute;
-      left: 0px;
+      left: 0;
       top: 0;
       bottom: 0;
-      width: 3px;
-      background: linear-gradient(135deg, $color-accent 0%, $color-primary 100%);
-      // border-radius: 3px 0 0 3px;
+      width: 2px;
+      background: $theme-color-primary;
     }
 
     &:hover:not(.disabled) {
-      background: linear-gradient(135deg, $color-accent 0%, $color-primary 100%);
+      background: $theme-color-sel;
     }
   }
 
@@ -162,10 +155,6 @@
     color: $text-muted;
     cursor: not-allowed;
     opacity: 0.5;
-
-    &:hover {
-      transform: none;
-    }
   }
 }
 
@@ -177,7 +166,7 @@
   padding: 0.125rem 0.5rem;
   background: $color-warning;
   color: #000000;
-  border-radius: 0.25rem;
+  border-radius: $radius-sm;
   font-size: 0.75rem;
   font-weight: 600;
   white-space: nowrap;

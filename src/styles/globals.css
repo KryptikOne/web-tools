@@ -10,9 +10,9 @@
 html[data-theme="dark"],
 html:not([data-theme]) {
 	/* Background Colors */
-	--bg-primary: oklch(25.2% 0 89.9 / 1);
-	--bg-secondary: #1a1a1a;
-	--bg-tertiary: #2a2a2a;
+	--bg-primary: oklch(15% 0.014 140);
+	--bg-secondary: oklch(19% 0.016 140);
+	--bg-tertiary: oklch(23% 0.018 140);
 	--bg-grid: oklch(29.4% 0 89.9 / 1);
 	--bg-gradient-primary: linear-gradient(135deg, oklch(91.9% 0.196 131.1) 0%, oklch(75% 0.15 180) 100%);
 
@@ -26,6 +26,8 @@ html:not([data-theme]) {
 	--color-accent-secondary: oklch(85% 0.18 85);
 	--color-accent-secondary-50: oklch(85% 0.18 85 / 0.5);
 	--color-muted: oklch(65% 0.12 160);
+	--color-violet: oklch(72% 0.17 311);
+	--color-sel: oklch(91.9% 0.196 131.1 / 0.1);
 
 	/* Semantic Colors */
 	--color-success: oklch(70% 0.18 145);
@@ -34,25 +36,25 @@ html:not([data-theme]) {
 	--color-info: oklch(70% 0.12 230);
 
 	/* Glass Effects */
-	--bg-glass: rgba(255, 255, 255, 0.05);
+	--bg-glass: oklch(94% 0.02 125 / 0.035);
 	--bg-glass-primary: oklch(91.9% 0.196 131.1 / 0.2);
-	--bg-glass-hover: rgba(255, 255, 255, 0.1);
-	--bg-glass-active: rgba(255, 255, 255, 0.15);
-	--bg-overlay: rgba(0, 0, 0, 0.4);
+	--bg-glass-hover: oklch(94% 0.02 125 / 0.07);
+	--bg-glass-active: oklch(94% 0.02 125 / 0.11);
+	--bg-overlay: oklch(15% 0.014 140 / 0.82);
 	--bg-overlay-light: rgba(0, 0, 0, 0.2);
 	--bg-overlay-dark: rgba(0, 0, 0, 0.5);
 
 	/* Text Colors */
-	--text-primary: #ffffff;
-	--text-secondary: #e5e7eb;
-	--text-tertiary: #9ca3af;
-	--text-muted: #6b7280;
+	--text-primary: oklch(94% 0.02 125);
+	--text-secondary: oklch(85% 0.022 130);
+	--text-tertiary: oklch(74% 0.03 135);
+	--text-muted: oklch(58% 0.035 138);
 	--text-code: oklch(91.9% 0.196 131.1 / 1);
 
 	/* Border Colors */
-	--border-subtle: rgba(255, 255, 255, 0.1);
-	--border-medium: rgba(255, 255, 255, 0.2);
-	--border-strong: rgba(255, 255, 255, 0.3);
+	--border-subtle: oklch(31% 0.025 138);
+	--border-medium: oklch(38% 0.028 138);
+	--border-strong: oklch(47% 0.03 138);
 
 	/* Shadows */
 	--shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
@@ -61,22 +63,22 @@ html:not([data-theme]) {
 	--shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
 
 	/* Input/Form Elements */
-	--input-bg: rgba(0, 0, 0, 0.3);
-	--input-bg-focus: rgba(0, 0, 0, 0.4);
-	--input-border: rgba(255, 255, 255, 0.1);
+	--input-bg: oklch(12% 0.012 140 / 0.7);
+	--input-bg-focus: oklch(11% 0.012 140 / 0.85);
+	--input-border: oklch(31% 0.025 138);
 	--input-border-focus: oklch(91.9% 0.196 131.1 / 1);
 
 	/* Scrollbar */
-	--scrollbar-track: rgba(255, 255, 255, 0.05);
-	--scrollbar-thumb: rgba(255, 255, 255, 0.2);
-	--scrollbar-thumb-hover: rgba(255, 255, 255, 0.3);
+	--scrollbar-track: oklch(94% 0.02 125 / 0.03);
+	--scrollbar-thumb: oklch(40% 0.03 138);
+	--scrollbar-thumb-hover: oklch(50% 0.03 138);
 }
 
 html[data-theme="light"] {
 	/* Background Colors */
-	--bg-primary: #f6f9f7;
-	--bg-secondary: #ccc5b9;
-	--bg-tertiary: #e8e8e8;
+	--bg-primary: oklch(97% 0.01 120);
+	--bg-secondary: oklch(94% 0.012 120);
+	--bg-tertiary: oklch(91% 0.014 120);
 	--bg-grid: oklch(80% 0.05 142.5 / 30%);
 	--bg-gradient-primary: linear-gradient(135deg, oklch(55% 0.2 145) 0%, oklch(50% 0.12 180) 100%);
 
@@ -89,6 +91,8 @@ html[data-theme="light"] {
 	--color-accent-secondary: oklch(55% 0.15 85);
 	--color-accent-secondary-50: oklch(55% 0.15 85 / 0.5);
 	--color-muted: oklch(45% 0.1 160);
+	--color-violet: oklch(55% 0.196 311.1);
+	--color-sel: oklch(49% 0.17 145 / 0.1);
 
 	/* Semantic Colors - Adjusted for light backgrounds */
 	--color-success: oklch(50% 0.15 145);
@@ -97,25 +101,25 @@ html[data-theme="light"] {
 	--color-info: oklch(50% 0.1 230);
 
 	/* Glass Effects */
-	--bg-glass: rgba(0, 0, 0, 0.03);
+	--bg-glass: oklch(21% 0.03 145 / 0.03);
 	--bg-glass-primary: oklch(47.3% 0.102 245.3 / 0.2);
-	--bg-glass-hover: rgba(0, 0, 0, 0.06);
-	--bg-glass-active: rgba(0, 0, 0, 0.1);
-	--bg-overlay: rgba(255, 255, 255, 0.85);
+	--bg-glass-hover: oklch(21% 0.03 145 / 0.06);
+	--bg-glass-active: oklch(21% 0.03 145 / 0.1);
+	--bg-overlay: oklch(97% 0.01 120 / 0.85);
 	--bg-overlay-light: rgba(255, 255, 255, 0.5);
 	--bg-overlay-dark: rgba(0, 0, 0, 0.1);
 
 	/* Text Colors */
-	--text-primary: #1a1a1a;
-	--text-secondary: #4a4a4a;
-	--text-tertiary: #6b7280;
-	--text-muted: #9ca3af;
+	--text-primary: oklch(21% 0.03 145);
+	--text-secondary: oklch(33% 0.03 145);
+	--text-tertiary: oklch(43% 0.03 145);
+	--text-muted: oklch(56% 0.03 140);
 	--text-code: var(--text-primary);
 
 	/* Border Colors */
-	--border-subtle: rgba(0, 0, 0, 0.1);
-	--border-medium: rgba(0, 0, 0, 0.15);
-	--border-strong: rgba(0, 0, 0, 0.25);
+	--border-subtle: oklch(86% 0.02 135);
+	--border-medium: oklch(80% 0.022 135);
+	--border-strong: oklch(70% 0.025 135);
 
 	/* Shadows */
 	--shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -124,22 +128,20 @@ html[data-theme="light"] {
 	--shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 
 	/* Input/Form Elements */
-	--input-bg: rgba(0, 0, 0, 0.03);
-	--input-bg-focus: rgba(0, 0, 0, 0.05);
-	--input-border: rgba(0, 0, 0, 0.15);
-	--input-border-focus: rgba(0, 0, 0, 0.3);
+	--input-bg: oklch(99.3% 0.005 120);
+	--input-bg-focus: oklch(99.7% 0.003 120);
+	--input-border: oklch(84% 0.02 135);
+	--input-border-focus: oklch(49% 0.17 145);
 
 	/* Scrollbar */
-	--scrollbar-track: rgba(0, 0, 0, 0.05);
-	--scrollbar-thumb: rgba(0, 0, 0, 0.2);
-	--scrollbar-thumb-hover: rgba(0, 0, 0, 0.3);
+	--scrollbar-track: oklch(21% 0.03 145 / 0.03);
+	--scrollbar-thumb: oklch(80% 0.02 135);
+	--scrollbar-thumb-hover: oklch(70% 0.025 135);
 }
 
 body {
 	color: var(--text-primary);
 	font-family: var(--font-sans), Arial, Helvetica, sans-serif;
-	background-image: linear-gradient(var(--bg-grid) 1px, transparent 1px), linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
-	background-size: 40px 40px;
 	background-color: var(--bg-primary);
 	margin: 0;
 	padding: 0;

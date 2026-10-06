@@ -110,10 +110,10 @@
 
 .swapBtn {
   @include btn-icon;
-  color: $color-primary;
+  color: $theme-color-primary;
 
   &:hover {
-    color: $color-primary;
+    color: $theme-color-primary;
     background: $bg-glass-hover;
   }
 }
@@ -217,7 +217,7 @@
     background: rgba(102, 234, 150, 0.1);
 
     td {
-      color: $color-primary;
+      color: $theme-color-primary;
     }
   }
 }
@@ -247,6 +247,6 @@
 .formula {
   background: $bg-glass;
   font-family: $font-family-mono;
-  color: $color-primary;
+  color: $theme-color-primary;
   margin: 0.25rem 0;
 }

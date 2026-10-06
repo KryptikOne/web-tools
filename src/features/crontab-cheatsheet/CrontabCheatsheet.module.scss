@@ -94,7 +94,7 @@
 
 .categoryTitle {
 	color: $text-primary;
-	font-family: $font-family-display;
+	font-family: var(--font-geist-sans), $font-family-sans;
 	letter-spacing: 0.02em;
 }
 

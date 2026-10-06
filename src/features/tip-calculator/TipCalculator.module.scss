@@ -72,7 +72,7 @@
 	font-size: 2rem;
 	font-weight: 700;
 	color: $text-primary;
-	font-family: $font-family-display;
+	font-family: var(--font-ubuntu-mono), $font-family-mono;
 	transition: all 0.2s ease;
 
 	&:focus {
@@ -260,7 +260,7 @@
 .splitCount {
 	font-size: 1.5rem;
 	font-weight: 700;
-	font-family: $font-family-display;
+	font-family: var(--font-ubuntu-mono), $font-family-mono;
 }
 
 .splitLabel {
@@ -313,7 +313,7 @@
 	font-size: 1.75rem;
 	font-weight: 700;
 	color: $text-primary;
-	font-family: $font-family-display;
+	font-family: var(--font-ubuntu-mono), $font-family-mono;
 }
 
 .resultValueSmall {
@@ -327,7 +327,7 @@
 	font-size: 2rem;
 	font-weight: 700;
 	color: $color-accent;
-	font-family: $font-family-display;
+	font-family: var(--font-ubuntu-mono), $font-family-mono;
 }
 
 .copyBtnSmall {

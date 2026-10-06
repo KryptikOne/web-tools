@@ -86,7 +86,7 @@
 }
 
 .arrowIcon {
-  color: $color-primary;
+  color: $theme-color-primary;
 }
 
 .baseSizeSection {
@@ -98,7 +98,7 @@
 }
 
 .baseSizeValue {
-  color: $color-primary;
+  color: $theme-color-primary;
 }
 
 .slider {
@@ -126,7 +126,7 @@
   }
 
   &.active {
-    border-color: $color-primary;
+    border-color: $theme-color-primary;
     background: rgba(102, 234, 150, 0.1);
   }
 }
@@ -175,7 +175,7 @@
     background: rgba(102, 234, 150, 0.1);
 
     td {
-      color: $color-primary;
+      color: $theme-color-primary;
     }
   }
 }
@@ -204,6 +204,6 @@
 .formula {
   background: $bg-glass;
   font-family: $font-family-mono;
-  color: $color-primary;
+  color: $theme-color-primary;
   margin: 0.25rem 0;
 }

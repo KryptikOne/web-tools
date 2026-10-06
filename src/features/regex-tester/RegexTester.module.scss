@@ -139,7 +139,7 @@
 .highlight {
   background: $color-accent-20;
   border: 1px solid $color-accent-50;
-  border-radius: 2px;
+  border-radius: $radius-sm;
   color: inherit;
   padding: 0 1px;
 }

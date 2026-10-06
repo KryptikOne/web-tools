@@ -47,12 +47,12 @@
 	@include btn-primary;
 	padding: 0.65rem 1rem;
 	font-size: 0.875rem;
-	background: $color-accent;
+	background: $color-accent-fill;
 	border-color: $color-accent;
 	color: #fff;
 
 	&:hover:not(:disabled) {
-		background: $color-accent;
+		background: $color-accent-fill;
 		filter: brightness(1.1);
 	}
 }
@@ -131,7 +131,7 @@
 	font-family: $font-family-mono;
 	font-size: 1.15rem;
 	font-weight: 600;
-	color: $color-primary;
+	color: $theme-color-primary;
 	overflow-wrap: anywhere;
 }
 

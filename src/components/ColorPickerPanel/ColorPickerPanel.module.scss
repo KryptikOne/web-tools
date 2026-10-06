@@ -78,7 +78,7 @@
 	height: 24px;
 	background: white;
 	border: 1px solid rgba(0, 0, 0, 0.3);
-	border-radius: 2px;
+	border-radius: $radius-sm;
 	box-shadow: $shadow-sm;
 	transform: translateX(-50%);
 	pointer-events: none;

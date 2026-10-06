@@ -20,7 +20,7 @@
   font-size: 18px;
   font-weight: 600;
   margin-bottom: $spacing-lg;
-  font-family: $font-family-display;
+  font-family: var(--font-geist-sans), $font-family-sans;
 }
 
 // Preview Section
@@ -496,7 +496,7 @@
   height: 20px;
   background: white;
   border: 1px solid rgba(0, 0, 0, 0.3);
-  border-radius: 2px;
+  border-radius: $radius-sm;
   box-shadow: $shadow-sm;
   transform: translateX(-50%);
   pointer-events: none;
