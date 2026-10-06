@@ -1,11 +1,9 @@
+import { toolMetadata } from "@/config/seo";
 import ToolLayout from "@/components/ToolLayout/ToolLayout";
 import ColorBlindnessSimulator from "@/features/color-blindness-simulator/ColorBlindnessSimulator";
 import { EyeIcon } from "@heroicons/react/24/outline";
 
-export const metadata = {
-	title: "Color Blindness Simulator - Web Tools",
-	description: "Simulate how colors and images appear to people with various types of color vision deficiency",
-};
+export const metadata = toolMetadata("color-blindness-simulator");
 
 export default function ColorBlindnessSimulatorPage() {
 	return (

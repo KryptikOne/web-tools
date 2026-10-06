@@ -1,7 +1,22 @@
+import type { Metadata } from "next";
 import { TOOLS_REGISTRY, CATEGORIES, getToolsByCategory } from "@/config/tools-registry";
+import { SITE } from "@/config/seo";
+import { buildPageMetadata } from "@/lib/seoUtils";
 import { ToolCategory } from "@/types/tools";
 import ToolCard from "@/components/ToolCard/ToolCard";
 import styles from "./page.module.scss";
+
+const liveTools = TOOLS_REGISTRY.filter((tool) => tool.implemented);
+const liveCategoryCount = new Set(liveTools.map((tool) => tool.category)).size;
+
+export const metadata: Metadata = buildPageMetadata(
+	{
+		title: "All Tools",
+		description: `Browse all ${liveTools.length} free BittBott.dev tools across ${liveCategoryCount} categories: color, CSS, text, encoding, security, network, unit conversion and more. All run in your browser.`,
+		path: "/tools",
+	},
+	SITE,
+);
 
 export default function ToolsPage() {
 	const implementedTools = TOOLS_REGISTRY.filter((tool) => tool.implemented);

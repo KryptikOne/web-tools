@@ -1,11 +1,9 @@
+import { toolMetadata } from "@/config/seo";
 import AsciiToHex from '@/features/ascii-to-hex/AsciiToHex';
 import ToolLayout from '@/components/ToolLayout/ToolLayout';
 import { CodeBracketSquareIcon } from '@heroicons/react/24/outline';
 
-export const metadata = {
-  title: 'ASCII to Hex Converter - Web Tools',
-  description: 'Convert ASCII text to hexadecimal and hex to ASCII with delimiter options, case toggle, and a full ASCII character table',
-};
+export const metadata = toolMetadata("ascii-to-hex");
 
 export default function AsciiToHexPage() {
   return (

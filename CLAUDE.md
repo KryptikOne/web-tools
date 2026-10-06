@@ -89,8 +89,9 @@ When creating a new tool, **always complete all of these steps**:
 2. **Create the SCSS module** in `src/features/[tool-name]/[ToolName].module.scss`
 3. **Create the route page** in `src/app/tools/[tool-name]/page.tsx`
 4. **Register the tool** in `src/config/tools-registry.ts` with `implemented: true`
-5. **Ensure accessibility**: All form elements (`<input>`, `<select>`, `<textarea>`) must have labels — use `<label>` wrappers, `htmlFor`/`id` pairing, or `aria-label`. Hidden file inputs always need `aria-label`.
-6. **Run `pnpm run build`** to verify everything compiles correctly
+5. **SEO**: give the registry entry an `seoDescription` (110–160 chars, no em-dashes, unique) and export `export const metadata = toolMetadata("<tool-id>");` from the route page (`import { toolMetadata } from "@/config/seo"`). Sitemap, llms.txt and JSON-LD pick the tool up automatically; `src/__tests__/seoRegistry.test.ts` fails if either step is skipped.
+6. **Ensure accessibility**: All form elements (`<input>`, `<select>`, `<textarea>`) must have labels — use `<label>` wrappers, `htmlFor`/`id` pairing, or `aria-label`. Hidden file inputs always need `aria-label`.
+7. **Run `pnpm run build`** to verify everything compiles correctly
 
 ---
 
@@ -178,6 +179,7 @@ Key utilities in this codebase:
 - `src/lib/diffUtils.ts` - Text diff: Myers line diff, word/char intra-line highlights, moved-block detection, split/unified rows, unchanged-line collapsing, unified patch output
 - `src/lib/syntaxHighlightUtils.ts` - Lazy-loaded lowlight highlighter: per-line syntax tokens with theme-agnostic kinds, language detection / file-extension mapping, merging tokens with diff segments
 - `src/lib/recipeUtils/` - Recipe DSL: parseRecipe, layoutRecipe (Cooking for Engineers grid), quantities (parse/scale/convert/sum), toHtml/toMarkdown, share-link encode/decode, sample recipes
+- `src/lib/seoUtils.ts` - Pure SEO builders: page/tool metadata, WebSite + WebApplication JSON-LD, llms.txt, absoluteUrl. Site constants and `toolMetadata(id)` live in `src/config/seo.ts`
 - `src/hooks/useIsMobile.ts` - SSR-safe mobile detection
 - `src/hooks/useClipboard.ts` - Clipboard operations with feedback
 - `src/components/SegmentedControl` - Joined radio-button group for mode/tab switches

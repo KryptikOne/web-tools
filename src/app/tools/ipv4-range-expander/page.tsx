@@ -1,6 +1,9 @@
+import { toolMetadata } from "@/config/seo";
 import ToolLayout from '@/components/ToolLayout/ToolLayout';
 import Ipv4RangeExpander from '@/features/ipv4-range-expander/Ipv4RangeExpander';
 import { getToolById } from "@/config/tools-registry";
+
+export const metadata = toolMetadata("ipv4-range-expander");
 
 export default function Ipv4RangeExpanderPage() {
 	const tool = getToolById("ipv4-range-expander")!;

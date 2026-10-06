@@ -1,13 +1,9 @@
-import { Metadata } from "next";
+import { toolMetadata } from "@/config/seo";
 import CharacterCounter from "@/features/character-counter/CharacterCounter";
 import ToolLayout from "@/components/ToolLayout/ToolLayout";
 import { DocumentTextIcon } from "@heroicons/react/24/outline";
 
-export const metadata: Metadata = {
-	title: "Character Counter | Web Tools",
-	description:
-		"Count characters, words, sentences, paragraphs, and lines. View reading and speaking time estimates, character frequency analysis, and social media character limits.",
-};
+export const metadata = toolMetadata("character-counter");
 
 export default function CharacterCounterPage() {
 	return (

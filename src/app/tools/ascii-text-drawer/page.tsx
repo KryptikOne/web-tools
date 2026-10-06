@@ -1,6 +1,9 @@
+import { toolMetadata } from "@/config/seo";
 import ToolLayout from '@/components/ToolLayout/ToolLayout';
 import AsciiTextDrawer from '@/features/ascii-text-drawer/AsciiTextDrawer';
 import { getToolById } from "@/config/tools-registry";
+
+export const metadata = toolMetadata("ascii-text-drawer");
 
 export default function AsciiTextDrawerPage() {
 	const tool = getToolById("ascii-text-drawer")!;

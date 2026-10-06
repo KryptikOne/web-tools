@@ -2,6 +2,8 @@ export interface Tool {
 	id: string;
 	name: string;
 	description: string;
+	/** 110–160 char search/AI description. Falls back to `description`. */
+	seoDescription?: string;
 	category: ToolCategory;
 	route: string;
 	icon?: string;

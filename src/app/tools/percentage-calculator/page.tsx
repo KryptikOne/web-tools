@@ -1,10 +1,7 @@
-import { Metadata } from "next";
+import { toolMetadata } from "@/config/seo";
 import PercentageCalculator from "@/features/percentage-calculator/PercentageCalculator";
 
-export const metadata: Metadata = {
-	title: "Percentage Calculator | Web Tools",
-	description: "Calculate percentages easily. Find what percent one number is of another, calculate percentage of a number, or find the whole from a part and percentage.",
-};
+export const metadata = toolMetadata("percentage-calculator");
 
 export default function PercentageCalculatorPage() {
 	return <PercentageCalculator />;

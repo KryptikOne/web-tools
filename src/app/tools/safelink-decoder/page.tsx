@@ -1,6 +1,9 @@
+import { toolMetadata } from "@/config/seo";
 import ToolLayout from "@/components/ToolLayout/ToolLayout";
 import SafelinkDecoder from "@/features/safelink-decoder/SafelinkDecoder";
 import { getToolById } from "@/config/tools-registry";
+
+export const metadata = toolMetadata("safelink-decoder");
 
 export default function SafelinkDecoderPage() {
 	const tool = getToolById("safelink-decoder")!;

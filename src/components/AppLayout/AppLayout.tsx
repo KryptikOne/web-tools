@@ -4,6 +4,7 @@ import { ReactNode } from 'react';
 import Sidebar from '@/components/Sidebar/Sidebar';
 import TopBar from '@/components/TopBar/TopBar';
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary';
+import ToolStructuredData from '@/components/JsonLd/ToolStructuredData';
 import styles from './AppLayout.module.scss';
 
 interface AppLayoutProps {
@@ -13,6 +14,7 @@ interface AppLayoutProps {
 export default function AppLayout({ children }: AppLayoutProps) {
   return (
     <div className={styles.appLayout}>
+      <ToolStructuredData />
       <Sidebar />
       <div className={styles.mainWrapper}>
         <TopBar />

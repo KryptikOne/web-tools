@@ -1,6 +1,9 @@
+import { toolMetadata } from "@/config/seo";
 import ToolLayout from '@/components/ToolLayout/ToolLayout';
 import Ipv4AddressConverter from '@/features/ipv4-address-converter/Ipv4AddressConverter';
 import { getToolById } from "@/config/tools-registry";
+
+export const metadata = toolMetadata("ipv4-address-converter");
 
 export default function Ipv4AddressConverterPage() {
 	const tool = getToolById("ipv4-address-converter")!;

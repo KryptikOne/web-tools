@@ -1,11 +1,9 @@
+import { toolMetadata } from "@/config/seo";
 import CubicBezier from '@/features/cubic-bezier/CubicBezier';
 import ToolLayout from '@/components/ToolLayout/ToolLayout';
 import { ArrowTrendingUpIcon } from '@heroicons/react/24/outline';
 
-export const metadata = {
-  title: 'Cubic Bezier Generator - Web Tools',
-  description: 'Interactive cubic bezier curve editor for CSS animations and transitions',
-};
+export const metadata = toolMetadata("cubic-bezier");
 
 export default function CubicBezierPage() {
   return (

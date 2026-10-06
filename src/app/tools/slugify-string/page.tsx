@@ -1,6 +1,9 @@
+import { toolMetadata } from "@/config/seo";
 import ToolLayout from '@/components/ToolLayout/ToolLayout';
 import SlugifyString from '@/features/slugify-string/SlugifyString';
 import { getToolById } from "@/config/tools-registry";
+
+export const metadata = toolMetadata("slugify-string");
 
 export default function SlugifyStringPage() {
 	const tool = getToolById("slugify-string")!;

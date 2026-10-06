@@ -1,11 +1,9 @@
+import { toolMetadata } from "@/config/seo";
 import GradientGenerator from '@/features/gradient-generator/GradientGenerator';
 import ToolLayout from '@/components/ToolLayout/ToolLayout';
 import { SwatchIcon } from '@heroicons/react/24/outline';
 
-export const metadata = {
-  title: 'CSS Gradient Generator - Web Tools',
-  description: 'Create beautiful CSS gradients visually with support for linear and radial gradients',
-};
+export const metadata = toolMetadata("gradient-generator");
 
 export default function GradientGeneratorPage() {
   return (

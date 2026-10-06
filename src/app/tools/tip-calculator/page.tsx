@@ -1,10 +1,7 @@
-import { Metadata } from "next";
+import { toolMetadata } from "@/config/seo";
 import TipCalculator from "@/features/tip-calculator/TipCalculator";
 
-export const metadata: Metadata = {
-	title: "Tip Calculator | Web Tools",
-	description: "Calculate tips easily with preset percentages or custom amounts. Split bills between multiple people and see per-person totals.",
-};
+export const metadata = toolMetadata("tip-calculator");
 
 export default function TipCalculatorPage() {
 	return <TipCalculator />;

@@ -1,11 +1,9 @@
+import { toolMetadata } from "@/config/seo";
 import ToolLayout from '@/components/ToolLayout/ToolLayout';
 import UuidGenerator from '@/features/uuid-generator/UuidGenerator';
 import { FingerPrintIcon } from '@heroicons/react/24/outline';
 
-export const metadata = {
-  title: 'UUID Generator - Web Tools',
-  description: 'Generate, format, and validate UUIDs (v4). Supports bulk generation with multiple format options.',
-};
+export const metadata = toolMetadata("uuid-generator");
 
 export default function UuidGeneratorPage() {
   return (

@@ -1,11 +1,9 @@
+import { toolMetadata } from "@/config/seo";
 import CsvToJson from '@/features/csv-to-json/CsvToJson';
 import ToolLayout from '@/components/ToolLayout/ToolLayout';
 import { TableCellsIcon } from '@heroicons/react/24/outline';
 
-export const metadata = {
-  title: 'CSV to JSON Converter - Web Tools',
-  description: 'Convert CSV data to JSON format with delimiter options, header detection, and a live preview table',
-};
+export const metadata = toolMetadata("csv-to-json");
 
 export default function CsvToJsonPage() {
   return (

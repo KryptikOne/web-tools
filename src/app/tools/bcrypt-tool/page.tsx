@@ -1,12 +1,9 @@
+import { toolMetadata } from "@/config/seo";
 import ToolLayout from "@/components/ToolLayout/ToolLayout";
 import BcryptTool from "@/features/bcrypt-tool/BcryptTool";
 import { getToolById } from "@/config/tools-registry";
 
-export const metadata = {
-	title: "Bcrypt Generator & Verifier - Web Tools",
-	description:
-		"Hash text with bcrypt or verify a string against an existing bcrypt hash. Adjustable cost factor 4-15.",
-};
+export const metadata = toolMetadata("bcrypt-tool");
 
 export default function BcryptToolPage() {
 	const tool = getToolById("bcrypt-tool")!;
