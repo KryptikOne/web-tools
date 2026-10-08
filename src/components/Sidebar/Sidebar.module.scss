@@ -86,6 +86,8 @@
   font-weight: 700;
   font-size: 0.95rem;
   line-height: 1;
+  // Michroma's wide trailing side bearing + letter-spacing leaves a visible gap after "BITTBOTT".
+  margin-left: -6px;
   transition: color $transition-fast;
 
   .logo:hover & {

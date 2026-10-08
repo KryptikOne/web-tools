@@ -1,5 +1,5 @@
 import type { Tool } from "@/types/tools";
-import { WORDMARK_STACKED, WORDMARK_SUFFIX, WORDMARK_WIDE, artWidth } from "./wordmark";
+import { WORDMARK_STACKED, WORDMARK_SUFFIX, WORDMARK_SUFFIX_PULL, WORDMARK_WIDE, artWidth } from "./wordmark";
 
 /**
  * Imperative canvas engine behind the landing hero.
@@ -197,7 +197,7 @@ export function createGlyphField(opts: GlyphFieldOptions): GlyphFieldHandle {
 	function layout() {
 		const g = parseFloat(getComputedStyle(hero).paddingLeft) || 16;
 		const avail = hero.clientWidth - 2 * g;
-		const suffix = WORDMARK_SUFFIX.length;
+		const suffix = WORDMARK_SUFFIX.length - WORDMARK_SUFFIX_PULL;
 		let art = WORDMARK_WIDE;
 		let c = Math.floor(avail / (artWidth(WORDMARK_WIDE) + suffix + 0.5));
 		if (c < 8) {
@@ -249,10 +249,11 @@ export function createGlyphField(opts: GlyphFieldOptions): GlyphFieldHandle {
 		// ".dev" sits on the baseline of the last letter row and decodes in after the wordmark.
 		const sr = r0 + art.length - 2;
 		Array.from(WORDMARK_SUFFIX).forEach((chr, k) => {
-			const cc = c0 + aw + k;
+			const cx = aw - WORDMARK_SUFFIX_PULL + k;
+			const cc = c0 + cx;
 			if (cc >= cols || sr < 0 || sr >= rows) return;
-			const ra = REDUCED ? 0 : bootAt + 350 + (aw + k) * 16 + 900 + k * 90;
-			wm.set(sr * cols + cc, { chr, ra, cx: aw + k, ry: art.length - 2, text: true });
+			const ra = REDUCED ? 0 : bootAt + 350 + cx * 16 + 900 + k * 90;
+			wm.set(sr * cols + cc, { chr, ra, cx, ry: art.length - 2, text: true });
 		});
 
 		base = new Uint8Array(n);

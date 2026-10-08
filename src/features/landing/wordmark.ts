@@ -28,6 +28,9 @@ export const WORDMARK_STACKED = [
 /** Small suffix drawn on the baseline after the last letter row. */
 export const WORDMARK_SUFFIX = ".dev";
 
+/** Cells the suffix is pulled left into the art's trailing blank cells (each art row ends in 3). */
+export const WORDMARK_SUFFIX_PULL = 2;
+
 export function artWidth(art: readonly string[]): number {
 	return Math.max(...art.map((line) => Array.from(line).length));
 }
