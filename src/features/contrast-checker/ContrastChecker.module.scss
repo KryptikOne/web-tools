@@ -24,7 +24,7 @@
 
 .colorRow {
 	display: flex;
-	align-items: stretch; // the swatch fills the label + input height
+	align-items: center; // 3rem "xl" swatch matches the label + input stack
 	gap: 1rem;
 	padding: 0.875rem 1.25rem;
 	min-width: 0;

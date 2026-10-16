@@ -36,11 +36,9 @@
 		height: 40px;
 	}
 
-	&.fill {
-		box-sizing: border-box;
-		height: 100%;
-		width: auto;
-		aspect-ratio: 1 / 1;
+	&.xl {
+		width: 3rem;
+		height: 3rem;
 	}
 }
 
@@ -63,18 +61,10 @@
 		height: 40px;
 	}
 
-	&.fill {
-		box-sizing: border-box;
-		height: 100%;
-		width: auto;
-		aspect-ratio: 1 / 1;
+	&.xl {
+		width: 3rem;
+		height: 3rem;
 	}
-}
-
-// "fill" size: the container stretches to the parent flex row, the swatch fills it.
-.fillContainer {
-	display: flex;
-	align-self: stretch;
 }
 
 // Popover panel

@@ -58,7 +58,7 @@ export default function ContrastChecker() {
 						] as const
 					).map((row) => (
 						<div key={row.id} className={styles.colorRow}>
-							<ColorPickerPopover color={parseHexColor(row.value) ? normalizeHex(row.value) : "#000000"} onChange={row.set} swatchSize="fill" />
+							<ColorPickerPopover color={parseHexColor(row.value) ? normalizeHex(row.value) : "#000000"} onChange={row.set} swatchSize="xl" />
 							<div className="flex flex-col gap-1 min-w-0">
 								<label htmlFor={`contrast-${row.id}`} className={styles.rowLabel}>
 									{row.label}

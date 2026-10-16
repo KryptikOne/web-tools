@@ -98,25 +98,90 @@ export default function TipCalculator() {
 	};
 
 	const hasBill = parseFloat(billAmount) > 0;
+	const isSplitting = splitCount > 1;
+	const money = (amount: number) => `$${hasBill ? formatCurrency(amount) : "0.00"}`;
+
+	const renderCopy = (value: number, field: string) => (
+		<button
+			className={`${styles.copyBtnSmall} ${copiedField === field ? styles.copied : ""}`}
+			onClick={() => copyToClipboard(formatCurrency(value), field)}
+			aria-label={`Copy ${field === "tip" ? "tip amount" : field === "total" ? "total bill" : "amount per person"}`}
+			title="Copy"
+			disabled={!hasBill}
+		>
+			{copiedField === field ? <CheckIcon className="w-4 h-4" /> : <ClipboardDocumentIcon className="w-4 h-4" />}
+		</button>
+	);
 
 	return (
 		<div className={styles.container}>
-			{/* Main Calculator */}
-			<div className={styles.glassCard}>
-				<div className="flex justify-end items-center mb-6">
-					{/* <h2 className={styles.sectionTitle}>Tip Calculator</h2> */}
+			{/* Readout first: on a phone this keeps the number you care about on screen while you adjust. */}
+			<div className={`${styles.glassCard} ${styles.resultsCard}`} aria-live="polite">
+				<div className="flex items-center justify-between gap-3 mb-3">
+					<h2 className={`${styles.sectionTitle} mb-0`}>Results</h2>
 					<button onClick={clearAll} className={styles.clearBtn}>
 						<TrashIcon className="w-4 h-4" />
-						Clear All
+						Clear
 					</button>
 				</div>
 
+				{/* Lead number: what each person pays when splitting, otherwise the total */}
+				<div className={styles.lead}>
+					<span className={styles.resultLabel}>{isSplitting ? "Each person pays" : "Total bill"}</span>
+					<div className={styles.resultValueWrapper}>
+						<span className={styles.resultValueLarge}>{money(isSplitting ? calculations.perPersonBill : calculations.totalBill)}</span>
+						{renderCopy(isSplitting ? calculations.perPersonBill : calculations.totalBill, isSplitting ? "perPerson" : "total")}
+					</div>
+				</div>
+
+				<div className={styles.resultsGrid}>
+					<div className={styles.resultItem}>
+						<span className={styles.resultLabel}>Tip Amount</span>
+						<div className={styles.resultValueWrapper}>
+							<span className={styles.resultValue}>{money(calculations.tipAmount)}</span>
+							{renderCopy(calculations.tipAmount, "tip")}
+						</div>
+					</div>
+					{isSplitting ? (
+						<>
+							<div className={styles.resultItem}>
+								<span className={styles.resultLabel}>Total Bill</span>
+								<div className={styles.resultValueWrapper}>
+									<span className={styles.resultValue}>{money(calculations.totalBill)}</span>
+									{renderCopy(calculations.totalBill, "total")}
+								</div>
+							</div>
+							<div className={styles.resultItem}>
+								<span className={styles.resultLabel}>Tip Per Person</span>
+								<div className={styles.resultValueWrapper}>
+									<span className={styles.resultValue}>{money(calculations.perPersonTip)}</span>
+								</div>
+							</div>
+						</>
+					) : (
+						<div className={styles.resultItem}>
+							<span className={styles.resultLabel}>Effective Tip</span>
+							<div className={styles.resultValueWrapper}>
+								<span className={styles.resultValue}>{hasBill ? `${calculations.effectiveTip.toFixed(customMode === "dollar" ? 1 : 0)}%` : "0%"}</span>
+							</div>
+						</div>
+					)}
+				</div>
+			</div>
+
+			{/* Controls */}
+			<div className={styles.glassCard}>
 				{/* Bill Amount */}
-				<div className="mb-6">
-					<label className={`sr-only ${styles.inputLabel}`}>Bill Amount</label>
+				<div className={styles.field}>
+					<label htmlFor="tip-bill" className={styles.inputLabel}>
+						Bill
+					</label>
 					<div className={styles.billInputWrapper}>
-						<span className={styles.currencySymbol}>$</span>
+						<span className={styles.currencySymbol} aria-hidden="true">
+							$
+						</span>
 						<input
+							id="tip-bill"
 							type="number"
 							inputMode="decimal"
 							value={billAmount}
@@ -130,11 +195,18 @@ export default function TipCalculator() {
 				</div>
 
 				{/* Tip Percentage */}
-				<div className="mb-6">
-					<label className={`sr-only ${styles.inputLabel}`}>Tip Percentage</label>
+				<div className={styles.field} role="group" aria-labelledby="tip-percent-label">
+					<span id="tip-percent-label" className={styles.inputLabel}>
+						Tip
+					</span>
 					<div className={styles.tipGrid}>
 						{TIP_PRESETS.map((percent) => (
-							<button key={percent} onClick={() => handlePresetClick(percent)} className={`${styles.tipBtn} ${customMode === "none" && tipPercent === percent ? styles.active : ""}`}>
+							<button
+								key={percent}
+								onClick={() => handlePresetClick(percent)}
+								className={`${styles.tipBtn} ${customMode === "none" && tipPercent === percent ? styles.active : ""}`}
+								aria-pressed={customMode === "none" && tipPercent === percent}
+							>
 								{percent}%
 							</button>
 						))}
@@ -147,22 +219,28 @@ export default function TipCalculator() {
 								value={customTipPercent}
 								onChange={(e) => handleCustomTipPercentChange(e.target.value)}
 								className={`${styles.customTipInput} ${customMode === "percent" ? styles.active : ""}`}
-								placeholder="Percentage"
+								placeholder="Custom %"
+								aria-label="Custom tip percentage"
 								min="0"
 								max="100"
 							/>
-							<span className={styles.customTipUnit}>%</span>
+							<span className={styles.customTipUnit} aria-hidden="true">
+								%
+							</span>
 						</div>
 						<span className={styles.customTipOr}>or</span>
 						<div className={styles.customTipWrapper}>
-							<span className={styles.customTipCurrency}>$</span>
+							<span className={styles.customTipCurrency} aria-hidden="true">
+								$
+							</span>
 							<input
 								type="number"
 								inputMode="decimal"
 								value={customTipDollar}
 								onChange={(e) => handleCustomTipDollarChange(e.target.value)}
 								className={`${styles.customTipInput} ${styles.dollarInput} ${customMode === "dollar" ? styles.active : ""}`}
-								placeholder="Currency"
+								placeholder="Amount"
+								aria-label="Custom tip amount"
 								min="0"
 								step="0.01"
 							/>
@@ -171,10 +249,12 @@ export default function TipCalculator() {
 				</div>
 
 				{/* Split Bill */}
-				<div className="mb-6">
-					<label className={`sr-only ${styles.inputLabel}`}>Split Between</label>
+				<div className={`${styles.field} ${styles.splitField}`} role="group" aria-labelledby="tip-split-label">
+					<span id="tip-split-label" className={styles.inputLabel}>
+						Split
+					</span>
 					<div className={styles.splitWrapper}>
-						<button onClick={() => adjustSplit(-1)} className={styles.splitBtn} disabled={splitCount <= 1}>
+						<button onClick={() => adjustSplit(-1)} className={styles.splitBtn} disabled={splitCount <= 1} aria-label="One fewer person">
 							−
 						</button>
 						<div className={styles.splitDisplay}>
@@ -182,115 +262,12 @@ export default function TipCalculator() {
 							<span className={styles.splitCount}>{splitCount}</span>
 							<span className={styles.splitLabel}>{splitCount === 1 ? "person" : "people"}</span>
 						</div>
-						<button onClick={() => adjustSplit(1)} className={styles.splitBtn} disabled={splitCount >= 20}>
+						<button onClick={() => adjustSplit(1)} className={styles.splitBtn} disabled={splitCount >= 20} aria-label="One more person">
 							+
 						</button>
 					</div>
 				</div>
 			</div>
-
-			{/* Results */}
-			<div className={styles.glassCard}>
-				<h2 className={styles.sectionTitle}>Results</h2>
-
-				<div className={styles.resultsGrid}>
-					{/* Tip Amount */}
-					<div className={styles.resultItem}>
-						<span className={styles.resultLabel}>Tip Amount</span>
-						<div className={styles.resultValueWrapper}>
-							<span className={styles.resultValue}>${hasBill ? formatCurrency(calculations.tipAmount) : "0.00"}</span>
-							<button
-								className={`${styles.copyBtnSmall} ${copiedField === "tip" ? styles.copied : ""}`}
-								onClick={() => copyToClipboard(formatCurrency(calculations.tipAmount), "tip")}
-								title="Copy"
-								disabled={!hasBill}
-							>
-								{copiedField === "tip" ? <CheckIcon className="w-4 h-4" /> : <ClipboardDocumentIcon className="w-4 h-4" />}
-							</button>
-						</div>
-					</div>
-
-					{/* Total Bill */}
-					<div className={styles.resultItem}>
-						<span className={styles.resultLabel}>Total Bill</span>
-						<div className={styles.resultValueWrapper}>
-							<span className={styles.resultValue}>${hasBill ? formatCurrency(calculations.totalBill) : "0.00"}</span>
-							<button
-								className={`${styles.copyBtnSmall} ${copiedField === "total" ? styles.copied : ""}`}
-								onClick={() => copyToClipboard(formatCurrency(calculations.totalBill), "total")}
-								title="Copy"
-								disabled={!hasBill}
-							>
-								{copiedField === "total" ? <CheckIcon className="w-4 h-4" /> : <ClipboardDocumentIcon className="w-4 h-4" />}
-							</button>
-						</div>
-					</div>
-				</div>
-
-				{/* Per Person (only show if splitting) */}
-				{splitCount > 1 && (
-					<>
-						<div className={styles.divider} />
-						<div className={styles.resultsGrid}>
-							<div className={styles.resultItem}>
-								<span className={styles.resultLabel}>Tip Per Person</span>
-								<div className={styles.resultValueWrapper}>
-									<span className={styles.resultValueSmall}>${hasBill ? formatCurrency(calculations.perPersonTip) : "0.00"}</span>
-								</div>
-							</div>
-							<div className={`${styles.resultItem} ${styles.highlight}`}>
-								<span className={styles.resultLabel}>Each Person Pays</span>
-								<div className={styles.resultValueWrapper}>
-									<span className={styles.resultValueLarge}>${hasBill ? formatCurrency(calculations.perPersonBill) : "0.00"}</span>
-									<button
-										className={`${styles.copyBtnSmall} ${copiedField === "perPerson" ? styles.copied : ""}`}
-										onClick={() => copyToClipboard(formatCurrency(calculations.perPersonBill), "perPerson")}
-										title="Copy"
-										disabled={!hasBill}
-									>
-										{copiedField === "perPerson" ? <CheckIcon className="w-4 h-4" /> : <ClipboardDocumentIcon className="w-4 h-4" />}
-									</button>
-								</div>
-							</div>
-						</div>
-					</>
-				)}
-			</div>
-
-			{/* Tip Guide */}
-			{/* <div className={styles.glassCard}>
-				<h2 className={styles.sectionTitle}>Tipping Guide</h2>
-				<div className="grid gap-4 md:grid-cols-2">
-					<div className={styles.guideItem}>
-						<div className={styles.guidePercent}>15-20%</div>
-						<div className={styles.guideDesc}>
-							<strong>Restaurant / Sit-down dining</strong>
-							<p>Standard for good service. 20%+ for exceptional service.</p>
-						</div>
-					</div>
-					<div className={styles.guideItem}>
-						<div className={styles.guidePercent}>10-15%</div>
-						<div className={styles.guideDesc}>
-							<strong>Takeout / Counter service</strong>
-							<p>Optional but appreciated for complex orders.</p>
-						</div>
-					</div>
-					<div className={styles.guideItem}>
-						<div className={styles.guidePercent}>15-20%</div>
-						<div className={styles.guideDesc}>
-							<strong>Delivery</strong>
-							<p>More for bad weather or long distances.</p>
-						</div>
-					</div>
-					<div className={styles.guideItem}>
-						<div className={styles.guidePercent}>18-25%</div>
-						<div className={styles.guideDesc}>
-							<strong>Hair / Spa services</strong>
-							<p>Higher end for complex styling or treatments.</p>
-						</div>
-					</div>
-				</div>
-			</div> */}
 		</div>
 	);
 }
