@@ -48,6 +48,12 @@
   }
 }
 
+// Pinned search strip between the wordmark and the scrolling list.
+.searchBar {
+  padding: 0.625rem 1.25rem;
+  border-bottom: 1px solid $border-subtle;
+}
+
 // Custom scrollbar
 .sidebarContent {
   &::-webkit-scrollbar {

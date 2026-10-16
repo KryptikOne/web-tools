@@ -99,12 +99,10 @@ export default function Sidebar() {
 		setExpandedCategories(newExpanded);
 	};
 
-	const expandAll = () => {
-		setExpandedCategories(new Set(Object.keys(CATEGORIES) as ToolCategory[]));
-	};
+	const allExpanded = expandedCategories.size === Object.keys(CATEGORIES).length;
 
-	const collapseAll = () => {
-		setExpandedCategories(new Set());
+	const toggleAll = () => {
+		setExpandedCategories(allExpanded ? new Set() : new Set(Object.keys(CATEGORIES) as ToolCategory[]));
 	};
 
 	const handleCloseMobileMenu = () => {
@@ -126,7 +124,7 @@ export default function Sidebar() {
 			{mobileMenuOpen && <div className={styles.overlay} onClick={handleCloseMobileMenu} />}
 
 			<aside className={`${styles.sidebar} ${mobileMenuOpen ? styles.sidebarOpen : ""}`}>
-				<div className={`h-full flex flex-col overflow-y-auto overflow-x-hidden ${styles.sidebarContent}`}>
+				<div className="h-full flex flex-col min-h-0 overflow-hidden">
 					<Link href="/" className={`flex items-center px-5 h-16 shrink-0 no-underline ${styles.logo}`} aria-label="bittbott.dev home">
 						<span className="flex items-baseline gap-0.5">
 							<span className={`whitespace-nowrap ${styles.logoText}`}>BITTBOTT</span>
@@ -134,9 +132,13 @@ export default function Sidebar() {
 						</span>
 					</Link>
 
-					<nav className="flex-1 py-4 overflow-y-auto">
+					{/* Pinned under the logo so search is always one reach away while scrolling. */}
+					<div className={`flex items-center gap-2 shrink-0 ${styles.searchBar}`}>
 						<SidebarSearch query={query} onQueryChange={handleQueryChange} onSubmit={handleSubmit} matchCount={matchCount} />
-						{!isSearching && <ExpandCollapseAll onExpandAll={expandAll} onCollapseAll={collapseAll} />}
+						{!isSearching && <ExpandCollapseAll allExpanded={allExpanded} onToggle={toggleAll} />}
+					</div>
+
+					<nav className={`flex-1 min-h-0 py-4 overflow-y-auto overflow-x-hidden ${styles.sidebarContent}`}>
 						<FavoritesSection query={normalizedQuery} />
 
 						{isSearching && matchCount === 0 && (

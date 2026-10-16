@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeAll, beforeEach } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import { axe, toHaveNoViolations } from "jest-axe";
@@ -59,6 +59,48 @@ describe("FavoritesSection", () => {
 		expect(screen.getByText("Color Picker")).toBeInTheDocument();
 		expect(screen.getByText("JWT Decoder")).toBeInTheDocument();
 		expect(screen.queryByText(/star a tool to pin it here/i)).not.toBeInTheDocument();
+	});
+
+	it("shows a count and folds the list from the header", async () => {
+		const { default: FavoritesSection } = await import(
+			"@/components/Sidebar/FavoritesSection"
+		);
+		const { container, store } = renderWithStore(<FavoritesSection />, ["color-picker", "jwt-decoder"]);
+		const header = screen.getByRole("button", { name: "Favorites, 2 pinned" });
+		expect(header).toHaveAttribute("aria-expanded", "true");
+		const list = container.querySelector("#sidebar-favorites-list > div")!;
+		expect(list).not.toHaveAttribute("inert");
+
+		fireEvent.click(header);
+		expect(header).toHaveAttribute("aria-expanded", "false");
+		expect(list).toHaveAttribute("inert");
+		expect(store.getState().favorites.collapsed).toBe(true);
+		expect(JSON.parse(localStorage.getItem("favorites-state")!).collapsed).toBe(true);
+
+		fireEvent.click(header);
+		expect(header).toHaveAttribute("aria-expanded", "true");
+		expect(list).not.toHaveAttribute("inert");
+	});
+
+	it("forces the list open while searching", async () => {
+		const { default: FavoritesSection } = await import(
+			"@/components/Sidebar/FavoritesSection"
+		);
+		const { toggleFavoritesCollapsed } = await import("@/store/slices/favoritesSlice");
+		const { store, rerender } = renderWithStore(<FavoritesSection />, ["color-picker", "jwt-decoder"]);
+		act(() => {
+			store.dispatch(toggleFavoritesCollapsed());
+		});
+		expect(screen.getByRole("button", { name: /^favorites/i })).toHaveAttribute("aria-expanded", "false");
+
+		rerender(
+			<Provider store={store}>
+				<FavoritesSection query="jwt" />
+			</Provider>
+		);
+		expect(screen.getByRole("button", { name: /^favorites/i })).toHaveAttribute("aria-expanded", "true");
+		expect(screen.getByText("JWT Decoder")).toBeInTheDocument();
+		expect(screen.queryByText("Color Picker")).not.toBeInTheDocument();
 	});
 
 	it("has no a11y violations when empty", async () => {

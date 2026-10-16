@@ -1,7 +1,8 @@
 @use '@/styles/variables' as *;
 
 .wrapper {
-	margin: $spacing-sm 1.25rem;
+	flex: 1;
+	min-width: 0;
 }
 
 .field {

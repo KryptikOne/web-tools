@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { StarIcon } from "@heroicons/react/24/solid";
-import { Bars3Icon } from "@heroicons/react/24/outline";
+import { Bars3Icon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import {
 	DndContext,
 	closestCenter,
@@ -78,7 +78,7 @@ interface FavoritesSectionProps {
 }
 
 export default function FavoritesSection({ query = "" }: FavoritesSectionProps) {
-	const { favorites, reorder } = useFavorites();
+	const { favorites, reorder, collapsed, toggleCollapsed } = useFavorites();
 	const pathname = usePathname();
 	const [activeId, setActiveId] = useState<string | null>(null);
 
@@ -86,6 +86,8 @@ export default function FavoritesSection({ query = "" }: FavoritesSectionProps) 
 	const visibleFavorites = isSearching
 		? favorites.filter((t) => t.name.toLowerCase().includes(query))
 		: favorites;
+	// Search results always show; the fold only applies while browsing.
+	const isOpen = isSearching || !collapsed;
 
 	const sensors = useSensors(
 		useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
@@ -111,51 +113,64 @@ export default function FavoritesSection({ query = "" }: FavoritesSectionProps) 
 
 	return (
 		<div className={styles.section}>
-			<div className={styles.header}>
+			<button
+				type="button"
+				className={styles.header}
+				onClick={toggleCollapsed}
+				aria-expanded={isOpen}
+				aria-controls="sidebar-favorites-list"
+				aria-label={favorites.length > 0 ? `Favorites, ${favorites.length} pinned` : "Favorites"}
+			>
 				<StarIcon className={styles.headerIcon} />
-				<span>Favorites</span>
-			</div>
+				<span className={styles.headerLabel}>Favorites</span>
+				{favorites.length > 0 && <span className={styles.count}>{favorites.length}</span>}
+				<ChevronRightIcon className={`${styles.chevron} ${isOpen ? styles.chevronOpen : ""}`} />
+			</button>
 
-			{favorites.length === 0 ? (
-				<p className={styles.emptyHint}>Star a tool to pin it here.</p>
-			) : (
-				<DndContext
-					sensors={sensors}
-					collisionDetection={closestCenter}
-					onDragStart={(e) => setActiveId(String(e.active.id))}
-					onDragEnd={handleDragEnd}
-					onDragCancel={() => setActiveId(null)}
-				>
-					<SortableContext
-						items={visibleFavorites.map((t) => t.id)}
-						strategy={verticalListSortingStrategy}
-					>
-						<div className={styles.list}>
-							{visibleFavorites.map((tool) => (
-								<SortableRow
-									key={tool.id}
-									tool={tool}
-									isActive={pathname === tool.route}
-								/>
-							))}
-						</div>
-					</SortableContext>
-					{typeof document !== "undefined" &&
-						createPortal(
-							<DragOverlay>
-								{activeTool ? (
-									<div className={`${styles.row} ${styles.dragging}`}>
-										<button type="button" className={styles.dragHandle} aria-hidden="true">
-											<Bars3Icon />
-										</button>
-										<span className={styles.name}>{activeTool.name}</span>
-									</div>
-								) : null}
-							</DragOverlay>,
-							document.body
-						)}
-				</DndContext>
-			)}
+			<div id="sidebar-favorites-list" className={`${styles.items} ${isOpen ? styles.itemsOpen : ""}`}>
+			<div className={styles.itemsInner} inert={!isOpen}>
+					{favorites.length === 0 ? (
+						<p className={styles.emptyHint}>Star a tool to pin it here.</p>
+					) : (
+						<DndContext
+							sensors={sensors}
+							collisionDetection={closestCenter}
+							onDragStart={(e) => setActiveId(String(e.active.id))}
+							onDragEnd={handleDragEnd}
+							onDragCancel={() => setActiveId(null)}
+						>
+							<SortableContext
+								items={visibleFavorites.map((t) => t.id)}
+								strategy={verticalListSortingStrategy}
+							>
+								<div className={styles.list}>
+									{visibleFavorites.map((tool) => (
+										<SortableRow
+											key={tool.id}
+											tool={tool}
+											isActive={pathname === tool.route}
+										/>
+									))}
+								</div>
+							</SortableContext>
+							{typeof document !== "undefined" &&
+								createPortal(
+									<DragOverlay>
+										{activeTool ? (
+											<div className={`${styles.row} ${styles.dragging}`}>
+												<button type="button" className={styles.dragHandle} aria-hidden="true">
+													<Bars3Icon />
+												</button>
+												<span className={styles.name}>{activeTool.name}</span>
+											</div>
+										) : null}
+									</DragOverlay>,
+									document.body
+								)}
+						</DndContext>
+					)}
+			</div>
+			</div>
 		</div>
 	);
 }

@@ -5,6 +5,8 @@ import type { Tool } from "@/types/tools";
 
 interface FavoritesState {
 	ids: string[];
+	/** Sidebar Favorites list folded up (persisted) */
+	collapsed: boolean;
 }
 
 export const STORAGE_KEY = "favorites-state";
@@ -34,6 +36,7 @@ function saveToStorage(state: FavoritesState) {
 
 const initialState: FavoritesState = {
 	ids: [],
+	collapsed: false,
 };
 
 const favoritesSlice = createSlice({
@@ -43,6 +46,7 @@ const favoritesSlice = createSlice({
 		hydrateFavorites: (state) => {
 			const stored = loadFromStorage();
 			if (Array.isArray(stored.ids)) state.ids = stored.ids;
+			if (typeof stored.collapsed === "boolean") state.collapsed = stored.collapsed;
 		},
 		toggleFavorite: (state, action: PayloadAction<string>) => {
 			const id = action.payload;
@@ -58,6 +62,10 @@ const favoritesSlice = createSlice({
 			state.ids = action.payload;
 			saveToStorage(state);
 		},
+		toggleFavoritesCollapsed: (state) => {
+			state.collapsed = !state.collapsed;
+			saveToStorage(state);
+		},
 	},
 });
 
@@ -65,10 +73,12 @@ export const {
 	hydrateFavorites,
 	toggleFavorite,
 	reorderFavorites,
+	toggleFavoritesCollapsed,
 } = favoritesSlice.actions;
 
 // Selectors
 export const selectFavoriteIds = (state: RootState) => state.favorites.ids;
+export const selectFavoritesCollapsed = (state: RootState) => state.favorites.collapsed;
 export const selectIsFavorite = (id: string) => (state: RootState) =>
 	state.favorites.ids.includes(id);
 

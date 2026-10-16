@@ -1,34 +1,21 @@
 "use client";
 
-import { ChevronDoubleDownIcon, ChevronDoubleUpIcon } from "@heroicons/react/24/outline";
+import { BarsArrowDownIcon, BarsArrowUpIcon } from "@heroicons/react/24/outline";
 import styles from "./ExpandCollapseAll.module.scss";
 
 interface ExpandCollapseAllProps {
-	onExpandAll: () => void;
-	onCollapseAll: () => void;
+	/** Every category is currently open, so the action on offer is "collapse all" */
+	allExpanded: boolean;
+	onToggle: () => void;
 }
 
-export default function ExpandCollapseAll({ onExpandAll, onCollapseAll }: ExpandCollapseAllProps) {
+/** One icon button: expands every category when any is closed, otherwise collapses them all. */
+export default function ExpandCollapseAll({ allExpanded, onToggle }: ExpandCollapseAllProps) {
+	const label = allExpanded ? "Collapse all categories" : "Expand all categories";
+	const Icon = allExpanded ? BarsArrowUpIcon : BarsArrowDownIcon;
 	return (
-		<div className={styles.row}>
-			<button
-				type="button"
-				className={styles.button}
-				onClick={onExpandAll}
-				aria-label="Expand all categories"
-			>
-				<ChevronDoubleDownIcon className={styles.icon} />
-				<span>Expand all</span>
-			</button>
-			<button
-				type="button"
-				className={styles.button}
-				onClick={onCollapseAll}
-				aria-label="Collapse all categories"
-			>
-				<ChevronDoubleUpIcon className={styles.icon} />
-				<span>Collapse all</span>
-			</button>
-		</div>
+		<button type="button" className={styles.button} onClick={onToggle} aria-label={label} title={label}>
+			<Icon className={styles.icon} />
+		</button>
 	);
 }
