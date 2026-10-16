@@ -15,8 +15,8 @@ export interface ColorPickerPopoverProps {
 	onChange: (color: string) => void;
 	/** Disable the picker */
 	disabled?: boolean;
-	/** Size of the trigger swatch */
-	swatchSize?: "sm" | "md" | "lg";
+	/** Size of the trigger swatch. "fill" stretches to the parent flex row's height (square). */
+	swatchSize?: "sm" | "md" | "lg" | "fill";
 	/** Show hex value in popover (default: true) */
 	showHex?: boolean;
 	/** Make hex value editable as input (default: true) */
@@ -53,6 +53,7 @@ export function ColorPickerPopover({
 	const containerRef = useRef<HTMLDivElement>(null);
 	const popoverRef = useRef<HTMLDivElement>(null);
 	const isMobile = useIsMobile();
+	const containerClass = `relative inline-block ${swatchSize === "fill" ? styles.fillContainer : ""} ${className ?? ""}`;
 
 	// Calculate optimal position when popover opens
 	useLayoutEffect(() => {
@@ -106,13 +107,13 @@ export function ColorPickerPopover({
 
 	// Loading state during SSR
 	if (isMobile === null) {
-		return <div className={`rounded-lg p-0 ${styles.swatch} ${styles[swatchSize]} ${className ?? ""}`} style={{ backgroundColor: color }} />;
+		return <div className={`rounded-lg p-0 ${styles.swatch} ${styles[swatchSize]} ${swatchSize === "fill" ? styles.fillContainer : ""} ${className ?? ""}`} style={{ backgroundColor: color }} />;
 	}
 
 	// Mobile: use native color input styled as a swatch
 	if (isMobile) {
 		return (
-			<div className={`relative inline-block ${className ?? ""}`}>
+			<div className={containerClass}>
 				<input
 					type="color"
 					value={color}
@@ -127,7 +128,7 @@ export function ColorPickerPopover({
 
 	// Desktop: swatch with popover
 	return (
-		<div ref={containerRef} className={`relative inline-block ${className ?? ""}`}>
+		<div ref={containerRef} className={containerClass}>
 			<button
 				type="button"
 				className={`rounded-lg p-0 ${styles.swatch} ${styles[swatchSize]} ${disabled ? styles.disabled : ""}`}

@@ -250,6 +250,23 @@ export const UNIT_CATEGORIES: UnitCategory[] = [
 		],
 	},
 	{
+		id: "time",
+		name: "Time",
+		toolId: "time-duration-calculator",
+		baseUnitId: "s",
+		units: [
+			factor("ms", "Milliseconds", "ms", 0.001),
+			factor("s", "Seconds", "s", 1),
+			factor("min", "Minutes", "min", 60),
+			factor("hr", "Hours", "h", 3600),
+			factor("day", "Days", "d", 86400),
+			factor("week", "Weeks", "wk", 604800),
+			// Average Gregorian month and year (365.2425 days)
+			factor("month", "Months (avg)", "mo", 2629746),
+			factor("year", "Years (avg)", "yr", 31556952),
+		],
+	},
+	{
 		id: "fuel",
 		name: "Fuel Economy",
 		toolId: "fuel-economy-converter",

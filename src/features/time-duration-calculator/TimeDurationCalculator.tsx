@@ -1,47 +1,47 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
+import SegmentedControl from "@/components/SegmentedControl";
+import UnitConverterPanel from "@/components/UnitConverterPanel";
+import { getUnitCategory } from "@/lib/unitDefinitions";
 import styles from "./TimeDurationCalculator.module.scss";
 
-interface ConversionUnit {
-	id: string;
-	name: string;
-	abbrev: string;
-	toBase: (value: number) => number;
-	fromBase: (value: number) => number;
-}
+type DateMode = "difference" | "add_subtract";
 
-// Duration units (base: seconds)
-const DURATION_UNITS: ConversionUnit[] = [
-	{ id: "ms", name: "Milliseconds", abbrev: "ms", toBase: (v) => v / 1000, fromBase: (v) => v * 1000 },
-	{ id: "s", name: "Seconds", abbrev: "s", toBase: (v) => v, fromBase: (v) => v },
-	{ id: "min", name: "Minutes", abbrev: "min", toBase: (v) => v * 60, fromBase: (v) => v / 60 },
-	{ id: "hr", name: "Hours", abbrev: "hr", toBase: (v) => v * 3600, fromBase: (v) => v / 3600 },
-	{ id: "day", name: "Days", abbrev: "days", toBase: (v) => v * 86400, fromBase: (v) => v / 86400 },
-	{ id: "week", name: "Weeks", abbrev: "weeks", toBase: (v) => v * 604800, fromBase: (v) => v / 604800 },
-	{ id: "month", name: "Months (avg)", abbrev: "months", toBase: (v) => v * 2629746, fromBase: (v) => v / 2629746 },
-	{ id: "year", name: "Years (avg)", abbrev: "years", toBase: (v) => v * 31556952, fromBase: (v) => v / 31556952 },
+const DATE_MODES: { value: DateMode; label: string }[] = [
+	{ value: "difference", label: "Date Difference" },
+	{ value: "add_subtract", label: "Add / Subtract" },
 ];
 
-const TIME_EQUIVALENTS = [
-	{ description: "1 year", equivalent: "365.25 days / 8,766 hours" },
-	{ description: "1 month (avg)", equivalent: "30.44 days / 730.5 hours" },
-	{ description: "1 week", equivalent: "7 days / 168 hours" },
-	{ description: "1 day", equivalent: "24 hours / 1,440 minutes" },
-	{ description: "1 hour", equivalent: "60 minutes / 3,600 seconds" },
-	{ description: "1 minute", equivalent: "60 seconds / 60,000 ms" },
-	{ description: "Work year (standard)", equivalent: "~260 working days" },
-	{ description: "Work month (avg)", equivalent: "~21.7 working days" },
+// Reference charts
+const UNIT_TO_SECONDS = [
+	{ unit: "1 minute", seconds: "60 s" },
+	{ unit: "1 hour", seconds: "3,600 s" },
+	{ unit: "1 day", seconds: "86,400 s" },
+	{ unit: "1 week", seconds: "604,800 s" },
+	{ unit: "1 month (avg)", seconds: "2,629,746 s" },
+	{ unit: "1 year (avg)", seconds: "31,556,952 s" },
 ];
 
-function formatNumber(num: number): string {
-	if (num === 0) return "0";
-	if (Math.abs(num) < 0.0001) return num.toExponential(2);
-	if (Math.abs(num) >= 1000000) return num.toLocaleString(undefined, { maximumFractionDigits: 2 });
-	if (Number.isInteger(num)) return num.toString();
-	return num.toFixed(Math.abs(num) < 1 ? 4 : 2).replace(/\.?0+$/, "");
-}
+const DAYS_AND_HOURS = [
+	{ unit: "1 week", value: "7 d / 168 h" },
+	{ unit: "1 fortnight", value: "14 d / 336 h" },
+	{ unit: "1 month (avg)", value: "30.44 d / 730.5 h" },
+	{ unit: "1 quarter (avg)", value: "91.31 d / 2,191.5 h" },
+	{ unit: "1 year (avg)", value: "365.25 d / 8,766 h" },
+	{ unit: "1 leap year", value: "366 d / 8,784 h" },
+];
+
+const COMMON_DURATIONS = [
+	{ description: "Work day", value: "8 h / 480 min" },
+	{ description: "Work week", value: "40 h / 2,400 min" },
+	{ description: "Work year", value: "~260 days / 2,080 h" },
+	{ description: "Fortnight", value: "14 days / 2 weeks" },
+	{ description: "Quarter", value: "~13 weeks / 91.3 days" },
+	{ description: "Decade", value: "10 years / ~3,652.5 days" },
+	{ description: "One million seconds", value: "~11.57 days" },
+	{ description: "One billion seconds", value: "~31.7 years" },
+];
 
 function getToday(): string {
 	const d = new Date();
@@ -54,12 +54,7 @@ function getNow(): string {
 }
 
 export default function TimeDurationCalculator() {
-	const [mode, setMode] = useState<"converter" | "difference" | "add_subtract">("converter");
-
-	// Converter state
-	const [fromUnit, setFromUnit] = useState<string>("hr");
-	const [toUnit, setToUnit] = useState<string>("min");
-	const [inputValue, setInputValue] = useState<string>("1");
+	const [mode, setMode] = useState<DateMode>("difference");
 
 	// Date difference state
 	const [startDate, setStartDate] = useState<string>(getToday());
@@ -76,28 +71,6 @@ export default function TimeDurationCalculator() {
 	const [addHours, setAddHours] = useState<string>("0");
 	const [addMinutes, setAddMinutes] = useState<string>("0");
 	const [isSubtract, setIsSubtract] = useState<boolean>(false);
-
-	// Converter logic
-	const convert = useCallback(() => {
-		const value = parseFloat(inputValue);
-		if (isNaN(value)) return "";
-
-		const from = DURATION_UNITS.find((u) => u.id === fromUnit);
-		const to = DURATION_UNITS.find((u) => u.id === toUnit);
-
-		if (!from || !to) return "";
-
-		const baseValue = from.toBase(value);
-		const result = to.fromBase(baseValue);
-
-		return formatNumber(result);
-	}, [inputValue, fromUnit, toUnit]);
-
-	const swapUnits = () => {
-		const temp = fromUnit;
-		setFromUnit(toUnit);
-		setToUnit(temp);
-	};
 
 	// Date difference logic
 	const calculateDifference = useCallback(() => {
@@ -152,135 +125,87 @@ export default function TimeDurationCalculator() {
 		return result;
 	}, [baseDate, baseTime, addYears, addMonths, addDays, addHours, addMinutes, isSubtract]);
 
-	const converterResult = convert();
 	const diffResult = calculateDifference();
 	const addSubResult = calculateAddSubtract();
 
+	const diffBreakdown = diffResult
+		? [
+				{ label: "Years", value: diffResult.years },
+				{ label: "Months", value: diffResult.months },
+				{ label: "Days", value: diffResult.days },
+				{ label: "Hours", value: diffResult.hours },
+				{ label: "Minutes", value: diffResult.minutes },
+				{ label: "Seconds", value: diffResult.seconds },
+			]
+		: [];
+
+	const addSubFields = [
+		{ id: "years", label: "Years", value: addYears, set: setAddYears },
+		{ id: "months", label: "Months", value: addMonths, set: setAddMonths },
+		{ id: "days", label: "Days", value: addDays, set: setAddDays },
+		{ id: "hours", label: "Hours", value: addHours, set: setAddHours },
+		{ id: "minutes", label: "Minutes", value: addMinutes, set: setAddMinutes },
+	];
+
 	return (
 		<div className={styles.container}>
-			<div className={styles.glassCard}>
-				<h2 className={styles.sectionTitle}>Time Duration Calculator</h2>
+			<div className="mb-6">
+				<UnitConverterPanel category={getUnitCategory("time")!} initialUnitId="hr" initialValue="1" />
+			</div>
 
-				<div className={styles.modeTabs}>
-					<button className={`${styles.modeTab} ${mode === "converter" ? styles.activeTab : ""}`} onClick={() => setMode("converter")}>
-						Duration Converter
-					</button>
-					<button className={`${styles.modeTab} ${mode === "difference" ? styles.activeTab : ""}`} onClick={() => setMode("difference")}>
-						Date Difference
-					</button>
-					<button className={`${styles.modeTab} ${mode === "add_subtract" ? styles.activeTab : ""}`} onClick={() => setMode("add_subtract")}>
-						Add / Subtract
-					</button>
+			{/* Date calculator: difference between two dates, or add/subtract a duration */}
+			<div className={styles.glassCard}>
+				<div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+					<h3 className={`${styles.chartTitle} mb-0`}>Date Calculator</h3>
+					<SegmentedControl label="Date calculator mode" size="sm" fill={false} value={mode} onChange={setMode} options={DATE_MODES} />
 				</div>
 
-				{/* Duration Converter Mode */}
-				{mode === "converter" && (
-					<>
-						<div className={styles.converterGrid}>
-							<div className={styles.converterInput}>
-								<label className={styles.inputLabel}>From</label>
-								<div className={styles.inputRow}>
-									<input
-										type="number"
-										inputMode="decimal"
-										value={inputValue}
-										onChange={(e) => setInputValue(e.target.value)}
-										className={styles.numberInput}
-										placeholder="Enter value"
-									/>
-									<select value={fromUnit} onChange={(e) => setFromUnit(e.target.value)} className={styles.unitSelect}>
-										{DURATION_UNITS.map((unit) => (
-											<option key={unit.id} value={unit.id}>
-												{unit.name} ({unit.abbrev})
-											</option>
-										))}
-									</select>
-								</div>
-							</div>
-
-							<button className={styles.swapButton} onClick={swapUnits} title="Swap units">
-								<ArrowsRightLeftIcon className="w-5 h-5" />
-							</button>
-
-							<div className={styles.converterInput}>
-								<label className={styles.inputLabel}>To</label>
-								<div className={styles.inputRow}>
-									<div className={styles.resultDisplay}>{converterResult || "—"}</div>
-									<select value={toUnit} onChange={(e) => setToUnit(e.target.value)} className={styles.unitSelect}>
-										{DURATION_UNITS.map((unit) => (
-											<option key={unit.id} value={unit.id}>
-												{unit.name} ({unit.abbrev})
-											</option>
-										))}
-									</select>
-								</div>
-							</div>
-						</div>
-
-						{converterResult && (
-							<div className={styles.resultSummary}>
-								<span className={styles.resultText}>
-									{inputValue} {DURATION_UNITS.find((u) => u.id === fromUnit)?.abbrev} ={" "}
-									<strong>
-										{converterResult} {DURATION_UNITS.find((u) => u.id === toUnit)?.abbrev}
-									</strong>
-								</span>
-							</div>
-						)}
-					</>
-				)}
-
-				{/* Date Difference Mode */}
 				{mode === "difference" && (
 					<>
 						<div className={styles.dateInputs}>
 							<div className={styles.dateGroup}>
-								<label className={styles.inputLabel}>Start Date & Time</label>
-								<input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} className={styles.dateInput} />
-								<input type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} className={styles.dateInput} />
+								<span className={styles.inputLabel}>Start Date &amp; Time</span>
+								<div className={styles.inputRow}>
+									<input
+										type="date"
+										aria-label="Start date"
+										value={startDate}
+										onChange={(e) => setStartDate(e.target.value)}
+										className={styles.dateInput}
+									/>
+									<input
+										type="time"
+										aria-label="Start time"
+										value={startTime}
+										onChange={(e) => setStartTime(e.target.value)}
+										className={styles.dateInput}
+									/>
+								</div>
 							</div>
 							<div className={styles.dateGroup}>
-								<label className={styles.inputLabel}>End Date & Time</label>
-								<input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} className={styles.dateInput} />
-								<input type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} className={styles.dateInput} />
+								<span className={styles.inputLabel}>End Date &amp; Time</span>
+								<div className={styles.inputRow}>
+									<input type="date" aria-label="End date" value={endDate} onChange={(e) => setEndDate(e.target.value)} className={styles.dateInput} />
+									<input type="time" aria-label="End time" value={endTime} onChange={(e) => setEndTime(e.target.value)} className={styles.dateInput} />
+								</div>
 							</div>
 						</div>
 
 						{diffResult && (
 							<>
 								<div className={styles.resultCards}>
-									<div className={styles.resultCard}>
-										<span className={styles.resultCardValue}>{diffResult.years}</span>
-										<span className={styles.resultCardLabel}>Years</span>
-									</div>
-									<div className={styles.resultCard}>
-										<span className={styles.resultCardValue}>{diffResult.months}</span>
-										<span className={styles.resultCardLabel}>Months</span>
-									</div>
-									<div className={styles.resultCard}>
-										<span className={styles.resultCardValue}>{diffResult.days}</span>
-										<span className={styles.resultCardLabel}>Days</span>
-									</div>
-									<div className={styles.resultCard}>
-										<span className={styles.resultCardValue}>{diffResult.hours}</span>
-										<span className={styles.resultCardLabel}>Hours</span>
-									</div>
-									<div className={styles.resultCard}>
-										<span className={styles.resultCardValue}>{diffResult.minutes}</span>
-										<span className={styles.resultCardLabel}>Minutes</span>
-									</div>
-									<div className={styles.resultCard}>
-										<span className={styles.resultCardValue}>{diffResult.seconds}</span>
-										<span className={styles.resultCardLabel}>Seconds</span>
-									</div>
+									{diffBreakdown.map((item) => (
+										<div key={item.label} className={styles.resultCard}>
+											<span className={styles.resultCardValue}>{item.value}</span>
+											<span className={styles.resultCardLabel}>{item.label}</span>
+										</div>
+									))}
 								</div>
 
 								<div className={styles.resultSummary}>
 									<span className={styles.resultText}>
-										Total: <strong>{diffResult.totalDays.toLocaleString()} days</strong> /{" "}
-										<strong>{diffResult.totalHours.toLocaleString()} hours</strong> /{" "}
-										<strong>{diffResult.totalMinutes.toLocaleString()} minutes</strong> |{" "}
-										Working days: <strong>{diffResult.workingDays.toLocaleString()}</strong>
+										Total: <strong>{diffResult.totalDays.toLocaleString()} days</strong> / <strong>{diffResult.totalHours.toLocaleString()} hours</strong> /{" "}
+										<strong>{diffResult.totalMinutes.toLocaleString()} minutes</strong> | Working days: <strong>{diffResult.workingDays.toLocaleString()}</strong>
 									</span>
 								</div>
 							</>
@@ -288,47 +213,58 @@ export default function TimeDurationCalculator() {
 					</>
 				)}
 
-				{/* Add/Subtract Mode */}
 				{mode === "add_subtract" && (
 					<>
-						<div className={styles.dateGroup}>
-							<label className={styles.inputLabel}>Starting Date & Time</label>
-							<div className={styles.inputRow}>
-								<input type="date" value={baseDate} onChange={(e) => setBaseDate(e.target.value)} className={styles.dateInput} />
-								<input type="time" value={baseTime} onChange={(e) => setBaseTime(e.target.value)} className={styles.dateInput} />
+						<div className="flex flex-wrap items-end gap-4">
+							<div className={`${styles.dateGroup} flex-1 min-w-0`}>
+								<span className={styles.inputLabel}>Starting Date &amp; Time</span>
+								<div className={styles.inputRow}>
+									<input
+										type="date"
+										aria-label="Starting date"
+										value={baseDate}
+										onChange={(e) => setBaseDate(e.target.value)}
+										className={styles.dateInput}
+									/>
+									<input
+										type="time"
+										aria-label="Starting time"
+										value={baseTime}
+										onChange={(e) => setBaseTime(e.target.value)}
+										className={styles.dateInput}
+									/>
+								</div>
 							</div>
-						</div>
-
-						<div className={styles.toggleRow}>
-							<button className={`${styles.toggleBtn} ${!isSubtract ? styles.toggleBtnActive : ""}`} onClick={() => setIsSubtract(false)}>
-								Add (+)
-							</button>
-							<button className={`${styles.toggleBtn} ${isSubtract ? styles.toggleBtnActive : ""}`} onClick={() => setIsSubtract(true)}>
-								Subtract (−)
-							</button>
+							<SegmentedControl
+								label="Add or subtract"
+								size="sm"
+								fill={false}
+								value={isSubtract ? "subtract" : "add"}
+								onChange={(v) => setIsSubtract(v === "subtract")}
+								options={[
+									{ value: "add", label: "Add (+)" },
+									{ value: "subtract", label: "Subtract (−)" },
+								]}
+							/>
 						</div>
 
 						<div className={styles.addSubtractGrid}>
-							<div className={styles.converterInput}>
-								<label className={styles.inputLabel}>Years</label>
-								<input type="number" value={addYears} onChange={(e) => setAddYears(e.target.value)} className={styles.numberInput} min="0" />
-							</div>
-							<div className={styles.converterInput}>
-								<label className={styles.inputLabel}>Months</label>
-								<input type="number" value={addMonths} onChange={(e) => setAddMonths(e.target.value)} className={styles.numberInput} min="0" />
-							</div>
-							<div className={styles.converterInput}>
-								<label className={styles.inputLabel}>Days</label>
-								<input type="number" value={addDays} onChange={(e) => setAddDays(e.target.value)} className={styles.numberInput} min="0" />
-							</div>
-							<div className={styles.converterInput}>
-								<label className={styles.inputLabel}>Hours</label>
-								<input type="number" value={addHours} onChange={(e) => setAddHours(e.target.value)} className={styles.numberInput} min="0" />
-							</div>
-							<div className={styles.converterInput}>
-								<label className={styles.inputLabel}>Minutes</label>
-								<input type="number" value={addMinutes} onChange={(e) => setAddMinutes(e.target.value)} className={styles.numberInput} min="0" />
-							</div>
+							{addSubFields.map((field) => (
+								<div key={field.id} className={styles.fieldGroup}>
+									<label htmlFor={`duration-add-${field.id}`} className={styles.inputLabel}>
+										{field.label}
+									</label>
+									<input
+										id={`duration-add-${field.id}`}
+										type="number"
+										inputMode="numeric"
+										min="0"
+										value={field.value}
+										onChange={(e) => field.set(e.target.value)}
+										className={styles.numberInput}
+									/>
+								</div>
+							))}
 						</div>
 
 						{addSubResult && !isNaN(addSubResult.getTime()) && (
@@ -347,19 +283,67 @@ export default function TimeDurationCalculator() {
 				)}
 			</div>
 
-			{/* Time Equivalents Reference */}
+			{/* Reference Charts */}
+			<div className={styles.chartsGrid}>
+				<div className={styles.glassCard}>
+					<h3 className={styles.chartTitle}>Unit to Seconds</h3>
+					<div className={styles.tableWrapper}>
+						<table className={styles.referenceTable}>
+							<thead>
+								<tr>
+									<th>Unit</th>
+									<th>Seconds</th>
+								</tr>
+							</thead>
+							<tbody>
+								{UNIT_TO_SECONDS.map((row) => (
+									<tr key={row.unit}>
+										<td>{row.unit}</td>
+										<td>{row.seconds}</td>
+									</tr>
+								))}
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<div className={styles.glassCard}>
+					<h3 className={styles.chartTitle}>Days and Hours</h3>
+					<div className={styles.tableWrapper}>
+						<table className={styles.referenceTable}>
+							<thead>
+								<tr>
+									<th>Unit</th>
+									<th>Days / Hours</th>
+								</tr>
+							</thead>
+							<tbody>
+								{DAYS_AND_HOURS.map((row) => (
+									<tr key={row.unit}>
+										<td>{row.unit}</td>
+										<td>{row.value}</td>
+									</tr>
+								))}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			{/* Common Durations */}
 			<div className={styles.glassCard}>
-				<h3 className={styles.chartTitle}>Time Equivalents</h3>
+				<h3 className={styles.chartTitle}>Common Duration References</h3>
 				<div className={styles.referencesGrid}>
-					{TIME_EQUIVALENTS.map((item, i) => (
-						<div key={i} className={styles.referenceCard}>
+					{COMMON_DURATIONS.map((item) => (
+						<div key={item.description} className={styles.referenceCard}>
 							<span className={styles.referenceLabel}>{item.description}</span>
-							<span className={styles.referenceValue}>{item.equivalent}</span>
+							<span className={styles.referenceValue}>{item.value}</span>
 						</div>
 					))}
 				</div>
 			</div>
 
+			{/* Quick Tips */}
 			<div className={styles.glassCard}>
 				<h3 className={styles.chartTitle}>Quick Tips</h3>
 				<div className={styles.tipsGrid}>
@@ -369,11 +353,11 @@ export default function TimeDurationCalculator() {
 					</div>
 					<div className={styles.tipCard}>
 						<h4>Unix Timestamp</h4>
-						<p>Unix time counts seconds since Jan 1, 1970 UTC. Current time ≈ 1.7+ billion seconds.</p>
+						<p>Unix time counts seconds since Jan 1, 1970 UTC. Current time is roughly 1.7+ billion seconds.</p>
 					</div>
 					<div className={styles.tipCard}>
 						<h4>Working Days</h4>
-						<p>A standard work year has ~260 working days (52 weeks × 5 days), not counting holidays.</p>
+						<p>A standard work year has ~260 working days (52 weeks x 5 days), not counting holidays.</p>
 					</div>
 					<div className={styles.tipCard}>
 						<h4>Month Lengths</h4>

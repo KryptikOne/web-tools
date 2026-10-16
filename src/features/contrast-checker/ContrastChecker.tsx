@@ -49,35 +49,37 @@ export default function ContrastChecker() {
 	return (
 		<div className={styles.container}>
 			<div className={styles.panel}>
-				{/* Colour rows */}
-				{(
-					[
-						{ id: "bg", label: "Background", value: background, set: setBackground },
-						{ id: "fg", label: "Foreground", value: foreground, set: setForeground },
-					] as const
-				).map((row) => (
-					<div key={row.id} className={styles.colorRow}>
-						<ColorPickerPopover color={parseHexColor(row.value) ? normalizeHex(row.value) : "#000000"} onChange={row.set} swatchSize="lg" />
-						<div className="flex flex-col gap-1 min-w-0">
-							<label htmlFor={`contrast-${row.id}`} className={styles.rowLabel}>
-								{row.label}
-							</label>
-							<input
-								id={`contrast-${row.id}`}
-								type="text"
-								value={row.value}
-								onChange={(e) => row.set(e.target.value)}
-								onBlur={(e) => {
-									if (parseHexColor(e.target.value)) row.set(normalizeHex(e.target.value).toLowerCase());
-								}}
-								className={`${styles.hexInput} ${parseHexColor(row.value) ? "" : styles.invalid}`}
-								maxLength={7}
-								spellCheck={false}
-								autoComplete="off"
-							/>
+				{/* Colour rows: stacked on phones, side by side from tablet width up */}
+				<div className={styles.colorRows}>
+					{(
+						[
+							{ id: "bg", label: "Background", value: background, set: setBackground },
+							{ id: "fg", label: "Foreground", value: foreground, set: setForeground },
+						] as const
+					).map((row) => (
+						<div key={row.id} className={styles.colorRow}>
+							<ColorPickerPopover color={parseHexColor(row.value) ? normalizeHex(row.value) : "#000000"} onChange={row.set} swatchSize="fill" />
+							<div className="flex flex-col gap-1 min-w-0">
+								<label htmlFor={`contrast-${row.id}`} className={styles.rowLabel}>
+									{row.label}
+								</label>
+								<input
+									id={`contrast-${row.id}`}
+									type="text"
+									value={row.value}
+									onChange={(e) => row.set(e.target.value)}
+									onBlur={(e) => {
+										if (parseHexColor(e.target.value)) row.set(normalizeHex(e.target.value).toLowerCase());
+									}}
+									className={`${styles.hexInput} ${parseHexColor(row.value) ? "" : styles.invalid}`}
+									maxLength={7}
+									spellCheck={false}
+									autoComplete="off"
+								/>
+							</div>
 						</div>
-					</div>
-				))}
+					))}
+				</div>
 
 				{/* Actions */}
 				<div className={styles.actions}>

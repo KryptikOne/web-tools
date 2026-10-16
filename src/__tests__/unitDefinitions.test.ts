@@ -16,6 +16,10 @@ describe("unitDefinitions", () => {
 		expect(convertUnits(getUnitCategory("data")!, 1, "kb", "b", "binary")).toBe(1024);
 		expect(convertUnits(getUnitCategory("data")!, 1, "kb", "b", "decimal")).toBe(1000);
 		expect(convertUnits(getUnitCategory("fuel")!, 10, "l100km", "kml")).toBe(10);
+		expect(convertUnits(getUnitCategory("time")!, 1, "hr", "min")).toBe(60);
+		expect(convertUnits(getUnitCategory("time")!, 1, "day", "s")).toBe(86400);
+		expect(convertUnits(getUnitCategory("time")!, 1, "year", "day")).toBeCloseTo(365.2425, 4);
+		expect(convertUnits(getUnitCategory("time")!, 1500, "ms", "s")).toBe(1.5);
 	});
 
 	it("formats values compactly", () => {

@@ -35,6 +35,13 @@
 		width: 40px;
 		height: 40px;
 	}
+
+	&.fill {
+		box-sizing: border-box;
+		height: 100%;
+		width: auto;
+		aspect-ratio: 1 / 1;
+	}
 }
 
 // Mobile swatch overlay
@@ -55,6 +62,19 @@
 		width: 40px;
 		height: 40px;
 	}
+
+	&.fill {
+		box-sizing: border-box;
+		height: 100%;
+		width: auto;
+		aspect-ratio: 1 / 1;
+	}
+}
+
+// "fill" size: the container stretches to the parent flex row, the swatch fills it.
+.fillContainer {
+	display: flex;
+	align-self: stretch;
 }
 
 // Popover panel

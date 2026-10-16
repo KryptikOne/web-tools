@@ -69,9 +69,15 @@
 }
 
 // Wordmark: Michroma like the landing's display face, ".dev" in mono, both lime.
+// Both spans inherit colour, so the whole wordmark turns violet on hover.
 .logo {
   border-bottom: 1px solid $border-subtle;
   color: $theme-color-primary;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $theme-color-violet;
+  }
 }
 
 .logoText {
@@ -88,11 +94,6 @@
   line-height: 1;
   // Michroma's wide trailing side bearing + letter-spacing leaves a visible gap after "BITTBOTT".
   margin-left: -6px;
-  transition: color $transition-fast;
-
-  .logo:hover & {
-    color: $theme-color-violet;
-  }
 }
 
 .categoryHeader {

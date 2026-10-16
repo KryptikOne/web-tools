@@ -319,8 +319,9 @@ function DesktopColorPicker({
 										(e.target as HTMLInputElement).blur();
 									}
 								}}
-								className={`flex-1 p-2 rounded-lg font-mono text-sm uppercase ${styles.hexInput}`}
-								placeholder="#hex, rgb(), hsl(), oklch()"
+								className={`flex-1 min-w-0 w-full p-2 rounded-lg font-mono text-sm uppercase ${styles.hexInput}`}
+								placeholder="#hex / rgb / hsl"
+								aria-label="Color value (hex, rgb, hsl or oklch)"
 								disabled={disabled}
 							/>
 						) : (

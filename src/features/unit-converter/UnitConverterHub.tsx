@@ -37,6 +37,7 @@ const PANELS: Record<UnitHubTab, ComponentType> = {
 	frequency: dynamic(() => import("@/features/frequency-converter/FrequencyConverter")),
 	angle: dynamic(() => import("@/features/angle-converter/AngleConverter")),
 	fuel: dynamic(() => import("@/features/fuel-economy-converter/FuelEconomyConverter")),
+	time: dynamic(() => import("@/features/time-duration-calculator/TimeDurationCalculator")),
 	kitchen: dynamic(() => import("@/features/kitchen-converter/KitchenConverter")),
 	clothing: dynamic(() => import("@/features/clothing-size-converter/ClothingSizeConverter")),
 };
