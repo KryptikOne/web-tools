@@ -82,6 +82,9 @@
 	background: $input-bg;
 	border: 1px solid $input-border;
 	font-size: 0.95rem;
+	@media (pointer: coarse) {
+		font-size: 1rem; // iOS Safari zooms into controls under 16px
+	}
 	color: $text-primary;
 	cursor: pointer;
 
@@ -248,6 +251,9 @@
 	background: $input-bg;
 	border: 1px solid $border-subtle;
 	font-size: 0.85rem;
+	@media (pointer: coarse) {
+		font-size: 1rem; // iOS Safari zooms into controls under 16px
+	}
 	color: $text-secondary;
 	cursor: pointer;
 

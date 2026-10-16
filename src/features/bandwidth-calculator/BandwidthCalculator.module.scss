@@ -118,6 +118,9 @@
 	border: 1px solid $input-border;
 	border-radius: $radius-md;
 	font-size: 0.9rem;
+	@media (pointer: coarse) {
+		font-size: 1rem; // iOS Safari zooms into controls under 16px
+	}
 	color: $text-primary;
 	cursor: pointer;
 
@@ -138,6 +141,9 @@
 	border: 1px solid $input-border;
 	border-radius: $radius-md;
 	font-size: 0.9rem;
+	@media (pointer: coarse) {
+		font-size: 1rem; // iOS Safari zooms into controls under 16px
+	}
 	color: $text-primary;
 	cursor: pointer;
 

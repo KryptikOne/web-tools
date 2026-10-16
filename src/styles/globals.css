@@ -288,3 +288,28 @@ html[data-theme="light"] ::selection {
 	border: 2px solid var(--scrollbar-thumb);
 	border-radius: 4px;
 }
+
+/* iOS Safari zooms the page when a focused control is under 16px. Keep pinch zoom; fix the size instead.
+   Component stylesheets carry their own coarse-pointer override; these two cover unstyled controls and
+   Tailwind text-xs / text-sm on controls. The element rule lives in the base layer so utilities still win. */
+@layer base {
+	@media (pointer: coarse) {
+		input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]),
+		select,
+		textarea,
+		[contenteditable="true"] {
+			font-size: max(1rem, 1em);
+		}
+	}
+}
+
+@media (pointer: coarse) {
+	input.text-xs,
+	input.text-sm,
+	select.text-xs,
+	select.text-sm,
+	textarea.text-xs,
+	textarea.text-sm {
+		font-size: 1rem;
+	}
+}

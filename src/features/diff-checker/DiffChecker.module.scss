@@ -110,6 +110,9 @@ $move: $theme-color-accent;
 	border-radius: $radius-md;
 	color: $text-primary;
 	font-size: 0.875rem;
+	@media (pointer: coarse) {
+		font-size: 1rem; // iOS Safari zooms into controls under 16px
+	}
 	font-family: $font-family-mono;
 	line-height: 1.6;
 	transition: all 0.2s ease;
@@ -171,6 +174,9 @@ $move: $theme-color-accent;
 .select {
 	padding: 0.375rem 2.25rem 0.375rem 0.625rem;
 	font-size: 0.875rem;
+	@media (pointer: coarse) {
+		font-size: 1rem; // iOS Safari zooms into controls under 16px
+	}
 	color: $text-secondary;
 	background-color: $bg-glass;
 	border: 1px solid $border-subtle;

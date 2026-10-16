@@ -61,6 +61,9 @@
 	@include input-field;
 	font-family: $font-family-mono;
 	font-size: 0.875rem;
+	@media (pointer: coarse) {
+		font-size: 1rem; // iOS Safari zooms into controls under 16px
+	}
 	resize: vertical;
 	min-height: 100px;
 	line-height: 1.6;

@@ -36,6 +36,9 @@
   border-radius: $radius-md;
   color: $text-primary;
   font-size: 0.95rem;
+  @media (pointer: coarse) {
+  	font-size: 1rem; // iOS Safari zooms into controls under 16px
+  }
   transition: all 0.2s ease;
 
   &::placeholder {
@@ -61,6 +64,9 @@
   border-radius: $radius-md;
   color: $text-primary;
   font-size: 0.95rem;
+  @media (pointer: coarse) {
+  	font-size: 1rem; // iOS Safari zooms into controls under 16px
+  }
   cursor: pointer;
   transition: all 0.2s ease;
 

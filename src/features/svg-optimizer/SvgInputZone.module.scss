@@ -36,6 +36,9 @@
 	border-radius: $radius-md;
 	color: $text-primary;
 	font-size: 0.875rem;
+	@media (pointer: coarse) {
+		font-size: 1rem; // iOS Safari zooms into controls under 16px
+	}
 
 	&:focus {
 		outline: none;
@@ -68,5 +71,8 @@
 	min-height: 8rem;
 	font-family: $font-family-mono;
 	font-size: 0.8125rem;
+	@media (pointer: coarse) {
+		font-size: 1rem; // iOS Safari zooms into controls under 16px
+	}
 	resize: vertical;
 }

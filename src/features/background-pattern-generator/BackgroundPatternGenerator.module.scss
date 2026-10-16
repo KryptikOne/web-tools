@@ -61,6 +61,9 @@
   color: $text-primary;
   font-family: $font-family-mono;
   font-size: 0.875rem;
+  @media (pointer: coarse) {
+  	font-size: 1rem; // iOS Safari zooms into controls under 16px
+  }
   transition: all 0.2s ease;
 
   &:focus {

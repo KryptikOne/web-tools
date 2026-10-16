@@ -108,6 +108,9 @@
   @include custom-scrollbar;
   font-family: $font-family-mono;
   font-size: 0.9rem;
+  @media (pointer: coarse) {
+  	font-size: 1rem; // iOS Safari zooms into controls under 16px
+  }
   line-height: 1.6;
   resize: vertical;
   min-height: 180px;
@@ -234,6 +237,9 @@
   @include input-field;
   font-family: $font-family-mono;
   font-size: 0.9rem;
+  @media (pointer: coarse) {
+  	font-size: 1rem; // iOS Safari zooms into controls under 16px
+  }
 }
 
 .helpText {

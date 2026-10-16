@@ -84,6 +84,9 @@
 	color: $text-primary;
 	font-family: $font-family-mono;
 	font-size: 0.9rem;
+	@media (pointer: coarse) {
+		font-size: 1rem; // iOS Safari zooms into controls under 16px
+	}
 
 	&:focus {
 		outline: none;
@@ -153,6 +156,9 @@
 	color: $text-primary;
 	font-family: $font-family-mono;
 	font-size: 0.85rem;
+	@media (pointer: coarse) {
+		font-size: 1rem; // iOS Safari zooms into controls under 16px
+	}
 
 	&:focus {
 		outline: none;

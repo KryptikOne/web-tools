@@ -43,6 +43,9 @@
 	padding: 0.75rem 0;
 	color: $text-primary;
 	font-size: 0.9375rem;
+	@media (pointer: coarse) {
+		font-size: 1rem; // iOS Safari zooms into controls under 16px
+	}
 	font-family: $font-family-sans;
 
 	&::placeholder {
