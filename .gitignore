@@ -36,8 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
-# claude code
+# claude code (CLAUDE.md is a symlink to AGENTS.md; the local half stays private)
 .claude/
+CLAUDE.local.md
 
 # typescript
 *.tsbuildinfo
