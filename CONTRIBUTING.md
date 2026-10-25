@@ -41,7 +41,7 @@ Open a [bug report](https://github.com/KryptikOne/web-tools/issues/new?template=
 
 ### Suggesting Features
 
-Open a [feature request](https://github.com/KryptikOne/web-tools/issues/new?template=feature_request.md). Check the [ROADMAP](./ROADMAP.md) first — it may already be planned.
+Open a [feature request](https://github.com/KryptikOne/web-tools/issues/new?template=feature_request.md).
 
 ### Submitting Code
 

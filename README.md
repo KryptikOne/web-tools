@@ -6,7 +6,7 @@ Built with Next.js 15, React 19, TypeScript, Tailwind CSS v4, and SCSS Modules.
 
 ## Features
 
-- **80+ tools** across 7 categories
+- **130+ tools** across 10 categories
 - **100% client-side** — all processing happens in the browser
 - **No tracking** — no registration, no usage limits
 - **Responsive** — works on desktop and mobile
@@ -75,8 +75,6 @@ src/
 ## Contributing
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines on adding tools, code style, and the PR process.
-
-See [ROADMAP.md](./ROADMAP.md) for planned improvements and feature ideas.
 
 ## License
 

@@ -22,7 +22,7 @@ A comprehensive, privacy-focused collection of free browser-based utilities. All
 
 #### 1.1.2 Planned Tools
 
-See [ROADMAP.md](./ROADMAP.md) for the complete list of planned tools organized by category.
+New tools are proposed through GitHub feature requests (see [CONTRIBUTING.md](./CONTRIBUTING.md)).
 
 ### 1.2 Core Features
 

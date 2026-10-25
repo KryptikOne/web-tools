@@ -83,7 +83,7 @@ describe("favoritesSlice", () => {
 
 	it("hydrateFavorites is a no-op when localStorage is empty", () => {
 		const state = favoritesReducer(undefined, hydrateFavorites());
-		expect(state).toEqual({ ids: [] });
+		expect(state).toEqual({ ids: [], collapsed: false });
 	});
 
 	it("hydrateFavorites does not write to localStorage", () => {

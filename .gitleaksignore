@@ -1,0 +1,3 @@
+# gitleaks false positives (fingerprint = commit:file:rule:line)
+# Public jwt.io sample token used as the JWT Decoder example input, not a credential.
+3adeccf1b9ff315ca2705a397bfc45ce6a112f02:src/features/jwt-decoder/JwtDecoder.tsx:jwt:207
