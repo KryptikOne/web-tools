@@ -123,22 +123,30 @@ function generateSvgCode(config: PatternConfig): string {
 </svg>`;
 }
 
-function generateCssCode(config: PatternConfig): string {
+/**
+ * Build a `data:image/svg+xml,...` URI for the pattern. The raw markup uses
+ * plain `%` and `#` so the single encodeURIComponent pass produces `%25` and
+ * `%23`; writing them pre-encoded double-encodes them and the browser ends up
+ * with `fill='url(%23p)'`, which paints nothing.
+ */
+function buildPatternDataUri(config: PatternConfig): string {
 	const { tileSize, rotation } = config;
-	const shape = generatePatternShape(config);
+	const shape = generatePatternShape(config).replace(/"/g, "'");
 	const transform =
-		rotation !== 0
-			? ` patternTransform="rotate(${rotation})"`
-			: "";
+		rotation !== 0 ? ` patternTransform='rotate(${rotation})'` : "";
 
-	const innerSvg = `<svg xmlns='http://www.w3.org/2000/svg' width='${tileSize}' height='${tileSize}'><defs><pattern id='p' width='${tileSize}' height='${tileSize}' patternUnits='userSpaceOnUse'${transform}>${shape.replace(/"/g, "'")}</pattern></defs><rect width='100%25' height='100%25' fill='url(%23p)'/></svg>`;
+	const raw = `<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%'><defs><pattern id='p' width='${tileSize}' height='${tileSize}' patternUnits='userSpaceOnUse'${transform}>${shape}</pattern></defs><rect width='100%' height='100%' fill='url(#p)'/></svg>`;
 
-	const encoded = encodeURIComponent(innerSvg)
+	const encoded = encodeURIComponent(raw)
 		.replace(/'/g, "%27")
 		.replace(/\(/g, "%28")
 		.replace(/\)/g, "%29");
 
-	return `background-image: url("data:image/svg+xml,${encoded}");
+	return `data:image/svg+xml,${encoded}`;
+}
+
+function generateCssCode(config: PatternConfig): string {
+	return `background-image: url("${buildPatternDataUri(config)}");
 background-repeat: repeat;`;
 }
 
@@ -156,19 +164,10 @@ export default function SvgPatternGenerator() {
 	const svgCode = useMemo(() => generateSvgCode(config), [config]);
 	const cssCode = useMemo(() => generateCssCode(config), [config]);
 
-	// Build an inline SVG data URI for the live preview
-	const previewDataUri = useMemo(() => {
-		const { tileSize, rotation } = config;
-		const shape = generatePatternShape(config);
-		const transform =
-			rotation !== 0
-				? ` patternTransform="rotate(${rotation})"`
-				: "";
-
-		const raw = `<svg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'><defs><pattern id='p' width='${tileSize}' height='${tileSize}' patternUnits='userSpaceOnUse'${transform}>${shape.replace(/"/g, "'")}</pattern></defs><rect width='100%25' height='100%25' fill='url(%23p)'/></svg>`;
-
-		return `url("data:image/svg+xml,${encodeURIComponent(raw).replace(/'/g, "%27").replace(/\(/g, "%28").replace(/\)/g, "%29")}")`;
-	}, [config]);
+	const previewDataUri = useMemo(
+		() => `url("${buildPatternDataUri(config)}")`,
+		[config]
+	);
 
 	const copyToClipboard = async (value: string, field: string) => {
 		try {
@@ -199,6 +198,7 @@ export default function SvgPatternGenerator() {
 				<div className={styles.glassCard}>
 					<h2 className={`mb-4 ${styles.sectionTitle}`}>Preview</h2>
 					<div
+						data-testid="pattern-preview"
 						className={`w-full rounded-lg overflow-hidden ${styles.previewArea}`}
 						style={{ backgroundImage: previewDataUri }}
 					/>
