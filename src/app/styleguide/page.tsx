@@ -62,9 +62,6 @@ export default function StyleguidePage() {
 						<a href="#spacing">Spacing</a>
 					</li>
 					<li>
-						<a href="#borders">Border Radius</a>
-					</li>
-					<li>
 						<a href="#shadows">Shadows</a>
 					</li>
 					<li>
@@ -574,38 +571,6 @@ export default function StyleguidePage() {
 						<div className={styles.spacingVisual} style={{ width: "3rem", height: "3rem" }} />
 						<code>$spacing-2xl</code>
 						<span>3rem (48px)</span>
-					</div>
-				</div>
-			</section>
-
-			{/* Border Radius Section */}
-			<section id="borders" className={styles.section}>
-				<h2 className={styles.sectionTitle}>Border Radius</h2>
-				<div className={styles.radiusGrid}>
-					<div className={styles.radiusItem}>
-						<div className={styles.radiusVisual} style={{ borderRadius: "0.375rem" }} />
-						<code>$radius-sm</code>
-						<span>0.375rem (6px)</span>
-					</div>
-					<div className={styles.radiusItem}>
-						<div className={styles.radiusVisual} style={{ borderRadius: "0.5rem" }} />
-						<code>$radius-md</code>
-						<span>0.5rem (8px)</span>
-					</div>
-					<div className={styles.radiusItem}>
-						<div className={styles.radiusVisual} style={{ borderRadius: "0.75rem" }} />
-						<code>$radius-lg</code>
-						<span>0.75rem (12px)</span>
-					</div>
-					<div className={styles.radiusItem}>
-						<div className={styles.radiusVisual} style={{ borderRadius: "1rem" }} />
-						<code>$radius-xl</code>
-						<span>1rem (16px)</span>
-					</div>
-					<div className={styles.radiusItem}>
-						<div className={styles.radiusVisual} style={{ borderRadius: "1.5rem" }} />
-						<code>$radius-2xl</code>
-						<span>1.5rem (24px)</span>
 					</div>
 				</div>
 			</section>

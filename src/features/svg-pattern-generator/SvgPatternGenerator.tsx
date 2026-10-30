@@ -199,7 +199,7 @@ export default function SvgPatternGenerator() {
 					<h2 className={`mb-4 ${styles.sectionTitle}`}>Preview</h2>
 					<div
 						data-testid="pattern-preview"
-						className={`w-full rounded-lg overflow-hidden ${styles.previewArea}`}
+						className={`w-full overflow-hidden ${styles.previewArea}`}
 						style={{ backgroundImage: previewDataUri }}
 					/>
 				</div>

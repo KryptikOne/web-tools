@@ -524,7 +524,7 @@ export default function QrCodeReader() {
 
 			{/* Info Section */}
 			<div className={`flex flex-col gap-4 ${styles.glassCard}`}>
-				<div className={`flex items-start gap-4 p-4 rounded-md ${styles.infoBox}`}>
+				<div className={`flex items-start gap-4 p-4 ${styles.infoBox}`}>
 					<QrCodeIcon className={`w-6 h-6 shrink-0 ${styles.infoIcon}`} />
 					<p className={styles.infoText}>
 						Upload an image containing a QR code to decode its content. Supports URLs, plain text,

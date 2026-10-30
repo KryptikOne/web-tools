@@ -116,7 +116,7 @@ export default function XmlFormatter() {
 			</div>
 
 			{result.error && (
-				<div className={`mt-4 px-4 py-3 rounded-lg text-sm ${styles.errorBox}`}>
+				<div className={`mt-4 px-4 py-3 text-sm ${styles.errorBox}`}>
 					<pre className={styles.errorPre}>{result.error}</pre>
 				</div>
 			)}

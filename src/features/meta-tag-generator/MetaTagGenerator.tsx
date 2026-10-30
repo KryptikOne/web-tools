@@ -447,7 +447,7 @@ export default function MetaTagGenerator() {
 							</button>
 						</div>
 					</div>
-					<div className={`rounded-lg p-4 ${styles.outputSection}`}>
+					<div className={`p-4 ${styles.outputSection}`}>
 						<pre className={styles.codeBlock}>
 							<code className={`text-sm font-mono ${styles.outputCode}`}>
 								{hasContent

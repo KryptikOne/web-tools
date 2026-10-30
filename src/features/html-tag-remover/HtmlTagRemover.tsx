@@ -147,7 +147,7 @@ export default function HtmlTagRemover() {
   return (
     <div className={styles.container}>
       {/* Options Bar */}
-      <div className={`flex flex-wrap items-center gap-6 p-4 rounded-xl mb-6 ${styles.optionsBar}`}>
+      <div className={`flex flex-wrap items-center gap-6 p-4 mb-6 ${styles.optionsBar}`}>
         <label className={`flex items-center gap-2 text-sm cursor-pointer ${styles.checkboxLabel}`}>
           <input
             type="checkbox"
@@ -181,7 +181,7 @@ export default function HtmlTagRemover() {
             value={allowlistInput}
             onChange={(e) => setAllowlistInput(e.target.value)}
             placeholder="e.g. script, style, iframe"
-            className={`px-3 py-1.5 rounded-lg text-sm ${styles.allowlistInput}`}
+            className={`px-3 py-1.5 text-sm ${styles.allowlistInput}`}
           />
         )}
       </div>
@@ -194,7 +194,7 @@ export default function HtmlTagRemover() {
             <h3 className={`text-lg font-semibold m-0 ${styles.sectionTitle}`}>HTML Input</h3>
             <button
               onClick={handleClear}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium ${styles.btnSecondary}`}
+              className={`flex items-center gap-2 px-4 py-2 text-sm font-medium ${styles.btnSecondary}`}
             >
               <TrashIcon className={styles.copyIcon} />
               Clear
@@ -253,7 +253,7 @@ export default function HtmlTagRemover() {
 
       {/* Stats */}
       {inputHtml.trim() && (
-        <div className={`flex flex-wrap gap-6 p-5 rounded-xl mb-6 ${styles.statsBar}`}>
+        <div className={`flex flex-wrap gap-6 p-5 mb-6 ${styles.statsBar}`}>
           <div className={`flex flex-col items-center ${styles.statBlock}`}>
             <span className={`text-2xl font-bold ${styles.statValue}`}>{stats.tagsRemoved}</span>
             <span className={`text-xs ${styles.statLabel}`}>Tags Removed</span>

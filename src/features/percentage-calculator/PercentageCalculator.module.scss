@@ -32,7 +32,6 @@
 	padding: 0.875rem 1rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	font-size: 1.125rem;
 	font-weight: 600;
 	color: $text-primary;
@@ -84,7 +83,6 @@
 	padding: 0.5rem 1rem;
 	background: transparent;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-sm;
 	font-size: 0.85rem;
 	color: $text-secondary;
 	cursor: pointer;
@@ -100,7 +98,6 @@
 	margin-top: 1.5rem;
 	padding: 1.25rem;
 	background: $input-bg;
-	border-radius: $radius-md;
 	border: 1px solid $border-subtle;
 }
 
@@ -108,7 +105,6 @@
 	padding: 0.75rem 1rem;
 	background: $input-bg;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	font-size: 0.85rem;
 	color: $text-secondary;
 	cursor: pointer;
@@ -125,7 +121,6 @@
 .formulaCard {
 	padding: 1rem;
 	background: $input-bg;
-	border-radius: $radius-md;
 	border: 1px solid $border-subtle;
 }
 
@@ -133,7 +128,6 @@
 	display: block;
 	padding: 0.5rem 0.75rem;
 	background: rgba(0, 0, 0, 0.3);
-	border-radius: $radius-sm;
 	font-family: $font-family-mono;
 	font-size: 0.85rem;
 	color: $color-accent;

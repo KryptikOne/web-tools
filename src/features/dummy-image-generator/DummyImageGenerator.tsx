@@ -307,14 +307,14 @@ export default function DummyImageGenerator() {
 							<label className={styles.inputLabel}>Background Color</label>
 							<div className={`flex gap-3 items-center ${styles.colorInputWrapper}`}>
 								<ColorPickerPopover color={backgroundColor} onChange={setBackgroundColor} swatchSize="sm" />
-								<input type="text" value={backgroundColor} onChange={(e) => setBackgroundColor(e.target.value)} className={`flex-1 rounded-md text-sm ${styles.colorTextInput}`} />
+								<input type="text" value={backgroundColor} onChange={(e) => setBackgroundColor(e.target.value)} className={`flex-1 text-sm ${styles.colorTextInput}`} />
 							</div>
 						</div>
 						<div className={styles.inputGroup}>
 							<label className={styles.inputLabel}>Text Color</label>
 							<div className={`flex gap-3 items-center ${styles.colorInputWrapper}`}>
 								<ColorPickerPopover color={textColor} onChange={setTextColor} swatchSize="sm" />
-								<input type="text" value={textColor} onChange={(e) => setTextColor(e.target.value)} className={`flex-1 rounded-md text-sm ${styles.colorTextInput}`} />
+								<input type="text" value={textColor} onChange={(e) => setTextColor(e.target.value)} className={`flex-1 text-sm ${styles.colorTextInput}`} />
 							</div>
 						</div>
 						{pattern === "gradient" && (
@@ -322,7 +322,7 @@ export default function DummyImageGenerator() {
 								<label className={styles.inputLabel}>Gradient End Color</label>
 								<div className={`flex gap-3 items-center ${styles.colorInputWrapper}`}>
 									<ColorPickerPopover color={gradientColor} onChange={setGradientColor} swatchSize="sm" />
-									<input type="text" value={gradientColor} onChange={(e) => setGradientColor(e.target.value)} className={`flex-1 rounded-md text-sm ${styles.colorTextInput}`} />
+									<input type="text" value={gradientColor} onChange={(e) => setGradientColor(e.target.value)} className={`flex-1 text-sm ${styles.colorTextInput}`} />
 								</div>
 							</div>
 						)}
@@ -376,11 +376,11 @@ export default function DummyImageGenerator() {
 						</button>
 					</div>
 
-					<div className={`flex items-center justify-center rounded-lg mb-6 ${styles.previewContainer}`}>
-						<canvas ref={previewCanvasRef} className={`max-w-full rounded-md ${styles.previewCanvas}`} />
+					<div className={`flex items-center justify-center mb-6 ${styles.previewContainer}`}>
+						<canvas ref={previewCanvasRef} className={`max-w-full ${styles.previewCanvas}`} />
 					</div>
 
-					<div className={`flex items-start gap-4 p-4 rounded-md ${styles.infoBox}`}>
+					<div className={`flex items-start gap-4 p-4 ${styles.infoBox}`}>
 						<PhotoIcon className={`w-6 h-6 shrink-0 ${styles.infoIcon}`} />
 						<p className={styles.infoText}>
 							Generated images are perfect for mockups, wireframes, and testing. All processing happens in your browser - no uploads required.

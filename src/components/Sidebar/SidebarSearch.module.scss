@@ -11,7 +11,6 @@
 	align-items: center;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	padding: 0 0.625rem;
 	transition: border-color $transition-fast, background $transition-fast;
 
@@ -91,7 +90,6 @@
 	color: $text-muted;
 	background: $bg-glass;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-sm;
 	padding: 0 0.3rem;
 	line-height: 1.1;
 	user-select: none;

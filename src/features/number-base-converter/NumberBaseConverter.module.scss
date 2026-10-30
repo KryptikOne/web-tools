@@ -123,7 +123,6 @@
 	padding: 0.3rem 0.4rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-sm;
 	color: $text-primary;
 	font-family: $font-family-mono;
 	font-size: 0.85rem;
@@ -173,7 +172,6 @@
 	padding: 0.4rem 0;
 	background: $bg-overlay-light;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-sm;
 	cursor: pointer;
 	transition: all $transition-base;
 
@@ -276,7 +274,6 @@
 	padding: 0.5rem 0.25rem;
 	background: $bg-overlay-light;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-sm;
 }
 
 .referenceHex {
@@ -324,7 +321,6 @@
 	display: flex;
 	flex-direction: column;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	overflow: hidden;
 }
 

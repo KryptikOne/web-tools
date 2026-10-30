@@ -168,7 +168,7 @@ export default function UrlParser() {
 			</div>
 
 			{!result.ok && input.trim() && (
-				<div className={`mt-4 px-4 py-3 rounded-lg text-sm ${styles.errorBox}`}>
+				<div className={`mt-4 px-4 py-3 text-sm ${styles.errorBox}`}>
 					{result.error}
 				</div>
 			)}

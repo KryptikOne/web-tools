@@ -50,7 +50,6 @@
 	height: 24px;
 	background: $input-bg;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	position: relative;
 	transition: all 0.2s ease;
 
@@ -106,7 +105,6 @@
 	padding: 0.75rem 1rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	font-size: 0.9rem;
 	@media (pointer: coarse) {
 		font-size: 1rem; // iOS Safari zooms into controls under 16px
@@ -129,7 +127,6 @@
 	padding: 0.75rem 1rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	font-size: 0.9rem;
 	@media (pointer: coarse) {
 		font-size: 1rem; // iOS Safari zooms into controls under 16px
@@ -162,7 +159,6 @@
 	padding: 0.75rem 1rem;
 	background: $input-bg;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	transition: all 0.2s ease;
 
 	&.resultItemActive {
@@ -196,7 +192,6 @@
 	color: $text-muted;
 	cursor: pointer;
 	transition: all 0.2s ease;
-	border-radius: $radius-sm;
 	flex-shrink: 0;
 
 	&:hover {
@@ -233,7 +228,6 @@
 	padding: 1.25rem;
 	background: $color-accent-20;
 	border: 1px solid $color-accent;
-	border-radius: $radius-md;
 }
 
 .plannerCount {
@@ -265,14 +259,12 @@
 	width: 100%;
 	height: 6px;
 	background: $input-bg;
-	border-radius: $radius-sm;
 	overflow: hidden;
 }
 
 .plannerBarFill {
 	height: 100%;
 	background: $color-accent-fill;
-	border-radius: $radius-sm;
 	transition: width 0.3s ease;
 }
 
@@ -302,13 +294,6 @@
 		letter-spacing: 0.03em;
 		border-bottom: 1px solid $border-subtle;
 
-		&:first-child {
-			border-radius: $radius-sm 0 0 0;
-		}
-
-		&:last-child {
-			border-radius: 0 $radius-sm 0 0;
-		}
 	}
 
 	td {
@@ -346,7 +331,6 @@
 .tipCard {
 	padding: 1rem;
 	background: $input-bg;
-	border-radius: $radius-md;
 	border: 1px solid $border-subtle;
 
 	h4 {

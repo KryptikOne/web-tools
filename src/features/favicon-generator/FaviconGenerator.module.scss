@@ -35,7 +35,6 @@
 .dropZone {
   border: 2px dashed $border-medium;
   background: $input-bg;
-  border-radius: $radius-lg;
   cursor: pointer;
   transition: all $transition-base;
 
@@ -61,7 +60,6 @@
 // Source Preview
 .sourcePreview {
   border: 1px solid $border-subtle;
-  border-radius: $radius-md;
   overflow: hidden;
 
   img {
@@ -81,7 +79,6 @@
 .warningBox {
   background: rgba(234, 179, 8, 0.1);
   border: 1px solid rgba(234, 179, 8, 0.3);
-  border-radius: $radius-md;
   color: $text-secondary;
 
   svg {
@@ -156,7 +153,6 @@
 .faviconCard {
   background: $input-bg;
   border: 1px solid $border-subtle;
-  border-radius: $radius-md;
   transition: all $transition-base;
   overflow: hidden;
 
@@ -189,7 +185,6 @@
 .codeBlock {
   background: $input-bg;
   border: 1px solid $border-subtle;
-  border-radius: $radius-md;
   font-family: $font-family-mono;
   font-size: 0.8rem;
   color: $text-code;

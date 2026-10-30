@@ -567,7 +567,7 @@ export default function ImageColorExtractor() {
 
 				{/* Info Box */}
 				<div className={styles.glassCard}>
-					<div className={`flex items-start gap-4 p-4 rounded-md ${styles.infoBox}`}>
+					<div className={`flex items-start gap-4 p-4 ${styles.infoBox}`}>
 						<SwatchIcon className={`w-6 h-6 shrink-0 ${styles.infoIcon}`} />
 						<p className={styles.infoText}>
 							Upload any image to extract its dominant colors. Adjust the slider to control how many colors are extracted. Click anywhere on the image to pick a specific pixel color. All processing happens in your browser.

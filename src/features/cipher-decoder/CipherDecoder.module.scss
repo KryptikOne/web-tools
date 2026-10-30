@@ -71,7 +71,6 @@
 .candidate {
 	background: $bg-overlay-light;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	padding: 0.75rem 1rem;
 }
 
@@ -97,7 +96,6 @@
 	height: 4px;
 	margin: 0.5rem 0;
 	background: $bg-glass;
-	border-radius: $radius-sm;
 	overflow: hidden;
 }
 
@@ -113,7 +111,6 @@
 	padding: 0.75rem;
 	background: $input-bg;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-sm;
 	font-family: $font-family-mono;
 	font-size: 0.9rem;
 	color: $text-primary;
@@ -181,7 +178,6 @@
 .error {
 	margin: 0;
 	padding: 0.75rem;
-	border-radius: $radius-sm;
 	background: color-mix(in oklab, $color-error 12%, transparent);
 	color: $color-error;
 	font-size: 0.875rem;

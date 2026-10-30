@@ -149,7 +149,6 @@
 	padding: 0.4rem 0.6rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-sm;
 	color: $text-primary;
 	font-family: $font-family-mono;
 	font-size: 0.875rem;
@@ -169,7 +168,6 @@
 	padding: 0.4rem 0.6rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-sm;
 	color: $color-accent;
 	font-family: $font-family-mono;
 	font-size: 0.875rem;
@@ -208,7 +206,6 @@
 .labelTag {
 	padding: 0.1rem 0.4rem;
 	background: $bg-glass;
-	border-radius: $radius-sm;
 	font-family: $font-family-mono;
 	font-size: 0.7rem;
 	color: $text-muted;
@@ -259,7 +256,6 @@
 	padding: 0.35rem 0.6rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-sm;
 	color: $text-primary;
 	font-size: 0.8rem;
 	@media (pointer: coarse) {
@@ -277,7 +273,6 @@
 	padding: 0.3rem 0.6rem;
 	background: $bg-overlay-light;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-sm;
 	font-family: $font-family-mono;
 	font-size: 0.78rem;
 	color: $text-primary;

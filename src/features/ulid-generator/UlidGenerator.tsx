@@ -133,7 +133,7 @@ export default function UlidGenerator() {
 						</button>
 
 						{genError && (
-							<div className={`px-4 py-3 rounded-lg text-sm ${styles.errorBox}`}>{genError}</div>
+							<div className={`px-4 py-3 text-sm ${styles.errorBox}`}>{genError}</div>
 						)}
 					</div>
 				</div>
@@ -158,11 +158,11 @@ export default function UlidGenerator() {
 					{decoded && (
 						<div className="mt-4">
 							{decoded.error ? (
-								<div className={`px-4 py-3 rounded-lg text-sm ${styles.errorBox}`}>
+								<div className={`px-4 py-3 text-sm ${styles.errorBox}`}>
 									{decoded.error}
 								</div>
 							) : (
-								<div className={`p-4 rounded-md ${styles.decodeBox}`}>
+								<div className={`p-4 ${styles.decodeBox}`}>
 									<div className="flex justify-between text-sm mb-1">
 										<span className={styles.label}>ISO</span>
 										<code className={styles.value}>{decoded.iso}</code>

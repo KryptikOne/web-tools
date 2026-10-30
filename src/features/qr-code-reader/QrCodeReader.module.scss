@@ -27,7 +27,6 @@
 .dropZone {
   border: 2px dashed $border-medium;
   background: $input-bg;
-  border-radius: $radius-lg;
   cursor: pointer;
   transition: all 0.2s ease;
   position: relative;
@@ -82,7 +81,6 @@
 .previewImage {
   max-height: 500px;
   object-fit: contain;
-  border-radius: $radius-md;
 }
 
 .qrOverlay {
@@ -96,13 +94,11 @@
 .resultCard {
   background: $input-bg;
   border: 1px solid $border-subtle;
-  border-radius: $radius-md;
 }
 
 .resultContent {
   background: $bg-glass;
   border: 1px solid $border-subtle;
-  border-radius: $radius-md;
   word-break: break-all;
   font-family: $font-family-mono;
   color: $text-primary;
@@ -121,7 +117,6 @@
 .contentTypeBadge {
   background: $color-accent-20;
   color: $color-accent;
-  border-radius: $radius-sm;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -149,7 +144,6 @@
 .wifiGrid {
   background: $bg-glass;
   border: 1px solid $border-subtle;
-  border-radius: $radius-md;
 }
 
 .wifiLabel {
@@ -166,7 +160,6 @@
 .errorCard {
   background: oklch(65% 0.2 25 / 0.1);
   border: 1px solid oklch(65% 0.2 25 / 0.3);
-  border-radius: $radius-md;
 }
 
 .errorIcon {

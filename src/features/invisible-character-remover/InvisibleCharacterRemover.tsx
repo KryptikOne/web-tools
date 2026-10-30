@@ -245,13 +245,13 @@ export default function InvisibleCharacterRemover() {
             <div className="flex gap-2 flex-wrap">
               <button
                 onClick={() => setShowInvisible(!showInvisible)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium ${styles.btnSecondary} ${showInvisible ? styles.active : ""}`}
+                className={`flex items-center gap-2 px-4 py-2 text-sm font-medium ${styles.btnSecondary} ${showInvisible ? styles.active : ""}`}
                 title="Toggle visibility of invisible characters"
               >
                 {showInvisible ? <EyeIcon className={styles.copyIcon} /> : <EyeSlashIcon className={styles.copyIcon} />}
                 {showInvisible ? "Showing" : "Show"}
               </button>
-              <label className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium ${styles.btnSecondary}`}>
+              <label className={`flex items-center gap-2 px-4 py-2 text-sm font-medium ${styles.btnSecondary}`}>
                 <ArrowUpTrayIcon className={styles.copyIcon} />
                 Upload
                 <input
@@ -261,7 +261,7 @@ export default function InvisibleCharacterRemover() {
                   onChange={handleFileUpload}
                 />
               </label>
-              <button onClick={handleClear} className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium ${styles.btnSecondary}`}>
+              <button onClick={handleClear} className={`flex items-center gap-2 px-4 py-2 text-sm font-medium ${styles.btnSecondary}`}>
                 <TrashIcon className={styles.copyIcon} />
                 Clear
               </button>
@@ -312,7 +312,7 @@ export default function InvisibleCharacterRemover() {
               <button
                 onClick={handleDownload}
                 disabled={!outputText}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium ${styles.btnSecondary}`}
+                className={`flex items-center gap-2 px-4 py-2 text-sm font-medium ${styles.btnSecondary}`}
               >
                 <ArrowDownTrayIcon className={styles.copyIcon} />
                 Download
@@ -356,7 +356,7 @@ export default function InvisibleCharacterRemover() {
 
       {/* Stats Card */}
       {stats.removed > 0 && (
-        <div className={`rounded-2xl p-6 mb-6 ${styles.statsCard}`}>
+        <div className={`p-6 mb-6 ${styles.statsCard}`}>
           <div className="flex justify-between items-start gap-6">
             <div>
               <h3 className={`text-base font-semibold m-0 mb-3 ${styles.statsTitle}`}>
@@ -379,7 +379,7 @@ export default function InvisibleCharacterRemover() {
       <div className={styles.glassCard}>
         <h3 className={`text-lg font-semibold m-0 mb-4 ${styles.infoTitle}`}>What gets removed?</h3>
 
-        <div className={`p-4 rounded-lg mb-6 ${styles.infoBox}`}>
+        <div className={`p-4 mb-6 ${styles.infoBox}`}>
           <p>
             <strong>💡 Visual Mode:</strong> Click the &quot;Showing Invisible&quot; button to see invisible characters
             highlighted in red tags like <span className={styles.exampleTag}>[Zero]</span> in the preview panel below. Hover over them to see their full names!
@@ -416,7 +416,7 @@ export default function InvisibleCharacterRemover() {
           </div>
         </div>
 
-        <div className={`p-4 rounded-lg ${styles.noteBox}`}>
+        <div className={`p-4 ${styles.noteBox}`}>
           <p>
             <strong>Note:</strong> This tool preserves normal whitespace like spaces, tabs, and newlines.
             It only removes invisible Unicode characters that can cause issues in code or text processing.

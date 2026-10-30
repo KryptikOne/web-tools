@@ -22,7 +22,6 @@
 	height: 48px;
 	padding: 0;
 	border: 2px solid $border-medium;
-	border-radius: $radius-md;
 	cursor: pointer;
 	background: transparent;
 
@@ -32,12 +31,10 @@
 
 	&::-webkit-color-swatch {
 		border: none;
-		border-radius: calc($radius-md - 2px);
 	}
 
 	&::-moz-color-swatch {
 		border: none;
-		border-radius: calc($radius-md - 2px);
 	}
 }
 
@@ -78,7 +75,6 @@
 	height: 24px;
 	background: white;
 	border: 1px solid rgba(0, 0, 0, 0.3);
-	border-radius: $radius-sm;
 	box-shadow: $shadow-sm;
 	transform: translateX(-50%);
 	pointer-events: none;

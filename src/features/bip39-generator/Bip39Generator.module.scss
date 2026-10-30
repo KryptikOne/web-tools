@@ -21,7 +21,6 @@
 .tabBar {
 	background: $bg-glass;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-lg;
 	padding: $spacing-xs;
 	display: inline-flex;
 }
@@ -30,7 +29,6 @@
 	@include btn-base;
 	background: transparent;
 	color: $text-secondary;
-	border-radius: $radius-md;
 	font-weight: 500;
 	padding: 0.625rem 1.5rem;
 
@@ -62,7 +60,6 @@
 	padding: 0.75rem 1rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	color: $text-primary;
 	font-family: $font-family-mono;
 	font-size: 0.875rem;
@@ -136,7 +133,6 @@
 	padding: 0.5rem 0.75rem;
 	background: $input-bg;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-sm;
 }
 
 .wordIndex {
@@ -157,7 +153,6 @@
 	padding: 0.75rem;
 	background: $input-bg;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	color: $text-primary;
 	font-family: $font-family-mono;
 	font-size: 0.8rem;
@@ -165,7 +160,6 @@
 }
 
 .resultBox {
-	border-radius: $radius-md;
 	border: 1px solid;
 }
 

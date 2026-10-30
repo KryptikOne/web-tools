@@ -289,7 +289,7 @@ export default function ImageResizer() {
 						</div>
 					) : (
 						<div className="flex flex-col gap-3">
-							<div className={`flex items-center gap-3 p-3 rounded-md ${styles.originalInfo}`}>
+							<div className={`flex items-center gap-3 p-3 ${styles.originalInfo}`}>
 								<PhotoIcon className="w-5 h-5 shrink-0 text-gray-400" />
 								<div className="flex-1 min-w-0">
 									<p className="text-sm font-medium truncate">{originalImage.name}</p>
@@ -477,12 +477,12 @@ export default function ImageResizer() {
 						)}
 					</div>
 
-					<div className={`flex items-center justify-center rounded-lg mb-6 ${styles.previewContainer}`}>
+					<div className={`flex items-center justify-center mb-6 ${styles.previewContainer}`}>
 						{resizedDataUrl ? (
 							<img
 								src={resizedDataUrl}
 								alt="Resized preview"
-								className={`max-w-full rounded-md ${styles.previewImage}`}
+								className={`max-w-full ${styles.previewImage}`}
 							/>
 						) : (
 							<div className={`flex flex-col items-center gap-3 ${styles.emptyPreview}`}>
@@ -492,7 +492,7 @@ export default function ImageResizer() {
 						)}
 					</div>
 
-					<div className={`flex items-start gap-4 p-4 rounded-md ${styles.infoBox}`}>
+					<div className={`flex items-start gap-4 p-4 ${styles.infoBox}`}>
 						<PhotoIcon className={`w-6 h-6 shrink-0 ${styles.infoIcon}`} />
 						<p className={styles.infoText}>
 							All image processing happens entirely in your browser using the Canvas API. Your images are never uploaded to any server.

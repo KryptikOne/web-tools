@@ -28,7 +28,6 @@
 	background: $bg-glass;
 	color: $text-secondary;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	font-weight: 500;
 	font-size: 0.875rem;
 	cursor: pointer;
@@ -57,7 +56,6 @@
 	padding: 1rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	color: $text-primary;
 	font-size: 0.9rem;
 	@media (pointer: coarse) {
@@ -109,7 +107,6 @@
 	padding: 0.5rem 0.75rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	color: $text-primary;
 	font-family: $font-family-mono;
 	font-size: 0.875rem;
@@ -133,7 +130,6 @@
 	display: inline-flex;
 	background: $bg-glass;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	padding: 0.25rem;
 	gap: 0.25rem;
 	flex-wrap: wrap;
@@ -143,7 +139,6 @@
 	padding: 0.4rem 0.75rem;
 	background: transparent;
 	border: none;
-	border-radius: $radius-sm;
 	color: $text-secondary;
 	cursor: pointer;
 	font-size: 0.85rem;
@@ -206,7 +201,6 @@
 	padding: 1rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	color: $text-code;
 	font-family: $font-family-mono;
 	font-size: 1rem;

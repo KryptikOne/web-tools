@@ -346,7 +346,7 @@ export default function IconGenerator() {
 								id="useGradient"
 								checked={useGradient}
 								onChange={(e) => setUseGradient(e.target.checked)}
-								className="w-4 h-4 rounded"
+								className="w-4 h-4"
 							/>
 							<label htmlFor="useGradient" className={`text-sm ${styles.inputLabel}`}>
 								Use gradient

@@ -17,7 +17,6 @@
 .regexInputRow {
   background: $input-bg;
   border: 1px solid $input-border;
-  border-radius: $radius-md;
   padding: 0.5rem 0.75rem;
   transition: border-color $transition-base;
 
@@ -67,7 +66,6 @@
   font-size: 0.85rem;
   padding: 0.5rem 0.75rem;
   background: rgba(from $color-error r g b / 0.08);
-  border-radius: $radius-sm;
   border: 1px solid rgba(from $color-error r g b / 0.2);
 }
 
@@ -121,7 +119,6 @@
 .highlightArea {
   background: $input-bg;
   border: 1px solid $input-border;
-  border-radius: $radius-md;
   padding: 0.75rem 1rem;
   min-height: 180px;
   max-height: 400px;
@@ -142,7 +139,6 @@
 .highlight {
   background: $color-accent-20;
   border: 1px solid $color-accent-50;
-  border-radius: $radius-sm;
   color: inherit;
   padding: 0 1px;
 }
@@ -160,7 +156,6 @@
   color: $color-accent;
   background: $color-accent-20;
   padding: 0.25rem 0.625rem;
-  border-radius: $radius-sm;
   border: 1px solid $color-accent-50;
 }
 
@@ -175,7 +170,6 @@
 .matchItem {
   background: $input-bg;
   border: 1px solid $border-subtle;
-  border-radius: $radius-md;
   padding: 0.75rem 1rem;
   transition: border-color $transition-base;
 
@@ -205,7 +199,6 @@
   color: $text-code;
   background: $color-accent-20;
   padding: 0.125rem 0.5rem;
-  border-radius: $radius-sm;
   word-break: break-all;
 }
 
@@ -216,7 +209,6 @@
   background: $bg-glass;
   border: 1px solid $border-subtle;
   padding: 0.125rem 0.5rem;
-  border-radius: $radius-sm;
 }
 
 // --- Copy Button ---
@@ -249,7 +241,6 @@
 .outputArea {
   background: $input-bg;
   border: 1px solid $input-border;
-  border-radius: $radius-md;
   padding: 0.75rem 1rem;
   min-height: 44px;
   max-height: 300px;

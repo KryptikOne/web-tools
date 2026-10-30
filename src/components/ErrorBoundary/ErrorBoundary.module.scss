@@ -15,7 +15,6 @@
 	gap: $spacing-md;
 	max-width: 28rem;
 	padding: $spacing-2xl;
-	border-radius: $radius-xl;
 	background: $bg-glass;
 	border: 1px solid $border-subtle;
 	text-align: center;
@@ -50,7 +49,6 @@
 	font-size: 0.75rem;
 	color: $theme-color-error;
 	background: $bg-secondary;
-	border-radius: $radius-md;
 	padding: $spacing-sm $spacing-md;
 	margin-top: $spacing-sm;
 	overflow-x: auto;
@@ -63,7 +61,6 @@
 	align-items: center;
 	gap: $spacing-sm;
 	padding: $spacing-sm $spacing-lg;
-	border-radius: $radius-md;
 	font-size: 0.875rem;
 	font-weight: 500;
 	color: $text-primary;

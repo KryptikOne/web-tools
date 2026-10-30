@@ -13,14 +13,12 @@
 .controlBar {
 	background: $bg-glass;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-lg;
 }
 
 .searchWrap {
 	position: relative;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	padding: 0 0.75rem;
 	transition: all 0.2s ease;
 
@@ -104,7 +102,6 @@
 .fieldDiagram {
 	background: $bg-overlay-light;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	padding: 0.75rem 1rem;
 	overflow-x: auto;
 	@include custom-scrollbar;
@@ -130,7 +127,6 @@
 	padding: 0.625rem 0.75rem;
 	background: $input-bg;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 }
 
 .fieldName {
@@ -145,7 +141,6 @@
 	padding: 0.1rem 0.4rem;
 	background: $color-accent-20;
 	color: $color-accent;
-	border-radius: $radius-sm;
 	font-family: $font-family-mono;
 	font-size: 0.75rem;
 	margin-bottom: 0.35rem;
@@ -170,7 +165,6 @@
 	padding: 0.4rem 0.6rem;
 	background: $input-bg;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-sm;
 }
 
 .opSymbol {
@@ -182,7 +176,6 @@
 	color: $color-accent;
 	background: $color-accent-20;
 	padding: 0.1rem 0.4rem;
-	border-radius: $radius-sm;
 	font-size: 0.875rem;
 }
 
@@ -205,7 +198,6 @@
 	padding: 0.875rem 1rem;
 	background: $input-bg;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	cursor: pointer;
 	text-align: left;
 	transition: all 0.18s ease;
@@ -275,7 +267,6 @@
 	color: $text-muted;
 	background: $bg-overlay-light;
 	padding: 0.4rem 0.5rem;
-	border-radius: $radius-sm;
 	word-break: break-word;
 	line-height: 1.5;
 }

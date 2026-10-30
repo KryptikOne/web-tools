@@ -247,7 +247,7 @@ export default function IbanValidator() {
 			</div>
 
 			{result.state === "error" && (
-				<div className={`mt-4 px-4 py-3 rounded-lg text-sm ${styles.errorBox}`}>
+				<div className={`mt-4 px-4 py-3 text-sm ${styles.errorBox}`}>
 					{result.message}
 				</div>
 			)}
@@ -255,7 +255,7 @@ export default function IbanValidator() {
 			{result.state === "ok" && (
 				<>
 					<div
-						className={`mt-4 px-4 py-3 rounded-lg text-sm ${
+						className={`mt-4 px-4 py-3 text-sm ${
 							result.valid ? styles.successBox : styles.errorBox
 						}`}
 					>

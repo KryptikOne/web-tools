@@ -27,7 +27,6 @@
 	padding: 0.75rem 1rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	color: $text-primary;
 	font-family: $font-family-mono;
 	font-size: 0.9rem;
@@ -67,7 +66,6 @@
 	padding: 0.75rem 1rem;
 	background: $input-bg;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 
 	@media (max-width: 640px) {
 		grid-template-columns: 1fr;
@@ -126,7 +124,6 @@
 	code {
 		padding: 0.125rem 0.375rem;
 		background: $bg-glass;
-		border-radius: $radius-sm;
 		font-family: $font-family-mono;
 		font-size: 0.8rem;
 		color: $text-code;

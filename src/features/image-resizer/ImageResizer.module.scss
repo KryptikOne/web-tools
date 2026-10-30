@@ -41,7 +41,6 @@
 // Drag & Drop Zone
 .dropZone {
   border: 2px dashed $border-medium;
-  border-radius: $radius-lg;
   background: $input-bg;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -91,7 +90,6 @@
 .lockBtn {
   @include btn-icon;
   border: 1px solid $border-subtle;
-  border-radius: $radius-md;
   padding: 0.5rem;
   transition: all 0.2s ease;
 
@@ -179,7 +177,6 @@
 .originalInfo {
   background: $input-bg;
   border: 1px solid $border-subtle;
-  border-radius: $radius-md;
 }
 
 .originalInfoLabel {

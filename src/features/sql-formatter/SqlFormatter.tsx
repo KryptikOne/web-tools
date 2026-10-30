@@ -123,7 +123,7 @@ export default function SqlFormatter() {
 			</div>
 
 			{result.error && (
-				<div className={`mt-4 px-4 py-3 rounded-lg text-sm ${styles.errorBox}`}>
+				<div className={`mt-4 px-4 py-3 text-sm ${styles.errorBox}`}>
 					{result.error}
 				</div>
 			)}

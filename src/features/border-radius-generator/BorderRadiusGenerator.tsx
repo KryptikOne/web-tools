@@ -127,7 +127,7 @@ export default function BorderRadiusGenerator() {
 				{/* Preview Section */}
 				<div className={styles.glassCard}>
 					<h2 className={`mb-4 ${styles.sectionTitle}`}>Preview</h2>
-					<div className={`flex items-center justify-center min-h-50 rounded-lg p-8 mb-6 ${styles.previewContainer}`}>
+					<div className={`flex items-center justify-center min-h-50 p-8 mb-6 ${styles.previewContainer}`}>
 						<div className={styles.previewBox} style={getPreviewStyle()} />
 					</div>
 
@@ -213,7 +213,7 @@ export default function BorderRadiusGenerator() {
 					</div>
 
 					{/* CSS Output */}
-					<div className={`rounded-lg p-4 ${styles.outputSection}`}>
+					<div className={`p-4 ${styles.outputSection}`}>
 						<div className="flex items-center justify-between mb-2">
 							<span className={`text-xs font-semibold uppercase tracking-wide ${styles.outputLabel}`}>CSS</span>
 							<button className={`${styles.copyBtn} ${copiedField === "css" ? styles.copied : ""}`} onClick={() => copyToClipboard(getCssCode(), "css")} title="Copy to clipboard">
@@ -230,7 +230,7 @@ export default function BorderRadiusGenerator() {
 				<h2 className={`mb-4 ${styles.sectionTitle}`}>Presets</h2>
 				<div className={`grid gap-3 ${styles.presetsGrid}`}>
 					{PRESETS.map((preset) => (
-						<button key={preset.name} className={`flex flex-col items-center gap-2 py-4 px-3 rounded-lg cursor-pointer ${styles.presetBtn}`} onClick={() => applyPreset(preset)}>
+						<button key={preset.name} className={`flex flex-col items-center gap-2 py-4 px-3 cursor-pointer ${styles.presetBtn}`} onClick={() => applyPreset(preset)}>
 							<div
 								className={`w-12.5 h-8.75 ${styles.presetPreview}`}
 								style={{
@@ -261,7 +261,7 @@ export default function BorderRadiusGenerator() {
 					</div>
 					<div className={styles.infoItem}>
 						<h3 className={styles.infoSubtitle}>Pill Shapes</h3>
-						<p className={styles.infoText}>Use a very large value (like 9999px or 50%) to create pill-shaped buttons or fully rounded elements. The browser caps the radius at half the element&apos;s smallest dimension.</p>
+						<p className={styles.infoText}>Use a very large value (like 9999px or 50%) to create pill-shaped buttons or fully elements. The browser caps the radius at half the element&apos;s smallest dimension.</p>
 					</div>
 					<div className={styles.infoItem}>
 						<h3 className={styles.infoSubtitle}>Elliptical Corners</h3>

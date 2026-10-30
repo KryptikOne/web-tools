@@ -751,7 +751,7 @@ export default function BarcodeGenerator() {
 									type="text"
 									value={barColor}
 									onChange={(e) => setBarColor(e.target.value)}
-									className={`flex-1 rounded-md text-sm ${styles.colorTextInput}`}
+									className={`flex-1 text-sm ${styles.colorTextInput}`}
 								/>
 							</div>
 						</div>
@@ -763,7 +763,7 @@ export default function BarcodeGenerator() {
 									type="text"
 									value={bgColor}
 									onChange={(e) => setBgColor(e.target.value)}
-									className={`flex-1 rounded-md text-sm ${styles.colorTextInput}`}
+									className={`flex-1 text-sm ${styles.colorTextInput}`}
 								/>
 							</div>
 						</div>
@@ -791,11 +791,11 @@ export default function BarcodeGenerator() {
 						</button>
 					</div>
 
-					<div className={`flex items-center justify-center rounded-lg mb-6 ${styles.previewContainer}`}>
+					<div className={`flex items-center justify-center mb-6 ${styles.previewContainer}`}>
 						<canvas ref={canvasRef} className={`max-w-full ${styles.barcodeCanvas}`} />
 					</div>
 
-					<div className={`flex items-start gap-4 p-4 rounded-md ${styles.infoBox}`}>
+					<div className={`flex items-start gap-4 p-4 ${styles.infoBox}`}>
 						<Bars3BottomLeftIcon className={`w-6 h-6 shrink-0 ${styles.infoIcon}`} />
 						<p className={styles.infoText}>
 							Barcodes are generated entirely in your browser using the Canvas API. No data is sent to any server. Code 128 supports all standard ASCII characters and is the most versatile format.

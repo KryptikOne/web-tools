@@ -68,7 +68,6 @@
 	padding: 1rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	color: $text-primary;
 	font-size: 0.875rem;
 	@media (pointer: coarse) {
@@ -113,7 +112,6 @@
 	padding: 0.625rem 0.75rem;
 	background: $input-bg;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	transition: all 0.2s ease;
 
 	&:hover {

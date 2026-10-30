@@ -154,7 +154,7 @@ export default function BcryptTool() {
 					</button>
 
 					{genError && (
-						<div className={`mt-4 px-4 py-3 rounded-lg text-sm ${styles.errorBox}`}>{genError}</div>
+						<div className={`mt-4 px-4 py-3 text-sm ${styles.errorBox}`}>{genError}</div>
 					)}
 
 					{genHash && (
@@ -225,7 +225,7 @@ export default function BcryptTool() {
 					</button>
 
 					{verError && (
-						<div className={`mt-4 px-4 py-3 rounded-lg text-sm ${styles.errorBox}`}>{verError}</div>
+						<div className={`mt-4 px-4 py-3 text-sm ${styles.errorBox}`}>{verError}</div>
 					)}
 
 					{verResult === "match" && (

@@ -401,7 +401,7 @@ export default function CspParser() {
 				<div className={`flex flex-col gap-4 ${styles.glassCard}`}>
 					<h2 className={styles.sectionTitle}>Security Assessment</h2>
 
-					<div className={`flex items-center gap-4 p-4 rounded-lg ${styles.assessmentBanner} ${styles[assessment.severity]}`}>
+					<div className={`flex items-center gap-4 p-4 ${styles.assessmentBanner} ${styles[assessment.severity]}`}>
 						<div className={styles.scoreCircle}>
 							<span className={styles.scoreValue}>{assessment.score}</span>
 							<span className={styles.scoreLabel}>/100</span>
@@ -489,7 +489,7 @@ export default function CspParser() {
 
 								{/* Warnings */}
 								{directive.warnings.length > 0 && (
-									<div className={`flex flex-col gap-2 p-3 rounded-lg ${styles.warningBox}`}>
+									<div className={`flex flex-col gap-2 p-3 ${styles.warningBox}`}>
 										{directive.warnings.map((w, i) => (
 											<div key={i} className="flex items-start gap-2">
 												<ExclamationTriangleIcon className="w-4 h-4 flex-shrink-0 mt-0.5" />

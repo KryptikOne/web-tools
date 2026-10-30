@@ -474,7 +474,7 @@ export default function ColorBlindnessSimulator() {
 
 			{/* Info Box */}
 			<div className={styles.glassCard}>
-				<div className={`flex items-start gap-4 p-4 rounded-md ${styles.infoBox}`}>
+				<div className={`flex items-start gap-4 p-4 ${styles.infoBox}`}>
 					<EyeIcon className={`w-6 h-6 shrink-0 ${styles.infoIcon}`} />
 					<p className={styles.infoText}>
 						This tool simulates how colors and images appear to people with various types of color vision deficiency.

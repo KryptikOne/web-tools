@@ -54,7 +54,7 @@ export default function Navigation() {
                     <Link
                       key={tool.id}
                       href={tool.implemented ? tool.route : '#'}
-                      className={`flex items-start gap-4 p-4 rounded-lg no-underline ${styles.dropdownItem} ${!tool.implemented ? styles.notImplemented : ''}`}
+                      className={`flex items-start gap-4 p-4 no-underline ${styles.dropdownItem} ${!tool.implemented ? styles.notImplemented : ''}`}
                       onClick={closeDropdown}
                     >
                       <div className="flex-1">
@@ -88,7 +88,7 @@ export default function Navigation() {
                 <Link
                   key={tool.id}
                   href={tool.implemented ? tool.route : '#'}
-                  className={`flex items-start gap-4 p-4 rounded-lg no-underline ${styles.dropdownItem} ${!tool.implemented ? styles.notImplemented : ''}`}
+                  className={`flex items-start gap-4 p-4 no-underline ${styles.dropdownItem} ${!tool.implemented ? styles.notImplemented : ''}`}
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <div className="flex-1">

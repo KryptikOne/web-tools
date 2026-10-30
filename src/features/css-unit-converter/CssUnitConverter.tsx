@@ -274,7 +274,7 @@ export default function CssUnitConverter() {
 								inputMode="decimal"
 								value={inputValue}
 								onChange={(e) => setInputValue(e.target.value)}
-								className={`w-full rounded-md text-xl font-semibold ${styles.input}`}
+								className={`w-full text-xl font-semibold ${styles.input}`}
 								placeholder="Enter value"
 							/>
 						</div>
@@ -329,7 +329,7 @@ export default function CssUnitConverter() {
 									type="text"
 									value={result ? `${result}${targetUnit}` : ""}
 									readOnly
-									className={`w-full rounded-md text-xl font-semibold ${styles.input} ${styles.resultInput}`}
+									className={`w-full text-xl font-semibold ${styles.input} ${styles.resultInput}`}
 									placeholder="Result"
 								/>
 								<button
@@ -357,7 +357,7 @@ export default function CssUnitConverter() {
 						</h3>
 						<div className={`grid gap-3 ${styles.allUnitsGrid}`}>
 							{allConversions.map(({ unit, label, value }) => (
-								<div key={unit} className={`flex items-center justify-between p-3 rounded-md ${styles.allUnitsItem}`}>
+								<div key={unit} className={`flex items-center justify-between p-3 ${styles.allUnitsItem}`}>
 									<div className="flex flex-col">
 										<span className={`text-xs ${styles.allUnitsUnitLabel}`}>{label}</span>
 										<span className={`font-semibold ${styles.allUnitsValue}`}>
@@ -426,7 +426,7 @@ export default function CssUnitConverter() {
 			<div className={`mt-6 ${styles.glassCard}`}>
 				<h2 className={`mb-4 ${styles.sectionTitle}`}>CSS Unit Guide</h2>
 				<div className={`grid grid-cols-2 gap-4 ${styles.infoGrid}`}>
-					<div className={`p-4 rounded-md ${styles.infoItem}`}>
+					<div className={`p-4 ${styles.infoItem}`}>
 						<h3 className={`text-base font-semibold mb-2 ${styles.infoSubtitle}`}>Absolute Units</h3>
 						<p className={`text-sm ${styles.infoText}`}>
 							<strong>px</strong> &mdash; Pixels, the most common absolute unit.
@@ -436,7 +436,7 @@ export default function CssUnitConverter() {
 							<strong>cm / mm / in</strong> &mdash; Physical measurements, rarely used on screen but useful for print stylesheets.
 						</p>
 					</div>
-					<div className={`p-4 rounded-md ${styles.infoItem}`}>
+					<div className={`p-4 ${styles.infoItem}`}>
 						<h3 className={`text-base font-semibold mb-2 ${styles.infoSubtitle}`}>Relative Units</h3>
 						<p className={`text-sm ${styles.infoText}`}>
 							<strong>rem</strong> &mdash; Relative to the root font size (html element).
@@ -446,7 +446,7 @@ export default function CssUnitConverter() {
 							<strong>%</strong> &mdash; Percentage of the parent&apos;s computed value.
 						</p>
 					</div>
-					<div className={`p-4 rounded-md ${styles.infoItem}`}>
+					<div className={`p-4 ${styles.infoItem}`}>
 						<h3 className={`text-base font-semibold mb-2 ${styles.infoSubtitle}`}>Viewport Units</h3>
 						<p className={`text-sm ${styles.infoText}`}>
 							<strong>vw</strong> &mdash; 1% of the viewport width.
@@ -456,14 +456,14 @@ export default function CssUnitConverter() {
 							Useful for full-screen layouts and responsive typography.
 						</p>
 					</div>
-					<div className={`p-4 rounded-md ${styles.infoItem}`}>
+					<div className={`p-4 ${styles.infoItem}`}>
 						<h3 className={`text-base font-semibold mb-2 ${styles.infoSubtitle}`}>Key Formulas</h3>
 						<p className={`text-sm ${styles.infoText}`}>
-							<code className={`inline-block px-2 py-1 rounded-sm text-xs ${styles.formula}`}>rem = px / base-font-size</code>
+							<code className={`inline-block px-2 py-1 text-xs ${styles.formula}`}>rem = px / base-font-size</code>
 							<br />
-							<code className={`inline-block px-2 py-1 rounded-sm text-xs ${styles.formula}`}>1in = 96px = 72pt = 2.54cm</code>
+							<code className={`inline-block px-2 py-1 text-xs ${styles.formula}`}>1in = 96px = 72pt = 2.54cm</code>
 							<br />
-							<code className={`inline-block px-2 py-1 rounded-sm text-xs ${styles.formula}`}>vw = (px / viewport-width) * 100</code>
+							<code className={`inline-block px-2 py-1 text-xs ${styles.formula}`}>vw = (px / viewport-width) * 100</code>
 						</p>
 					</div>
 				</div>

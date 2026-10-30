@@ -46,7 +46,6 @@
 // Drop Zone
 .dropZone {
   border: 2px dashed $border-medium;
-  border-radius: $radius-lg;
   background: $input-bg;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -77,7 +76,6 @@
 // Image Preview
 .imagePreviewContainer {
   position: relative;
-  border-radius: $radius-lg;
   overflow: hidden;
   background: $input-bg;
   border: 1px solid $border-subtle;
@@ -106,7 +104,6 @@
   z-index: 10;
   background: $bg-glass;
   border: 1px solid $border-subtle;
-  border-radius: $radius-md;
   padding: 0.5rem 0.75rem;
   backdrop-filter: blur(10px);
   white-space: nowrap;
@@ -114,7 +111,6 @@
 
 .hoverSwatch {
   border: 1px solid $border-subtle;
-  border-radius: $radius-sm;
 }
 
 .hoverHex {
@@ -127,12 +123,10 @@
 .pickedColor {
   background: $input-bg;
   border: 1px solid $border-subtle;
-  border-radius: $radius-md;
 }
 
 .pickedSwatch {
   border: 1px solid $border-subtle;
-  border-radius: $radius-sm;
 }
 
 .pickedHex {
@@ -149,7 +143,6 @@
 .colorCard {
   background: $input-bg;
   border: 1px solid $border-subtle;
-  border-radius: $radius-md;
   transition: all 0.2s ease;
 
   &:hover {
@@ -158,7 +151,6 @@
 }
 
 .colorSwatch {
-  border-radius: $radius-sm;
   border: 1px solid $border-subtle;
 }
 
@@ -191,7 +183,6 @@
   @include custom-scrollbar;
   background: $input-bg;
   border: 1px solid $border-subtle;
-  border-radius: $radius-md;
   font-family: $font-family-mono;
   font-size: 0.8rem;
   color: $text-primary;

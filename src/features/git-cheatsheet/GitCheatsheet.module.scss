@@ -13,14 +13,12 @@
 .controlBar {
 	background: $bg-glass;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-lg;
 }
 
 .searchWrap {
 	position: relative;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	padding: 0 0.75rem;
 	transition: all 0.2s ease;
 
@@ -114,7 +112,6 @@
 	padding: 0.875rem 1rem;
 	background: $input-bg;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	cursor: pointer;
 	text-align: left;
 	transition: all 0.18s ease;
@@ -184,7 +181,6 @@
 	color: $text-muted;
 	background: $bg-overlay-light;
 	padding: 0.4rem 0.5rem;
-	border-radius: $radius-sm;
 	word-break: break-word;
 	line-height: 1.5;
 }

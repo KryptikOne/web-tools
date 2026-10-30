@@ -216,11 +216,11 @@ export default function ColorPicker() {
 				<div>
 					{/* Color Preview */}
 					<div className={`mb-6 ${styles.glassCard}`}>
-						<div className={`w-full h-50 rounded-xl relative overflow-hidden shadow-xl ${styles.colorPreview}`}>
+						<div className={`w-full h-50 relative overflow-hidden shadow-xl ${styles.colorPreview}`}>
 							<div className={`w-full h-full ${styles.swatch}`} style={{ backgroundColor: colorFormats.rgba }}>
 								<div className={`absolute bottom-4 left-4 right-4 flex justify-between items-end`}>
 									<div
-									className={`rounded-md ${styles.hexDisplay} ${hexCopied ? styles.hexCopied : ""}`}
+									className={`${styles.hexDisplay} ${hexCopied ? styles.hexCopied : ""}`}
 									onClick={async () => {
 										try {
 											await navigator.clipboard.writeText(colorFormats.hex);
@@ -235,7 +235,7 @@ export default function ColorPicker() {
 								>
 									<p className="font-mono text-2xl">{colorFormats.hex}</p>
 								</div>
-									<Button onClick={generateRandomColor} className={`rounded-md ${styles.btnRandom}`} title="Random Color">
+									<Button onClick={generateRandomColor} className={`${styles.btnRandom}`} title="Random Color">
 										<ArrowPathIcon className="w-5 h-5" />
 									</Button>
 								</div>
@@ -257,13 +257,13 @@ export default function ColorPicker() {
 						<div className={`flex flex-col gap-2 mt-4 pt-4 ${styles.accessibilityToggle}`}>
 							<span className={`text-xs ${styles.toggleLabel}`}>Random Color Accessibility:</span>
 							<div className={`flex gap-1`}>
-								<Button onClick={() => setAccessibilityLevel("none")} className={`flex-1 rounded-md text-xs font-semibold ${styles.toggleBtn} ${accessibilityLevel === "none" ? styles.active : ""}`}>
+								<Button onClick={() => setAccessibilityLevel("none")} className={`flex-1 text-xs font-semibold ${styles.toggleBtn} ${accessibilityLevel === "none" ? styles.active : ""}`}>
 									Any
 								</Button>
-								<Button onClick={() => setAccessibilityLevel("aa")} className={`flex-1 rounded-md text-xs font-semibold ${styles.toggleBtn} ${accessibilityLevel === "aa" ? styles.active : ""}`}>
+								<Button onClick={() => setAccessibilityLevel("aa")} className={`flex-1 text-xs font-semibold ${styles.toggleBtn} ${accessibilityLevel === "aa" ? styles.active : ""}`}>
 									AA+
 								</Button>
-								<Button onClick={() => setAccessibilityLevel("aaa")} className={`flex-1 rounded-md text-xs font-semibold ${styles.toggleBtn} ${accessibilityLevel === "aaa" ? styles.active : ""}`}>
+								<Button onClick={() => setAccessibilityLevel("aaa")} className={`flex-1 text-xs font-semibold ${styles.toggleBtn} ${accessibilityLevel === "aaa" ? styles.active : ""}`}>
 									AAA+
 								</Button>
 							</div>
@@ -281,7 +281,7 @@ export default function ColorPicker() {
 							</div>
 							<div className={styles.savedColorsGrid}>
 								{savedColors.map((color) => (
-									<button key={color.id} onClick={() => handleLoadColor(color)} className={`aspect-square rounded-lg cursor-pointer ${styles.colorSwatch}`} style={{ backgroundColor: color.hex }} title={color.hex} />
+									<button key={color.id} onClick={() => handleLoadColor(color)} className={`aspect-square cursor-pointer ${styles.colorSwatch}`} style={{ backgroundColor: color.hex }} title={color.hex} />
 								))}
 							</div>
 						</div>
@@ -374,9 +374,9 @@ export default function ColorPicker() {
 						<h3 className={styles.sectionTitle}>All Formats</h3>
 
 						{Object.entries(colorFormats).map(([format, value]) => (
-							<div key={format} className={`flex justify-between items-center p-3 rounded-md mb-2 ${styles.formatItem}`}>
+							<div key={format} className={`flex justify-between items-center p-3 mb-2 ${styles.formatItem}`}>
 								<span className={`text-xs uppercase tracking-wide min-w-15 ${styles.formatLabel}`}>{format}</span>
-								<span className={`font-mono text-lg flex-1 mx-4 p-2 rounded-sm ${styles.formatValue}`}>{value}</span>
+								<span className={`font-mono text-lg flex-1 mx-4 p-2 ${styles.formatValue}`}>{value}</span>
 								<button onClick={() => copyToClipboard(value, format)} className={`${styles.copyBtn} ${copiedFormat === format ? styles.copied : ""}`} title="Copy to clipboard">
 									{copiedFormat === format ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
 								</button>
@@ -394,22 +394,22 @@ export default function ColorPicker() {
 					<div className={`mb-8`}>
 						<h4 className={`text-sm font-semibold mb-4 ${styles.subsectionTitle}`}>Current Color Contrast</h4>
 						<div className={styles.contrastBoxes}>
-							<div className={`p-4 rounded-lg ${styles.contrastBox} ${styles.white}`}>
+							<div className={`p-4 ${styles.contrastBox} ${styles.white}`}>
 								<div className={`flex justify-between items-center`}>
 									<span>On White</span>
 									<div>
 										<span className={`font-mono text-base font-bold ${styles.contrastRatio}`}>{contrastWhite.toFixed(2)}:1</span>
-										<span className={`inline-block px-2 py-1 rounded-sm ml-2 text-xs font-bold text-white ${styles.wcagBadge} ${getWCAGRating(contrastWhite).className}`}>{getWCAGRating(contrastWhite).level}</span>
+										<span className={`inline-block px-2 py-1 ml-2 text-xs font-bold text-white ${styles.wcagBadge} ${getWCAGRating(contrastWhite).className}`}>{getWCAGRating(contrastWhite).level}</span>
 									</div>
 								</div>
 							</div>
 
-							<div className={`p-4 rounded-lg ${styles.contrastBox} ${styles.black}`}>
+							<div className={`p-4 ${styles.contrastBox} ${styles.black}`}>
 								<div className={`flex justify-between items-center`}>
 									<span>On Black</span>
 									<div>
 										<span className={`font-mono text-base font-bold ${styles.contrastRatio}`}>{contrastBlack.toFixed(2)}:1</span>
-										<span className={`inline-block px-2 py-1 rounded-sm ml-2 text-xs font-bold text-white ${styles.wcagBadge} ${getWCAGRating(contrastBlack).className}`}>{getWCAGRating(contrastBlack).level}</span>
+										<span className={`inline-block px-2 py-1 ml-2 text-xs font-bold text-white ${styles.wcagBadge} ${getWCAGRating(contrastBlack).className}`}>{getWCAGRating(contrastBlack).level}</span>
 									</div>
 								</div>
 							</div>
@@ -437,7 +437,7 @@ export default function ColorPicker() {
 								</ul>
 							</div>
 						</div>
-						<div className={`p-4 rounded-md ${styles.noteBox}`}>
+						<div className={`p-4 ${styles.noteBox}`}>
 							<p className={`m-0 text-xs`}>
 								<strong className="font-bold">Tip:</strong> Use the accessibility toggle above to generate random colors that meet AA or AAA on both light and dark backgrounds. To test a specific foreground and background pair, open the{" "}
 								<Link href={`/tools/contrast-checker`} className={styles.inlineLink}>Contrast Checker</Link>.

@@ -34,7 +34,6 @@
 	background: $bg-glass;
 	color: $text-secondary;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	font-weight: 500;
 	font-size: 0.8rem;
 	cursor: pointer;
@@ -59,7 +58,6 @@
 	padding: 1rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	color: $text-primary;
 	font-size: 0.875rem;
 	@media (pointer: coarse) {
@@ -93,7 +91,6 @@
 
 .badge {
 	padding: 0.25rem 0.6rem;
-	border-radius: $radius-md;
 	font-family: $font-family-mono;
 	font-weight: 600;
 	border: 1px solid transparent;
@@ -135,7 +132,6 @@
 
 .diffRow {
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	padding: 0.75rem;
 	margin-bottom: 0.5rem;
 	background: $bg-glass;
@@ -164,7 +160,6 @@
 	font-size: 0.8rem;
 	color: $text-primary;
 	background: $input-bg;
-	border-radius: $radius-sm;
 	padding: 0.5rem;
 	margin: 0;
 	white-space: pre-wrap;

@@ -59,9 +59,6 @@
 	}
 }
 
-.converterInput {
-}
-
 .inputLabel {
 	color: $text-muted;
 	letter-spacing: 0.05em;
@@ -184,13 +181,6 @@
 		letter-spacing: 0.03em;
 		border-bottom: 1px solid $border-subtle;
 
-		&:first-child {
-			border-radius: $radius-sm 0 0 0;
-		}
-
-		&:last-child {
-			border-radius: 0 $radius-sm 0 0;
-		}
 	}
 
 	td {
@@ -231,8 +221,6 @@
 }
 
 // Ingredients Grid
-.ingredientsGrid {
-}
 
 .ingredientCard {
 	padding: 0.875rem 1rem;
@@ -263,8 +251,6 @@
 }
 
 // Tips
-.tipsGrid {
-}
 
 .tipCard {
 	background: $input-bg;

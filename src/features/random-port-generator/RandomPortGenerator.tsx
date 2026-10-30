@@ -267,7 +267,7 @@ export default function RandomPortGenerator() {
 						</div>
 					</div>
 
-					{error && <div className={`px-4 py-3 rounded-lg text-sm mb-4 ${styles.errorBox}`}>{error}</div>}
+					{error && <div className={`px-4 py-3 text-sm mb-4 ${styles.errorBox}`}>{error}</div>}
 
 					{ports.length === 0 && !error ? (
 						<div className={styles.emptyState}>Press Generate to produce random ports.</div>

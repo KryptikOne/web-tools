@@ -25,7 +25,6 @@
 	display: flex;
 	background: $bg-glass;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	overflow: hidden;
 }
 
@@ -77,7 +76,6 @@
 	padding: 1rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	color: $text-primary;
 	font-size: 1rem;
 	font-family: $font-family-mono;
@@ -104,7 +102,6 @@
 	min-height: 5rem;
 	background: $bg-overlay-light;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	display: flex;
 	align-items: flex-start;
 }
@@ -206,7 +203,6 @@
 	min-height: 112px;
 	background: $bg-overlay-light;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	color: $text-primary;
 	text-align: left;
 	cursor: pointer;
@@ -267,7 +263,6 @@
 	i {
 		display: block;
 		height: 3px;
-		border-radius: $radius-sm;
 		background: $text-secondary;
 	}
 }
@@ -301,7 +296,6 @@
 	width: 34px;
 	height: auto;
 	justify-self: end;
-	border-radius: $radius-sm;
 }
 
 .digits {
@@ -323,7 +317,6 @@
 	padding: 0.5rem 0.625rem;
 	background: $bg-overlay-light;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	color: $text-primary;
 	cursor: pointer;
 	transition: all $transition-base;

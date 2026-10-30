@@ -55,7 +55,6 @@
 	padding: 0.65rem 0.75rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	color: $text-primary;
 	font-family: $font-family-mono;
 	font-size: 0.95rem;
@@ -90,7 +89,6 @@
 	padding: 0.85rem 1rem;
 	background: $input-bg;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	display: flex;
 	flex-direction: column;
 	gap: 0.25rem;
@@ -141,7 +139,6 @@
 	code {
 		padding: 0.125rem 0.375rem;
 		background: $bg-glass;
-		border-radius: $radius-sm;
 		font-family: $font-family-mono;
 		font-size: 0.8rem;
 		color: $text-code;

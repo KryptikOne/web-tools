@@ -97,7 +97,7 @@ export default function PxRemCalculator() {
 						<div className={`flex flex-col gap-2 ${styles.inputGroup}`}>
 							<label className={styles.inputLabel}>Pixels (px)</label>
 							<div className={`relative flex items-center ${styles.inputWrapper}`}>
-								<input type="number" inputMode="decimal" value={pxValue} onChange={(e) => handlePxChange(e.target.value)} className={`w-full rounded-md text-xl font-semibold ${styles.input}`} placeholder="Enter pixels" />
+								<input type="number" inputMode="decimal" value={pxValue} onChange={(e) => handlePxChange(e.target.value)} className={`w-full text-xl font-semibold ${styles.input}`} placeholder="Enter pixels" />
 								<span className={`absolute text-sm font-medium pointer-events-none ${styles.unitLabel}`}>px</span>
 								<button className={`absolute ${styles.copyBtn} ${copiedField === "px" ? styles.copied : ""}`} onClick={() => copyToClipboard(pxValue, "px", "px")} title="Copy to clipboard">
 									{copiedField === "px" ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
@@ -114,7 +114,7 @@ export default function PxRemCalculator() {
 						<div className={`flex flex-col gap-2 ${styles.inputGroup}`}>
 							<label className={styles.inputLabel}>Root EM (rem)</label>
 							<div className={`relative flex items-center ${styles.inputWrapper}`}>
-								<input type="number" inputMode="decimal" value={remValue} onChange={(e) => handleRemChange(e.target.value)} className={`w-full rounded-md text-xl font-semibold ${styles.input}`} placeholder="Enter rem" step="0.0625" />
+								<input type="number" inputMode="decimal" value={remValue} onChange={(e) => handleRemChange(e.target.value)} className={`w-full text-xl font-semibold ${styles.input}`} placeholder="Enter rem" step="0.0625" />
 								<span className={`absolute text-sm font-medium pointer-events-none ${styles.unitLabel}`}>rem</span>
 								<button className={`absolute ${styles.copyBtn} ${copiedField === "rem" ? styles.copied : ""}`} onClick={() => copyToClipboard(remValue, "rem", "rem")} title="Copy to clipboard">
 									{copiedField === "rem" ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
@@ -142,7 +142,7 @@ export default function PxRemCalculator() {
 					<h2 className={`mb-4 ${styles.sectionTitle}`}>Quick Convert</h2>
 					<div className={`grid gap-2 ${styles.quickGrid}`}>
 						{COMMON_SIZES.map((size) => (
-							<button key={size} className={`flex flex-col items-center gap-1 rounded-md cursor-pointer ${styles.quickBtn} ${pxValue === size.toString() ? styles.active : ""}`} onClick={() => handleQuickConvert(size)}>
+							<button key={size} className={`flex flex-col items-center gap-1 cursor-pointer ${styles.quickBtn} ${pxValue === size.toString() ? styles.active : ""}`} onClick={() => handleQuickConvert(size)}>
 								<span className={`font-semibold ${styles.quickPx}`}>{size}px</span>
 								<span className={`text-xs ${styles.quickRem}`}>{formatNumber(pxToRem(size, baseSize))}rem</span>
 							</button>
@@ -182,23 +182,23 @@ export default function PxRemCalculator() {
 			<div className={`mt-6 ${styles.glassCard}`}>
 				<h2 className={`mb-4 ${styles.sectionTitle}`}>About PX and REM</h2>
 				<div className={`grid grid-cols-2 gap-6 ${styles.infoGrid}`}>
-					<div className={`p-4 rounded-md ${styles.infoItem}`}>
+					<div className={`p-4 ${styles.infoItem}`}>
 						<h3 className={`text-base font-semibold mb-2 ${styles.infoSubtitle}`}>What is PX?</h3>
 						<p className={`text-sm ${styles.infoText}`}>Pixels (px) are absolute units that represent a fixed size on screen. They don&apos;t scale with user preferences, making them less accessible but more predictable for fixed layouts.</p>
 					</div>
-					<div className={`p-4 rounded-md ${styles.infoItem}`}>
+					<div className={`p-4 ${styles.infoItem}`}>
 						<h3 className={`text-base font-semibold mb-2 ${styles.infoSubtitle}`}>What is REM?</h3>
 						<p className={`text-sm ${styles.infoText}`}>REM (root em) units are relative to the root element&apos;s font size (typically 16px by default). They scale with user preferences, making your design more accessible and responsive.</p>
 					</div>
-					<div className={`p-4 rounded-md ${styles.infoItem}`}>
+					<div className={`p-4 ${styles.infoItem}`}>
 						<h3 className={`text-base font-semibold mb-2 ${styles.infoSubtitle}`}>Formula</h3>
 						<p className={`text-sm ${styles.infoText}`}>
-							<code className={`inline-block px-2 py-1 rounded-sm text-xs ${styles.formula}`}>rem = px / base-font-size</code>
+							<code className={`inline-block px-2 py-1 text-xs ${styles.formula}`}>rem = px / base-font-size</code>
 							<br />
-							<code className={`inline-block px-2 py-1 rounded-sm text-xs ${styles.formula}`}>px = rem × base-font-size</code>
+							<code className={`inline-block px-2 py-1 text-xs ${styles.formula}`}>px = rem × base-font-size</code>
 						</p>
 					</div>
-					<div className={`p-4 rounded-md ${styles.infoItem}`}>
+					<div className={`p-4 ${styles.infoItem}`}>
 						<h3 className={`text-base font-semibold mb-2 ${styles.infoSubtitle}`}>When to Use</h3>
 						<p className={`text-sm ${styles.infoText}`}>Use REM for font sizes, spacing, and most layout properties. Use PX for borders, shadows, and elements that shouldn&apos;t scale with user font preferences.</p>
 					</div>

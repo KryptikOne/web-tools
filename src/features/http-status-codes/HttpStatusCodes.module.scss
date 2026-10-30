@@ -91,7 +91,6 @@
   color: $text-muted;
   background: $bg-glass;
   border: 1px solid $border-subtle;
-  border-radius: $radius-2xl;
   padding: 0.2rem 0.6rem;
   flex-shrink: 0;
 }
@@ -104,7 +103,6 @@
 .statusCard {
   background: $input-bg;
   border: 1px solid $border-subtle;
-  border-radius: $radius-md;
   padding: 0.875rem 1rem;
   transition: all $transition-base;
 
@@ -210,7 +208,6 @@
   color: $text-code;
   background: $color-accent-20;
   padding: 0.625rem 0.875rem;
-  border-radius: $radius-sm;
   font-family: $font-family-mono;
   line-height: 1.5;
   margin: 0;

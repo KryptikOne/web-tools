@@ -332,7 +332,7 @@ export default function ImageCompressor() {
 				<div className={styles.glassCard}>
 					<h2 className={styles.sectionTitle}>Upload Images</h2>
 					<div
-						className={`flex flex-col items-center justify-center gap-4 rounded-lg cursor-pointer ${styles.dropZone} ${isDragging ? styles.dropZoneActive : ""}`}
+						className={`flex flex-col items-center justify-center gap-4 cursor-pointer ${styles.dropZone} ${isDragging ? styles.dropZoneActive : ""}`}
 						onDragOver={handleDragOver}
 						onDragLeave={handleDragLeave}
 						onDrop={handleDrop}
@@ -527,7 +527,7 @@ export default function ImageCompressor() {
 									<div key={img.id} className={styles.glassCard}>
 										<div className={`flex gap-4 ${styles.imageRow}`}>
 											{/* Thumbnail */}
-											<div className={`shrink-0 rounded-md overflow-hidden ${styles.thumbnail}`}>
+											<div className={`shrink-0 overflow-hidden ${styles.thumbnail}`}>
 												{img.compressedUrl ? (
 													<img
 														src={img.compressedUrl}
@@ -633,7 +633,7 @@ export default function ImageCompressor() {
 				)}
 
 				{/* Info Box */}
-				<div className={`flex items-start gap-4 p-4 rounded-md ${styles.infoBox}`}>
+				<div className={`flex items-start gap-4 p-4 ${styles.infoBox}`}>
 					<PhotoIcon className={`w-6 h-6 shrink-0 ${styles.infoIcon}`} />
 					<p className={styles.infoText}>
 						All compression happens in your browser using the Canvas API. No

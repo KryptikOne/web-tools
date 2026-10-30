@@ -113,7 +113,6 @@
     color: $text-code;
     background: $input-bg;
     padding: $spacing-xs $spacing-sm;
-    border-radius: $radius-sm;
   }
 }
 
@@ -127,7 +126,6 @@
 .colorCard {
   background: $bg-glass;
   border: 1px solid $border-subtle;
-  border-radius: $radius-lg;
   overflow: hidden;
 }
 
@@ -159,7 +157,6 @@
     height: 72px;
     margin: 4px;
     width: calc(100% - 8px);
-    border-radius: $radius-md;
   }
 }
 
@@ -239,7 +236,6 @@
   justify-content: space-between;
   padding: $spacing-md;
   background: $bg-glass;
-  border-radius: $radius-md;
   border: 1px solid $border-subtle;
 
   code {
@@ -309,7 +305,6 @@
   gap: $spacing-sm;
   padding: $spacing-md;
   background: $bg-glass;
-  border-radius: $radius-md;
   border: 1px solid $border-subtle;
 
   code {
@@ -327,41 +322,6 @@
 .spacingVisual {
   background: $color-primary;
   border-radius: 2px;
-}
-
-// Border Radius
-.radiusGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: $spacing-lg;
-}
-
-.radiusItem {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: $spacing-sm;
-  padding: $spacing-md;
-  background: $bg-glass;
-  border-radius: $radius-md;
-  border: 1px solid $border-subtle;
-
-  code {
-    font-family: $font-family-mono;
-    font-size: 0.75rem;
-    color: $text-code;
-  }
-
-  span {
-    font-size: 0.75rem;
-    color: $text-tertiary;
-  }
-}
-
-.radiusVisual {
-  width: 60px;
-  height: 60px;
-  background: $color-primary;
 }
 
 // Shadows
@@ -395,7 +355,6 @@
   width: 100px;
   height: 100px;
   background: $bg-glass;
-  border-radius: $radius-lg;
 }
 
 // Buttons
@@ -459,7 +418,6 @@
   padding: $spacing-sm $spacing-md;
   background: $input-bg;
   border: 1px solid $border-subtle;
-  border-radius: $radius-md;
   color: $text-tertiary;
   font-size: 14px;
   font-weight: 600;
@@ -533,7 +491,6 @@
   padding: $spacing-sm;
   background: $input-bg;
   border: 1px solid $input-border;
-  border-radius: $radius-md;
   color: $text-primary;
   font-family: $font-family-mono;
   font-size: 14px;
@@ -566,7 +523,6 @@
   width: 40px;
   height: 40px;
   border: 2px solid $border-medium;
-  border-radius: $radius-md;
   cursor: pointer;
   transition: all $transition-base;
 
@@ -576,7 +532,6 @@
 
   &::-webkit-color-swatch {
     border: none;
-    border-radius: $radius-sm;
   }
 
   &:hover {
@@ -589,7 +544,6 @@
   width: 36px;
   height: 24px;
   border: 1px solid $border-medium;
-  border-radius: $radius-sm;
   cursor: pointer;
 
   &::-webkit-color-swatch-wrapper {
@@ -707,7 +661,6 @@
   align-items: center;
   justify-content: center;
   background: $bg-glass-hover;
-  border-radius: $radius-lg;
   color: $color-primary;
 
   svg {
@@ -762,7 +715,6 @@
   padding: 4px 8px;
   background: rgba(34, 197, 94, 0.2);
   color: $color-success;
-  border-radius: $radius-sm;
   font-size: 10px;
   font-weight: 600;
   text-transform: uppercase;
@@ -774,7 +726,6 @@
   padding: 4px 8px;
   background: rgba(255, 193, 7, 0.2);
   color: $color-warning;
-  border-radius: $radius-sm;
   font-size: 10px;
   font-weight: 600;
   text-transform: uppercase;
@@ -786,7 +737,6 @@
   padding: 4px 8px;
   background: rgba(34, 197, 94, 0.2);
   color: $color-success;
-  border-radius: $radius-sm;
   font-size: 12px;
   font-weight: 700;
 }
@@ -796,7 +746,6 @@
   padding: 4px 8px;
   background: rgba(239, 68, 68, 0.2);
   color: $color-error;
-  border-radius: $radius-sm;
   font-size: 12px;
   font-weight: 700;
 }
@@ -806,7 +755,6 @@
   padding: 4px 8px;
   background: $bg-glass;
   color: $text-tertiary;
-  border-radius: $radius-sm;
   font-size: 0.75rem;
 }
 
@@ -824,7 +772,6 @@
   gap: $spacing-sm;
   padding: $spacing-md;
   background: $bg-glass;
-  border-radius: $radius-md;
   border: 1px solid $border-subtle;
   transition: all $transition-base;
 
@@ -857,7 +804,6 @@
   padding: $spacing-md;
   background: $input-bg;
   border: 1px solid $input-border;
-  border-radius: $radius-md;
   overflow-x: auto;
 
   code {
@@ -889,7 +835,6 @@
   color: $text-code;
   background: $input-bg;
   padding: 2px 6px;
-  border-radius: $radius-sm;
 }
 
 // Common Patterns
@@ -929,7 +874,6 @@
   padding: $spacing-md;
   background: $color-accent-20;
   border: 1px solid $color-accent-50;
-  border-radius: $radius-md;
 
   p {
     margin: 0;
@@ -950,7 +894,6 @@
 
 .presetBtn {
   aspect-ratio: 1.5;
-  border-radius: $radius-lg;
   border: 2px solid transparent;
   cursor: pointer;
   transition: all $transition-base;
@@ -993,7 +936,6 @@
   align-items: center;
   padding: $spacing-sm $spacing-md;
   background: $bg-glass;
-  border-radius: $radius-md;
   border: 1px solid $border-subtle;
 
   code {
@@ -1030,7 +972,6 @@
   li {
     padding: $spacing-sm $spacing-md;
     background: $bg-glass;
-    border-radius: $radius-md;
     border: 1px solid $border-subtle;
 
     code {
@@ -1072,14 +1013,12 @@
     color: $text-code;
     background: $input-bg;
     padding: $spacing-xs $spacing-sm;
-    border-radius: $radius-sm;
   }
 }
 
 .philosophyIcon {
   width: 60px;
   height: 60px;
-  border-radius: $radius-lg;
 }
 
 .paletteShowcase {
@@ -1093,7 +1032,6 @@
 }
 
 .palettePreview {
-  border-radius: $radius-xl;
   padding: $spacing-xl;
   display: flex;
   flex-direction: column;
@@ -1112,7 +1050,6 @@
 .paletteSwatch {
   width: 48px;
   height: 48px;
-  border-radius: $radius-md;
   border: 2px solid rgba(255, 255, 255, 0.3);
   box-shadow: $shadow-md;
 }
@@ -1145,14 +1082,12 @@
   gap: $spacing-md;
   padding: $spacing-sm;
   background: $bg-glass;
-  border-radius: $radius-md;
   border: 1px solid $border-subtle;
 }
 
 .paletteColorSwatch {
   width: 40px;
   height: 40px;
-  border-radius: $radius-md;
   flex-shrink: 0;
 }
 
@@ -1187,7 +1122,6 @@
   gap: $spacing-sm;
   padding: $spacing-lg;
   background: $bg-glass;
-  border-radius: $radius-lg;
   border: 1px solid $border-subtle;
   text-align: center;
 
@@ -1201,7 +1135,6 @@
 .semanticSwatch {
   width: 60px;
   height: 60px;
-  border-radius: $radius-lg;
 }
 
 .semanticName {
@@ -1269,7 +1202,6 @@
   align-items: center;
   justify-content: center;
   background: $bg-glass-hover;
-  border-radius: $radius-lg;
 
   svg {
     width: 24px;
@@ -1279,7 +1211,6 @@
 
 .demoBadge {
   padding: 4px 10px;
-  border-radius: $radius-sm;
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
@@ -1311,7 +1242,6 @@
   background: $color-primary;
   color: #000000;
   border: none;
-  border-radius: $radius-md;
   font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
@@ -1327,7 +1257,6 @@
   background: transparent;
   color: oklch(75% 0.15 180);
   border: 1px solid oklch(75% 0.15 180 / 0.5);
-  border-radius: $radius-md;
   font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
@@ -1359,13 +1288,11 @@
 
 .demoSliderTrack {
   height: 12px;
-  border-radius: $radius-sm;
 }
 
 .demoCode {
   padding: $spacing-md;
   background: $input-bg;
-  border-radius: $radius-md;
   overflow-x: auto;
 
   code {
@@ -1494,7 +1421,6 @@
         color: $text-code;
         background: $input-bg;
         padding: 2px 6px;
-        border-radius: $radius-sm;
       }
     }
 
@@ -1585,7 +1511,6 @@
   color: $color-accent;
   padding: $spacing-sm $spacing-md;
   border: 1px dashed $color-accent;
-  border-radius: $radius-md;
   background: $color-accent-20;
   cursor: pointer;
 }
@@ -1593,7 +1518,6 @@
 .stateEditing {
   padding: $spacing-sm $spacing-md;
   border: 1px solid $color-accent;
-  border-radius: $radius-md;
   background: $color-accent-20;
   display: inline-flex;
   align-items: center;

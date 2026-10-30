@@ -30,10 +30,6 @@
 .optionsBar {
 	background: $bg-glass;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-lg;
-}
-
-.optionGroup {
 }
 
 .optionLabel {
@@ -44,7 +40,6 @@
 	padding: 0.5rem 1rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	color: $text-primary;
 	font-size: 0.875rem;
 	@media (pointer: coarse) {
@@ -78,14 +73,8 @@
 	@extend .glass-card;
 }
 
-.cardHeader {
-}
-
 .cardTitle {
 	color: $text-primary;
-}
-
-.buttonGroup {
 }
 
 // Section Title
@@ -112,7 +101,6 @@
 	background: $bg-glass;
 	color: $text-secondary;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	font-weight: 500;
 	font-size: 0.875rem;
 	cursor: pointer;
@@ -138,7 +126,6 @@
 	padding: 1rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	color: $text-primary;
 	font-size: 0.875rem;
 	@media (pointer: coarse) {
@@ -184,7 +171,6 @@
 .swapButton {
 	background: $bg-glass;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	color: $text-secondary;
 	cursor: pointer;
 	transition: all 0.2s ease;
@@ -255,5 +241,4 @@
 	color: $text-code;
 	background: $color-accent-20;
 	padding: 0.2rem 0.5rem;
-	border-radius: $radius-sm;
 }

@@ -95,7 +95,6 @@
 	@include custom-scrollbar;
 	background: $input-bg;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	padding: 1rem 1.25rem;
 	overflow-x: auto;
 	max-height: 500px;
@@ -117,5 +116,4 @@
 	font-size: 0.9rem;
 	background: $input-bg;
 	border: 1px dashed $border-subtle;
-	border-radius: $radius-md;
 }

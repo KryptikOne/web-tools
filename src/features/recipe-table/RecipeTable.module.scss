@@ -48,7 +48,6 @@
 	column-gap: 1.5rem;
 	background: $bg-overlay-light;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	font-size: 0.85rem;
 
 	li {
@@ -163,7 +162,6 @@
 	margin-top: 0.3rem;
 	padding: 0.1rem 0.45rem;
 	border: 1px solid $border-medium;
-	border-radius: $radius-sm;
 	font-size: 0.7rem;
 	font-weight: 400;
 }
@@ -193,7 +191,6 @@
 	font-size: 0.9rem;
 	color: $text-tertiary;
 	border: 1px dashed $border-medium;
-	border-radius: $radius-md;
 }
 
 .errors {

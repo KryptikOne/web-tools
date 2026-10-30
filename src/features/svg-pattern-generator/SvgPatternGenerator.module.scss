@@ -74,7 +74,6 @@
   height: 36px;
   padding: 0;
   border: 1px solid $border-subtle;
-  border-radius: $radius-sm;
   cursor: pointer;
   background: transparent;
   flex-shrink: 0;
@@ -85,7 +84,6 @@
 
   &::-webkit-color-swatch {
     border: none;
-    border-radius: $radius-sm;
   }
 }
 
@@ -93,7 +91,6 @@
   padding: 0.5rem 0.75rem;
   background: $input-bg;
   border: 1px solid $input-border;
-  border-radius: $radius-md;
   color: $text-primary;
   font-family: $font-family-mono;
   font-size: 0.875rem;
@@ -114,7 +111,6 @@
 .actionBtn {
   @include btn-primary;
   padding: 0.5rem 0.75rem;
-  border-radius: $radius-sm;
   font-size: 0.8rem;
 
   &.copied {
@@ -127,7 +123,6 @@
 .codeBlock {
   background: $input-bg;
   border: 1px solid $border-subtle;
-  border-radius: $radius-md;
   overflow: auto;
   max-height: 280px;
 

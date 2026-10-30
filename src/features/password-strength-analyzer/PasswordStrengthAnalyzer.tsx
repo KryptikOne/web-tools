@@ -109,7 +109,7 @@ export default function PasswordStrengthAnalyzer() {
 				)}
 
 				{loadError && (
-					<div className={`mt-4 px-4 py-3 rounded-lg text-sm ${styles.errorBox}`}>{loadError}</div>
+					<div className={`mt-4 px-4 py-3 text-sm ${styles.errorBox}`}>{loadError}</div>
 				)}
 
 				<div className="mt-5">

@@ -33,7 +33,6 @@
 	padding: 0.5rem 0.75rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	color: $text-primary;
 	font-size: 0.875rem;
 	@media (pointer: coarse) {
@@ -48,7 +47,6 @@
 
 .uploadZone {
 	border: 1px dashed $border-medium;
-	border-radius: $radius-md;
 	padding: 1.5rem;
 	text-align: center;
 	color: $text-secondary;

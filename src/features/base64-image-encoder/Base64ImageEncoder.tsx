@@ -196,14 +196,14 @@ export default function Base64ImageEncoder() {
 			{/* Mode Tabs */}
 			<div className={`flex gap-2 mb-6 ${styles.tabBar}`}>
 				<button
-					className={`flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium text-sm ${styles.tab} ${mode === "encode" ? styles.tabActive : ""}`}
+					className={`flex items-center gap-2 px-5 py-2.5 font-medium text-sm ${styles.tab} ${mode === "encode" ? styles.tabActive : ""}`}
 					onClick={() => setMode("encode")}
 				>
 					<PhotoIcon className="w-4 h-4" />
 					Encode
 				</button>
 				<button
-					className={`flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium text-sm ${styles.tab} ${mode === "decode" ? styles.tabActive : ""}`}
+					className={`flex items-center gap-2 px-5 py-2.5 font-medium text-sm ${styles.tab} ${mode === "decode" ? styles.tabActive : ""}`}
 					onClick={() => setMode("decode")}
 				>
 					<CodeBracketIcon className="w-4 h-4" />
@@ -217,7 +217,7 @@ export default function Base64ImageEncoder() {
 					<div className={styles.glassCard}>
 						<h2 className={styles.sectionTitle}>Upload Image</h2>
 						<div
-							className={`flex flex-col items-center justify-center gap-4 p-8 rounded-lg cursor-pointer ${styles.dropZone} ${isDragging ? styles.dropZoneActive : ""}`}
+							className={`flex flex-col items-center justify-center gap-4 p-8 cursor-pointer ${styles.dropZone} ${isDragging ? styles.dropZoneActive : ""}`}
 							onDragOver={handleDragOver}
 							onDragLeave={handleDragLeave}
 							onDrop={handleDrop}
@@ -252,12 +252,12 @@ export default function Base64ImageEncoder() {
 									Clear
 								</button>
 							</div>
-							<div className={`flex items-center justify-center p-4 rounded-lg mb-4 ${styles.previewContainer}`}>
+							<div className={`flex items-center justify-center p-4 mb-4 ${styles.previewContainer}`}>
 								{/* eslint-disable-next-line @next/next/no-img-element */}
 								<img
 									src={previewSrc}
 									alt="Uploaded preview"
-									className={`max-w-full max-h-80 rounded ${styles.previewImage}`}
+									className={`max-w-full max-h-80 ${styles.previewImage}`}
 								/>
 							</div>
 							<div className="flex flex-wrap gap-4 text-sm">
@@ -349,7 +349,7 @@ export default function Base64ImageEncoder() {
 											)}
 										</button>
 									</div>
-									<pre className={`text-xs p-3 rounded-lg overflow-x-auto ${styles.codeBlock}`}>
+									<pre className={`text-xs p-3 overflow-x-auto ${styles.codeBlock}`}>
 										<code>{htmlSnippet}</code>
 									</pre>
 								</div>
@@ -369,7 +369,7 @@ export default function Base64ImageEncoder() {
 											)}
 										</button>
 									</div>
-									<pre className={`text-xs p-3 rounded-lg overflow-x-auto ${styles.codeBlock}`}>
+									<pre className={`text-xs p-3 overflow-x-auto ${styles.codeBlock}`}>
 										<code>{cssSnippet}</code>
 									</pre>
 								</div>
@@ -414,12 +414,12 @@ export default function Base64ImageEncoder() {
 									Download
 								</button>
 							</div>
-							<div className={`flex items-center justify-center p-4 rounded-lg mb-4 ${styles.previewContainer}`}>
+							<div className={`flex items-center justify-center p-4 mb-4 ${styles.previewContainer}`}>
 								{/* eslint-disable-next-line @next/next/no-img-element */}
 								<img
 									src={decodedSrc}
 									alt="Decoded preview"
-									className={`max-w-full max-h-80 rounded ${styles.previewImage}`}
+									className={`max-w-full max-h-80 ${styles.previewImage}`}
 								/>
 							</div>
 							<div className="flex flex-wrap gap-4 text-sm">

@@ -339,7 +339,7 @@ export default function HtmlEntitiesReference() {
       </div>
 
       {/* Legend */}
-      <div className={`flex flex-wrap gap-4 p-4 rounded-lg mb-6 text-xs ${styles.legend}`}>
+      <div className={`flex flex-wrap gap-4 p-4 mb-6 text-xs ${styles.legend}`}>
         <span className={styles.legendItem}><strong>Unicode:</strong> Universal character code</span>
         <span className={styles.legendItem}><strong>Entity:</strong> Named HTML entity</span>
         <span className={styles.legendItem}><strong>HTML:</strong> Numeric HTML code</span>

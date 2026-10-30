@@ -8,7 +8,6 @@
 	padding: 1rem;
 	background: $bg-glass;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 }
 
 .heading {
@@ -44,7 +43,6 @@
 	padding: 0.25rem 0.5rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-sm;
 	color: $text-primary;
 	font-size: 0.875rem;
 	@media (pointer: coarse) {

@@ -245,7 +245,7 @@ export default function OtpTotpGenerator() {
 				</div>
 
 				{secretError && (
-					<div className={`mt-4 px-4 py-3 rounded-lg text-sm ${styles.errorBox}`}>
+					<div className={`mt-4 px-4 py-3 text-sm ${styles.errorBox}`}>
 						{secretError}
 					</div>
 				)}
@@ -346,7 +346,7 @@ export default function OtpTotpGenerator() {
 					</button>
 				</div>
 				{uriError && (
-					<div className={`mt-3 px-4 py-3 rounded-lg text-sm ${styles.errorBox}`}>
+					<div className={`mt-3 px-4 py-3 text-sm ${styles.errorBox}`}>
 						{uriError}
 					</div>
 				)}

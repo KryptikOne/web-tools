@@ -23,7 +23,6 @@
 	padding: 2.5rem 1.5rem;
 	background: $bg-glass;
 	border: 2px dashed $border-medium;
-	border-radius: $radius-xl;
 	cursor: pointer;
 	text-align: center;
 	transition: all $transition-base;
@@ -60,7 +59,6 @@
 .optionsBar {
 	background: $bg-glass;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-lg;
 }
 
 .optionsTitle {
@@ -117,7 +115,6 @@
 	width: 96px;
 	height: 96px;
 	object-fit: cover;
-	border-radius: $radius-md;
 	border: 1px solid $border-subtle;
 	background: $bg-overlay-light;
 	flex-shrink: 0;
@@ -139,7 +136,6 @@
 .tag {
 	display: inline-block;
 	padding: 0.2rem 0.55rem;
-	border-radius: $radius-sm;
 	font-family: $font-family-mono;
 	font-size: 0.72rem;
 	border: 1px solid;
@@ -166,7 +162,6 @@
 	padding: 0.75rem;
 	background: $bg-overlay-light;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 }
 
 .exifRow {

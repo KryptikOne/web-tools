@@ -64,7 +64,6 @@
 	justify-content: center;
 	background: $input-bg;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	padding: 1rem;
 }
 
@@ -75,7 +74,6 @@
 	height: auto;
 	background: linear-gradient(135deg, $color-accent-20 0%, $bg-glass 100%);
 	border: 2px solid $color-accent;
-	border-radius: $radius-sm;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -103,7 +101,6 @@
 	aspect-ratio: 16/9;
 	background: $bg-glass;
 	border: 2px dashed $border-subtle;
-	border-radius: $radius-sm;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -161,7 +158,6 @@
 	padding: 0.375rem;
 	background: transparent;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-sm;
 	color: $text-muted;
 	cursor: pointer;
 	transition: all 0.2s ease;
@@ -189,7 +185,6 @@
 	padding: 0.75rem 1rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	font-size: 1.25rem;
 	font-weight: 600;
 	color: $text-primary;
@@ -216,7 +211,6 @@
 	padding: 0.75rem;
 	background: $bg-glass;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	color: $text-secondary;
 	cursor: pointer;
 	transition: all 0.2s ease;
@@ -260,7 +254,6 @@
 	padding: 1rem;
 	background: $input-bg;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	display: flex;
 	flex-direction: column;
 	gap: 0.25rem;
@@ -293,7 +286,6 @@
 	padding: 0.875rem;
 	background: $input-bg;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	cursor: pointer;
 	transition: all 0.2s ease;
 	display: flex;
@@ -321,7 +313,6 @@
 	max-height: 40px;
 	background: $bg-glass;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-sm;
 }
 
 .ratioInfo {
@@ -373,12 +364,7 @@
 		letter-spacing: 0.03em;
 		border-bottom: 1px solid $border-subtle;
 
-		&:first-child {
-			border-radius: $radius-sm 0 0 0;
-		}
-
 		&:last-child {
-			border-radius: 0 $radius-sm 0 0;
 			width: 80px;
 		}
 	}
@@ -407,7 +393,6 @@
 	padding: 0.375rem 0.75rem;
 	background: $bg-glass;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-sm;
 	color: $text-secondary;
 	font-size: 0.8rem;
 	cursor: pointer;
@@ -430,7 +415,6 @@
 .tipCard {
 	padding: 1rem;
 	background: $input-bg;
-	border-radius: $radius-md;
 	border: 1px solid $border-subtle;
 
 	h4 {

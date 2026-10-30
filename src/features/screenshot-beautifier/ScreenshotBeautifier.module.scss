@@ -47,7 +47,6 @@
 .dropZone {
   padding: 2rem;
   border: 2px dashed $border-subtle;
-  border-radius: $radius-lg;
   color: $text-muted;
   transition: all 0.2s ease;
 
@@ -87,7 +86,6 @@
 .gradientSwatch {
   width: 100%;
   aspect-ratio: 1;
-  border-radius: $radius-md;
   border: 2px solid transparent;
   cursor: pointer;
   transition: all 0.2s ease;

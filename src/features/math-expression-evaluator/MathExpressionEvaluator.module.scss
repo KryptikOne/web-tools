@@ -36,7 +36,6 @@
 	background: $bg-glass;
 	color: $text-secondary;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	font-weight: 500;
 	font-size: 0.875rem;
 	cursor: pointer;
@@ -59,7 +58,6 @@
 	padding: 0.05rem 0.4rem;
 	background: $bg-glass-hover;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-sm;
 	font-family: $font-family-mono;
 	font-size: 0.7rem;
 	color: $text-secondary;
@@ -71,7 +69,6 @@
 	padding: 1rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	color: $text-primary;
 	font-family: $font-family-mono;
 	font-size: 0.95rem;
@@ -99,7 +96,6 @@
 	padding: 1rem 1.25rem;
 	background: $bg-overlay-light;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	font-family: $font-family-mono;
 	font-size: 1.05rem;
 	color: $text-primary;
@@ -136,7 +132,6 @@
 	padding: 0.625rem 0.875rem;
 	background: $input-bg;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	color: $text-primary;
 	font-family: $font-family-mono;
 	font-size: 0.85rem;
@@ -190,7 +185,6 @@
 	code {
 		padding: 0.125rem 0.375rem;
 		background: $bg-glass;
-		border-radius: $radius-sm;
 		font-family: $font-family-mono;
 		font-size: 0.8rem;
 		color: $text-code;
@@ -210,7 +204,6 @@
 		code {
 			padding: 0.125rem 0.375rem;
 			background: $bg-glass;
-			border-radius: $radius-sm;
 			font-family: $font-family-mono;
 			font-size: 0.8rem;
 			color: $text-code;
@@ -265,7 +258,6 @@
 	padding: 0.3rem 0.5rem;
 	background: $bg-overlay-light;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-sm;
 	color: $text-primary;
 	cursor: pointer;
 	transition: all $transition-base;

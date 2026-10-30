@@ -273,7 +273,7 @@ export default function ImageFormatConverter() {
 				<div className={styles.glassCard}>
 					<h2 className={styles.sectionTitle}>Upload Images</h2>
 					<div
-						className={`flex flex-col items-center justify-center gap-3 rounded-lg cursor-pointer ${styles.dropZone} ${isDragging ? styles.dropZoneActive : ""}`}
+						className={`flex flex-col items-center justify-center gap-3 cursor-pointer ${styles.dropZone} ${isDragging ? styles.dropZoneActive : ""}`}
 						onDragOver={handleDragOver}
 						onDragLeave={handleDragLeave}
 						onDrop={handleDrop}
@@ -426,12 +426,12 @@ export default function ImageFormatConverter() {
 								<p className={`text-xs font-medium mb-2 ${styles.compareLabel}`}>
 									Original ({entry.originalFormat})
 								</p>
-								<div className={`flex items-center justify-center rounded-lg ${styles.previewContainer}`}>
+								<div className={`flex items-center justify-center ${styles.previewContainer}`}>
 									{/* eslint-disable-next-line @next/next/no-img-element */}
 									<img
 										src={entry.originalUrl}
 										alt={`Original: ${entry.file.name}`}
-										className={`max-w-full rounded-md ${styles.previewImage}`}
+										className={`max-w-full ${styles.previewImage}`}
 									/>
 								</div>
 								<p className={`text-xs font-mono mt-2 text-center ${styles.sizeLabel}`}>
@@ -445,12 +445,12 @@ export default function ImageFormatConverter() {
 									<p className={`text-xs font-medium mb-2 ${styles.compareLabel}`}>
 										Converted ({outputFormat.toUpperCase()})
 									</p>
-									<div className={`flex items-center justify-center rounded-lg ${styles.previewContainer}`}>
+									<div className={`flex items-center justify-center ${styles.previewContainer}`}>
 										{/* eslint-disable-next-line @next/next/no-img-element */}
 										<img
 											src={entry.convertedUrl}
 											alt={`Converted: ${entry.file.name}`}
-											className={`max-w-full rounded-md ${styles.previewImage}`}
+											className={`max-w-full ${styles.previewImage}`}
 										/>
 									</div>
 									<div className="flex items-center justify-between mt-2">

@@ -404,7 +404,7 @@ export default function GradientGenerator() {
 	return (
 		<div className={styles.container}>
 			{/* Full-width Preview at Top */}
-			<div className={`w-full rounded-xl mb-6 ${styles.previewBox}`} style={{ background: gradientCSS }} />
+			<div className={`w-full mb-6 ${styles.previewBox}`} style={{ background: gradientCSS }} />
 
 			<div className={styles.grid}>
 				{/* Left Column: Color Picker */}
@@ -521,12 +521,12 @@ export default function GradientGenerator() {
 							{[...colorStops]
 								.sort((a, b) => a.position - b.position)
 								.map((stop) => (
-									<div key={stop.id} className={`flex items-center gap-2 p-2 rounded-md ${styles.colorStopItem} ${selectedStopId === stop.id ? styles.selected : ""}`} onClick={() => handleStopSelect(stop)}>
+									<div key={stop.id} className={`flex items-center gap-2 p-2 ${styles.colorStopItem} ${selectedStopId === stop.id ? styles.selected : ""}`} onClick={() => handleStopSelect(stop)}>
 										<input
 											type="color"
 											value={stop.color}
 											onChange={(e) => updateColorStop(stop.id, { color: e.target.value })}
-											className={`w-10 h-10 rounded-md shrink-0 ${styles.colorInput}`}
+											className={`w-10 h-10 shrink-0 ${styles.colorInput}`}
 											onClick={(e) => e.stopPropagation()}
 										/>
 										<input
@@ -569,7 +569,7 @@ export default function GradientGenerator() {
 					{/* CSS Output */}
 					<div className={styles.glassCard}>
 						<h3 className={styles.sectionTitle}>CSS Output</h3>
-						<div className={`flex items-center gap-4 p-4 rounded-md overflow-x-auto ${styles.codeBlock}`}>
+						<div className={`flex items-center gap-4 p-4 overflow-x-auto ${styles.codeBlock}`}>
 							<code className={`flex-1 text-sm font-mono ${styles.codeText}`}>{fullCSS}</code>
 							<button onClick={() => copyToClipboard(fullCSS, "css")} className={`${styles.copyBtn} ${copiedFormat === "css" ? styles.copied : ""}`} title="Copy to clipboard">
 								{copiedFormat === "css" ? <CheckIcon className={styles.copyIcon} /> : <ClipboardDocumentIcon className={styles.copyIcon} />}
@@ -587,7 +587,7 @@ export default function GradientGenerator() {
 						<button
 							key={preset.name}
 							onClick={() => loadPreset(preset)}
-							className={`rounded-lg relative overflow-hidden ${styles.presetBtn}`}
+							className={`relative overflow-hidden ${styles.presetBtn}`}
 							style={{
 								background: `linear-gradient(135deg, ${preset.stops.map((s) => `${s.color} ${s.position}%`).join(", ")})`,
 							}}

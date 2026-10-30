@@ -71,7 +71,6 @@
 	padding: 0.5rem 0.85rem;
 	background: transparent;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-sm;
 	color: $text-muted;
 	font-size: 0.8rem;
 	cursor: pointer;
@@ -111,7 +110,6 @@
 	padding: 0.5rem 0.75rem;
 	background: $input-bg;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-sm;
 	transition: background 0.15s ease;
 
 	&:hover {

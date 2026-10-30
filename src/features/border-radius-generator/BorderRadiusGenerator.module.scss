@@ -60,7 +60,6 @@
   width: 40px;
   height: 28px;
   border: 1px solid $border-subtle;
-  border-radius: $radius-sm;
   cursor: pointer;
   background: transparent;
   padding: 0;
@@ -71,7 +70,6 @@
 
   &::-webkit-color-swatch {
     border: none;
-    border-radius: $radius-sm;
   }
 }
 
@@ -85,7 +83,6 @@
 .resetBtn {
   background: $bg-glass;
   border: 1px solid $border-subtle;
-  border-radius: $radius-sm;
   color: $text-muted;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -110,11 +107,9 @@
 
 .unitSelector {
   background: $input-bg;
-  border-radius: $radius-md;
 }
 
 .unitBtn {
-  border-radius: $radius-sm;
   color: $text-muted;
   transition: all 0.2s ease;
 
@@ -143,7 +138,6 @@
 .numberInput {
   background: $input-bg;
   border: 1px solid $input-border;
-  border-radius: $radius-sm;
   color: $text-primary;
   transition: all 0.2s ease;
 

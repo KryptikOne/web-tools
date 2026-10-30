@@ -186,7 +186,7 @@ export default function EtaCalculator() {
 			</div>
 
 			{!result.ok ? (
-				<div className={`mt-4 px-4 py-3 rounded-lg text-sm ${styles.infoBox}`}>
+				<div className={`mt-4 px-4 py-3 text-sm ${styles.infoBox}`}>
 					{result.reason}
 				</div>
 			) : (

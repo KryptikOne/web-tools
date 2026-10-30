@@ -42,7 +42,7 @@ export function ColorPickerPanel({
 
 	// Show loading skeleton during SSR/hydration
 	if (isMobile === null) {
-		return <div className={`w-full h-[260px] rounded-lg ${styles.skeleton} ${className ?? ""}`} />;
+		return <div className={`w-full h-[260px] ${styles.skeleton} ${className ?? ""}`} />;
 	}
 
 	// Mobile: use native color picker
@@ -248,7 +248,7 @@ function DesktopColorPicker({
 					ref={canvasRef}
 					width={280}
 					height={180}
-					className={`w-full h-auto rounded-lg cursor-crosshair block ${styles.colorCanvas}`}
+					className={`w-full h-auto cursor-crosshair block ${styles.colorCanvas}`}
 					onPointerDown={(e) => {
 						if (disabled) return;
 						e.currentTarget.setPointerCapture(e.pointerId);
@@ -281,7 +281,7 @@ function DesktopColorPicker({
 					ref={hueRef}
 					width={280}
 					height={20}
-					className="w-full h-5 rounded cursor-crosshair block"
+					className="w-full h-5 cursor-crosshair block"
 					onPointerDown={(e) => {
 						if (disabled) return;
 						e.currentTarget.setPointerCapture(e.pointerId);
@@ -305,7 +305,7 @@ function DesktopColorPicker({
 			{/* Footer with preview and hex */}
 			{(showPreview || showHex) && (
 				<div className="flex items-center gap-2">
-					{showPreview && <div className={`w-8 h-8 rounded-lg shrink-0 ${styles.preview}`} style={{ backgroundColor: color }} />}
+					{showPreview && <div className={`w-8 h-8 shrink-0 ${styles.preview}`} style={{ backgroundColor: color }} />}
 					{showHex && (
 						hexEditable ? (
 							<input
@@ -319,7 +319,7 @@ function DesktopColorPicker({
 										(e.target as HTMLInputElement).blur();
 									}
 								}}
-								className={`flex-1 min-w-0 w-full p-2 rounded-lg font-mono text-sm uppercase ${styles.hexInput}`}
+								className={`flex-1 min-w-0 w-full p-2 font-mono text-sm uppercase ${styles.hexInput}`}
 								placeholder="#hex / rgb / hsl"
 								aria-label="Color value (hex, rgb, hsl or oklch)"
 								disabled={disabled}

@@ -33,7 +33,6 @@
   padding: 0.75rem 1rem 0.75rem 2.75rem;
   background: $input-bg;
   border: 1px solid $input-border;
-  border-radius: $radius-md;
   color: $text-primary;
   font-size: 0.95rem;
   @media (pointer: coarse) {
@@ -61,7 +60,6 @@
   padding: 0.75rem 1rem;
   background: $input-bg;
   border: 1px solid $input-border;
-  border-radius: $radius-md;
   color: $text-primary;
   font-size: 0.95rem;
   @media (pointer: coarse) {
@@ -113,7 +111,6 @@
   background: $bg-glass;
   backdrop-filter: blur(10px);
   border: 1px solid $border-subtle;
-  border-radius: $radius-md;
   padding: 1rem;
   transition: all 0.2s ease;
 
@@ -170,7 +167,6 @@
   color: $text-code;
   background: $color-accent-20;
   padding: 0.25rem 0.5rem;
-  border-radius: $radius-sm;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

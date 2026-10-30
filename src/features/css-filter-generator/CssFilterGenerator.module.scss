@@ -24,7 +24,6 @@
 .previewContainer {
   @include checkerboard-bg;
   min-height: 280px;
-  border-radius: $radius-lg;
   overflow: hidden;
 }
 
@@ -32,7 +31,6 @@
   width: 100%;
   max-width: 320px;
   height: auto;
-  border-radius: $radius-md;
   transition: filter 0.2s ease;
 }
 
@@ -91,7 +89,6 @@
   padding: 0.75rem;
   background: $input-bg;
   border: 1px solid $border-subtle;
-  border-radius: $radius-md;
   margin-top: 0.5rem;
 }
 
@@ -115,7 +112,6 @@
   width: 36px;
   height: 24px;
   border: 1px solid $border-subtle;
-  border-radius: $radius-sm;
   cursor: pointer;
   background: transparent;
   padding: 0;
@@ -126,7 +122,6 @@
 
   &::-webkit-color-swatch {
     border: none;
-    border-radius: $radius-sm;
   }
 }
 
@@ -138,7 +133,6 @@
 .resetBtn {
   background: $bg-glass;
   border: 1px solid $border-subtle;
-  border-radius: $radius-md;
   color: $text-muted;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -181,7 +175,6 @@
 .presetPreviewWrapper {
   width: 64px;
   height: 48px;
-  border-radius: $radius-md;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -195,7 +188,6 @@
   width: 48px;
   height: 36px;
   object-fit: cover;
-  border-radius: $radius-sm;
   transition: filter 0.2s ease;
 }
 
@@ -209,7 +201,6 @@
 .outputSection {
   background: $input-bg;
   border: 1px solid $border-subtle;
-  border-radius: $radius-lg;
 }
 
 .outputLabel {

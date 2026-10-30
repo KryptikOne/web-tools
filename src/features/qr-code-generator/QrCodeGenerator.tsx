@@ -466,7 +466,7 @@ export default function QrCodeGenerator() {
 						</button>
 					</div>
 
-					<div className={`flex items-center justify-center p-8 rounded-lg mb-6 ${styles.previewContainer}`}>
+					<div className={`flex items-center justify-center p-8 mb-6 ${styles.previewContainer}`}>
 						<canvas ref={canvasRef} className={styles.qrCanvas} />
 					</div>
 

@@ -227,7 +227,7 @@ export default function BackgroundPatternGenerator() {
 				{/* Preview Section */}
 				<div className={styles.glassCard}>
 					<h2 className={`mb-4 ${styles.sectionTitle}`}>Preview</h2>
-					<div className={`overflow-hidden rounded-lg ${styles.previewWrapper}`}>
+					<div className={`overflow-hidden ${styles.previewWrapper}`}>
 						<div className={styles.previewArea} style={previewStyle} />
 					</div>
 				</div>
@@ -373,7 +373,7 @@ export default function BackgroundPatternGenerator() {
 						)}
 					</button>
 				</div>
-				<div className={`rounded-lg p-4 ${styles.outputSection}`}>
+				<div className={`p-4 ${styles.outputSection}`}>
 					<pre className={`text-sm font-mono whitespace-pre-wrap break-all leading-relaxed ${styles.outputCode}`}>{cssOutput}</pre>
 				</div>
 			</div>

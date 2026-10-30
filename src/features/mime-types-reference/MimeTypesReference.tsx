@@ -88,7 +88,7 @@ export default function MimeTypesReference() {
 			</div>
 
 			{loadError && (
-				<div className={`mb-4 px-4 py-3 rounded-lg text-sm ${styles.errorBox}`}>
+				<div className={`mb-4 px-4 py-3 text-sm ${styles.errorBox}`}>
 					{loadError}
 				</div>
 			)}

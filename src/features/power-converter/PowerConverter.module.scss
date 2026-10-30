@@ -13,34 +13,34 @@
 .inputRow { display: flex; gap: 0.5rem; @media (max-width: 480px) { flex-direction: column; } }
 
 .numberInput {
-	flex: 1; padding: 0.75rem 1rem; background: $input-bg; border: 1px solid $input-border; border-radius: $radius-md;
+	flex: 1; padding: 0.75rem 1rem; background: $input-bg; border: 1px solid $input-border;
 	font-size: 1.25rem; font-weight: 600; color: $text-primary; font-family: $font-family-mono;
 	&:focus { outline: none; border-color: $color-accent; }
 	&::placeholder { color: $text-muted; font-weight: 400; }
 }
 
 .resultDisplay {
-	flex: 1; padding: 0.75rem 1rem; background: $input-bg; border: 1px solid $border-subtle; border-radius: $radius-md;
+	flex: 1; padding: 0.75rem 1rem; background: $input-bg; border: 1px solid $border-subtle;
 	font-size: 1.25rem; font-weight: 600; color: $color-accent; font-family: $font-family-mono;
 	min-height: 52px; display: flex; align-items: center; cursor: not-allowed;
 }
 
 .unitSelect {
-	min-width: 180px; padding: 0.75rem 1rem; background: $input-bg; border: 1px solid $input-border; border-radius: $radius-md;
+	min-width: 180px; padding: 0.75rem 1rem; background: $input-bg; border: 1px solid $input-border;
 	font-size: 0.9rem; color: $text-primary; cursor: pointer;
 	&:focus { outline: none; border-color: $color-accent; }
 	@media (max-width: 480px) { min-width: 100%; }
 }
 
 .swapButton {
-	padding: 0.75rem; background: $bg-glass; border: 1px solid $border-subtle; border-radius: $radius-md;
+	padding: 0.75rem; background: $bg-glass; border: 1px solid $border-subtle;
 	color: $text-secondary; cursor: pointer; transition: all 0.2s ease;
 	display: flex; align-items: center; justify-content: center; align-self: end; margin-bottom: 0.25rem;
 	&:hover { background: $bg-glass-hover; color: $text-primary; border-color: $color-accent; }
 	@media (max-width: 768px) { align-self: center; svg { transform: rotate(90deg); } }
 }
 
-.resultSummary { display: flex; align-items: center; justify-content: center; gap: 0.75rem; margin-top: 1.5rem; padding: 1rem; background: $input-bg; border-radius: $radius-md; }
+.resultSummary { display: flex; align-items: center; justify-content: center; gap: 0.75rem; margin-top: 1.5rem; padding: 1rem; background: $input-bg; }
 .resultText { font-size: 1.1rem; color: $text-secondary; strong { color: $text-primary; } }
 
 .chartsGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; @media (max-width: 900px) { grid-template-columns: 1fr; } }
@@ -48,7 +48,7 @@
 .tableWrapper { overflow-x: auto; }
 .referenceTable {
 	width: 100%; border-collapse: collapse; font-size: 0.9rem;
-	th { text-align: left; padding: 0.625rem 0.75rem; background: $input-bg; color: $text-secondary; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.03em; border-bottom: 1px solid $border-subtle; &:first-child { border-radius: $radius-sm 0 0 0; } &:last-child { border-radius: 0 $radius-sm 0 0; } }
+	th { text-align: left; padding: 0.625rem 0.75rem; background: $input-bg; color: $text-secondary; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.03em; border-bottom: 1px solid $border-subtle; }
 	td { padding: 0.5rem 0.75rem; border-bottom: 1px solid $border-subtle; color: $text-primary; }
 	tr:last-child td { border-bottom: none; }
 	tr:hover td { background: rgba(255, 255, 255, 0.02); }
@@ -56,7 +56,7 @@
 
 .tipsGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
 .tipCard {
-	padding: 1rem; background: $input-bg; border-radius: $radius-md; border: 1px solid $border-subtle;
+	padding: 1rem; background: $input-bg; border: 1px solid $border-subtle;
 	h4 { font-size: 0.9rem; font-weight: 600; color: $text-primary; margin: 0 0 0.5rem 0; }
 	p { font-size: 0.85rem; color: $text-secondary; line-height: 1.5; margin: 0; }
 }

@@ -23,7 +23,6 @@
 // Preview
 .previewWrapper {
   border: 1px solid $border-subtle;
-  border-radius: $radius-lg;
 }
 
 .previewArea {
@@ -57,7 +56,6 @@
   padding: 0.5rem 0.75rem;
   background: $input-bg;
   border: 1px solid $input-border;
-  border-radius: $radius-md;
   color: $text-primary;
   font-family: $font-family-mono;
   font-size: 0.875rem;
@@ -88,7 +86,6 @@
 .resetBtn {
   background: $bg-glass;
   border: 1px solid $border-subtle;
-  border-radius: $radius-sm;
   color: $text-muted;
   cursor: pointer;
   transition: all 0.2s ease;

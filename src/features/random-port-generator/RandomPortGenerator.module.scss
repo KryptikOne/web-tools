@@ -20,7 +20,6 @@
 	code {
 		padding: 0.125rem 0.375rem;
 		background: $bg-glass;
-		border-radius: $radius-sm;
 		font-family: $font-family-mono;
 		font-size: 0.75rem;
 		color: $text-code;
@@ -52,7 +51,6 @@
 	padding: 0.625rem 0.75rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	color: $text-primary;
 	font-family: $font-family-mono;
 	font-size: 0.875rem;
@@ -95,7 +93,6 @@
 	padding: 0.5rem 0.875rem;
 	background: $bg-glass;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	color: $text-secondary;
 	font-size: 0.8125rem;
 	font-weight: 500;
@@ -133,7 +130,6 @@
 	color: $text-muted;
 	font-size: 0.875rem;
 	border: 1px dashed $border-subtle;
-	border-radius: $radius-md;
 	background: $bg-glass;
 }
 
@@ -161,7 +157,6 @@
 	padding: 0.625rem 0.75rem;
 	background: $bg-glass;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	color: $text-primary;
 	font-family: $font-family-mono;
 	cursor: pointer;

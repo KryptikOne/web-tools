@@ -301,10 +301,10 @@ export default function TimezoneConverter() {
 				<div className={`flex justify-between items-center mb-6 flex-wrap gap-4 ${styles.converterHeader}`}>
 					<h2 className={styles.sectionTitle}>Quick Convert</h2>
 					<div className={`flex gap-2 items-center ${styles.headerControls}`}>
-						<button className={`py-2 px-3 rounded-sm text-xs font-semibold ${styles.formatToggle} ${use24Hour ? styles.active : ""}`} onClick={() => setUse24Hour(!use24Hour)}>
+						<button className={`py-2 px-3 text-xs font-semibold ${styles.formatToggle} ${use24Hour ? styles.active : ""}`} onClick={() => setUse24Hour(!use24Hour)}>
 							{use24Hour ? "24h" : "12h"}
 						</button>
-						<Button onClick={handleUseNow} className={`flex items-center gap-1.5 py-2 px-3 rounded-sm text-xs ${styles.nowButton} ${useCurrentTime ? styles.active : ""}`}>
+						<Button onClick={handleUseNow} className={`flex items-center gap-1.5 py-2 px-3 text-xs ${styles.nowButton} ${useCurrentTime ? styles.active : ""}`}>
 							<ClockIcon className="w-4 h-4" />
 							Now
 						</Button>
@@ -314,7 +314,7 @@ export default function TimezoneConverter() {
 				<div className={`grid items-center gap-6 ${styles.quickConverter}`}>
 					{/* From Side */}
 					<div className={`flex flex-col gap-4 ${styles.timeColumn}`}>
-						<select value={fromTimezone} onChange={(e) => setFromTimezone(e.target.value)} className={`w-full rounded-md ${styles.timezoneSelect}`}>
+						<select value={fromTimezone} onChange={(e) => setFromTimezone(e.target.value)} className={`w-full ${styles.timezoneSelect}`}>
 							{Object.entries(TIMEZONE_GROUPS).map(([region, zones]) => (
 								<optgroup key={region} label={region}>
 									{zones.map((tz) => (
@@ -326,13 +326,13 @@ export default function TimezoneConverter() {
 							))}
 						</select>
 
-						<div className={`text-center p-6 rounded-lg ${styles.timeDisplay}`}>
+						<div className={`text-center p-6 ${styles.timeDisplay}`}>
 							{useCurrentTime ? (
-								<div className={`inline-flex rounded-md ${styles.largeTimeEditable}`} onClick={() => setUseCurrentTime(false)} title="Click to set custom time">
+								<div className={`inline-flex ${styles.largeTimeEditable}`} onClick={() => setUseCurrentTime(false)} title="Click to set custom time">
 									{formatTimeDisplay(inputHours, inputMinutes)}
 								</div>
 							) : (
-								<div className={`items-center justify-center rounded-md ${styles.largeTimeEditing}`}>
+								<div className={`items-center justify-center ${styles.largeTimeEditing}`}>
 									<input type="time" value={formatTime24(inputHours, inputMinutes)} onChange={handleTimeChange} className={`w-full p-2 text-center font-bold ${styles.timeInputLarge}`} autoFocus />
 								</div>
 							)}
@@ -345,7 +345,7 @@ export default function TimezoneConverter() {
 						<button className={`p-4 rounded-full ${styles.swapButton}`} onClick={swapTimezones} title="Swap timezones">
 							<ArrowsRightLeftIcon className="w-6 h-6" />
 						</button>
-						<div className={`font-semibold rounded-sm ${styles.offsetBadge}`}>
+						<div className={`font-semibold ${styles.offsetBadge}`}>
 							{offsetDiff >= 0 ? "+" : ""}
 							{offsetDiff}h
 						</div>
@@ -353,7 +353,7 @@ export default function TimezoneConverter() {
 
 					{/* To Side */}
 					<div className={`flex flex-col gap-4 ${styles.timeColumn}`}>
-						<select value={toTimezone} onChange={(e) => setToTimezone(e.target.value)} className={`w-full rounded-md ${styles.timezoneSelect}`}>
+						<select value={toTimezone} onChange={(e) => setToTimezone(e.target.value)} className={`w-full ${styles.timezoneSelect}`}>
 							{Object.entries(TIMEZONE_GROUPS).map(([region, zones]) => (
 								<optgroup key={region} label={region}>
 									{zones.map((tz) => (
@@ -365,7 +365,7 @@ export default function TimezoneConverter() {
 							))}
 						</select>
 
-						<div className={`read-only text-center p-6 rounded-lg ${styles.timeDisplay}`}>
+						<div className={`read-only text-center p-6 ${styles.timeDisplay}`}>
 							<div className={styles.largeTimeReadonly}>{formatTimeDisplay(convertedTime.hours, convertedTime.minutes)}</div>
 							{convertedTime.dayOffset !== 0 && (
 								<div className={`font-semibold mt-1 ${styles.dayOffset}`}>{convertedTime.dayOffset > 0 ? `+${convertedTime.dayOffset} day` : `${convertedTime.dayOffset} day`}</div>
@@ -376,7 +376,7 @@ export default function TimezoneConverter() {
 				</div>
 
 				{/* Summary sentence */}
-				<div className={`mt-6 px-6 py-4 rounded-md text-center ${styles.summaryBox}`}>
+				<div className={`mt-6 px-6 py-4 text-center ${styles.summaryBox}`}>
 					<p>
 						When it&apos;s <strong>{formatTimeDisplay(inputHours, inputMinutes)}</strong> in <strong>{fromTz?.name}</strong>, it&apos;s{" "}
 						<strong>{formatTimeDisplay(convertedTime.hours, convertedTime.minutes)}</strong> in <strong>{toTz?.name}</strong>
@@ -390,7 +390,7 @@ export default function TimezoneConverter() {
 				<div className={`flex justify-between items-center mb-5 flex-wrap gap-4 ${styles.timelineHeader}`}>
 					<h2 className={styles.sectionTitle}>Timeline Comparison</h2>
 					<div className={`flex gap-2 ${styles.timelineControls}`}>
-						<select onChange={(e) => e.target.value && addTimelineZone(e.target.value)} value="" className={`py-2 px-3 rounded-sm ${styles.addZoneSelect}`} disabled={timelineZones.length >= 6}>
+						<select onChange={(e) => e.target.value && addTimelineZone(e.target.value)} value="" className={`py-2 px-3 ${styles.addZoneSelect}`} disabled={timelineZones.length >= 6}>
 							<option value="">+ Add timezone</option>
 							{Object.entries(TIMEZONE_GROUPS).map(([region, zones]) => (
 								<optgroup key={region} label={region}>
@@ -472,7 +472,7 @@ export default function TimezoneConverter() {
 			<div className={`mb-6 ${styles.glassCard}`}>
 				<h2 className={styles.sectionTitle}>Quick Reference</h2>
 				<div className={`grid gap-4 mt-4 ${styles.referenceGrid}`}>
-					<div className={`p-4 rounded-md ${styles.referenceCard}`}>
+					<div className={`p-4 ${styles.referenceCard}`}>
 						<h3>US Time Zones</h3>
 						<ul>
 							<li>PST to EST: +3 hours</li>
@@ -481,7 +481,7 @@ export default function TimezoneConverter() {
 							<li>EST to PST: -3 hours</li>
 						</ul>
 					</div>
-					<div className={`p-4 rounded-md ${styles.referenceCard}`}>
+					<div className={`p-4 ${styles.referenceCard}`}>
 						<h3>US to Europe</h3>
 						<ul>
 							<li>EST to GMT: +5 hours</li>
@@ -490,7 +490,7 @@ export default function TimezoneConverter() {
 							<li>PST to CET: +9 hours</li>
 						</ul>
 					</div>
-					<div className={`p-4 rounded-md ${styles.referenceCard}`}>
+					<div className={`p-4 ${styles.referenceCard}`}>
 						<h3>US to Asia</h3>
 						<ul>
 							<li>EST to IST: +10.5 hours</li>
@@ -499,7 +499,7 @@ export default function TimezoneConverter() {
 							<li>PST to JST: +17 hours</li>
 						</ul>
 					</div>
-					<div className={`p-4 rounded-md ${styles.referenceCard}`}>
+					<div className={`p-4 ${styles.referenceCard}`}>
 						<h3>Tips</h3>
 						<ul>
 							<li>Add hours going east</li>

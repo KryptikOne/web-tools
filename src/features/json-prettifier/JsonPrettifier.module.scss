@@ -17,7 +17,6 @@
 .optionsBar {
 	background: $bg-glass;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-lg;
 }
 
 .checkboxLabel {
@@ -34,7 +33,6 @@
 .select {
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	color: $text-primary;
 	padding: 0.35rem 0.5rem;
 	font-size: 0.875rem;
@@ -66,7 +64,6 @@
 	background: $bg-glass;
 	color: $text-secondary;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	font-weight: 500;
 	font-size: 0.875rem;
 	cursor: pointer;
@@ -91,7 +88,6 @@
 	padding: 1rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	color: $text-primary;
 	font-size: 0.875rem;
 	@media (pointer: coarse) {
@@ -134,7 +130,6 @@
 	color: $text-secondary;
 	background: $input-bg;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	padding: 1rem;
 	overflow-x: auto;
 	@include custom-scrollbar;
@@ -153,7 +148,6 @@
 	color: $text-secondary;
 	cursor: pointer;
 	padding: 0.1rem 0.25rem;
-	border-radius: $radius-sm;
 
 	&:hover {
 		background: $bg-glass-hover;

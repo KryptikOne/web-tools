@@ -66,7 +66,6 @@
 
   &::-webkit-scrollbar-thumb {
     background: $scrollbar-thumb;
-    border-radius: $radius-sm;
 
     &:hover {
       background: $scrollbar-thumb-hover;
@@ -175,7 +174,6 @@
   padding: 0.125rem 0.5rem;
   background: $color-warning;
   color: #000000;
-  border-radius: $radius-sm;
   font-size: 0.75rem;
   font-weight: 600;
   white-space: nowrap;
@@ -225,5 +223,4 @@
   font-style: italic;
   text-align: center;
   border: 1px dashed $border-subtle;
-  border-radius: $radius-md;
 }

@@ -42,7 +42,6 @@
 	padding: 0.625rem 2.5rem 0.625rem 2.25rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	color: $text-primary;
 	font-size: 0.875rem;
 	@media (pointer: coarse) {
@@ -72,7 +71,6 @@
 	background: transparent;
 	color: $text-tertiary;
 	border: none;
-	border-radius: $radius-sm;
 	cursor: pointer;
 	transition: all 0.15s ease;
 
@@ -135,7 +133,6 @@
 	color: $color-accent;
 	background: $bg-glass;
 	padding: 0.125rem 0.375rem;
-	border-radius: $radius-sm;
 	white-space: nowrap;
 }
 
@@ -165,7 +162,6 @@
 	background: transparent;
 	color: $text-tertiary;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-sm;
 	cursor: pointer;
 	transition: all 0.15s ease;
 
@@ -194,7 +190,6 @@
 	code {
 		padding: 0.125rem 0.375rem;
 		background: $bg-glass;
-		border-radius: $radius-sm;
 		font-family: $font-family-mono;
 		font-size: 0.8rem;
 		color: $text-code;

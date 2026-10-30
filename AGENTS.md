@@ -63,7 +63,7 @@ Use a balanced combination of Tailwind utility classes and SCSS modules:
 
 - Layout: `flex`, `grid`, `gap-*`, `p-*`, `m-*`
 - Typography: `text-*`, `font-*`
-- Common utilities: `rounded-*`, `shadow-*`, `opacity-*`
+- Common utilities: `shadow-*`, `opacity-*` (no `rounded-*`: the design is square-cornered; `rounded-full` only for genuine circles)
 - Responsive: `md:`, `lg:` breakpoint prefixes
 - States: `hover:`, `focus:`, `active:` variants
 
@@ -80,7 +80,7 @@ Use a balanced combination of Tailwind utility classes and SCSS modules:
 ```tsx
 // Component.tsx - Tailwind for layout, SCSS for custom styles
 <div className={`flex gap-4 p-6 ${styles.glassCard}`}>
-	<button className={`px-4 py-2 rounded-lg ${styles.primaryBtn}`}>Click me</button>
+	<button className={`px-4 py-2 ${styles.primaryBtn}`}>Click me</button>
 </div>
 ```
 

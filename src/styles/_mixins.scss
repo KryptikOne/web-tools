@@ -4,7 +4,6 @@
 @mixin glass-card {
   background: $bg-glass;
   border: 1px solid $border-subtle;
-  border-radius: $radius-xl;
   padding: $spacing-lg;
 }
 
@@ -16,7 +15,6 @@
 // Button Styles
 @mixin btn-base {
   padding: .625rem 1rem;
-  border-radius: $radius-md;
   cursor: pointer;
   transition: all $transition-base;
   display: inline-flex;
@@ -62,7 +60,6 @@
   border: none;
   color: $text-muted;
   cursor: pointer;
-  border-radius: $radius-sm;
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
@@ -78,7 +75,6 @@
   padding: 0.75rem 1rem;
   background: $bg-glass;
   border: 1px solid $border-subtle;
-  border-radius: $radius-md;
   color: $text-secondary;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -103,7 +99,6 @@
   padding: 12px;
   background: $input-bg;
   border: 1px solid $input-border;
-  border-radius: $radius-md;
   color: $text-primary;
   font-family: $font-family-sans;
   font-size: 1rem;

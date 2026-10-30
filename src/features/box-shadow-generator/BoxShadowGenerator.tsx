@@ -164,7 +164,7 @@ export default function BoxShadowGenerator() {
 				{/* Preview Section */}
 				<div className={styles.glassCard}>
 					<h2 className={`mb-4 ${styles.sectionTitle}`}>Preview</h2>
-					<div className={`flex items-center justify-center min-h-62.5 rounded-lg p-8 mb-6 ${styles.previewContainer}`} style={{ background: previewBg }}>
+					<div className={`flex items-center justify-center min-h-62.5 p-8 mb-6 ${styles.previewContainer}`} style={{ background: previewBg }}>
 						<div
 							className={styles.previewBox}
 							style={{
@@ -237,7 +237,7 @@ export default function BoxShadowGenerator() {
 
 					<div className={`flex flex-col gap-4 mb-6 pr-2 ${styles.shadowsList}`}>
 						{shadows.map((shadow, index) => (
-							<div key={shadow.id} className={`rounded-lg p-4 ${styles.shadowItem}`}>
+							<div key={shadow.id} className={`p-4 ${styles.shadowItem}`}>
 								<div className="flex items-center justify-between mb-3">
 									<span className={`text-sm font-semibold ${styles.shadowLabel}`}>{`Layer ${index + 1}`}</span>
 									<div className="flex items-center gap-3">
@@ -363,7 +363,7 @@ export default function BoxShadowGenerator() {
 					</div>
 
 					{/* CSS Output */}
-					<div className={`rounded-lg p-4 ${styles.outputSection}`}>
+					<div className={`p-4 ${styles.outputSection}`}>
 						<div className="flex items-center justify-between mb-2">
 							<span className={`text-xs font-semibold uppercase tracking-wide ${styles.outputLabel}`}>CSS</span>
 							<button className={`${styles.copyBtn} ${copiedField === "css" ? styles.copied : ""}`} onClick={() => copyToClipboard(getCssCode(), "css")} title="Copy to clipboard">
@@ -380,10 +380,10 @@ export default function BoxShadowGenerator() {
 				<h2 className={`mb-4 ${styles.sectionTitle}`}>Presets</h2>
 				<div className={styles.presetsGrid}>
 					{PRESETS.map((preset) => (
-						<button key={preset.name} className={`flex flex-col items-center rounded-lg cursor-pointer ${styles.presetBtn}`} onClick={() => applyPreset(preset)}>
-							<div className={`flex items-center justify-center rounded-md p-2 ${styles.presetPreviewWrapper}`}>
+						<button key={preset.name} className={`flex flex-col items-center cursor-pointer ${styles.presetBtn}`} onClick={() => applyPreset(preset)}>
+							<div className={`flex items-center justify-center p-2 ${styles.presetPreviewWrapper}`}>
 								<div
-									className={`rounded ${styles.presetPreview}`}
+									className={`${styles.presetPreview}`}
 									style={{
 										boxShadow: preset.shadows.map((s) => getShadowCss({ ...s, id: "" })).join(", "),
 									}}

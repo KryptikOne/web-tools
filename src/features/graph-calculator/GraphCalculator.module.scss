@@ -80,7 +80,6 @@
 	padding: 0.45rem 0.6rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-sm;
 	color: $text-primary;
 	font-family: $font-family-mono;
 	font-size: 0.9rem;
@@ -152,7 +151,6 @@
 	padding: 0.35rem 0.5rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-sm;
 	color: $text-primary;
 	font-family: $font-family-mono;
 	font-size: 0.85rem;
@@ -228,7 +226,6 @@
 	display: block;
 	width: 100%;
 	height: auto;
-	border-radius: $radius-md;
 	touch-action: none;
 	cursor: crosshair;
 }
@@ -274,5 +271,4 @@
 	font-size: 0.85rem;
 	color: $text-tertiary;
 	background: color-mix(in oklab, var(--bg-primary) 60%, transparent);
-	border-radius: $radius-xl;
 }

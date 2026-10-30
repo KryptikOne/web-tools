@@ -298,7 +298,7 @@ export default function FaviconGenerator() {
 								id="useBgColor"
 								checked={useBgColor}
 								onChange={(e) => setUseBgColor(e.target.checked)}
-								className="w-4 h-4 rounded"
+								className="w-4 h-4"
 							/>
 							<label htmlFor="useBgColor" className={`text-sm ${styles.inputLabel}`} style={{ marginBottom: 0 }}>
 								Background color (for transparent images)
@@ -312,7 +312,7 @@ export default function FaviconGenerator() {
 									type="text"
 									value={bgColorValue}
 									onChange={(e) => setBgColorValue(e.target.value)}
-									className={`flex-1 rounded-md text-sm ${styles.colorTextInput}`}
+									className={`flex-1 text-sm ${styles.colorTextInput}`}
 								/>
 							</div>
 						)}
@@ -430,7 +430,7 @@ export default function FaviconGenerator() {
 				{/* Empty state / Info */}
 				{generatedFavicons.size === 0 && (
 					<div className={styles.glassCard}>
-						<div className={`flex items-start gap-4 p-4 rounded-md ${styles.infoBox}`}>
+						<div className={`flex items-start gap-4 p-4 ${styles.infoBox}`}>
 							<InformationCircleIcon className={`w-6 h-6 shrink-0 ${styles.infoIcon}`} />
 							<div>
 								<p className={styles.infoText}>

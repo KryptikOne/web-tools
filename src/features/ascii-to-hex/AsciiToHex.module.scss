@@ -19,10 +19,6 @@
 .optionsBar {
 	background: $bg-glass;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-lg;
-}
-
-.optionGroup {
 }
 
 .optionLabel {
@@ -33,7 +29,6 @@
 	padding: 0.5rem 1rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	color: $text-primary;
 	font-size: 0.875rem;
 	@media (pointer: coarse) {
@@ -97,7 +92,6 @@
 	padding: 1rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	color: $text-primary;
 	font-size: 0.875rem;
 	@media (pointer: coarse) {
@@ -124,8 +118,6 @@
 }
 
 // Output block (below each textarea)
-.outputBlock {
-}
 
 .outputLabel {
 	color: $text-secondary;
@@ -135,7 +127,6 @@
 	padding: 0.75rem 1rem;
 	background: $bg-overlay-light;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	font-family: $font-family-mono;
 	font-size: 0.875rem;
 	color: $text-primary;
@@ -167,7 +158,6 @@
 .swapButton {
 	background: $bg-glass;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	color: $text-secondary;
 	cursor: pointer;
 	transition: all 0.2s ease;
@@ -202,7 +192,6 @@
 	padding: 0.5rem 0.75rem 0.5rem 2.25rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	color: $text-primary;
 	font-size: 0.875rem;
 	@media (pointer: coarse) {
@@ -225,7 +214,6 @@
 	max-height: 500px;
 	overflow-y: auto;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 
 	@include custom-scrollbar;
 }

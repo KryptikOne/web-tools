@@ -401,7 +401,7 @@ export default function ScreenshotBeautifier() {
 				<div className={styles.glassCard}>
 					<h2 className={styles.sectionTitle}>Upload</h2>
 					<div
-						className={`flex flex-col items-center justify-center gap-3 rounded-lg cursor-pointer transition-colors ${styles.dropZone} ${isDragging ? styles.dropZoneActive : ""}`}
+						className={`flex flex-col items-center justify-center gap-3 cursor-pointer transition-colors ${styles.dropZone} ${isDragging ? styles.dropZoneActive : ""}`}
 						onDrop={handleDrop}
 						onDragOver={handleDragOver}
 						onDragLeave={handleDragLeave}
@@ -661,11 +661,11 @@ export default function ScreenshotBeautifier() {
 					</div>
 
 					{image ? (
-						<div className={`flex items-center justify-center rounded-lg ${styles.previewArea}`}>
-							<canvas ref={previewCanvasRef} className="max-w-full rounded-md" />
+						<div className={`flex items-center justify-center ${styles.previewArea}`}>
+							<canvas ref={previewCanvasRef} className="max-w-full" />
 						</div>
 					) : (
-						<div className={`flex flex-col items-center justify-center gap-4 rounded-lg ${styles.emptyPreview}`}>
+						<div className={`flex flex-col items-center justify-center gap-4 ${styles.emptyPreview}`}>
 							<PhotoIcon className="w-16 h-16 opacity-30" />
 							<p className={styles.infoText}>
 								Upload a screenshot to get started. You can drag and drop, browse files, or paste from your clipboard.

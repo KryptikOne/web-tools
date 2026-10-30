@@ -74,7 +74,6 @@
   padding: $spacing-sm $spacing-md;
   background: $input-bg;
   border: 1px solid $border-subtle;
-  border-radius: $radius-md;
   color: $text-tertiary;
   font-size: 14px;
   font-weight: 600;
@@ -124,7 +123,6 @@
   padding: $spacing-xs $spacing-sm;
   background: $input-bg;
   border: 1px solid $border-subtle;
-  border-radius: $radius-sm;
   color: $text-tertiary;
   cursor: pointer;
   transition: all $transition-base;
@@ -171,7 +169,6 @@
 
   &::-webkit-color-swatch {
     border: none;
-    border-radius: $radius-sm;
   }
 
   &:hover {
@@ -183,7 +180,6 @@
 .hexInput {
   background: $input-bg;
   border: 1px solid $input-border;
-  border-radius: $radius-md;
   color: $text-code;
   font-family: $font-family-mono;
   transition: all $transition-base;
@@ -200,7 +196,6 @@
 .numberInput {
   background: $input-bg;
   border: 1px solid $input-border;
-  border-radius: $radius-md;
   color: $text-primary;
   font-family: $font-family-mono;
   transition: all $transition-base;
@@ -244,7 +239,6 @@
 // Gradient Bar
 .gradientBar {
   height: 12px;
-  border-radius: $radius-md;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
@@ -318,7 +312,6 @@
   padding: $spacing-md;
   background: $color-accent-20;
   border: 1px solid $color-accent-50;
-  border-radius: $radius-md;
 
   p {
     margin: 0;
@@ -344,7 +337,6 @@
   right: 0;
   height: 16px;
   transform: translateY(-50%);
-  border-radius: $radius-md;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
   border: 1px solid $border-subtle;
 }
@@ -460,7 +452,6 @@
   width: 100%;
   height: auto;
   aspect-ratio: 280 / 180;
-  border-radius: $radius-md;
   cursor: crosshair;
   display: block;
 }
@@ -484,7 +475,6 @@
 .hueCanvas {
   width: 100%;
   height: 20px;
-  border-radius: $radius-sm;
   cursor: crosshair;
   display: block;
 }
@@ -496,7 +486,6 @@
   height: 20px;
   background: white;
   border: 1px solid rgba(0, 0, 0, 0.3);
-  border-radius: $radius-sm;
   box-shadow: $shadow-sm;
   transform: translateX(-50%);
   pointer-events: none;
@@ -511,7 +500,6 @@
 .colorPreviewSmall {
   width: 32px;
   height: 32px;
-  border-radius: $radius-md;
   border: 2px solid $border-medium;
   flex-shrink: 0;
 }
@@ -521,7 +509,6 @@
   padding: $spacing-sm;
   background: $input-bg;
   border: 1px solid $input-border;
-  border-radius: $radius-md;
   color: $text-code;
   font-family: $font-family-mono;
   font-size: 14px;

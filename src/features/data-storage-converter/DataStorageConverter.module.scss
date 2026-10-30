@@ -38,7 +38,6 @@
 	margin-bottom: 0.5rem;
 	padding: 0.25rem;
 	background: $input-bg;
-	border-radius: $radius-md;
 	width: fit-content;
 }
 
@@ -46,7 +45,6 @@
 	padding: 0.625rem 1.25rem;
 	background: transparent;
 	border: none;
-	border-radius: $radius-sm;
 	font-size: 0.9rem;
 	font-weight: 500;
 	color: $text-secondary;
@@ -111,7 +109,6 @@
 	padding: 0.75rem 1rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	font-size: 1.25rem;
 	font-weight: 600;
 	color: $text-primary;
@@ -133,7 +130,6 @@
 	padding: 0.75rem 1rem;
 	background: $input-bg;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	font-size: 1.25rem;
 	font-weight: 600;
 	color: $color-accent;
@@ -149,7 +145,6 @@
 	padding: 0.75rem 1rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	font-size: 0.9rem;
 	color: $text-primary;
 	cursor: pointer;
@@ -168,7 +163,6 @@
 	padding: 0.75rem;
 	background: $bg-glass;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-md;
 	color: $text-secondary;
 	cursor: pointer;
 	transition: all 0.2s ease;
@@ -200,7 +194,6 @@
 	margin-top: 1.5rem;
 	padding: 1rem;
 	background: $input-bg;
-	border-radius: $radius-md;
 }
 
 .resultText {
@@ -252,13 +245,6 @@
 		letter-spacing: 0.03em;
 		border-bottom: 1px solid $border-subtle;
 
-		&:first-child {
-			border-radius: $radius-sm 0 0 0;
-		}
-
-		&:last-child {
-			border-radius: 0 $radius-sm 0 0;
-		}
 	}
 
 	td {
@@ -316,7 +302,6 @@
 .tipCard {
 	padding: 1rem;
 	background: $input-bg;
-	border-radius: $radius-md;
 	border: 1px solid $border-subtle;
 
 	h4 {

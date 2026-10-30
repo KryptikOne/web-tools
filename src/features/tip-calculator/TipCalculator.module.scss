@@ -28,7 +28,6 @@
 	padding: 0.75rem 1rem;
 	margin-bottom: 1rem;
 	background: $color-accent-20;
-	border-radius: $radius-md;
 }
 
 // One control group: label on its own line, tighter than the old mb-6 stacks.
@@ -70,7 +69,6 @@
 	padding: 0.375rem 0.625rem;
 	background: transparent;
 	border: 1px solid $border-subtle;
-	border-radius: $radius-sm;
 	color: $text-muted;
 	font-size: 0.75rem;
 	cursor: pointer;
@@ -112,7 +110,6 @@
 	padding: 0.625rem 0.875rem 0.625rem 2.25rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	font-size: 1.75rem;
 	font-weight: 700;
 	color: $text-primary;
@@ -155,7 +152,6 @@
 	min-height: 2.75rem; // comfortable thumb target
 	background: $input-bg;
 	border: 2px solid $border-subtle;
-	border-radius: $radius-md;
 	font-size: 1rem;
 	font-weight: 700;
 	color: $text-secondary;
@@ -187,7 +183,6 @@
 	padding-right: 2rem;
 	background: $input-bg;
 	border: 2px solid $border-subtle;
-	border-radius: $radius-md;
 	font-size: 1rem;
 	font-weight: 600;
 	color: $text-primary;
@@ -306,7 +301,6 @@
 	padding: 0.5rem 1rem;
 	min-height: 2.75rem;
 	background: $input-bg;
-	border-radius: $radius-md;
 	color: $text-primary;
 }
 
@@ -370,7 +364,6 @@
 	color: $text-muted;
 	cursor: pointer;
 	transition: all 0.2s ease;
-	border-radius: $radius-sm;
 
 	&:hover:not(:disabled) {
 		color: $text-primary;
@@ -393,7 +386,6 @@
 	gap: 1rem;
 	padding: 1rem;
 	background: $input-bg;
-	border-radius: $radius-md;
 	border: 1px solid $border-subtle;
 }
 

@@ -46,7 +46,6 @@
 .errorBox {
   background: oklch(65% 0.2 25 / 0.1);
   border: 1px solid $color-error;
-  border-radius: $radius-md;
   color: $color-error;
   font-size: 0.875rem;
   font-weight: 500;
@@ -60,7 +59,6 @@
   word-break: break-all;
   background: $input-bg;
   border: 1px solid $border-subtle;
-  border-radius: $radius-md;
 }
 
 .tokenHeader {
@@ -90,7 +88,6 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
   padding: 0.2rem 0.5rem;
-  border-radius: $radius-sm;
 }
 
 .badgeHeader {
@@ -113,7 +110,6 @@
   @include custom-scrollbar;
   background: $input-bg;
   border: 1px solid $border-subtle;
-  border-radius: $radius-md;
   overflow-x: auto;
   font-family: $font-family-mono;
   font-size: 0.85rem;

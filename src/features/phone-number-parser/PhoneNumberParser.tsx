@@ -177,13 +177,13 @@ export default function PhoneNumberParser() {
 			</div>
 
 			{!result.ok ? (
-				<div className={`mt-4 px-4 py-3 rounded-lg text-sm ${styles.errorBox}`}>
+				<div className={`mt-4 px-4 py-3 text-sm ${styles.errorBox}`}>
 					{result.reason}
 				</div>
 			) : (
 				<>
 					<div
-						className={`mt-4 px-4 py-3 rounded-lg text-sm ${
+						className={`mt-4 px-4 py-3 text-sm ${
 							result.valid ? styles.successBox : styles.warningBox
 						}`}
 					>

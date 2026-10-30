@@ -106,7 +106,7 @@ export function ColorPickerPopover({
 
 	// Loading state during SSR
 	if (isMobile === null) {
-		return <div className={`rounded-lg p-0 ${styles.swatch} ${styles[swatchSize]} ${className ?? ""}`} style={{ backgroundColor: color }} />;
+		return <div className={`p-0 ${styles.swatch} ${styles[swatchSize]} ${className ?? ""}`} style={{ backgroundColor: color }} />;
 	}
 
 	// Mobile: use native color input styled as a swatch
@@ -120,7 +120,7 @@ export function ColorPickerPopover({
 					disabled={disabled}
 					className={`absolute inset-0 opacity-0 cursor-pointer w-full h-full ${styles[swatchSize]}`}
 				/>
-				<div className={`rounded-lg pointer-events-none ${styles.swatchOverlay} ${styles[swatchSize]}`} style={{ backgroundColor: color }} />
+				<div className={`pointer-events-none ${styles.swatchOverlay} ${styles[swatchSize]}`} style={{ backgroundColor: color }} />
 			</div>
 		);
 	}
@@ -130,7 +130,7 @@ export function ColorPickerPopover({
 		<div ref={containerRef} className={`relative inline-block ${className ?? ""}`}>
 			<button
 				type="button"
-				className={`rounded-lg p-0 ${styles.swatch} ${styles[swatchSize]} ${disabled ? styles.disabled : ""}`}
+				className={`p-0 ${styles.swatch} ${styles[swatchSize]} ${disabled ? styles.disabled : ""}`}
 				style={{ backgroundColor: color }}
 				onClick={handleSwatchClick}
 				disabled={disabled}
@@ -141,7 +141,7 @@ export function ColorPickerPopover({
 			{isOpen && (
 				<div
 					ref={popoverRef}
-					className={`absolute w-55 p-4 rounded-xl ${styles.popover} ${styles[position.h]} ${styles[position.v]}`}
+					className={`absolute w-55 p-4 ${styles.popover} ${styles[position.h]} ${styles[position.v]}`}
 				>
 					<ColorPickerPanel color={color} onChange={onChange} showHex={showHex} hexEditable={hexEditable} />
 				</div>

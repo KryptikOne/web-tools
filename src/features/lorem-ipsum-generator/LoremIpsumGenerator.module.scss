@@ -29,7 +29,6 @@
 	padding: 0.75rem 1rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	color: $text-primary;
 	font-size: 0.875rem;
 	font-family: $font-family-mono;
@@ -89,7 +88,6 @@
 	padding: 1.25rem;
 	background: $input-bg;
 	border: 1px solid $input-border;
-	border-radius: $radius-md;
 	overflow-y: auto;
 	@include custom-scrollbar;
 }
