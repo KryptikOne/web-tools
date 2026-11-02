@@ -1,4 +1,5 @@
-import { CATEGORIES, TOOLS_REGISTRY, getToolById } from "@/config/tools-registry";
+import { CATEGORIES, CATEGORY_NAMES, TOOLS_REGISTRY, getToolById } from "@/config/tools-registry";
+export { CATEGORY_NAMES };
 import { encodeToBase64 } from "@/lib/base64Utils";
 import { arrayBufferToHex } from "@/lib/hashUtils";
 import { textToMorse } from "@/lib/morseUtils";
@@ -41,7 +42,6 @@ export interface TerminalContext {
 /* ---------- data ---------- */
 
 export const LANDING_TOOLS: Tool[] = TOOLS_REGISTRY.filter((t) => t.implemented);
-export const CATEGORY_NAMES: Record<string, string> = Object.fromEntries(Object.values(CATEGORIES).map((c) => [c.id, c.name]));
 
 export interface LandingCategory extends CategoryInfo {
 	/** Short `ls` key: first word of the name, e.g. "css", "security". */

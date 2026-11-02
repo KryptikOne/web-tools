@@ -30,6 +30,8 @@ import { useAppDispatch } from "@/store/hooks";
 import { closeMobileMenu } from "@/store/slices/uiSlice";
 import StarButton from "@/components/StarButton/StarButton";
 import type { Tool } from "@/types/tools";
+import { CATEGORY_NAMES } from "@/config/tools-registry";
+import { filterToolsByQuery } from "@/lib/toolSearch";
 import styles from "./FavoritesSection.module.scss";
 
 function SortableRow({ tool, isActive }: { tool: Tool; isActive: boolean }) {
@@ -83,9 +85,7 @@ export default function FavoritesSection({ query = "" }: FavoritesSectionProps) 
 	const [activeId, setActiveId] = useState<string | null>(null);
 
 	const isSearching = query.length > 0;
-	const visibleFavorites = isSearching
-		? favorites.filter((t) => t.name.toLowerCase().includes(query))
-		: favorites;
+	const visibleFavorites = isSearching ? filterToolsByQuery(query, favorites, CATEGORY_NAMES) : favorites;
 	// Search results always show; the fold only applies while browsing.
 	const isOpen = isSearching || !collapsed;
 

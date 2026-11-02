@@ -62,6 +62,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Pick colors in OKLCH, HSL, RGB or HEX and convert between every format instantly, with WCAG contrast checks. Free and runs entirely in your browser.",
 		category: ToolCategory.CSS_DESIGN,
 		route: "/tools/color-picker",
+		keywords: ["hex", "rgb", "hsl", "oklch", "eyedropper"],
 		implemented: true,
 	},
 	{
@@ -71,6 +72,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Generate color palettes from any base color using analogous, complementary, triadic and other harmony rules, then copy the values for CSS or design work.",
 		category: ToolCategory.CSS_DESIGN,
 		route: "/tools/palette-generator",
+		keywords: ["swatch", "scheme", "harmony"],
 		implemented: true,
 	},
 	{
@@ -80,6 +82,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Simulate how colors and images look with protanopia, deuteranopia, tritanopia and other color vision deficiencies. Images are processed in your browser.",
 		category: ToolCategory.CSS_DESIGN,
 		route: "/tools/color-blindness-simulator",
+		keywords: ["deuteranopia", "protanopia", "tritanopia", "accessibility", "a11y"],
 		implemented: true,
 	},
 	{
@@ -89,6 +92,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Create linear and radial CSS gradients visually, adjusting colors and stops with a live preview, then copy the CSS. A free gradient maker in your browser.",
 		category: ToolCategory.CSS_DESIGN,
 		route: "/tools/gradient-generator",
+		keywords: ["linear", "radial", "conic"],
 		implemented: true,
 	},
 	{
@@ -116,6 +120,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Interactive cubic-bezier curve editor for CSS animations and transitions. Shape the easing curve, preview the motion and copy the timing function.",
 		category: ToolCategory.CSS_DESIGN,
 		route: "/tools/cubic-bezier",
+		keywords: ["easing", "animation", "timing", "transition"],
 		implemented: true,
 	},
 	{
@@ -125,6 +130,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Generate CSS filter effects like blur, brightness, contrast, grayscale, hue-rotate and saturate with a live preview, then copy the filter CSS.",
 		category: ToolCategory.CSS_DESIGN,
 		route: "/tools/css-filter-generator",
+		keywords: ["blur", "grayscale", "sepia"],
 		implemented: true,
 	},
 	{
@@ -152,6 +158,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert pixels to rem and rem to pixels using any root font size. A quick PX to REM calculator for responsive CSS, typography and spacing.",
 		category: ToolCategory.CSS_DESIGN,
 		route: "/tools/px-rem-calculator",
+		keywords: ["em", "font-size", "pixels"],
 		implemented: true,
 	},
 	{
@@ -172,6 +179,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Resize images to exact dimensions, convert between formats and control output quality. Processing happens in your browser, so images are never uploaded.",
 		category: ToolCategory.IMAGE_MEDIA,
 		route: "/tools/image-resizer",
+		keywords: ["scale", "dimensions", "crop"],
 		implemented: true,
 	},
 	{
@@ -181,6 +189,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert images between PNG, JPEG and WebP entirely in your browser. No uploads and no sign-up: choose the output format and download the converted file.",
 		category: ToolCategory.IMAGE_MEDIA,
 		route: "/tools/image-format-converter",
+		keywords: ["png", "jpg", "jpeg", "webp", "avif"],
 		implemented: true,
 	},
 	{
@@ -190,6 +199,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Compress JPEG, PNG and WebP images to reduce file size with adjustable quality and output format. Compression runs locally, so images are never uploaded.",
 		category: ToolCategory.IMAGE_MEDIA,
 		route: "/tools/image-compressor",
+		keywords: ["optimize", "shrink", "quality"],
 		implemented: true,
 	},
 	{
@@ -199,6 +209,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Extract the dominant colors from any image, pick exact pixels with an eyedropper and export the palette. The image is analyzed locally in your browser.",
 		category: ToolCategory.IMAGE_MEDIA,
 		route: "/tools/image-color-extractor",
+		keywords: ["dominant", "palette", "swatch"],
 		implemented: true,
 	},
 	{
@@ -208,6 +219,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert images to Base64 strings and data URIs, or decode Base64 back into an image you can preview and download. Everything runs in your browser.",
 		category: ToolCategory.IMAGE_MEDIA,
 		route: "/tools/base64-image-encoder",
+		keywords: ["data uri", "data url", "inline"],
 		implemented: true,
 	},
 	{
@@ -217,6 +229,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Make screenshots presentation-ready with backgrounds, padding, shadows and rounded corners, then export the image. Everything is processed in your browser.",
 		category: ToolCategory.IMAGE_MEDIA,
 		route: "/tools/screenshot-beautifier",
+		keywords: ["mockup", "frame", "background"],
 		implemented: true,
 	},
 	{
@@ -226,6 +239,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Optimize and minify SVG files with SVGO: remove metadata, comments and unused attributes, compare before and after, and download the smaller file.",
 		category: ToolCategory.IMAGE_MEDIA,
 		route: "/tools/svg-optimizer",
+		keywords: ["minify", "svgo", "clean"],
 		implemented: true,
 	},
 	{
@@ -235,6 +249,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Generate favicons in every standard size from a single image, with optional background and border radius. Download icons ready to drop into your site.",
 		category: ToolCategory.IMAGE_MEDIA,
 		route: "/tools/favicon-generator",
+		keywords: ["ico", "apple-touch-icon", "manifest"],
 		implemented: true,
 	},
 	{
@@ -244,6 +259,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Generate simple icons with customizable shapes, colors and text, preview them live and download the result. Useful for app icons, avatars and placeholders.",
 		category: ToolCategory.IMAGE_MEDIA,
 		route: "/tools/icon-generator",
+		keywords: ["app icon", "pwa", "maskable"],
 		implemented: true,
 	},
 	{
@@ -253,6 +269,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Generate placeholder images at custom dimensions and colors, then download them as PNG, JPEG or WebP. Created in your browser with no external image service.",
 		category: ToolCategory.IMAGE_MEDIA,
 		route: "/tools/dummy-image-generator",
+		keywords: ["placeholder", "mock"],
 		implemented: true,
 	},
 	{
@@ -262,6 +279,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Generate QR codes for URLs, text, WiFi credentials, contacts and more, then download the image. A free QR code maker that runs entirely in your browser.",
 		category: ToolCategory.IMAGE_MEDIA,
 		route: "/tools/qr-code-generator",
+		keywords: ["qr", "barcode"],
 		implemented: true,
 	},
 	{
@@ -271,6 +289,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Scan and decode QR codes from an uploaded image, with automatic detection of URLs, WiFi credentials, contacts and other content. Decoded locally.",
 		category: ToolCategory.IMAGE_MEDIA,
 		route: "/tools/qr-code-reader",
+		keywords: ["qr", "scan", "decode"],
 		implemented: true,
 	},
 	{
@@ -280,6 +299,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Generate barcodes in Code 128, EAN-13, UPC-A and other formats, preview them instantly and download the image. A free barcode generator in your browser.",
 		category: ToolCategory.IMAGE_MEDIA,
 		route: "/tools/barcode-generator",
+		keywords: ["ean", "upc", "code128"],
 		implemented: true,
 	},
 	{
@@ -289,6 +309,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Calculate aspect ratios, resize width and height while keeping proportions, and pick common presets like 16:9, 4:3 and 1:1 for video and images.",
 		category: ToolCategory.IMAGE_MEDIA,
 		route: "/tools/aspect-ratio-calculator",
+		keywords: ["16:9", "resolution", "dimensions"],
 		implemented: true,
 	},
 
@@ -300,6 +321,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Count characters, words, sentences, paragraphs and lines, with reading and speaking time, character frequency and social media character limits.",
 		category: ToolCategory.TEXT_DATA,
 		route: "/tools/character-counter",
+		keywords: ["word count", "letters", "length"],
 		implemented: true,
 	},
 	{
@@ -309,6 +331,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert text between UPPERCASE, lowercase, Title Case, camelCase, snake_case, kebab-case and more. Results update instantly as you type or paste.",
 		category: ToolCategory.TEXT_DATA,
 		route: "/tools/text-case-converter",
+		keywords: ["camelcase", "snake_case", "kebab-case", "uppercase", "lowercase", "title case"],
 		implemented: true,
 	},
 	{
@@ -318,6 +341,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Find and strip invisible and problematic Unicode characters such as zero-width spaces, non-breaking spaces and byte order marks from text and code.",
 		category: ToolCategory.TEXT_DATA,
 		route: "/tools/invisible-character-remover",
+		keywords: ["whitespace", "zero-width", "zwsp", "bom", "nbsp", "unicode", "clean"],
 		implemented: true,
 	},
 	{
@@ -327,6 +351,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Generate lorem ipsum placeholder text by paragraphs, sentences or words and copy it in one click. Handy filler text for mockups, layouts and prototypes.",
 		category: ToolCategory.TEXT_DATA,
 		route: "/tools/lorem-ipsum-generator",
+		keywords: ["placeholder", "filler", "dummy text"],
 		implemented: true,
 	},
 	{
@@ -336,6 +361,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Write Markdown in a live editor and see the rendered preview update in real time. Useful for READMEs, docs and notes, with nothing sent to a server.",
 		category: ToolCategory.TEXT_DATA,
 		route: "/tools/markdown-preview",
+		keywords: ["md", "render"],
 		implemented: true,
 	},
 	{
@@ -345,6 +371,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Compare two texts side by side or unified, with word and character highlighting, moved-line detection, collapsible unchanged lines and patch export.",
 		category: ToolCategory.TEXT_DATA,
 		route: "/tools/diff-checker",
+		keywords: ["compare", "patch", "merge"],
 		implemented: true,
 	},
 	{
@@ -354,6 +381,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Strip HTML tags from text while keeping the content, with options to preserve line breaks and links or remove only specific tags. Runs in your browser.",
 		category: ToolCategory.TEXT_DATA,
 		route: "/tools/html-tag-remover",
+		keywords: ["strip", "plain text"],
 		implemented: true,
 	},
 	{
@@ -363,6 +391,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Escape and unescape HTML entities. Convert special characters like <, > and & to named, decimal or hex entities and back again, instantly in your browser.",
 		category: ToolCategory.TEXT_DATA,
 		route: "/tools/html-escape-unescape",
+		keywords: ["entities", "&lt;", "&amp;"],
 		implemented: true,
 	},
 	{
@@ -372,6 +401,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert CSV data to JSON with delimiter options, header row detection and a live preview table. The conversion runs in your browser, so data stays private.",
 		category: ToolCategory.TEXT_DATA,
 		route: "/tools/csv-to-json",
+		keywords: ["spreadsheet", "convert"],
 		implemented: true,
 	},
 	{
@@ -381,6 +411,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert JSON arrays to CSV with delimiter options, nested object flattening and a data preview. Ready for Excel or Google Sheets, processed in your browser.",
 		category: ToolCategory.TEXT_DATA,
 		route: "/tools/json-to-csv",
+		keywords: ["spreadsheet", "excel", "export"],
 		implemented: true,
 	},
 	{
@@ -390,6 +421,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert JSON to YAML and YAML to JSON with a real-time preview and configurable indentation. A free two-way converter that runs in your browser.",
 		category: ToolCategory.TEXT_DATA,
 		route: "/tools/json-to-yaml",
+		keywords: ["yml", "convert"],
 		implemented: true,
 	},
 
@@ -401,6 +433,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Encode and decode URLs and query strings with percent-encoding. Convert special characters to %XX escapes and back, instantly and in your browser.",
 		category: ToolCategory.ENCODING_DATA,
 		route: "/tools/url-encoder-decoder",
+		keywords: ["percent-encoding", "uri", "querystring"],
 		implemented: true,
 	},
 	{
@@ -410,6 +443,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Encode and decode Base64 for text and binary data, with full UTF-8 support. A free Base64 converter that runs entirely in your browser, nothing uploaded.",
 		category: ToolCategory.ENCODING_DATA,
 		route: "/tools/base64-encoder-decoder",
+		keywords: ["b64", "atob", "btoa"],
 		implemented: true,
 	},
 	{
@@ -419,6 +453,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert ASCII text to hexadecimal and hex back to ASCII, with delimiter options, upper or lower case output and a full ASCII character table.",
 		category: ToolCategory.ENCODING_DATA,
 		route: "/tools/ascii-to-hex",
+		keywords: ["hexadecimal", "bytes"],
 		implemented: true,
 	},
 	{
@@ -428,6 +463,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert text to binary and binary back to text with ASCII or UTF-8 encoding. See each character as 8-bit binary, instantly and in your browser.",
 		category: ToolCategory.ENCODING_DATA,
 		route: "/tools/text-binary-converter",
+		keywords: ["bits", "01"],
 		implemented: true,
 	},
 	{
@@ -437,6 +473,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert numbers between binary, octal, decimal, hex and any base from 2 to 36, toggle individual bits and run bitwise operations, all updating live.",
 		category: ToolCategory.ENCODING_DATA,
 		route: "/tools/number-base-converter",
+		keywords: ["binary", "octal", "hex", "decimal", "radix"],
 		implemented: true,
 	},
 	{
@@ -446,6 +483,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Generate MD5, SHA-1, SHA-256, SHA-384 and SHA-512 hashes from text or files, with hex or Base64 output. Computed locally, so nothing is uploaded.",
 		category: ToolCategory.ENCODING_DATA,
 		route: "/tools/hash-generator",
+		keywords: ["md5", "sha1", "sha256", "sha512", "checksum", "digest"],
 		implemented: true,
 	},
 	{
@@ -455,6 +493,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Generate random v4 UUIDs individually or in bulk, with several output formats, and validate existing UUIDs. Everything is generated locally in your browser.",
 		category: ToolCategory.ENCODING_DATA,
 		route: "/tools/uuid-generator",
+		keywords: ["guid", "v4", "v7", "identifier"],
 		implemented: true,
 	},
 	{
@@ -464,6 +503,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Generate random numbers between any minimum and maximum, as integers or decimals, in bulk with optional no-duplicates and sorting. Runs in your browser.",
 		category: ToolCategory.ENCODING_DATA,
 		route: "/tools/random-number-generator",
+		keywords: ["rng", "dice", "lottery"],
 		implemented: true,
 	},
 
@@ -475,6 +515,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Decode JSON Web Tokens and inspect the header, payload and signature details. The token is decoded locally, so it never leaves your browser.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/jwt-decoder",
+		keywords: ["token", "bearer", "claims", "json web token"],
 		implemented: true,
 	},
 	{
@@ -484,6 +525,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Test and debug regular expressions with real-time match highlighting, capture groups, flags and find and replace. JavaScript regex, run in your browser.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/regex-tester",
+		keywords: ["regular expression", "pattern", "match"],
 		implemented: true,
 	},
 	{
@@ -493,6 +535,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert Unix epoch timestamps to human-readable dates and back, parse ISO 8601 and RFC dates in any time zone, and add or subtract time from a date.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/epoch-converter",
+		keywords: ["unix", "timestamp", "date", "milliseconds"],
 		implemented: true,
 	},
 	{
@@ -502,6 +545,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Build a cron expression field by field or paste one to decode it into plain English, and preview the next run times in any time zone.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/cron-expression-generator",
+		keywords: ["schedule", "crontab", "scheduler"],
 		implemented: true,
 	},
 	{
@@ -511,6 +555,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Reference for HTTP status codes from 1xx to 5xx, explaining what each code means and when to use it, from 200 OK and 301 to 404 Not Found and 503.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/http-status-codes",
+		keywords: ["404", "500", "response", "error codes"],
 		implemented: true,
 	},
 	{
@@ -520,6 +565,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "HTML entities reference sheet listing each symbol with its named entity, Unicode code point, CSS escape and numeric HTML code for markup and styles.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/html-entities",
+		keywords: ["&nbsp;", "special characters", "symbols"],
 		implemented: true,
 	},
 	{
@@ -529,6 +575,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Generate HTML meta tags for SEO, social sharing and browser behavior, including title, description, viewport and robots, then copy the markup.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/meta-tag-generator",
+		keywords: ["seo", "head", "description"],
 		implemented: true,
 	},
 	{
@@ -538,6 +585,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Generate Open Graph meta tags for rich link previews on Facebook, LinkedIn, Slack and other platforms. Fill in the fields and copy the ready HTML.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/ogp-tag-generator",
+		keywords: ["open graph", "social", "twitter card", "seo"],
 		implemented: true,
 	},
 	{
@@ -547,6 +595,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Parse and validate Content Security Policy headers with a directive-by-directive breakdown, so you can see what each source list allows or blocks.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/csp-parser",
+		keywords: ["content security policy", "header", "security"],
 		implemented: true,
 	},
 	{
@@ -556,6 +605,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Generate .gitignore files for different languages, frameworks and project types by combining common ignore rules, then copy the result into your repo.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/gitignore-generator",
+		keywords: ["git", "ignore"],
 		implemented: true,
 	},
 	{
@@ -565,6 +615,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Generate a package.json file with customizable fields, scripts and metadata for a new Node.js project, then copy it straight into your project folder.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/package-json-generator",
+		keywords: ["npm", "pnpm", "node", "manifest"],
 		implemented: true,
 	},
 
@@ -585,6 +636,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert length and distance between miles, kilometers, meters, feet, yards, inches and more. Edit any unit and every other value updates live.",
 		category: ToolCategory.UNIT_CONVERTERS,
 		route: "/tools/distance-converter",
+		keywords: ["miles", "kilometers", "km", "feet", "inches", "meters"],
 		implemented: true,
 	},
 	{
@@ -594,6 +646,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert weight and mass between pounds, kilograms, ounces, grams, stones and tons. Type in any unit and see every other conversion update instantly.",
 		category: ToolCategory.UNIT_CONVERTERS,
 		route: "/tools/weight-converter",
+		keywords: ["pounds", "lbs", "kilograms", "kg", "ounces", "grams"],
 		implemented: true,
 	},
 	{
@@ -603,6 +656,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert temperatures between Fahrenheit, Celsius and Kelvin instantly, with reference charts for common values. Edit any field and the others follow.",
 		category: ToolCategory.UNIT_CONVERTERS,
 		route: "/tools/temperature-converter",
+		keywords: ["celsius", "fahrenheit", "kelvin"],
 		implemented: true,
 	},
 	{
@@ -612,6 +666,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert area between square feet, square meters, acres, hectares and more. Enter a value in any unit and every other unit updates live as you type.",
 		category: ToolCategory.UNIT_CONVERTERS,
 		route: "/tools/area-converter",
+		keywords: ["acres", "hectares", "square"],
 		implemented: true,
 	},
 	{
@@ -621,6 +676,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert volume between gallons, liters, cubic feet, fluid ounces and more. Type a value into any unit field and all of the other volumes recalculate.",
 		category: ToolCategory.UNIT_CONVERTERS,
 		route: "/tools/volume-converter",
+		keywords: ["liters", "gallons", "milliliters"],
 		implemented: true,
 	},
 	{
@@ -630,6 +686,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert pressure between PSI, bar, atmospheres, pascals, mmHg and more. Type in any unit for instant, live conversions across all of the others.",
 		category: ToolCategory.UNIT_CONVERTERS,
 		route: "/tools/pressure-converter",
+		keywords: ["psi", "bar", "pascal", "atm"],
 		implemented: true,
 	},
 	{
@@ -639,6 +696,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert energy between joules, calories, kilocalories, BTU, kilowatt-hours and more. Edit any value and all other energy units update instantly.",
 		category: ToolCategory.UNIT_CONVERTERS,
 		route: "/tools/energy-converter",
+		keywords: ["joules", "calories", "kwh", "btu"],
 		implemented: true,
 	},
 	{
@@ -648,6 +706,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert speed between mph, km/h, m/s, knots, Mach and more. A live velocity converter where editing any one field updates every other unit.",
 		category: ToolCategory.UNIT_CONVERTERS,
 		route: "/tools/speed-converter",
+		keywords: ["mph", "kph", "knots"],
 		implemented: true,
 	},
 	{
@@ -657,6 +716,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert power between watts, kilowatts, horsepower, BTU per hour and more. Change any field and every other power unit recalculates instantly.",
 		category: ToolCategory.UNIT_CONVERTERS,
 		route: "/tools/power-converter",
+		keywords: ["watts", "horsepower", "hp"],
 		implemented: true,
 	},
 	{
@@ -666,6 +726,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert frequency between hertz, kHz, MHz, GHz and RPM, with every unit updating live as you type. Handy for electronics, audio and engines.",
 		category: ToolCategory.UNIT_CONVERTERS,
 		route: "/tools/frequency-converter",
+		keywords: ["hertz", "hz", "rpm"],
 		implemented: true,
 	},
 	{
@@ -675,6 +736,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert fuel economy between US MPG, UK MPG, L/100km, km/L and more. Compare car efficiency across regions, with every unit updating live.",
 		category: ToolCategory.UNIT_CONVERTERS,
 		route: "/tools/fuel-economy-converter",
+		keywords: ["mpg", "l/100km"],
 		implemented: true,
 	},
 	{
@@ -684,6 +746,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert angles between degrees, radians, gradians, turns, arcminutes and arcseconds. Edit any field and every other angle unit updates instantly.",
 		category: ToolCategory.UNIT_CONVERTERS,
 		route: "/tools/angle-converter",
+		keywords: ["degrees", "radians", "gradians"],
 		implemented: true,
 	},
 	{
@@ -693,6 +756,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert cooking measurements between imperial and metric, like cups, tablespoons, teaspoons, fluid ounces and milliliters, with handy reference charts.",
 		category: ToolCategory.KITCHEN,
 		route: "/tools/kitchen-converter",
+		keywords: ["cups", "tablespoons", "teaspoons", "ounces", "grams", "cooking", "baking"],
 		implemented: true,
 	},
 	{
@@ -702,6 +766,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert clothing sizes between US, UK and EU charts for shoes, shirts, pants and rings. Find your size abroad or when shopping international stores.",
 		category: ToolCategory.UNIT_CONVERTERS,
 		route: "/tools/clothing-size-converter",
+		keywords: ["shoe size", "dress size", "us", "eu", "uk"],
 		implemented: true,
 	},
 	{
@@ -711,6 +776,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert between bytes, KB, MB, GB and TB using binary (1024) or decimal (1000) mode. Edit any unit and every other storage size updates live.",
 		category: ToolCategory.UNIT_CONVERTERS,
 		route: "/tools/data-storage-converter",
+		keywords: ["bytes", "kb", "mb", "gb", "tb", "kilobytes", "megabytes", "gigabytes"],
 		implemented: true,
 	},
 	{
@@ -720,6 +786,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert bandwidth units like Mbps, Gbps and MB/s, and calculate how long a file of any size takes to download at a given connection speed.",
 		category: ToolCategory.UNIT_CONVERTERS,
 		route: "/tools/bandwidth-calculator",
+		keywords: ["download time", "transfer", "mbps", "throughput"],
 		implemented: true,
 	},
 	{
@@ -729,6 +796,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert file sizes between bytes, KB, MB, GB, TB and PB in binary or decimal mode, plan storage capacity and compare common file size references.",
 		category: ToolCategory.UNIT_CONVERTERS,
 		route: "/tools/file-size-calculator",
+		keywords: ["bytes", "mb", "gb"],
 		implemented: true,
 	},
 
@@ -740,6 +808,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Calculate percentages: find what percent one number is of another, take a percentage of a number, or work out the whole from a part and its percent.",
 		category: ToolCategory.CALCULATORS_TIME,
 		route: "/tools/percentage-calculator",
+		keywords: ["percent", "discount", "increase", "ratio"],
 		implemented: true,
 	},
 	{
@@ -749,6 +818,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Calculate the tip with preset or custom percentages, split the bill between any number of people and see each person's share. Quick and free.",
 		category: ToolCategory.KITCHEN,
 		route: "/tools/tip-calculator",
+		keywords: ["gratuity", "split bill", "restaurant"],
 		implemented: true,
 	},
 	{
@@ -758,6 +828,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert times between time zones and compare them side by side on a visual timeline. Useful for scheduling meetings and calls across cities.",
 		category: ToolCategory.CALCULATORS_TIME,
 		route: "/tools/timezone-converter",
+		keywords: ["utc", "gmt", "time zone", "world clock"],
 		implemented: true,
 	},
 	{
@@ -767,6 +838,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert between time units, calculate the duration between two dates, and add or subtract days, hours and minutes from any date and time.",
 		category: ToolCategory.CALCULATORS_TIME,
 		route: "/tools/time-duration-calculator",
+		keywords: ["elapsed", "between dates", "age", "days"],
 		implemented: true,
 	},
 	{
@@ -776,6 +848,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Roll virtual dice online with D4, D6, D8, D10, D12, D20 and D100 options. A quick, fair dice roller for tabletop RPGs, board games and classrooms.",
 		category: ToolCategory.CALCULATORS_TIME,
 		route: "/tools/dice-roller",
+		keywords: ["d20", "rng", "random", "tabletop"],
 		implemented: true,
 	},
 	{
@@ -785,6 +858,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Free online scientific calculator with a keypad, DEG and RAD modes, history, and an expression engine that handles units and very large numbers.",
 		category: ToolCategory.CALCULATORS_TIME,
 		route: "/tools/math-expression-evaluator",
+		keywords: ["calculator", "math", "evaluate", "expression"],
 		implemented: true,
 	},
 	{
@@ -794,6 +868,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Estimate when a task will finish from the total amount, how much is done and the time elapsed so far. Handy for downloads, builds and batch jobs.",
 		category: ToolCategory.CALCULATORS_TIME,
 		route: "/tools/eta-calculator",
+		keywords: ["arrival", "travel time", "speed"],
 		implemented: true,
 	},
 	{
@@ -803,6 +878,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "High-precision online stopwatch with lap tracking. Start, stop and record laps right in your browser, with no app to install and no sign-up needed.",
 		category: ToolCategory.CALCULATORS_TIME,
 		route: "/tools/chronometer",
+		keywords: ["timer", "lap", "elapsed"],
 		implemented: true,
 	},
 
@@ -814,6 +890,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Generate cryptographically secure random tokens and passwords with a configurable character set and length, plus an entropy estimate for each one.",
 		category: ToolCategory.SECURITY_CRYPTO,
 		route: "/tools/token-password-generator",
+		keywords: ["random", "secret", "api key", "passphrase"],
 		implemented: true,
 	},
 	{
@@ -823,6 +900,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Hash text with bcrypt using an adjustable cost factor from 4 to 15, or verify a string against an existing bcrypt hash. Runs locally in your browser.",
 		category: ToolCategory.SECURITY_CRYPTO,
 		route: "/tools/bcrypt-tool",
+		keywords: ["hash", "password", "salt"],
 		implemented: true,
 	},
 	{
@@ -832,6 +910,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Generate ULIDs (Universally Unique Lexicographically Sortable Identifiers) in bulk, with a monotonic mode and a decoder that reads the timestamp back.",
 		category: ToolCategory.SECURITY_CRYPTO,
 		route: "/tools/ulid-generator",
+		keywords: ["identifier", "sortable", "uuid"],
 		implemented: true,
 	},
 	{
@@ -841,6 +920,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Encrypt and decrypt text with a passphrase using AES-GCM and PBKDF2 key derivation. Fully client-side, so plaintext and keys never leave your browser.",
 		category: ToolCategory.SECURITY_CRYPTO,
 		route: "/tools/text-encryption",
+		keywords: ["aes", "cipher", "encrypt", "decrypt"],
 		implemented: true,
 	},
 	{
@@ -850,6 +930,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Generate and validate BIP39 mnemonic seed phrases, convert them to entropy and derive the 64-byte seed. All client-side, nothing leaves your device.",
 		category: ToolCategory.SECURITY_CRYPTO,
 		route: "/tools/bip39-generator",
+		keywords: ["seed phrase", "wallet", "crypto", "mnemonic"],
 		implemented: true,
 	},
 	{
@@ -859,6 +940,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Compute HMAC signatures for a message and secret key using SHA-1, SHA-256, SHA-384 or SHA-512, with hex and Base64 output. Runs in your browser.",
 		category: ToolCategory.SECURITY_CRYPTO,
 		route: "/tools/hmac-generator",
+		keywords: ["signature", "sha256", "mac"],
 		implemented: true,
 	},
 	{
@@ -868,6 +950,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Generate RSA public and private key pairs (2048, 3072 or 4096 bits) in PEM format for signing or encryption. Keys are created locally in your browser.",
 		category: ToolCategory.SECURITY_CRYPTO,
 		route: "/tools/rsa-key-generator",
+		keywords: ["public key", "private key", "pem", "ssh"],
 		implemented: true,
 	},
 	{
@@ -877,6 +960,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Check how strong a password is with zxcvbn: estimated crack time, a strength score and actionable feedback. Fully client-side, nothing is sent anywhere.",
 		category: ToolCategory.SECURITY_CRYPTO,
 		route: "/tools/password-strength-analyzer",
+		keywords: ["zxcvbn", "entropy", "crack time"],
 		implemented: true,
 	},
 
@@ -888,6 +972,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Calculate IPv4 subnets from CIDR notation: network and broadcast addresses, usable host range, subnet mask and address class, updated as you type.",
 		category: ToolCategory.NETWORK,
 		route: "/tools/ipv4-subnet-calculator",
+		keywords: ["cidr", "netmask", "network", "broadcast"],
 		implemented: true,
 	},
 	{
@@ -897,6 +982,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert an IPv4 address between dotted decimal, integer, hexadecimal, binary, octal and IPv6-mapped formats, with every format updating live as you type.",
 		category: ToolCategory.NETWORK,
 		route: "/tools/ipv4-address-converter",
+		keywords: ["decimal", "binary", "hex", "ip"],
 		implemented: true,
 	},
 	{
@@ -906,6 +992,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Find the minimal set of CIDR blocks that exactly covers any IPv4 address range. Useful when writing firewall rules, access control lists and allowlists.",
 		category: ToolCategory.NETWORK,
 		route: "/tools/ipv4-range-expander",
+		keywords: ["cidr", "ip list"],
 		implemented: true,
 	},
 	{
@@ -915,6 +1002,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Look up the manufacturer of any MAC address from its OUI prefix using bundled IEEE vendor data. Works in your browser with no external API calls.",
 		category: ToolCategory.NETWORK,
 		route: "/tools/mac-address-lookup",
+		keywords: ["oui", "vendor", "manufacturer"],
 		implemented: true,
 	},
 	{
@@ -924,6 +1012,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Generate random MAC addresses with control over the unicast/multicast and local/universal bits and an optional vendor prefix. Generated in your browser.",
 		category: ToolCategory.NETWORK,
 		route: "/tools/mac-address-generator",
+		keywords: ["oui", "random", "hardware address"],
 		implemented: true,
 	},
 	{
@@ -933,6 +1022,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Generate RFC 4193 unique local IPv6 addresses (ULA) with a random global ID and a custom subnet ID, ready for private network addressing.",
 		category: ToolCategory.NETWORK,
 		route: "/tools/ipv6-ula-generator",
+		keywords: ["unique local address", "fd00", "rfc 4193"],
 		implemented: true,
 	},
 
@@ -944,6 +1034,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert a docker run command into an equivalent docker-compose.yml, mapping ports, volumes, environment variables and other flags automatically.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/docker-run-to-compose",
+		keywords: ["docker-compose", "yaml", "container"],
 		implemented: true,
 	},
 	{
@@ -953,6 +1044,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Format, validate and explore JSON with a collapsible tree view. A free JSON beautifier and viewer that runs in your browser, so your data stays private.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/json-prettifier",
+		keywords: ["format", "beautify", "viewer", "tree"],
 		implemented: true,
 	},
 	{
@@ -962,6 +1054,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Minify JSON by stripping whitespace and line breaks, and see exactly how many bytes you save. Validates the input and runs entirely in your browser.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/json-minifier",
+		keywords: ["compress", "whitespace", "compact"],
 		implemented: true,
 	},
 	{
@@ -971,6 +1064,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Compare two JSON documents semantically and see every added, removed and changed value by path, regardless of key order or formatting.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/json-diff",
+		keywords: ["compare", "objects"],
 		implemented: true,
 	},
 	{
@@ -980,6 +1074,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Format and beautify SQL queries for multiple dialects including MySQL, PostgreSQL and SQLite, with keyword case options. Runs in your browser.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/sql-formatter",
+		keywords: ["query", "beautify", "prettify"],
 		implemented: true,
 	},
 	{
@@ -989,6 +1084,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Format, indent and validate XML with clear parse error reporting. Paste messy or minified XML and get readable output instantly in your browser.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/xml-formatter",
+		keywords: ["beautify", "prettify", "indent"],
 		implemented: true,
 	},
 	{
@@ -998,6 +1094,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Validate, format and normalize YAML with precise error locations. Paste a config file to catch indentation and syntax mistakes before you deploy.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/yaml-viewer",
+		keywords: ["yml", "format", "validate"],
 		implemented: true,
 	},
 	{
@@ -1007,6 +1104,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Calculate Unix file permissions and convert between symbolic (rwxr-xr-x), octal (755) and the full chmod command. Toggle read, write and execute bits.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/chmod-calculator",
+		keywords: ["permissions", "755", "644", "unix", "linux", "file mode"],
 		implemented: true,
 	},
 	{
@@ -1016,6 +1114,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Generate random TCP or UDP port numbers outside the well-known and commonly used ranges, for local dev servers, containers and test services.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/random-port-generator",
+		keywords: ["tcp", "udp", "ephemeral"],
 		implemented: true,
 	},
 	{
@@ -1025,6 +1124,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Normalize email addresses to their canonical form using provider rules like Gmail dots and plus tags, and flag duplicate addresses in a list.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/email-normalizer",
+		keywords: ["gmail", "plus addressing", "dedupe"],
 		implemented: true,
 	},
 	{
@@ -1034,6 +1134,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Searchable Git cheatsheet with common commands and examples for branching, committing, merging, rebasing, stashing and undoing mistakes.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/git-cheatsheet",
+		keywords: ["commands", "reference", "rebase", "branch"],
 		implemented: true,
 	},
 	{
@@ -1043,6 +1144,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Searchable regular expression cheatsheet covering anchors, character classes, quantifiers, groups, lookarounds and flags, each with an example.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/regex-cheatsheet",
+		keywords: ["regular expression", "reference", "syntax"],
 		implemented: true,
 	},
 	{
@@ -1052,6 +1154,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Searchable crontab cheatsheet explaining cron field syntax and common schedule patterns, with ready examples like every 5 minutes or weekdays at 9am.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/crontab-cheatsheet",
+		keywords: ["cron", "schedule", "reference"],
 		implemented: true,
 	},
 
@@ -1063,6 +1166,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Break a URL into protocol, host, port, path, query parameters and hash fragment, so you can inspect and debug any link. Runs in your browser.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/url-parser",
+		keywords: ["query string", "params", "hostname", "uri"],
 		implemented: true,
 	},
 	{
@@ -1072,6 +1176,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Build an HTTP Basic Authorization header from a username and password, with the Base64 value and a ready-to-run curl example. Runs locally.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/basic-auth-generator",
+		keywords: ["authorization header", "credentials"],
 		implemented: true,
 	},
 	{
@@ -1081,6 +1186,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Generate time-based one-time passwords (TOTP) from a secret, with a countdown ring and otpauth URI support for authenticator apps. Runs locally.",
 		category: ToolCategory.SECURITY_CRYPTO,
 		route: "/tools/otp-totp-generator",
+		keywords: ["2fa", "mfa", "authenticator", "one-time password"],
 		implemented: true,
 	},
 	{
@@ -1090,6 +1196,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Press any key to see its JavaScript keyboard event details: key, code, keyCode, location and modifier states. Handy when building keyboard shortcuts.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/keycode-info",
+		keywords: ["keyboard", "event.key", "which", "javascript"],
 		implemented: true,
 	},
 	{
@@ -1099,6 +1206,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert any text into a clean, URL-safe slug with custom separators, accent stripping and your own character replacements. Great for blog post URLs.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/slugify-string",
+		keywords: ["url slug", "kebab-case", "permalink"],
 		implemented: true,
 	},
 	{
@@ -1108,6 +1216,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Parse any User-Agent string into browser, rendering engine, operating system, device type and CPU details, so you can see what a browser reports.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/user-agent-parser",
+		keywords: ["browser", "os", "device", "ua"],
 		implemented: true,
 	},
 	{
@@ -1117,6 +1226,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Inspect your device and browser: screen size, viewport, pixel ratio, language, GPU and other capabilities, all read locally with nothing sent anywhere.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/device-information",
+		keywords: ["screen", "viewport", "browser", "gpu"],
 		implemented: true,
 	},
 	{
@@ -1126,6 +1236,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Search MIME types by file extension or content type, and find the right Content-Type header for any file. A quick reference for web developers.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/mime-types-reference",
+		keywords: ["content-type", "extensions", "media type"],
 		implemented: true,
 	},
 	{
@@ -1135,6 +1246,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Unwrap Microsoft SafeLinks, Proofpoint URLDefense and other rewritten email links to reveal the original destination URL before you click it.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/safelink-decoder",
+		keywords: ["outlook", "microsoft", "url defense", "proofpoint"],
 		implemented: true,
 	},
 	{
@@ -1144,6 +1256,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Rich text WYSIWYG editor with a live HTML source view, built on Tiptap. Format text visually and copy the clean HTML it produces for your pages.",
 		category: ToolCategory.WEB_DEV,
 		route: "/tools/html-wysiwyg-editor",
+		keywords: ["rich text", "editor"],
 		implemented: true,
 	},
 
@@ -1155,6 +1268,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert between JSON, YAML and TOML in any direction, with validation and clear error messages. Handy for config files like Cargo.toml and pyproject.",
 		category: ToolCategory.ENCODING_DATA,
 		route: "/tools/toml-converter",
+		keywords: ["config", "yml", "convert"],
 		implemented: true,
 	},
 	{
@@ -1164,6 +1278,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert XML to JSON and JSON to XML with attribute handling options. A two-way converter for APIs and config files that runs in your browser.",
 		category: ToolCategory.ENCODING_DATA,
 		route: "/tools/xml-json-converter",
+		keywords: ["convert", "parse"],
 		implemented: true,
 	},
 	{
@@ -1173,6 +1288,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert numbers to Roman numerals and Roman numerals back to Arabic numbers, with validation of the input. Quick, free and right in your browser.",
 		category: ToolCategory.TEXT_DATA,
 		route: "/tools/roman-numeral-converter",
+		keywords: ["mcmxc", "numerals"],
 		implemented: true,
 	},
 	{
@@ -1182,6 +1298,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Spell text with the NATO phonetic alphabet, DIN 5009 or the German spelling alphabet, and decode spoken calls back into plain text automatically.",
 		category: ToolCategory.TEXT_DATA,
 		route: "/tools/nato-phonetic-converter",
+		keywords: ["alpha bravo charlie", "spelling alphabet", "radio"],
 		implemented: true,
 	},
 	{
@@ -1191,6 +1308,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Convert text to Unicode code points and code points back to text, in multiple notations such as U+ hex and decimal. Useful for debugging encodings.",
 		category: ToolCategory.ENCODING_DATA,
 		route: "/tools/text-unicode-converter",
+		keywords: ["utf-8", "code point", "escape", "u+"],
 		implemented: true,
 	},
 	{
@@ -1200,6 +1318,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Transform lists of items: trim whitespace, remove duplicates, sort, change the separator and wrap each item in quotes or brackets. Instant results.",
 		category: ToolCategory.TEXT_DATA,
 		route: "/tools/list-converter",
+		keywords: ["whitespace", "dedupe", "sort", "trim", "comma"],
 		implemented: true,
 	},
 
@@ -1211,6 +1330,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Search and copy emoji by name or keyword, browse by category and choose skin tones. A fast emoji browser for docs, commit messages and chats.",
 		category: ToolCategory.TEXT_DATA,
 		route: "/tools/emoji-picker",
+		keywords: ["smiley", "unicode", "copy"],
 		implemented: true,
 	},
 	{
@@ -1220,6 +1340,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Turn text into figlet-style ASCII art banners with a choice of fonts, then copy the result for READMEs, terminal output and code comments.",
 		category: ToolCategory.TEXT_DATA,
 		route: "/tools/ascii-text-drawer",
+		keywords: ["figlet", "banner", "ascii art"],
 		implemented: true,
 	},
 	{
@@ -1229,6 +1350,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Mask parts of a string, such as API keys, tokens or email addresses, while keeping a chosen number of characters visible so it is safe to share.",
 		category: ToolCategory.TEXT_DATA,
 		route: "/tools/string-obfuscator",
+		keywords: ["mask", "hide", "redact"],
 		implemented: true,
 	},
 	{
@@ -1238,6 +1360,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Generate numeronyms like i18n, k8s and a11y from any word or phrase by keeping the first and last letters and counting the ones in between.",
 		category: ToolCategory.TEXT_DATA,
 		route: "/tools/numeronym-generator",
+		keywords: ["i18n", "a11y", "k8s", "abbreviation"],
 		implemented: true,
 	},
 
@@ -1249,6 +1372,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Parse, validate and format phone numbers from any country into E.164, international and national formats, with number type detection.",
 		category: ToolCategory.TEXT_DATA,
 		route: "/tools/phone-number-parser",
+		keywords: ["e.164", "international", "country code"],
 		implemented: true,
 	},
 	{
@@ -1258,6 +1382,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Validate an IBAN and break it down into country, check digits and BBAN. Checks the length and checksum for every country that uses IBAN.",
 		category: ToolCategory.TEXT_DATA,
 		route: "/tools/iban-validator",
+		keywords: ["bank", "account", "bic", "swift"],
 		implemented: true,
 	},
 
@@ -1269,6 +1394,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Take photos and record video from your webcam, right in the browser. Recordings stay on your device and download directly, with no uploads.",
 		category: ToolCategory.IMAGE_MEDIA,
 		route: "/tools/camera-recorder",
+		keywords: ["video", "record", "webm"],
 		implemented: true,
 	},
 	{
@@ -1278,6 +1404,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Inspect and remove EXIF, GPS location, XMP and comments from JPEG, PNG and WebP images without re-encoding. Processed locally, never uploaded.",
 		category: ToolCategory.IMAGE_MEDIA,
 		route: "/tools/metadata-stripper",
+		keywords: ["exif", "gps", "xmp", "privacy", "geotag"],
 		implemented: true,
 	},
 	{
@@ -1287,6 +1414,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Decode classical ciphers by hand or auto-detect Caesar, Vigenère, Atbash, Morse, Base64 and more, ranked by how much the output reads like English.",
 		category: ToolCategory.SECURITY_CRYPTO,
 		route: "/tools/cipher-decoder",
+		keywords: ["caesar", "vigenere", "rot13", "atbash", "crack"],
 		implemented: true,
 	},
 	{
@@ -1296,6 +1424,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Check WCAG 2.1 color contrast ratios for text and backgrounds, preview text sizes, and auto-fix the foreground color to pass AA or AAA.",
 		category: ToolCategory.CSS_DESIGN,
 		route: "/tools/contrast-checker",
+		keywords: ["wcag", "accessibility", "a11y", "color ratio"],
 		implemented: true,
 	},
 	{
@@ -1305,6 +1434,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Plot and trace multiple functions on one graph, with zoom presets and adjustable axis ranges. A free online graphing calculator in your browser.",
 		category: ToolCategory.CALCULATORS_TIME,
 		route: "/tools/graph-calculator",
+		keywords: ["plot", "function", "chart", "equation"],
 		implemented: true,
 	},
 	{
@@ -1314,6 +1444,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Online symbolic algebra calculator: simplify, expand and factor expressions, solve equations, and find derivatives and integrals in your browser.",
 		category: ToolCategory.CALCULATORS_TIME,
 		route: "/tools/algebra-calculator",
+		keywords: ["solve", "simplify", "equation", "symbolic"],
 		implemented: true,
 	},
 	{
@@ -1323,6 +1454,7 @@ export const TOOLS_REGISTRY: Tool[] = [
 		seoDescription: "Write recipes in plain text and turn them into Cooking for Engineers style action tables, with scaling, unit switching and a saved notebook.",
 		category: ToolCategory.KITCHEN,
 		route: "/tools/recipe-table",
+		keywords: ["cooking", "ingredients", "scale", "cooking for engineers"],
 		implemented: true,
 	},
 ];
@@ -1334,6 +1466,9 @@ export function getToolsByCategory(category: ToolCategory): Tool[] {
 export function getToolById(id: string): Tool | undefined {
 	return TOOLS_REGISTRY.find((tool) => tool.id === id);
 }
+
+/** Category id to display name, for search surfaces that let terms like "network" match a whole category. */
+export const CATEGORY_NAMES: Record<string, string> = Object.fromEntries(Object.values(CATEGORIES).map((c) => [c.id, c.name]));
 
 export function getAllCategories(): CategoryInfo[] {
 	return Object.values(CATEGORIES);

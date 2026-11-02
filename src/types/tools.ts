@@ -4,6 +4,8 @@ export interface Tool {
 	description: string;
 	/** 110–160 char search/AI description. Falls back to `description`. */
 	seoDescription?: string;
+	/** Extra search terms not present in the name (e.g. "exif" for Metadata Stripper). Lowercase. */
+	keywords?: string[];
 	category: ToolCategory;
 	route: string;
 	icon?: string;

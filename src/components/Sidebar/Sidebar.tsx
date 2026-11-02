@@ -6,7 +6,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { DocumentTextIcon, SwatchIcon, PhotoIcon, CodeBracketIcon, CalculatorIcon, ArrowsRightLeftIcon, LockClosedIcon, ClockIcon, ShieldCheckIcon, GlobeAltIcon, ChevronRightIcon,
 	CakeIcon,
 } from "@heroicons/react/24/outline";
-import { CATEGORIES, getToolsByCategory } from "@/config/tools-registry";
+import { CATEGORIES, CATEGORY_NAMES, getToolsByCategory } from "@/config/tools-registry";
+import { filterToolsByQuery } from "@/lib/toolSearch";
 import { ToolCategory, type Tool } from "@/types/tools";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { closeMobileMenu } from "@/store/slices/uiSlice";
@@ -47,7 +48,7 @@ export default function Sidebar() {
 		const map = new Map<ToolCategory, Tool[]>();
 		for (const category of Object.values(CATEGORIES)) {
 			const tools = getToolsByCategory(category.id);
-			const filtered = isSearching ? tools.filter((t) => t.name.toLowerCase().includes(normalizedQuery)) : tools;
+			const filtered = isSearching ? filterToolsByQuery(normalizedQuery, tools, CATEGORY_NAMES) : tools;
 			map.set(category.id, filtered);
 		}
 		return map;

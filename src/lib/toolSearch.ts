@@ -2,11 +2,12 @@ import type { Tool } from "@/types/tools";
 
 /**
  * Score how well one search term matches a tool. Higher is better, 0 is no match.
- * Name prefix > word prefix > name substring > route > category name > description.
+ * Name prefix > word prefix > keyword > name substring > route > category name > description.
  */
 function scoreTerm(tool: Tool, nameLower: string, categoryName: string, term: string): number {
 	if (nameLower.startsWith(term)) return 100;
 	if (nameLower.split(/[^a-z0-9.]+/).some((w) => w.startsWith(term))) return 70;
+	if (tool.keywords?.some((k) => k.startsWith(term) || k.split(/[\s_-]+/).some((w) => w.startsWith(term)))) return 60;
 	if (nameLower.includes(term)) return 50;
 	if (tool.route.toLowerCase().includes(term)) return 40;
 	if (categoryName.includes(term)) return 20;
@@ -40,4 +41,14 @@ export function searchTools(query: string, tools: readonly Tool[], categoryNames
 		if (score) scored.push({ score: score - tool.name.length * 0.1, tool });
 	}
 	return scored.sort((a, b) => b.score - a.score).map((s) => s.tool);
+}
+
+/**
+ * Filter `tools` to those matching `query`, preserving the caller's order.
+ * For lists with their own ordering (sidebar categories, user-sorted favorites).
+ */
+export function filterToolsByQuery(query: string, tools: readonly Tool[], categoryNames: Record<string, string> = {}): Tool[] {
+	if (!query.trim()) return [...tools];
+	const matched = new Set(searchTools(query, tools, categoryNames).map((t) => t.id));
+	return tools.filter((t) => matched.has(t.id));
 }
