@@ -33,7 +33,7 @@ interface HeroTerminalProps {
 	toolCount: number;
 }
 
-const PS1 = "guest@bittbott:~$";
+export const PS1 = "guest@bittbott:~$";
 const MAX_LINES = 120;
 const CHIPS = ["help", "ls", "hash hello", "morse sos", "nato bittbott"];
 const TONE_CLASS: Record<Tone, string> = {

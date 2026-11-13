@@ -7,6 +7,7 @@ import { WORDMARK_STACKED, WORDMARK_SUFFIX, WORDMARK_SUFFIX_PULL, WORDMARK_WIDE,
  * A grid of monospace cells renders drifting contour lines of "data" glyphs. The field also draws
  * the wordmark (assembling from noise at boot), hides tool names that a cursor lens decodes, and
  * reacts to the terminal: keystroke/command ripples and command output "spoken" into the glyphs.
+ * With `blockArt` it draws that art in place of the wordmark, filled with the visitor's own text.
  *
  * Colour rule: lime is the machine, violet is the visitor (ripples, lens fringe, spoken glyphs).
  */
@@ -23,6 +24,12 @@ export interface GlyphFieldOptions {
 	tools: readonly Tool[];
 	reducedMotion: boolean;
 	onOpen: (tool: Tool) => void;
+	/**
+	 * Draw this block art (rows of `#` and spaces) instead of the wordmark. Each solid block is
+	 * scaled to fit the width and filled with the characters of `fill`, in the visitor's violet.
+	 * It stays hidden until `reveal()` is called (shown at once under reduced motion).
+	 */
+	blockArt?: { rows: readonly string[]; fill: string };
 }
 
 export interface GlyphFieldHandle {
@@ -32,6 +39,8 @@ export interface GlyphFieldHandle {
 	speak: (text: string) => void;
 	/** Reveal these tools as words in the field, placing them if needed. */
 	surface: (tools: readonly Tool[]) => void;
+	/** Ripple from a viewport point and uncover the block art as the wave front passes. */
+	reveal: (clientX: number, clientY: number) => void;
 	destroy: () => void;
 }
 
@@ -55,6 +64,8 @@ interface WordmarkCell {
 	cx: number;
 	ry: number;
 	text?: boolean;
+	/** Block-art cell: `chr` is one character of the fill text, `cx` its index along that text. */
+	fill?: boolean;
 }
 
 interface Ripple {
@@ -75,7 +86,10 @@ const TOUCH_IDLE_MS = 8000;
 const MAX_WORD_LEN = 24;
 const INTERACTIVE = "a, button, input, [data-field-ignore]";
 
-const NOOP_HANDLE: GlyphFieldHandle = { pulse: () => {}, speak: () => {}, surface: () => {}, destroy: () => {} };
+const RIPPLE_FAST = 680; // px per second
+const SCRAMBLE_MS = 320;
+
+const NOOP_HANDLE: GlyphFieldHandle = { pulse: () => {}, speak: () => {}, surface: () => {}, reveal: () => {}, destroy: () => {} };
 
 const pick = <T,>(a: readonly T[]): T => a[(Math.random() * a.length) | 0];
 const smooth = (x: number) => (x <= 0 ? 0 : x >= 1 ? 1 : x * x * (3 - 2 * x));
@@ -102,7 +116,7 @@ function fieldValue(px: number, py: number, t: number): number {
 }
 
 export function createGlyphField(opts: GlyphFieldOptions): GlyphFieldHandle {
-	const { hero, canvas, wordmark: wmEl, avoid, panel, tools, reducedMotion: REDUCED, onOpen } = opts;
+	const { hero, canvas, wordmark: wmEl, avoid, panel, tools, reducedMotion: REDUCED, onOpen, blockArt } = opts;
 	const ctx = canvas.getContext("2d");
 	if (!ctx) return NOOP_HANDLE;
 
@@ -133,6 +147,15 @@ export function createGlyphField(opts: GlyphFieldOptions): GlyphFieldHandle {
 	const T0 = performance.now();
 	let bootAt = T0;
 	let lastWidth = -1;
+	/** Where and when the block art's reveal wave started (hero-local px, performance.now clock). */
+	let revealed: { x: number; y: number; t0: number } | null = null;
+
+	const revealAt = (col: number, row: number) => {
+		if (REDUCED) return 0;
+		if (!revealed) return Infinity;
+		const d = Math.hypot(col * cw + cw / 2 - revealed.x, row * ch + ch / 2 - revealed.y);
+		return revealed.t0 + (d / RIPPLE_FAST) * 1000 + hash2(col, row) * 120;
+	};
 
 	function readStyle() {
 		const cs = getComputedStyle(hero);
@@ -198,16 +221,27 @@ export function createGlyphField(opts: GlyphFieldOptions): GlyphFieldHandle {
 		const g = parseFloat(getComputedStyle(hero).paddingLeft) || 16;
 		const avail = hero.clientWidth - 2 * g;
 		const suffix = WORDMARK_SUFFIX.length - WORDMARK_SUFFIX_PULL;
-		let art = WORDMARK_WIDE;
-		let c = Math.floor(avail / (artWidth(WORDMARK_WIDE) + suffix + 0.5));
-		if (c < 8) {
-			art = WORDMARK_STACKED;
-			c = Math.floor(avail / (artWidth(WORDMARK_STACKED) + suffix + 0.5));
+		let art: readonly string[] = WORDMARK_WIDE;
+		// Block art is scaled up: each `#` covers bw x bh cells.
+		let bw = 1, bh = 1;
+		if (blockArt) {
+			art = blockArt.rows;
+			const w = artWidth(art);
+			cw = Math.max(5, Math.min(10, Math.floor(avail / (w * 2))));
+			ch = Math.round(cw * 1.86);
+			bw = Math.max(1, Math.min(5, Math.floor(avail / (w * cw))));
+			bh = Math.max(1, Math.round((bw * cw * 0.9) / ch));
+		} else {
+			let c = Math.floor(avail / (artWidth(WORDMARK_WIDE) + suffix + 0.5));
+			if (c < 8) {
+				art = WORDMARK_STACKED;
+				c = Math.floor(avail / (artWidth(WORDMARK_STACKED) + suffix + 0.5));
+			}
+			cw = Math.max(5, Math.min(15, c));
+			ch = Math.round(cw * 1.86);
 		}
-		cw = Math.max(5, Math.min(15, c));
-		ch = Math.round(cw * 1.86);
 		fs = Math.round(cw * 1.7);
-		wmEl.style.height = `${art.length * ch}px`;
+		wmEl.style.height = `${art.length * bh * ch}px`;
 
 		const hr = hero.getBoundingClientRect();
 		W = hr.width;
@@ -236,9 +270,25 @@ export function createGlyphField(opts: GlyphFieldOptions): GlyphFieldHandle {
 		const wr = wmEl.getBoundingClientRect();
 		const c0 = Math.round((wr.left - hr.left) / cw);
 		const r0 = Math.round((wr.top - hr.top) / ch);
-		const aw = artWidth(art);
+		const aw = artWidth(art) * bw;
+		const artRows = art.length * bh;
 		wmWidth = aw;
-		art.forEach((line, ry) =>
+		if (blockArt) {
+			const fill = Array.from(blockArt.fill || "404");
+			let k = 0;
+			art.forEach((line, gy) => {
+				for (let sy = 0; sy < bh; sy++) {
+					Array.from(line).forEach((chr, gx) => {
+						if (chr !== "#") return;
+						for (let sx = 0; sx < bw; sx++, k++) {
+							const cc = c0 + gx * bw + sx, rr = r0 + gy * bh + sy;
+							if (cc < 0 || cc >= cols || rr < 0 || rr >= rows) continue;
+							wm.set(rr * cols + cc, { chr: fill[k % fill.length], ra: revealAt(cc, rr), cx: k, ry: gy, fill: true });
+						}
+					});
+				}
+			});
+		} else art.forEach((line, ry) =>
 			Array.from(line).forEach((chr, cx) => {
 				const cc = c0 + cx, rr = r0 + ry;
 				if (chr === " " || cc < 0 || cc >= cols || rr < 0 || rr >= rows) return;
@@ -248,7 +298,7 @@ export function createGlyphField(opts: GlyphFieldOptions): GlyphFieldHandle {
 		);
 		// ".dev" sits on the baseline of the last letter row and decodes in after the wordmark.
 		const sr = r0 + art.length - 2;
-		Array.from(WORDMARK_SUFFIX).forEach((chr, k) => {
+		if (!blockArt) Array.from(WORDMARK_SUFFIX).forEach((chr, k) => {
 			const cx = aw - WORDMARK_SUFFIX_PULL + k;
 			const cc = c0 + cx;
 			if (cc >= cols || sr < 0 || sr >= rows) return;
@@ -257,7 +307,7 @@ export function createGlyphField(opts: GlyphFieldOptions): GlyphFieldHandle {
 		});
 
 		base = new Uint8Array(n);
-		mark(base, c0 - 1, r0 - 1, c0 + aw + suffix + 1, r0 + art.length);
+		mark(base, c0 - 1, r0 - 1, c0 + aw + (blockArt ? 0 : suffix) + 1, r0 + artRows);
 		for (const el of avoid) mark(base, ...cellsOf(el, 1));
 		mark(base, 0, rows - 3, cols - 1, rows - 1);
 
@@ -349,7 +399,9 @@ export function createGlyphField(opts: GlyphFieldOptions): GlyphFieldHandle {
 			const py = r * ch + ch / 2;
 			for (let col = 0; col < cols; col++) {
 				const i = r * cols + col;
-				if (wm.has(i)) continue;
+				const wc = wm.get(i);
+				// Block-art cells stay part of the field until the reveal wave reaches them.
+				if (wc && (!wc.fill || now >= wc.ra)) continue;
 				const px = col * cw + cw / 2;
 				let v = fieldValue(px, py, t);
 				if (dust[i] && v < 0.08) v = 0.08;
@@ -443,6 +495,19 @@ export function createGlyphField(opts: GlyphFieldOptions): GlyphFieldHandle {
 		for (const [i, cell] of wm) {
 			const col = i % cols, r = (i / cols) | 0;
 			const x = col * cw, y = r * ch, px = x + cw / 2, py = y + ch / 2;
+			if (cell.fill) {
+				if (now < cell.ra) continue;
+				c.fillStyle = colors.violet;
+				if (now < cell.ra + SCRAMBLE_MS) {
+					c.globalAlpha = 0.95;
+					c.fillText(pick(alphabet), px, py);
+				} else {
+					c.globalAlpha = REDUCED ? 0.78 : 0.68 + 0.18 * Math.sin(t * 1.3 + cell.cx * 0.7);
+					c.fillText(cell.chr, px, py);
+				}
+				c.fillStyle = colors.lime;
+				continue;
+			}
 			if (now < cell.ra) {
 				if (now > cell.ra - 650) {
 					c.globalAlpha = 0.9;
@@ -525,7 +590,7 @@ export function createGlyphField(opts: GlyphFieldOptions): GlyphFieldHandle {
 
 	function addRipple(x: number, y: number, s: number) {
 		if (REDUCED) return;
-		ripples.push({ x, y, s, speed: s > 0.6 ? 680 : 460, t0: performance.now() });
+		ripples.push({ x, y, s, speed: s > 0.6 ? RIPPLE_FAST : 460, t0: performance.now() });
 		mut = Math.max(mut, s * 0.06);
 		if (ripples.length > 12) ripples.shift();
 	}
@@ -638,6 +703,13 @@ export function createGlyphField(opts: GlyphFieldOptions): GlyphFieldHandle {
 				if (w) w.target = 1;
 			}
 			rebuildWordAt();
+			request();
+		},
+		reveal(clientX, clientY) {
+			const p = local(clientX, clientY);
+			revealed = { ...p, t0: performance.now() };
+			for (const [i, cell] of wm) if (cell.fill) cell.ra = revealAt(i % cols, (i / cols) | 0);
+			addRipple(p.x, p.y, 1);
 			request();
 		},
 		destroy() {
