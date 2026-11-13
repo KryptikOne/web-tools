@@ -23,6 +23,7 @@ export enum ToolCategory {
 	SECURITY_CRYPTO = "security-crypto",
 	NETWORK = "network",
 	KITCHEN = "kitchen",
+	CONSTRUCTION = "construction",
 }
 
 export interface CategoryInfo {

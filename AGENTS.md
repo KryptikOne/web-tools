@@ -141,10 +141,17 @@ Key utilities in this codebase:
 - `src/lib/recipeUtils/` - Recipe DSL: parseRecipe, layoutRecipe (Cooking for Engineers grid), quantities (parse/scale/convert/sum), toHtml/toMarkdown, share-link encode/decode, sample recipes
 - `src/lib/toolSearch.ts` - Tool search: `searchTools` (ranked: name > keyword > description) and `filterToolsByQuery` (order-preserving) used by the sidebar, favorites and landing terminal
 - `src/lib/seoUtils.ts` - Pure SEO builders: page/tool metadata, WebSite + WebApplication JSON-LD, llms.txt, absoluteUrl. Site constants and `toolMetadata(id)` live in `src/config/seo.ts`
+- `src/lib/construction/imperialUtils.ts` - Feet/inch/fraction parsing (`10' 3 1/2"`, `120 3/4`, `3-1/2`, mm) to inches, formatting at 1/8–1/64 or decimal or mm, fraction reduce/carry, nominal→actual lumber table. All construction libs work in inches
+- `src/lib/construction/spacingUtils.ts` - Equal/exact spacing engine (end members none/one/both, adjust last or both ends) returning near/center/far positions for mark-out lists
+- `src/lib/construction/pitchUtils.ts` - Rise/run/pitch/angle/grade conversions, slope solver, right-triangle solver from any two knowns
+- `src/lib/construction/shareUtils.ts` - Calculation state ⇄ URL hash token (deflate + base64url) and share URL builder
+- `src/lib/construction/lumberUtils.ts` - Board feet, cubic feet, linear ⇄ square coverage (gap + waste), linear ⇄ cubic, price per 1000 bft to per piece / per foot, log volume, deck board sizes
 - `src/hooks/useIsMobile.ts` - SSR-safe mobile detection
+- `src/hooks/useConstructionUnits.ts` - Site-wide unit mode (Feet-Inch / Inch / Metric) and fraction precision with bound parse/format, persisted in user preferences
 - `src/hooks/useClipboard.ts` - Clipboard operations with feedback
 - `src/components/SegmentedControl` - Joined radio-button group for mode/tab switches
 - `src/components/UnitConverterPanel` - Live "edit any row, all rows update" unit list driven by `unitDefinitions`
+- `src/components/construction` - Construction tool kit: `UnitAndPrecisionBar`, `DimensionInput` (ft-in-fraction field with optional slider), `RunningList` (mark-out table with step-through mode), `LumberTable`, `Diagram` SVG primitives in mm (`Member`, `DimLine`, `AngleArc`, `Label`) that print at true scale, `PrintDiagrams`, `ShareCalculation`, `NumberField` (count / money / percent field with prefix and unit), `ResultList` (label-value output card), `ConstructionNotes` (actual-size and geometry-only notes). Demo at `/styleguide/construction`
 
 **Do not reinvent the wheel.** If a utility exists, use it. If a utility is close but not quite right, extend it rather than duplicating logic elsewhere.
 

@@ -13,7 +13,7 @@ export default function CategoryIndex() {
 					The toolbox
 				</h2>
 				<p className={styles.lede}>
-					{LANDING_CATEGORIES.length} categories, {LANDING_TOOLS.length} tools, all free. Pick a drawer or search from the prompt above.
+					{LANDING_CATEGORIES.filter((c) => c.tools.length).length} categories, {LANDING_TOOLS.length} tools, all free. Pick a drawer or search from the prompt above.
 				</p>
 				<div className="mt-[clamp(32px,5vw,56px)] grid grid-cols-1 gap-x-16 gap-y-7 md:grid-cols-2">
 					{LANDING_CATEGORIES.filter((c) => c.tools.length).map((c) => (

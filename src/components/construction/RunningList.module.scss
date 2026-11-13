@@ -1,0 +1,189 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.wrap {
+	@include glass-card;
+	padding: 0;
+	overflow: hidden;
+}
+
+.toolbar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.75rem;
+	padding: 0.75rem 1rem;
+	border-bottom: 1px solid $border-subtle;
+}
+
+.title {
+	margin: 0;
+	font-size: 0.95rem;
+	font-weight: 600;
+	color: $text-primary;
+}
+
+.controls {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem 0.75rem;
+}
+
+.control {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	font-size: 0.8rem;
+	color: $text-secondary;
+	cursor: pointer;
+
+	input[type="checkbox"] {
+		accent-color: $color-accent-fill;
+	}
+}
+
+.disabled {
+	opacity: 0.5;
+	cursor: default;
+}
+
+.select {
+	padding: 0.3rem 0.5rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	color: $text-primary;
+	font-size: 0.8rem;
+
+	&:focus {
+		outline: none;
+		border-color: $input-border-focus;
+	}
+}
+
+.btn {
+	@include btn-secondary;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+	padding: 0.35rem 0.7rem;
+	font-size: 0.8rem;
+}
+
+.tableWrap {
+	max-height: 24rem;
+	overflow: auto;
+}
+
+.table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 0.9rem;
+
+	th,
+	td {
+		padding: 0.45rem 1rem;
+		text-align: left;
+		border-bottom: 1px solid $border-subtle;
+	}
+
+	th {
+		position: sticky;
+		top: 0;
+		background: $bg-secondary;
+		font-size: 0.7rem;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: $text-tertiary;
+	}
+
+	tbody tr:last-child td {
+		border-bottom: none;
+	}
+}
+
+.num {
+	width: 3rem;
+	color: $text-tertiary;
+	font-family: $font-family-mono;
+}
+
+.pos {
+	font-family: $font-family-mono;
+	font-weight: 600;
+	color: $text-primary;
+	white-space: nowrap;
+}
+
+.highlight td {
+	background: $color-accent-20;
+}
+
+.highlight .pos {
+	color: $theme-color-primary;
+}
+
+.empty {
+	margin: 0;
+	padding: 1rem;
+	font-size: 0.85rem;
+	color: $text-muted;
+}
+
+// Full-screen step-through for use on site
+.markOut {
+	position: fixed;
+	inset: 0;
+	z-index: $z-modal;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 1.5rem;
+	padding: 1.5rem;
+	background: $bg-primary;
+	color: $text-primary;
+
+	&:focus {
+		outline: none;
+	}
+}
+
+.close {
+	@include btn-icon;
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+}
+
+.markOutCount {
+	font-size: 0.9rem;
+	color: $text-secondary;
+	text-align: center;
+}
+
+.markOutValue {
+	font-family: $font-family-mono;
+	font-size: clamp(3rem, 14vw, 9rem);
+	font-weight: 700;
+	line-height: 1;
+	color: $theme-color-primary;
+	text-align: center;
+	word-break: keep-all;
+}
+
+.markOutNav {
+	display: flex;
+	gap: 1rem;
+}
+
+.navBtn {
+	@include btn-primary;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	padding: 0.9rem 1.5rem;
+	font-size: 1.1rem;
+}

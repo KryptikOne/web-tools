@@ -51,6 +51,11 @@ export const CATEGORIES: Record<ToolCategory, CategoryInfo> = {
 		name: "Kitchen & Food",
 		description: "Recipes, cooking measurements, and dining calculators",
 	},
+	[ToolCategory.CONSTRUCTION]: {
+		id: ToolCategory.CONSTRUCTION,
+		name: "Construction & Trades",
+		description: "Stairs, roofs, framing, concrete, spacing layouts and full-scale cutting templates",
+	},
 };
 
 export const TOOLS_REGISTRY: Tool[] = [
@@ -809,6 +814,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		category: ToolCategory.CALCULATORS_TIME,
 		route: "/tools/percentage-calculator",
 		keywords: ["percent", "discount", "increase", "ratio"],
+		implemented: true,
+	},
+	{
+		id: "lumber-calculator",
+		name: "Lumber and Board Feet Calculator",
+		description: "Board feet, lumber price per 1000 bft to per piece, linear to square and cubic feet, nominal to actual sizes",
+		seoDescription: "Work out board feet and lumber cost from price per thousand board feet, convert linear feet to square or cubic feet and see nominal to actual sizes.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/lumber-calculator",
+		keywords: ["board feet", "bft", "lumber price", "2x4", "nominal", "actual", "decking", "cubic feet", "square feet", "log volume", "timber"],
 		implemented: true,
 	},
 	{

@@ -1,0 +1,66 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.wrap {
+	@include glass-card;
+	padding: 1rem;
+}
+
+.title {
+	margin: 0 0 0.5rem;
+	font-size: 0.95rem;
+	font-weight: 600;
+	color: $text-primary;
+}
+
+.list {
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+}
+
+.row {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: 1rem;
+	padding: 0.4rem 0;
+	border-bottom: 1px solid $border-subtle;
+
+	&:last-child {
+		border-bottom: none;
+	}
+}
+
+.label {
+	display: flex;
+	flex-direction: column;
+	font-size: 0.85rem;
+	color: $text-secondary;
+}
+
+.hint {
+	font-size: 0.7rem;
+	color: $text-muted;
+}
+
+.value {
+	margin: 0;
+	font-family: $font-family-mono;
+	font-size: 0.95rem;
+	color: $theme-color-primary;
+	text-align: right;
+	white-space: nowrap;
+}
+
+.strong {
+	.label {
+		color: $text-primary;
+		font-weight: 600;
+	}
+
+	.value {
+		font-size: 1.1rem;
+		font-weight: 700;
+	}
+}

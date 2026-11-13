@@ -1,0 +1,104 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+.container {
+	@extend .container;
+}
+
+.card {
+	@include glass-card;
+	padding: 1rem;
+}
+
+.cardTitle {
+	margin: 0 0 0.75rem;
+	font-size: 0.95rem;
+	font-weight: 600;
+	color: $text-primary;
+}
+
+.label {
+	font-size: 0.8rem;
+	font-weight: 600;
+	color: $text-secondary;
+}
+
+.select {
+	@include input-field;
+	padding: 0.6rem 0.75rem;
+	font-family: $font-family-mono;
+	cursor: pointer;
+}
+
+.echo {
+	font-family: $font-family-mono;
+	font-size: 0.75rem;
+	color: $theme-color-primary;
+}
+
+.note {
+	margin: 0.75rem 0;
+	font-size: 0.8rem;
+	line-height: 1.45;
+	color: $text-tertiary;
+}
+
+.btn {
+	@include btn-secondary;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	padding: 0.5rem 0.9rem;
+	font-size: 0.85rem;
+}
+
+.iconBtn {
+	display: inline-flex;
+	padding: 0.25rem;
+	background: transparent;
+	border: none;
+	color: $text-tertiary;
+	cursor: pointer;
+
+	&:hover {
+		color: $color-error;
+	}
+}
+
+.table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 0.85rem;
+
+	th,
+	td {
+		padding: 0.35rem 0.5rem;
+		text-align: left;
+		border-bottom: 1px solid $border-subtle;
+		vertical-align: middle;
+	}
+
+	thead th {
+		font-size: 0.7rem;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: $text-tertiary;
+	}
+
+	tfoot {
+		th,
+		td {
+			border-bottom: none;
+			border-top: 2px solid $border-subtle;
+			font-weight: 700;
+			color: $text-primary;
+		}
+	}
+}
+
+.mono {
+	font-family: $font-family-mono;
+	white-space: nowrap;
+}

@@ -1,0 +1,132 @@
+@use "@/styles/variables" as *;
+
+// One SVG user unit is one millimetre. On screen the drawing scales to its container; in print the
+// width is pinned to the declared physical size so templates come out at 100%. Strokes use
+// non-scaling widths in CSS pixels so lines stay hairline whatever the drawing's size.
+.diagram {
+	display: block;
+	width: 100%;
+	height: auto;
+	overflow: visible;
+	font-family: $font-family-mono;
+
+	--diagram-stroke: var(--text-primary);
+	--diagram-dim: var(--text-secondary);
+	--diagram-common: var(--color-primary);
+	--diagram-ridge: var(--color-violet);
+	--diagram-hip: #{$color-accent-secondary};
+	--diagram-jack: #{$color-info};
+	--diagram-stringer: var(--color-primary);
+	--diagram-tread: #{$color-accent-secondary};
+	--diagram-riser: #{$color-info};
+	--diagram-wall: var(--text-muted);
+	--diagram-fill: var(--bg-glass);
+}
+
+.scene {
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.member {
+	stroke: var(--diagram-stroke);
+	stroke-width: 1.25px;
+	vector-effect: non-scaling-stroke;
+	fill-opacity: 0.55;
+}
+
+.outline {
+	stroke: var(--diagram-stroke);
+	stroke-width: 1.25px;
+	vector-effect: non-scaling-stroke;
+	fill: none;
+}
+
+.role-common {
+	fill: var(--diagram-common);
+}
+.role-ridge {
+	fill: var(--diagram-ridge);
+}
+.role-hip {
+	fill: var(--diagram-hip);
+}
+.role-jack {
+	fill: var(--diagram-jack);
+}
+.role-stringer {
+	fill: var(--diagram-stringer);
+}
+.role-tread {
+	fill: var(--diagram-tread);
+}
+.role-riser {
+	fill: var(--diagram-riser);
+}
+.role-wall {
+	fill: var(--diagram-wall);
+}
+.role-fill {
+	fill: var(--diagram-fill);
+}
+
+.label {
+	fill: var(--diagram-stroke);
+	dominant-baseline: middle;
+}
+
+.dim {
+	fill: none;
+}
+
+.dimLine,
+.ext,
+.arc {
+	stroke: var(--diagram-dim);
+	stroke-width: 1px;
+	vector-effect: non-scaling-stroke;
+	fill: none;
+}
+
+.ext {
+	stroke-dasharray: 3 2.5;
+}
+
+.arrow {
+	fill: var(--diagram-dim);
+	stroke: none;
+}
+
+.dimLabel {
+	fill: var(--diagram-dim);
+	paint-order: stroke;
+	stroke: var(--bg-primary);
+	stroke-linejoin: round;
+}
+
+@media print {
+	.diagram {
+		width: var(--diagram-w);
+		max-width: none;
+
+		--diagram-stroke: #000;
+		--diagram-dim: #000;
+		--diagram-common: #d9d9d9;
+		--diagram-ridge: #bdbdbd;
+		--diagram-hip: #c9c9c9;
+		--diagram-jack: #e6e6e6;
+		--diagram-stringer: #d9d9d9;
+		--diagram-tread: #c9c9c9;
+		--diagram-riser: #e6e6e6;
+		--diagram-wall: #bdbdbd;
+		--diagram-fill: #f2f2f2;
+	}
+
+	.member {
+		fill-opacity: 1;
+	}
+
+	.dimLabel {
+		stroke: #fff;
+	}
+}

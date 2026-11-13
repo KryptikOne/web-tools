@@ -1,0 +1,56 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.card {
+	@include glass-card;
+	padding: 1rem;
+}
+
+.title {
+	margin: 0 0 0.35rem;
+	font-size: 0.95rem;
+	font-weight: 600;
+	color: $text-primary;
+}
+
+.note {
+	margin: 0 0 0.75rem;
+	font-size: 0.8rem;
+	color: $text-tertiary;
+}
+
+.table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 0.85rem;
+
+	th,
+	td {
+		padding: 0.3rem 0.5rem;
+		text-align: left;
+		border-bottom: 1px solid $border-subtle;
+	}
+
+	th {
+		font-size: 0.7rem;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: $text-tertiary;
+	}
+
+	tbody tr:last-child td {
+		border-bottom: none;
+	}
+}
+
+.nominal {
+	font-family: $font-family-mono;
+	color: $text-secondary;
+}
+
+.actual {
+	font-family: $font-family-mono;
+	color: $text-primary;
+	white-space: nowrap;
+}

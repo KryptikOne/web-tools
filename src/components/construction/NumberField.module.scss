@@ -1,0 +1,77 @@
+@use "@/styles/variables" as *;
+
+.field {
+	display: flex;
+	flex-direction: column;
+	gap: 0.35rem;
+	min-width: 0;
+}
+
+.label {
+	font-size: 0.8rem;
+	font-weight: 600;
+	color: $text-secondary;
+}
+
+.inputWrap {
+	display: flex;
+	align-items: stretch;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	transition: border-color $transition-base;
+
+	&:focus-within {
+		border-color: $input-border-focus;
+		background: $input-bg-focus;
+	}
+}
+
+.input {
+	flex: 1 1 auto;
+	min-width: 0;
+	padding: 0.6rem 0.75rem;
+	background: transparent;
+	border: none;
+	color: $text-primary;
+	font-family: $font-family-mono;
+	font-size: 1rem;
+	appearance: textfield;
+
+	&::-webkit-outer-spin-button,
+	&::-webkit-inner-spin-button {
+		appearance: none;
+		margin: 0;
+	}
+
+	&:focus {
+		outline: none;
+	}
+
+	&:disabled {
+		opacity: 0.5;
+	}
+}
+
+.affix {
+	display: flex;
+	align-items: center;
+	padding: 0 0.6rem;
+	color: $text-tertiary;
+	font-family: $font-family-mono;
+	font-size: 0.8rem;
+	white-space: nowrap;
+
+	&:first-child {
+		border-right: 1px solid $border-subtle;
+	}
+
+	&:last-child {
+		border-left: 1px solid $border-subtle;
+	}
+}
+
+.hint {
+	font-size: 0.75rem;
+	line-height: 1.3;
+	color: $text-muted;
+}

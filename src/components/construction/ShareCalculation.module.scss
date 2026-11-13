@@ -1,0 +1,35 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.wrap {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+.btn {
+	@include btn-secondary;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	padding: 0.4rem 0.8rem;
+	font-size: 0.85rem;
+}
+
+.note {
+	font-size: 0.75rem;
+	color: $text-muted;
+}
+
+.qr {
+	display: inline-flex;
+	padding: 0.5rem;
+	background: #fff;
+	border: 1px solid $border-subtle;
+	width: fit-content;
+
+	img {
+		display: block;
+		image-rendering: pixelated;
+	}
+}

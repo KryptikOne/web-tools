@@ -30,6 +30,7 @@ export const APPLICATION_CATEGORY: Record<ToolCategory, string> = {
 	[ToolCategory.SECURITY_CRYPTO]: "SecurityApplication",
 	[ToolCategory.NETWORK]: "UtilitiesApplication",
 	[ToolCategory.KITCHEN]: "LifestyleApplication",
+	[ToolCategory.CONSTRUCTION]: "UtilitiesApplication",
 };
 
 export function absoluteUrl(site: SiteInfo, path: string): string {

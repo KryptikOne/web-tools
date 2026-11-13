@@ -185,15 +185,27 @@ html[data-theme="light"] select:not([multiple]) {
 }
 
 @media print {
-	body.recipe-print > *:not([data-print-root]) {
+	body.recipe-print > *:not([data-print-root]),
+	body.diagram-print > *:not([data-print-root]) {
 		display: none !important;
 	}
 
-	body.recipe-print [data-print-root] {
+	body.recipe-print [data-print-root],
+	body.diagram-print [data-print-root] {
 		display: block;
 		padding: 0;
 		background: #fff;
 		color: #000;
+	}
+
+	/* Construction diagrams: one per sheet, at their declared physical size */
+	.diagram-print-page {
+		break-after: page;
+		break-inside: avoid;
+	}
+
+	.diagram-print-page:last-child {
+		break-after: auto;
 	}
 }
 

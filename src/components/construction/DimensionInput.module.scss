@@ -1,0 +1,82 @@
+@use "@/styles/variables" as *;
+@use "@/styles/utilities" as util;
+
+.field {
+	display: flex;
+	flex-direction: column;
+	gap: 0.35rem;
+	min-width: 0;
+}
+
+.label {
+	font-size: 0.8rem;
+	font-weight: 600;
+	color: $text-secondary;
+}
+
+.inputWrap {
+	display: flex;
+	align-items: stretch;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	transition: border-color $transition-base;
+
+	&:focus-within {
+		border-color: $input-border-focus;
+		background: $input-bg-focus;
+	}
+}
+
+.invalid {
+	border-color: $color-error;
+}
+
+.input {
+	flex: 1 1 auto;
+	min-width: 0;
+	padding: 0.6rem 0.75rem;
+	background: transparent;
+	border: none;
+	color: $text-primary;
+	font-family: $font-family-mono;
+	font-size: 1rem;
+
+	&::placeholder {
+		color: $text-muted;
+	}
+
+	&:focus {
+		outline: none;
+	}
+
+	&:disabled {
+		opacity: 0.5;
+	}
+}
+
+
+.slider {
+	@extend .slider;
+	margin-top: 0.4rem;
+}
+
+.meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.25rem 0.75rem;
+	font-size: 0.75rem;
+	line-height: 1.3;
+}
+
+.echo {
+	font-family: $font-family-mono;
+	color: $theme-color-primary;
+}
+
+.error {
+	color: $color-error;
+}
+
+.hint {
+	color: $text-muted;
+}
