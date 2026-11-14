@@ -72,3 +72,28 @@ describe("solveRightTriangle", () => {
 		expect(solveRightTriangle({ a: -3, b: 4 })).toBeNull();
 	});
 });
+
+describe("pitch formatting and reference table", async () => {
+	const { formatAngle, formatPitch, formatGrade, rafterMultiplier, pitchTable } = await import("@/lib/construction/pitchUtils");
+
+	it("formats angle, pitch and grade", () => {
+		expect(formatAngle(26.56505, 2)).toBe("26.57°");
+		expect(formatAngle(26.56505, 0)).toBe("27°");
+		expect(formatAngle(45, 3)).toBe("45.000°");
+		expect(formatPitch(6)).toBe("6:12");
+		expect(formatPitch(4.5)).toBe("4.5:12");
+		expect(formatGrade(50)).toBe("50%");
+		expect(formatGrade(100 / 3)).toBe("33.33%");
+	});
+
+	it("rafter multiplier and table", () => {
+		expect(rafterMultiplier(12)).toBeCloseTo(Math.SQRT2, 9);
+		expect(rafterMultiplier(0)).toBe(1);
+		const rows = pitchTable();
+		expect(rows).toHaveLength(24);
+		expect(rows[0].pitch).toBe(1);
+		expect(rows[11].angle).toBeCloseTo(45, 9);
+		expect(rows[11].grade).toBeCloseTo(100, 9);
+		expect(rows[5].multiplier).toBeCloseTo(1.118, 3);
+	});
+});

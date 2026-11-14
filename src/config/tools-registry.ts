@@ -827,6 +827,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		implemented: true,
 	},
 	{
+		id: "pitch-calculator",
+		name: "Rise Run Pitch Angle Grade Calculator",
+		description: "Enter a run and any one of pitch, angle, rise or grade to get the rest, with a dimensioned triangle, angle scale and pitch table",
+		seoDescription: "Calculate roof pitch, angle, rise and grade from a known run, with a labelled triangle diagram, angle scale and a 1:12 to 24:12 pitch to angle table.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/pitch-calculator",
+		keywords: ["roof pitch", "slope", "gradient", "ramp", "rise over run", "degrees", "rafter multiplier", "incline", "x:12"],
+		implemented: true,
+	},
+	{
 		id: "lumber-calculator",
 		name: "Lumber and Board Feet Calculator",
 		description: "Board feet, lumber price per 1000 bft to per piece, linear to square and cubic feet, nominal to actual sizes",

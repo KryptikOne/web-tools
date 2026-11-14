@@ -1,0 +1,27 @@
+.scaleLabel {
+	fill: var(--diagram-dim);
+}
+
+.pointer {
+	stroke: var(--color-violet);
+	stroke-width: 1.5px;
+	vector-effect: non-scaling-stroke;
+}
+
+.person {
+	stroke: var(--diagram-dim);
+	stroke-width: 1.25px;
+	vector-effect: non-scaling-stroke;
+	fill: none;
+
+	circle,
+	line {
+		vector-effect: non-scaling-stroke;
+	}
+}
+
+@media print {
+	.pointer {
+		stroke: #000;
+	}
+}

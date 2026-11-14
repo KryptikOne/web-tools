@@ -1,0 +1,121 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+.container {
+	@extend .container;
+}
+
+.card {
+	@include glass-card;
+	padding: 1rem;
+}
+
+.cardTitle {
+	margin: 0 0 0.5rem;
+	font-size: 0.95rem;
+	font-weight: 600;
+	color: $text-primary;
+}
+
+.label {
+	font-size: 0.8rem;
+	font-weight: 600;
+	color: $text-secondary;
+}
+
+.note {
+	margin: 0 0 0.75rem;
+	font-size: 0.8rem;
+	line-height: 1.45;
+	color: $text-tertiary;
+}
+
+.hint {
+	font-size: 0.75rem;
+	color: $text-muted;
+}
+
+.empty {
+	margin: 0;
+	font-size: 0.8rem;
+	color: $text-muted;
+}
+
+.check {
+	display: inline-flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.4rem;
+	font-size: 0.8rem;
+	color: $text-secondary;
+	cursor: pointer;
+
+	input[type="checkbox"] {
+		accent-color: $color-accent-fill;
+	}
+}
+
+.checkDisabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+.tableWrap {
+	@include custom-scrollbar;
+	max-height: 26rem;
+	overflow: auto;
+}
+
+.table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 0.85rem;
+
+	th,
+	td {
+		padding: 0.3rem 0.5rem;
+		text-align: left;
+		border-bottom: 1px solid $border-subtle;
+	}
+
+	thead th {
+		position: sticky;
+		top: 0;
+		background: $bg-primary;
+		font-size: 0.7rem;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: $text-tertiary;
+	}
+}
+
+.activeRow td {
+	background: $color-accent-20;
+}
+
+.rowBtn {
+	padding: 0.15rem 0.4rem;
+	background: transparent;
+	border: 1px solid transparent;
+	color: $text-primary;
+	font-family: $font-family-mono;
+	font-weight: 600;
+	cursor: pointer;
+
+	&:hover,
+	&:focus-visible {
+		border-color: $color-accent;
+		outline: none;
+	}
+
+	&[aria-pressed="true"] {
+		color: $color-accent;
+	}
+}
+
+.mono {
+	font-family: $font-family-mono;
+	white-space: nowrap;
+}

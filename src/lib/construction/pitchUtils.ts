@@ -137,3 +137,56 @@ export function solveRightTriangle(known: RightTriangleKnown): RightTriangle | n
 	const A = Math.atan2(a, b) * DEG;
 	return { a, b, c, A, B: 90 - A, area: (a * b) / 2 };
 }
+
+// ── Formatting and reference ─────────────────────────────────────────────────
+
+/** Decimal places for angle output: 1°, 0.1°, 0.01°, 0.001°. */
+export type AnglePrecision = 0 | 1 | 2 | 3;
+
+export const ANGLE_PRECISIONS: { value: AnglePrecision; label: string }[] = [
+	{ value: 0, label: "1°" },
+	{ value: 1, label: "0.1°" },
+	{ value: 2, label: "0.01°" },
+	{ value: 3, label: "0.001°" },
+];
+
+function trimZeros(text: string): string {
+	return text.includes(".") ? text.replace(/\.?0+$/, "") : text;
+}
+
+/** `26.57°` at the given places (trailing zeros kept so the precision reads as chosen). */
+export function formatAngle(degrees: number, places: AnglePrecision = 2): string {
+	const f = 10 ** places;
+	return `${(Math.round(degrees * f + 1e-9) / f).toFixed(places)}°`;
+}
+
+/** `6:12`, `4.5:12`: rise per 12 of run, trailing zeros trimmed. */
+export function formatPitch(risePer12: number, places = 2): string {
+	return `${trimZeros(risePer12.toFixed(places))}:12`;
+}
+
+/** `50%`, `33.33%`: rise over run as a percentage, trailing zeros trimmed. */
+export function formatGrade(percent: number, places = 2): string {
+	return `${trimZeros(percent.toFixed(places))}%`;
+}
+
+/** Slope length per unit of run for a pitch: 12:12 gives 1.4142. */
+export function rafterMultiplier(risePer12: number): number {
+	return Math.hypot(12, risePer12) / 12;
+}
+
+export interface PitchTableRow {
+	pitch: number;
+	angle: number;
+	grade: number;
+	multiplier: number;
+}
+
+/** Reference rows for whole-number pitches from `from`:12 to `to`:12. */
+export function pitchTable(from = 1, to = 24): PitchTableRow[] {
+	const rows: PitchTableRow[] = [];
+	for (let p = from; p <= to; p++) {
+		rows.push({ pitch: p, angle: pitchToAngle(p), grade: (p / 12) * 100, multiplier: rafterMultiplier(p) });
+	}
+	return rows;
+}

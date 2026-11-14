@@ -143,7 +143,7 @@ Key utilities in this codebase:
 - `src/lib/seoUtils.ts` - Pure SEO builders: page/tool metadata, WebSite + WebApplication JSON-LD, llms.txt, absoluteUrl. Site constants and `toolMetadata(id)` live in `src/config/seo.ts`
 - `src/lib/construction/imperialUtils.ts` - Feet/inch/fraction parsing (`10' 3 1/2"`, `120 3/4`, `3-1/2`, mm) to inches, formatting at 1/8–1/64 or decimal or mm, fraction reduce/carry, nominal→actual lumber table. All construction libs work in inches
 - `src/lib/construction/spacingUtils.ts` - Equal/exact spacing engine (end members none/one/both, adjust last or both ends) returning near/center/far positions for mark-out lists
-- `src/lib/construction/pitchUtils.ts` - Rise/run/pitch/angle/grade conversions, slope solver, right-triangle solver from any two knowns
+- `src/lib/construction/pitchUtils.ts` - Rise/run/pitch/angle/grade conversions, slope solver, right-triangle solver from any two knowns, angle/pitch/grade formatting, rafter multiplier and the 1:12 to 24:12 pitch table
 - `src/lib/construction/shareUtils.ts` - Calculation state ⇄ URL hash token (deflate + base64url) and share URL builder
 - `src/lib/construction/lumberUtils.ts` - Board feet, cubic feet, linear ⇄ square coverage (gap + waste), linear ⇄ cubic, price per 1000 bft to per piece / per foot, log volume, deck board sizes
 - `src/lib/construction/fractionUtils.ts` - Inch fraction tables (eighths to sixty-fourths), fraction/decimal/mm label formatting with pad and leading-zero rules, free-form inch expression evaluator (+ − × ÷ with mixed numbers and marks)
