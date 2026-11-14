@@ -817,6 +817,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		implemented: true,
 	},
 	{
+		id: "fraction-converter",
+		name: "Fraction, Decimal and mm Converter",
+		description: "Inch fraction to decimal and mm with clickable fraction tables, a printable tick-alignment wheel and a keypad converter",
+		seoDescription: "Convert inch fractions to decimals and millimetres with clickable eighths to sixty-fourths tables, a printable conversion wheel and a keypad calculator.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/fraction-converter",
+		keywords: ["inch", "fraction", "decimal", "millimeter", "millimetre", "tape measure", "sixteenths", "thirty-seconds", "sixty-fourths", "wheel"],
+		implemented: true,
+	},
+	{
 		id: "lumber-calculator",
 		name: "Lumber and Board Feet Calculator",
 		description: "Board feet, lumber price per 1000 bft to per piece, linear to square and cubic feet, nominal to actual sizes",

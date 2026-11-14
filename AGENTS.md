@@ -146,6 +146,7 @@ Key utilities in this codebase:
 - `src/lib/construction/pitchUtils.ts` - Rise/run/pitch/angle/grade conversions, slope solver, right-triangle solver from any two knowns
 - `src/lib/construction/shareUtils.ts` - Calculation state ⇄ URL hash token (deflate + base64url) and share URL builder
 - `src/lib/construction/lumberUtils.ts` - Board feet, cubic feet, linear ⇄ square coverage (gap + waste), linear ⇄ cubic, price per 1000 bft to per piece / per foot, log volume, deck board sizes
+- `src/lib/construction/fractionUtils.ts` - Inch fraction tables (eighths to sixty-fourths), fraction/decimal/mm label formatting with pad and leading-zero rules, free-form inch expression evaluator (+ − × ÷ with mixed numbers and marks)
 - `src/hooks/useIsMobile.ts` - SSR-safe mobile detection
 - `src/hooks/useConstructionUnits.ts` - Site-wide unit mode (Feet-Inch / Inch / Metric) and fraction precision with bound parse/format, persisted in user preferences
 - `src/hooks/useClipboard.ts` - Clipboard operations with feedback

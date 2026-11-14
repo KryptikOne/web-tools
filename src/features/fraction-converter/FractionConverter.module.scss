@@ -1,0 +1,221 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+.container {
+	@extend .container;
+}
+
+.card {
+	@include glass-card;
+	padding: 1rem;
+}
+
+.cardTitle {
+	margin: 0 0 0.5rem;
+	font-size: 0.95rem;
+	font-weight: 600;
+	color: $text-primary;
+}
+
+.tableTitle {
+	margin: 0;
+	font-size: 0.8rem;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: $text-secondary;
+}
+
+.label {
+	font-size: 0.8rem;
+	font-weight: 600;
+	color: $text-secondary;
+}
+
+.note {
+	margin: 0 0 0.75rem;
+	font-size: 0.8rem;
+	line-height: 1.45;
+	color: $text-tertiary;
+}
+
+.hint {
+	margin: 0;
+	font-size: 0.75rem;
+	color: $text-muted;
+}
+
+.empty {
+	margin: 0;
+	font-size: 0.8rem;
+	color: $text-muted;
+}
+
+.mono {
+	font-family: $font-family-mono;
+	color: $text-secondary;
+}
+
+.select {
+	@include input-field;
+	padding: 0.6rem 0.75rem;
+	font-family: $font-family-mono;
+	font-size: 0.9rem;
+	cursor: pointer;
+}
+
+.input {
+	@include input-field;
+	padding: 0.6rem 0.75rem;
+	font-family: $font-family-mono;
+	font-size: 1rem;
+
+	&[aria-invalid="true"] {
+		border-color: $color-error;
+	}
+}
+
+.check {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	font-size: 0.8rem;
+	color: $text-secondary;
+	cursor: pointer;
+
+	input[type="checkbox"] {
+		accent-color: $color-accent-fill;
+	}
+}
+
+.fractionList {
+	@include custom-scrollbar;
+	margin: 0;
+	padding: 0 2px 0 0;
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	max-height: 22rem;
+	overflow-y: auto;
+}
+
+.entry {
+	display: flex;
+	width: 100%;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 0.5rem;
+	padding: 0.3rem 0.5rem;
+	background: $input-bg;
+	border: 1px solid transparent;
+	color: $text-primary;
+	font-family: $font-family-mono;
+	font-size: 0.8rem;
+	text-align: left;
+	cursor: pointer;
+	transition:
+		background $transition-base,
+		border-color $transition-base;
+
+	&:hover,
+	&:focus-visible {
+		background: $input-bg-focus;
+		border-color: $color-accent;
+		outline: none;
+	}
+}
+
+.entryFraction {
+	font-weight: 600;
+}
+
+.entryDecimal {
+	font-size: 0.7rem;
+	color: $text-tertiary;
+}
+
+.chips {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem;
+}
+
+.chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.3rem;
+	padding: 0.25rem 0.5rem;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	color: $text-primary;
+	font-family: $font-family-mono;
+	font-size: 0.8rem;
+	cursor: pointer;
+
+	&:hover {
+		border-color: $color-error;
+		color: $color-error;
+	}
+}
+
+.btn {
+	@include btn-secondary;
+	display: inline-flex;
+	align-items: center;
+	align-self: flex-start;
+	gap: 0.4rem;
+	padding: 0.5rem 0.9rem;
+	font-size: 0.85rem;
+}
+
+.iconBtn {
+	display: inline-flex;
+	padding: 0.25rem;
+	background: transparent;
+	border: none;
+	color: $text-tertiary;
+	cursor: pointer;
+
+	&:hover {
+		color: $color-error;
+	}
+}
+
+.keypad {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 0.35rem;
+}
+
+.key {
+	padding: 0.65rem 0;
+	background: $input-bg;
+	border: 1px solid $input-border;
+	color: $text-primary;
+	font-family: $font-family-mono;
+	font-size: 1rem;
+	cursor: pointer;
+	transition:
+		background $transition-base,
+		border-color $transition-base;
+
+	&:hover,
+	&:focus-visible {
+		background: $input-bg-focus;
+		border-color: $color-accent;
+		outline: none;
+	}
+
+	&:active {
+		background: $color-accent-20;
+	}
+}
+
+.keyClear {
+	color: $color-error;
+}

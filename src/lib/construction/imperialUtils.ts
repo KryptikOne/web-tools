@@ -157,7 +157,7 @@ function gcd(a: number, b: number): number {
 }
 
 /** Nearest fraction at the denominator, reduced, with the carry applied (15 8/8 → 16). */
-export function toFraction(inches: number, denominator: 8 | 16 | 32 | 64): Fraction {
+export function toFraction(inches: number, denominator: 8 | 16 | 32 | 64 | 128): Fraction {
 	const negative = inches < 0;
 	const units = Math.round(Math.abs(inches) * denominator);
 	const whole = Math.floor(units / denominator);
