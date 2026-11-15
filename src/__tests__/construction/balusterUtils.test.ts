@@ -49,6 +49,8 @@ describe("panelGap", () => {
 		// wide members, tiny gap: never a negative end gap
 		const q = panelGap({ length: 20, width: 5, gap: 0.5 })!;
 		expect(q.endGap).toBeGreaterThanOrEqual(0);
+		// absurd input never builds a giant layout
+		expect(panelGap({ length: 1e6, width: 0.01, gap: 0 })).toBeNull();
 	});
 });
 

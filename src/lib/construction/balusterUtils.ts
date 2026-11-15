@@ -3,7 +3,7 @@
  * baluster gap across unequal panels, and baluster positions on stair treads. All lengths in inches.
  */
 
-import { computeSpacing, type EndMembers, type SpacingMember, type SpacingResult } from "./spacingUtils";
+import { computeSpacing, MAX_MEMBERS, type EndMembers, type SpacingMember, type SpacingResult } from "./spacingUtils";
 
 // ── 1. Quantity from a maximum gap ───────────────────────────────────────────
 
@@ -77,6 +77,7 @@ export function panelGap(input: PanelGapInput): PanelGapResult | null {
 	// exactly g. If the member is wider than the gap that can overshoot, so step back one.
 	let n = Math.ceil((L - g) / (w + g) - 1e-9);
 	if (n < 1) n = 1;
+	if (n > MAX_MEMBERS) return null;
 	let endGap = (L - n * w - (n - 1) * g) / 2;
 	if (endGap < 0) {
 		n = Math.max(1, n - 1);
