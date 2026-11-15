@@ -1,0 +1,79 @@
+@use "@/styles/variables" as *;
+
+.diagonal {
+	:global(line) {
+		stroke: var(--color-violet);
+	}
+}
+
+.reference {
+	stroke: var(--diagram-stroke);
+	stroke-width: 2px;
+	vector-effect: non-scaling-stroke;
+}
+
+.stake {
+	fill: var(--diagram-stroke);
+}
+
+.current,
+.currentDiag {
+	stroke: #{$color-accent-secondary};
+	stroke-width: 1.5px;
+	vector-effect: non-scaling-stroke;
+}
+
+.currentDiag {
+	stroke-dasharray: 3 2;
+}
+
+.currentDot {
+	fill: #{$color-accent-secondary};
+}
+
+.correct,
+.correctDiag {
+	stroke: var(--color-violet);
+	stroke-width: 1.5px;
+	vector-effect: non-scaling-stroke;
+}
+
+.correctDiag {
+	stroke-dasharray: 3 2;
+}
+
+.correctDot {
+	fill: var(--color-violet);
+}
+
+.currentText text {
+	fill: #{$color-accent-secondary};
+}
+
+.correctText text {
+	fill: var(--color-violet);
+}
+
+.moveText text {
+	fill: var(--diagram-stroke);
+	font-weight: 700;
+}
+
+@media print {
+	.current,
+	.currentDiag,
+	.correct,
+	.correctDiag {
+		stroke: #000;
+	}
+
+	.current,
+	.currentDiag {
+		stroke-dasharray: 1 1.5;
+	}
+
+	.currentDot,
+	.correctDot {
+		fill: #000;
+	}
+}

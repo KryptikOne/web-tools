@@ -146,6 +146,7 @@ Key utilities in this codebase:
 - `src/lib/construction/pitchUtils.ts` - Rise/run/pitch/angle/grade conversions, slope solver, right-triangle solver from any two knowns, angle/pitch/grade formatting, rafter multiplier and the 1:12 to 24:12 pitch table
 - `src/lib/construction/shareUtils.ts` - Calculation state ⇄ URL hash token (deflate + base64url) and share URL builder
 - `src/lib/construction/lumberUtils.ts` - Board feet, cubic feet, linear ⇄ square coverage (gap + waste), linear ⇄ cubic, price per 1000 bft to per piece / per foot, log volume, deck board sizes
+- `src/lib/construction/geometryUtils.ts` - Site layout geometry: rectangle diagonal, string-line correction from two reference stakes (`squareUp`: correct diagonal, swing, move at corner and at the batterboard)
 - `src/lib/construction/balusterUtils.ts` - Baluster layouts: fewest balusters under a code gap on level or raked rails (`balusterRun`), end gaps that match a gap across unequal panels (`panelGap`), tread-by-tread stair positions (`stairBalusters`)
 - `src/lib/construction/fractionUtils.ts` - Inch fraction tables (eighths to sixty-fourths), fraction/decimal/mm label formatting with pad and leading-zero rules, free-form inch expression evaluator (+ − × ÷ with mixed numbers and marks)
 - `src/hooks/useIsMobile.ts` - SSR-safe mobile detection

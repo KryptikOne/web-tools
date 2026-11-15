@@ -867,6 +867,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		implemented: true,
 	},
 	{
+		id: "square-up-calculator",
+		name: "Square Up Layout Calculator",
+		description: "Diagonal for squaring a rectangle or triangle, and how far to move a string line on the batterboard when the measured diagonal is off",
+		seoDescription: "Square up a layout: the correct diagonal for any rectangle or triangle, and how far to slide the string on the batterboard from the diagonal you measured.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/square-up-calculator",
+		keywords: ["square up", "diagonal", "3 4 5", "batterboard", "batter board", "string line", "layout", "foundation", "deck layout", "out of square", "pythagoras"],
+		implemented: true,
+	},
+	{
 		id: "lumber-calculator",
 		name: "Lumber and Board Feet Calculator",
 		description: "Board feet, lumber price per 1000 bft to per piece, linear to square and cubic feet, nominal to actual sizes",
