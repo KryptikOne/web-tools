@@ -1,0 +1,42 @@
+@use "@/styles/variables" as *;
+
+.beam {
+	fill: none;
+	stroke: var(--color-violet);
+	stroke-opacity: 0.35;
+	stroke-linejoin: miter;
+}
+
+.outlineLine {
+	fill: none;
+	stroke: var(--diagram-stroke);
+	stroke-width: 1.5px;
+	vector-effect: non-scaling-stroke;
+}
+
+.closing {
+	stroke: #{$color-accent-secondary};
+	stroke-width: 1.5px;
+	stroke-dasharray: 4 3;
+	vector-effect: non-scaling-stroke;
+}
+
+.closingText {
+	fill: #{$color-accent-secondary};
+	font-weight: 600;
+}
+
+.start {
+	fill: var(--color-violet);
+}
+
+.cursor {
+	fill: var(--color-violet);
+}
+
+.ground {
+	stroke: var(--diagram-dim);
+	stroke-width: 1px;
+	stroke-dasharray: 4 3;
+	vector-effect: non-scaling-stroke;
+}

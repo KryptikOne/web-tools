@@ -917,6 +917,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		implemented: true,
 	},
 	{
+		id: "concrete-calculator",
+		name: "Concrete Volume, Bags and Columns Calculator",
+		description: "Draw an irregular slab with beams and rebar, count premix bags for post holes and small slabs, and size columns and footings",
+		seoDescription: "Concrete for an irregular slab drawn side by side with edge and internal beams, rebar and mesh, premix bags for post holes and slabs, and columns and footings.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/concrete-calculator",
+		keywords: ["concrete", "cement", "yards", "cubic yards", "premix", "quikrete", "bags", "post holes", "footings", "slab", "rebar", "mesh", "piers"],
+		implemented: true,
+	},
+	{
 		id: "lumber-calculator",
 		name: "Lumber and Board Feet Calculator",
 		description: "Board feet, lumber price per 1000 bft to per piece, linear to square and cubic feet, nominal to actual sizes",
