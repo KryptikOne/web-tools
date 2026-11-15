@@ -1,0 +1,15 @@
+.wall {
+	stroke: var(--diagram-stroke);
+	stroke-width: 2px;
+	vector-effect: non-scaling-stroke;
+}
+
+.joint {
+	fill: var(--diagram-dim);
+	fill-opacity: 0.6;
+}
+
+.num {
+	fill: var(--diagram-stroke);
+	font-weight: 600;
+}

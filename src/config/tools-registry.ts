@@ -907,6 +907,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		implemented: true,
 	},
 	{
+		id: "tile-calculator",
+		name: "Tile Calculator",
+		description: "How tiles fit a width under seven cut rules with a mark-out list, tiles across and down with boxes and cost, and a quick count from an area",
+		seoDescription: "Tile layout and quantity: where the cuts fall across a floor or wall under seven layout rules, tiles across and down with waste, boxes and cost, or by area.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/tile-calculator",
+		keywords: ["tile", "tiles", "tiling", "grout", "joint", "boxes", "waste", "floor tile", "wall tile", "backsplash", "layout", "cut tiles"],
+		implemented: true,
+	},
+	{
 		id: "lumber-calculator",
 		name: "Lumber and Board Feet Calculator",
 		description: "Board feet, lumber price per 1000 bft to per piece, linear to square and cubic feet, nominal to actual sizes",
