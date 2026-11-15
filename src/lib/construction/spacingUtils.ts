@@ -43,6 +43,8 @@ export interface SpacingResult {
 }
 
 const EPS = 1e-9;
+/** Hard ceiling on members in one layout, so bad input (or a crafted share link) cannot hang the page. */
+export const MAX_MEMBERS = 1000;
 
 function round(n: number): number {
 	return Math.round(n * 1e9) / 1e9;
@@ -79,8 +81,12 @@ function equalSpacing(input: SpacingBase & { count: number }): SpacingResult {
 	const warnings: SpacingWarning[] = [];
 	const min = endMembers === "both" ? 2 : 1;
 	let n = Math.floor(input.count);
-	if (n < min) {
+	if (!Number.isFinite(n) || n < min) {
 		n = min;
+		warnings.push("count-clamped");
+	}
+	if (n > MAX_MEMBERS) {
+		n = MAX_MEMBERS;
 		warnings.push("count-clamped");
 	}
 
@@ -105,7 +111,8 @@ function exactSpacing(input: SpacingBase & { centers: number; adjust: "last" | "
 	const { totalLength: L, memberWidth: w, endMembers, centers, adjust } = input;
 	const warnings: SpacingWarning[] = [];
 	if (centers < w - EPS) warnings.push("centers-smaller-than-width");
-	const step = Math.max(centers, w);
+	// Never step finer than the length allows for MAX_MEMBERS members.
+	const step = Math.max(centers, w, L / MAX_MEMBERS);
 	const stdGap = step - w;
 	// A member landing within half a gap of an end reads as a doubled end member; it is dropped.
 	const merge = stdGap / 2;

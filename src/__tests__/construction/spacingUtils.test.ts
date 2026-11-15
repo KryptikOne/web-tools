@@ -87,3 +87,14 @@ describe("computeSpacing exact", () => {
 		expect(r.members.map((m) => m.near)).toEqual([0, 80]);
 	});
 });
+
+describe("computeSpacing guards", () => {
+	it("caps absurd counts and centers so a layout can never explode", async () => {
+		const { computeSpacing, MAX_MEMBERS } = await import("@/lib/construction/spacingUtils");
+		const equal = computeSpacing({ mode: "equal", totalLength: 100, memberWidth: 0.001, endMembers: "none", count: 1e9 });
+		expect(equal.count).toBe(MAX_MEMBERS);
+		expect(equal.warnings).toContain("count-clamped");
+		const exact = computeSpacing({ mode: "exact", totalLength: 1e6, memberWidth: 1e-9, endMembers: "one", centers: 1e-9, adjust: "last" });
+		expect(exact.count).toBeLessThanOrEqual(MAX_MEMBERS + 1);
+	});
+});

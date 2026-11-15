@@ -2,12 +2,11 @@
 
 import { useMemo, useState } from "react";
 import SegmentedControl from "@/components/SegmentedControl";
-import { UnitAndPrecisionBar, DimensionInput, NumberField, ResultList, RunningList, PrintDiagrams, LumberTable, ShareCalculation, ConstructionNotes } from "@/components/construction";
+import { UnitAndPrecisionBar, DimensionInput, NumberField, ResultList, RunningList, PrintDiagrams, LumberTable, ShareCalculation, ConstructionNotes, SpacingDiagram, spacingDrawingScale } from "@/components/construction";
 import type { ResultRow } from "@/components/construction";
 import { useConstructionUnits } from "@/hooks/useConstructionUnits";
 import { computeSpacing, runningPositions, type EndMembers, type MarkReference, type SpacingResult } from "@/lib/construction/spacingUtils";
 import { formatAngle } from "@/lib/construction/pitchUtils";
-import SpacingDiagram, { spacingDrawingScale } from "./SpacingDiagram";
 import styles from "./SpacingCalculator.module.scss";
 
 type Mode = "equal" | "exact";
@@ -57,6 +56,25 @@ const ADJUST_OPTIONS: { value: Adjust; label: string }[] = [
 ];
 
 const MAX_COUNT = 60;
+
+const num = (v: unknown, lo: number, hi: number, fallback: number | null): number | null => (typeof v === "number" && Number.isFinite(v) ? Math.min(hi, Math.max(lo, v)) : fallback);
+const oneOf = <T extends string>(v: unknown, allowed: readonly T[], fallback: T): T => (allowed.includes(v as T) ? (v as T) : fallback);
+
+/** Shared links are untrusted: coerce every field back into the ranges the inputs allow. */
+function sanitize(s: Partial<SpacingState>): SpacingState {
+	return {
+		length: num(s.length, 1, 100000, DEFAULTS.length),
+		width: num(s.width, 0.01, 10000, DEFAULTS.width),
+		height: num(s.height, 0.01, 10000, DEFAULTS.height),
+		angle: num(s.angle, 1, 90, DEFAULTS.angle) ?? DEFAULTS.angle,
+		endMembers: oneOf(s.endMembers, ["both", "one", "none"] as const, DEFAULTS.endMembers),
+		mode: oneOf(s.mode, ["equal", "exact"] as const, DEFAULTS.mode),
+		count: Math.round(num(s.count, 1, MAX_COUNT, DEFAULTS.count) ?? DEFAULTS.count),
+		centers: num(s.centers, 0.01, 100000, DEFAULTS.centers),
+		adjust: oneOf(s.adjust, ["last", "both"] as const, DEFAULTS.adjust),
+		reference: oneOf(s.reference, ["near", "center", "far"] as const, DEFAULTS.reference),
+	};
+}
 
 export default function SpacingCalculator() {
 	const { format } = useConstructionUnits();
@@ -203,7 +221,7 @@ export default function SpacingCalculator() {
 				<div className="grid gap-4 lg:grid-cols-2">
 					<LumberTable />
 					<div className="flex flex-col gap-4">
-						<ShareCalculation state={state} onLoad={(s) => setState({ ...DEFAULTS, ...s })} />
+						<ShareCalculation state={state} onLoad={(s) => setState(sanitize(s))} />
 						<ConstructionNotes />
 					</div>
 				</div>
