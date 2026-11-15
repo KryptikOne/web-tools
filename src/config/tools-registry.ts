@@ -897,6 +897,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		implemented: true,
 	},
 	{
+		id: "wall-framing",
+		name: "Wall Framing Calculator",
+		description: "Stud layout with sheet joints checked for backing, corner and end options, rake, running mark-out, plus studs, plates, board feet and cost for the whole job",
+		seoDescription: "Lay out wall studs at 12, 16, 19.2 or 24 inch centers with corners, ends and sheet joints checked, then count studs, plates, board feet and cost for all walls.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/wall-framing",
+		keywords: ["stud", "studs", "framing", "16 on center", "stud layout", "plates", "noggings", "blocking", "california corner", "sheathing", "drywall", "gable"],
+		implemented: true,
+	},
+	{
 		id: "lumber-calculator",
 		name: "Lumber and Board Feet Calculator",
 		description: "Board feet, lumber price per 1000 bft to per piece, linear to square and cubic feet, nominal to actual sizes",
