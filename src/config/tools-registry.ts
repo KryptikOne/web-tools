@@ -847,6 +847,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		implemented: true,
 	},
 	{
+		id: "spacing-calculator",
+		name: "Centers and Spacing Calculator",
+		description: "Space battens, balusters, pickets, studs or joists equally or to exact centers at any angle, with a numbered layout and running measurements",
+		seoDescription: "Space battens, balusters, pickets, studs or joists equally or to exact centers, with end member options, a numbered layout diagram and running mark-out list.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/spacing-calculator",
+		keywords: ["board and batten", "baluster spacing", "picket spacing", "stud spacing", "joist spacing", "on center", "oc", "equal spacing", "centers", "layout", "mark out"],
+		implemented: true,
+	},
+	{
 		id: "lumber-calculator",
 		name: "Lumber and Board Feet Calculator",
 		description: "Board feet, lumber price per 1000 bft to per piece, linear to square and cubic feet, nominal to actual sizes",
