@@ -887,6 +887,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		implemented: true,
 	},
 	{
+		id: "miter-calculator",
+		name: "Miter and Compound Miter Calculator",
+		description: "Miter cuts between boards of different widths with a true-size template, and saw miter and bevel settings for sloped multi-sided boxes",
+		seoDescription: "Miter angles for two boards of different widths at any corner, printed as a true-size template, plus compound miter and bevel saw settings for sloped boxes.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/miter-calculator",
+		keywords: ["miter", "mitre", "compound miter", "bevel", "miter saw", "picture frame", "planter", "hopper", "crown", "corner angle", "unequal widths"],
+		implemented: true,
+	},
+	{
 		id: "lumber-calculator",
 		name: "Lumber and Board Feet Calculator",
 		description: "Board feet, lumber price per 1000 bft to per piece, linear to square and cubic feet, nominal to actual sizes",

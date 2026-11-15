@@ -147,6 +147,7 @@ Key utilities in this codebase:
 - `src/lib/construction/shareUtils.ts` - Calculation state ⇄ URL hash token (deflate + base64url) and share URL builder
 - `src/lib/construction/lumberUtils.ts` - Board feet, cubic feet, linear ⇄ square coverage (gap + waste), linear ⇄ cubic, price per 1000 bft to per piece / per foot, log volume, deck board sizes
 - `src/lib/construction/geometryUtils.ts` - Layout geometry: rectangle diagonal, string-line correction from two reference stakes (`squareUp`), regular polygons from sides and radius (`regularPolygon`), circles from any one value (`solveCircle`), chords and arcs from any two of radius, chord, height, arc length, angle (`solveArc`)
+- `src/lib/construction/miterUtils.ts` - Miter joints: cut angles between two widths at any corner (`miterJoint`), compound miter and bevel saw settings plus the developed piece for sloped multi-sided forms (`compoundMiter`, `compoundFaceOutline`)
 - `src/lib/construction/balusterUtils.ts` - Baluster layouts: fewest balusters under a code gap on level or raked rails (`balusterRun`), end gaps that match a gap across unequal panels (`panelGap`), tread-by-tread stair positions (`stairBalusters`)
 - `src/lib/construction/fractionUtils.ts` - Inch fraction tables (eighths to sixty-fourths), fraction/decimal/mm label formatting with pad and leading-zero rules, free-form inch expression evaluator (+ − × ÷ with mixed numbers and marks)
 - `src/hooks/useIsMobile.ts` - SSR-safe mobile detection

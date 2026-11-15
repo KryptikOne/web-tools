@@ -1,0 +1,131 @@
+@use "@/styles/variables" as *;
+
+.second {
+	fill-opacity: 0.35;
+}
+
+.joint {
+	stroke: var(--diagram-stroke);
+	stroke-width: 1.5px;
+	vector-effect: non-scaling-stroke;
+}
+
+.jointDim text {
+	fill: var(--diagram-stroke);
+}
+
+.innerFace {
+	fill: none;
+	stroke: var(--diagram-dim);
+	stroke-width: 1px;
+	stroke-dasharray: 3 2;
+	vector-effect: non-scaling-stroke;
+}
+
+.flap {
+	fill: var(--color-violet);
+	fill-opacity: 0.25;
+	stroke: var(--diagram-stroke);
+	stroke-width: 1px;
+	vector-effect: non-scaling-stroke;
+}
+
+.fold {
+	stroke: var(--diagram-stroke);
+	stroke-width: 1px;
+	stroke-dasharray: 4 2;
+	vector-effect: non-scaling-stroke;
+}
+
+// Saw gauge
+.gauge {
+	margin: 0;
+	max-width: 220px;
+
+	svg {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+}
+
+.gaugeArc {
+	fill: none;
+	stroke: var(--text-secondary);
+	stroke-width: 1.5;
+}
+
+.gaugeTick {
+	stroke: var(--text-secondary);
+	stroke-width: 1;
+}
+
+.gaugeText {
+	fill: var(--text-tertiary);
+	font-family: $font-family-mono;
+	font-size: 9px;
+}
+
+.gaugePointer {
+	stroke: var(--color-violet);
+	stroke-width: 2.5;
+	stroke-linecap: round;
+}
+
+.gaugeHub {
+	fill: var(--text-primary);
+}
+
+.gaugeCaption {
+	margin-top: 0.25rem;
+	font-size: 0.8rem;
+	text-align: center;
+	color: $text-secondary;
+
+	strong {
+		font-family: $font-family-mono;
+		color: $color-accent;
+	}
+}
+
+// Preview
+.preview {
+	display: block;
+	width: 100%;
+	max-width: 360px;
+	height: auto;
+	margin: 0 auto;
+}
+
+.faceFront {
+	fill: var(--color-primary);
+	fill-opacity: 0.5;
+	stroke: var(--text-primary);
+	stroke-width: 1;
+	stroke-linejoin: round;
+}
+
+.faceBack {
+	fill: none;
+	stroke: var(--text-muted);
+	stroke-width: 1;
+	stroke-dasharray: 3 3;
+}
+
+.faceTop {
+	fill: var(--color-violet);
+	fill-opacity: 0.25;
+	stroke: var(--text-primary);
+	stroke-width: 1;
+	stroke-linejoin: round;
+}
+
+@media print {
+	.gaugePointer {
+		stroke: #000;
+	}
+
+	.flap {
+		fill: #ddd;
+	}
+}
