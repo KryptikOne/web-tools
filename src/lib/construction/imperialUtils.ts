@@ -258,3 +258,25 @@ export function nominalToActual(nominal: string): LumberSize | undefined {
 	const key = nominal.toLowerCase().replace(/\s+/g, "").replace("×", "x");
 	return LUMBER_SIZES.find((s) => s.nominal === key);
 }
+
+/** Area unit for each unit mode: square feet, square inches or square metres. */
+export const AREA_UNIT: Record<UnitMode, string> = { "ft-in": "sq ft", in: "sq in", mm: "m²" };
+
+/** Square inches to the area unit of the mode. */
+export function squareInchesToArea(squareInches: number, mode: UnitMode): number {
+	if (mode === "mm") return (squareInches * MM_PER_INCH * MM_PER_INCH) / 1e6;
+	if (mode === "in") return squareInches;
+	return squareInches / 144;
+}
+
+/** The area unit of the mode back to square inches. */
+export function areaToSquareInches(value: number, mode: UnitMode): number {
+	if (mode === "mm") return (value * 1e6) / (MM_PER_INCH * MM_PER_INCH);
+	if (mode === "in") return value;
+	return value * 144;
+}
+
+/** Formats square inches in the mode's area unit, e.g. `12.50 sq ft`, `3.142 m²`. */
+export function formatArea(squareInches: number, mode: UnitMode, places = mode === "mm" ? 3 : 2): string {
+	return `${squareInchesToArea(squareInches, mode).toFixed(places)} ${AREA_UNIT[mode]}`;
+}

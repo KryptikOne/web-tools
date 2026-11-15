@@ -56,3 +56,198 @@ export function squareUp(input: SquareUpInput): SquareUpResult | null {
 	const direction = Math.abs(swingDeg) < 1e-9 ? "none" : swingDeg > 0 ? "away" : "toward";
 	return { correctDiagonal, currentAngle, swingDeg, outOfSquare, moveAtCorner, moveAtBatterboard, direction };
 }
+
+// ── Regular polygons ─────────────────────────────────────────────────────────
+
+export interface PolygonResult {
+	sides: number;
+	/** Circumscribed (bounding circle) radius */
+	radius: number;
+	sideLength: number;
+	/** Centre to the middle of a side */
+	apothem: number;
+	interiorAngle: number;
+	centralAngle: number;
+	/** Area of one triangle from the centre to a side */
+	triangleArea: number;
+	area: number;
+	perimeter: number;
+	/** Bounding rectangle with one vertex pointing up */
+	boundingWidth: number;
+	boundingHeight: number;
+	circumference: number;
+	circleArea: number;
+	/** Circle sector area per side */
+	sliceArea: number;
+	/** Segment between a side and the circle */
+	segmentArea: number;
+	/** Arc length around the circumference between vertices */
+	arcPerSide: number;
+	/** Vertex positions, centre origin, y up, first vertex straight up */
+	vertices: { x: number; y: number }[];
+}
+
+export function regularPolygon(sides: number, radius: number): PolygonResult | null {
+	const n = Math.floor(sides);
+	if (n < 3 || n > 360 || !(radius > 0)) return null;
+	const central = (2 * Math.PI) / n;
+	const sideLength = 2 * radius * Math.sin(central / 2);
+	const apothem = radius * Math.cos(central / 2);
+	const triangleArea = (sideLength * apothem) / 2;
+	const vertices = Array.from({ length: n }, (_, i) => {
+		const a = Math.PI / 2 - i * central;
+		return { x: radius * Math.cos(a), y: radius * Math.sin(a) };
+	});
+	const xs = vertices.map((v) => v.x);
+	const ys = vertices.map((v) => v.y);
+	const circumference = 2 * Math.PI * radius;
+	const circleArea = Math.PI * radius * radius;
+	return {
+		sides: n,
+		radius,
+		sideLength,
+		apothem,
+		interiorAngle: ((n - 2) * 180) / n,
+		centralAngle: 360 / n,
+		triangleArea,
+		area: triangleArea * n,
+		perimeter: sideLength * n,
+		boundingWidth: Math.max(...xs) - Math.min(...xs),
+		boundingHeight: Math.max(...ys) - Math.min(...ys),
+		circumference,
+		circleArea,
+		sliceArea: circleArea / n,
+		segmentArea: circleArea / n - triangleArea,
+		arcPerSide: circumference / n,
+		vertices,
+	};
+}
+
+// ── Circles ──────────────────────────────────────────────────────────────────
+
+export interface CircleResult {
+	radius: number;
+	diameter: number;
+	circumference: number;
+	area: number;
+}
+
+export type CircleKnown = { radius: number } | { diameter: number } | { circumference: number } | { area: number };
+
+export function solveCircle(known: CircleKnown): CircleResult | null {
+	let r: number;
+	if ("radius" in known) r = known.radius;
+	else if ("diameter" in known) r = known.diameter / 2;
+	else if ("circumference" in known) r = known.circumference / (2 * Math.PI);
+	else r = Math.sqrt(known.area / Math.PI);
+	if (!(r > 0) || !Number.isFinite(r)) return null;
+	return { radius: r, diameter: 2 * r, circumference: 2 * Math.PI * r, area: Math.PI * r * r };
+}
+
+// ── Chords and arcs ──────────────────────────────────────────────────────────
+
+export interface ArcResult {
+	radius: number;
+	diameter: number;
+	chord: number;
+	/** Sagitta: arc height above the chord */
+	height: number;
+	arcLength: number;
+	/** Central angle in degrees */
+	angle: number;
+	/** Centre to the chord; negative when the arc is more than a semicircle */
+	apothem: number;
+	sectorArea: number;
+	segmentArea: number;
+}
+
+export type ArcKey = "radius" | "chord" | "height" | "arcLength" | "angle";
+export type ArcKnown = Partial<Record<ArcKey, number>>;
+
+function bisect(f: (x: number) => number, lo: number, hi: number): number | null {
+	let flo = f(lo);
+	const fhi = f(hi);
+	if (flo === 0) return lo;
+	if (fhi === 0) return hi;
+	if (flo * fhi > 0) return null;
+	for (let i = 0; i < 200; i++) {
+		const mid = (lo + hi) / 2;
+		const fm = f(mid);
+		if (fm === 0 || hi - lo < 1e-13) return mid;
+		if (fm * flo < 0) hi = mid;
+		else {
+			lo = mid;
+			flo = fm;
+		}
+	}
+	return (lo + hi) / 2;
+}
+
+/**
+ * Solve a circular arc from any two of radius, chord, height, arc length and central angle.
+ * Angles up to 360° are allowed; a chord with an arc length picks the unique arc, and a height
+ * with an arc length picks the arc under 266° where the pair is unambiguous.
+ */
+export function solveArc(known: ArcKnown): ArcResult | null {
+	const keys = (Object.keys(known) as ArcKey[]).filter((k) => known[k] !== undefined);
+	if (keys.length !== 2) return null;
+	for (const k of keys) if (!(known[k]! > 0) || !Number.isFinite(known[k]!)) return null;
+	const has = (k: ArcKey) => keys.includes(k);
+	const { radius: R, chord: c, height: h, arcLength: s, angle: deg } = known;
+	let r: number | undefined;
+	let theta: number | undefined; // radians
+
+	if (has("angle")) {
+		theta = (deg! * Math.PI) / 180;
+		if (theta > 2 * Math.PI) return null;
+		if (has("radius")) r = R;
+		else if (has("chord")) r = c! / (2 * Math.sin(theta / 2));
+		else if (has("height")) r = h! / (1 - Math.cos(theta / 2));
+		else r = s! / theta;
+	} else if (has("radius")) {
+		r = R!;
+		if (has("chord")) {
+			if (c! > 2 * r) return null;
+			theta = 2 * Math.asin(c! / (2 * r));
+		} else if (has("height")) {
+			if (h! > 2 * r) return null;
+			theta = 2 * Math.acos(1 - h! / r);
+		} else {
+			theta = s! / r;
+			if (theta > 2 * Math.PI) return null;
+		}
+	} else if (has("chord") && has("height")) {
+		r = (c! * c! / 4 + h! * h!) / (2 * h!);
+		theta = 2 * Math.acos(1 - h! / r);
+	} else if (has("chord") && has("arcLength")) {
+		if (c! >= s!) return null;
+		// c/s = sin(x)/x with x = θ/2 in (0, π]
+		const ratio = c! / s!;
+		const x = bisect((x) => Math.sin(x) / x - ratio, 1e-9, Math.PI);
+		if (x === null) return null;
+		theta = 2 * x;
+		r = s! / theta;
+	} else {
+		// height and arc length: h/s = (1 - cos x)/(2x), x = θ/2, rising until x ≈ 2.331
+		const ratio = h! / s!;
+		const x = bisect((x) => (1 - Math.cos(x)) / (2 * x) - ratio, 1e-9, 2.3311);
+		if (x === null) return null;
+		theta = 2 * x;
+		r = s! / theta;
+	}
+
+	if (r === undefined || theta === undefined || !(r > 0) || !(theta > 0) || !Number.isFinite(r)) return null;
+	const chord = 2 * r * Math.sin(theta / 2);
+	const height = r * (1 - Math.cos(theta / 2));
+	return {
+		radius: r,
+		diameter: 2 * r,
+		chord,
+		height,
+		arcLength: r * theta,
+		angle: (theta * 180) / Math.PI,
+		apothem: r - height,
+		sectorArea: (r * r * theta) / 2,
+		segmentArea: (r * r * (theta - Math.sin(theta))) / 2,
+	};
+}

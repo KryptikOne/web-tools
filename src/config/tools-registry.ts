@@ -877,6 +877,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		implemented: true,
 	},
 	{
+		id: "circle-calculator",
+		name: "Polygon and Circle Calculator",
+		description: "Regular polygons from sides and radius with corner mark-out, circles from any one value, and chords and arcs from any two",
+		seoDescription: "Polygon side length, area and corner mark-out from a radius, a circle from radius, diameter, circumference or area, and chord, arc and sagitta from any two.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/circle-calculator",
+		keywords: ["polygon", "hexagon", "octagon", "gazebo", "circle", "circumference", "chord", "arc", "sagitta", "segment", "sector", "radius", "diameter", "arch"],
+		implemented: true,
+	},
+	{
 		id: "lumber-calculator",
 		name: "Lumber and Board Feet Calculator",
 		description: "Board feet, lumber price per 1000 bft to per piece, linear to square and cubic feet, nominal to actual sizes",
