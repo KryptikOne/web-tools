@@ -17,3 +17,5 @@ export type { ResultListProps, ResultRow } from "./ResultList";
 export { default as ConstructionNotes } from "./ConstructionNotes";
 export { default as SpacingDiagram, spacingDrawingScale } from "./SpacingDiagram";
 export type { SpacingDiagramProps } from "./SpacingDiagram";
+export { default as StairBalusterDiagram } from "./StairBalusterDiagram";
+export type { StairBalusterDiagramProps } from "./StairBalusterDiagram";

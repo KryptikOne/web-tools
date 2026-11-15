@@ -1,0 +1,42 @@
+@use "@/styles/variables" as *;
+
+.floor {
+	stroke: var(--diagram-stroke);
+	stroke-width: 1.5px;
+	vector-effect: non-scaling-stroke;
+}
+
+.pitch {
+	stroke: var(--color-violet);
+	stroke-width: 1px;
+	stroke-dasharray: 4 3;
+	vector-effect: non-scaling-stroke;
+}
+
+.opening {
+	stroke: #{$color-accent-secondary};
+	stroke-width: 1.5px;
+	vector-effect: non-scaling-stroke;
+}
+
+.headroomDim {
+	:global(line) {
+		stroke: #{$color-accent-secondary};
+	}
+
+	text {
+		fill: #{$color-accent-secondary};
+	}
+}
+
+.drop {
+	stroke: var(--diagram-dim);
+	stroke-width: 1px;
+	stroke-dasharray: 3 2;
+	vector-effect: non-scaling-stroke;
+}
+
+.num {
+	fill: var(--diagram-stroke);
+	font-weight: 600;
+}

@@ -937,6 +937,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		implemented: true,
 	},
 	{
+		id: "stair-calculator",
+		name: "Stair Calculator",
+		description: "Risers and treads from total rise, stringer geometry with a true-size notching template, headroom and floor opening, tread heights, balusters and concrete volume",
+		seoDescription: "Straight stair calculator: risers and treads from total rise, stringer length and notching template, headroom at the floor opening, tread heights and concrete.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/stair-calculator",
+		keywords: ["stairs", "stairway", "staircase", "stringer", "risers", "treads", "rise and run", "headroom", "landing", "steps", "deck stairs"],
+		implemented: true,
+	},
+	{
 		id: "lumber-calculator",
 		name: "Lumber and Board Feet Calculator",
 		description: "Board feet, lumber price per 1000 bft to per piece, linear to square and cubic feet, nominal to actual sizes",

@@ -2,13 +2,12 @@
 
 import { useMemo, useState } from "react";
 import SegmentedControl from "@/components/SegmentedControl";
-import { UnitAndPrecisionBar, DimensionInput, NumberField, ResultList, RunningList, PrintDiagrams, LumberTable, ShareCalculation, ConstructionNotes, SpacingDiagram } from "@/components/construction";
+import { UnitAndPrecisionBar, DimensionInput, NumberField, ResultList, RunningList, PrintDiagrams, LumberTable, ShareCalculation, ConstructionNotes, SpacingDiagram, StairBalusterDiagram } from "@/components/construction";
 import type { ResultRow } from "@/components/construction";
 import { useConstructionUnits } from "@/hooks/useConstructionUnits";
 import { balusterRun, panelGap, stairBalusters } from "@/lib/construction/balusterUtils";
 import { runningPositions, type EndMembers, type MarkReference, type SpacingResult } from "@/lib/construction/spacingUtils";
 import { formatAngle } from "@/lib/construction/pitchUtils";
-import StairBalusterDiagram from "./StairBalusterDiagram";
 import styles from "./BalusterCalculator.module.scss";
 
 type Section = "run" | "panel" | "stair";
