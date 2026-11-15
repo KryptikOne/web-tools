@@ -857,6 +857,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		implemented: true,
 	},
 	{
+		id: "baluster-calculator",
+		name: "Baluster Spacing Calculator",
+		description: "Fewest balusters under the code gap on level or raked rails, matching gaps across unequal panels, and baluster positions on stair treads",
+		seoDescription: "Baluster spacing for decks and stairs: fewest balusters under a 4 inch code gap, end gaps that match unequal panels, and tread-by-tread stair positions.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/baluster-calculator",
+		keywords: ["baluster", "spindle", "picket", "railing", "deck rail", "4 inch gap", "code gap", "stair balusters", "handrail", "infill"],
+		implemented: true,
+	},
+	{
 		id: "lumber-calculator",
 		name: "Lumber and Board Feet Calculator",
 		description: "Board feet, lumber price per 1000 bft to per piece, linear to square and cubic feet, nominal to actual sizes",

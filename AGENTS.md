@@ -146,13 +146,14 @@ Key utilities in this codebase:
 - `src/lib/construction/pitchUtils.ts` - Rise/run/pitch/angle/grade conversions, slope solver, right-triangle solver from any two knowns, angle/pitch/grade formatting, rafter multiplier and the 1:12 to 24:12 pitch table
 - `src/lib/construction/shareUtils.ts` - Calculation state ⇄ URL hash token (deflate + base64url) and share URL builder
 - `src/lib/construction/lumberUtils.ts` - Board feet, cubic feet, linear ⇄ square coverage (gap + waste), linear ⇄ cubic, price per 1000 bft to per piece / per foot, log volume, deck board sizes
+- `src/lib/construction/balusterUtils.ts` - Baluster layouts: fewest balusters under a code gap on level or raked rails (`balusterRun`), end gaps that match a gap across unequal panels (`panelGap`), tread-by-tread stair positions (`stairBalusters`)
 - `src/lib/construction/fractionUtils.ts` - Inch fraction tables (eighths to sixty-fourths), fraction/decimal/mm label formatting with pad and leading-zero rules, free-form inch expression evaluator (+ − × ÷ with mixed numbers and marks)
 - `src/hooks/useIsMobile.ts` - SSR-safe mobile detection
 - `src/hooks/useConstructionUnits.ts` - Site-wide unit mode (Feet-Inch / Inch / Metric) and fraction precision with bound parse/format, persisted in user preferences
 - `src/hooks/useClipboard.ts` - Clipboard operations with feedback
 - `src/components/SegmentedControl` - Joined radio-button group for mode/tab switches
 - `src/components/UnitConverterPanel` - Live "edit any row, all rows update" unit list driven by `unitDefinitions`
-- `src/components/construction` - Construction tool kit: `UnitAndPrecisionBar`, `DimensionInput` (ft-in-fraction field with optional slider), `RunningList` (mark-out table with step-through mode), `LumberTable`, `Diagram` SVG primitives in mm (`Member`, `DimLine`, `AngleArc`, `Label`) that print at true scale (`interactive` exposes a drawing with buttons as a group), `PrintDiagrams`, `ShareCalculation`, `NumberField` (count / money / percent field with prefix and unit), `ResultList` (label-value output card), `ConstructionNotes` (actual-size and geometry-only notes). Demo at `/styleguide/construction`
+- `src/components/construction` - Construction tool kit: `UnitAndPrecisionBar`, `DimensionInput` (ft-in-fraction field with optional slider), `RunningList` (mark-out table with step-through mode), `LumberTable`, `Diagram` SVG primitives in mm (`Member`, `DimLine`, `AngleArc`, `Label`) that print at true scale (`interactive` exposes a drawing with buttons as a group), `PrintDiagrams`, `ShareCalculation`, `NumberField` (count / money / percent field with prefix and unit), `ResultList` (label-value output card), `ConstructionNotes` (actual-size and geometry-only notes), `SpacingDiagram` (numbered member layout over a run with centers, gap and end-space dimensions). Demo at `/styleguide/construction`
 
 **Do not reinvent the wheel.** If a utility exists, use it. If a utility is close but not quite right, extend it rather than duplicating logic elsewhere.
 

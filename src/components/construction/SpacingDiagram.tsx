@@ -1,7 +1,7 @@
 "use client";
 
-import { Diagram, DimLine, AngleArc, Label, Member, useDiagramScale } from "@/components/construction/Diagram";
-import diagramStyles from "@/components/construction/Diagram.module.scss";
+import { Diagram, DimLine, AngleArc, Label, Member, useDiagramScale } from "./Diagram";
+import diagramStyles from "./Diagram.module.scss";
 import { inchesToMm } from "@/lib/construction/imperialUtils";
 import type { SpacingResult } from "@/lib/construction/spacingUtils";
 import { formatAngle } from "@/lib/construction/pitchUtils";
