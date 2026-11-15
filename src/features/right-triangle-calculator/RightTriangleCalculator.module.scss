@@ -1,0 +1,66 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+.container {
+	@extend .container;
+}
+
+.card {
+	@include glass-card;
+	padding: 1rem;
+}
+
+.cardTitle {
+	margin: 0 0 0.5rem;
+	font-size: 0.95rem;
+	font-weight: 600;
+	color: $text-primary;
+}
+
+.label {
+	font-size: 0.8rem;
+	font-weight: 600;
+	color: $text-secondary;
+}
+
+.note {
+	margin: 0 0 0.75rem;
+	font-size: 0.8rem;
+	line-height: 1.45;
+	color: $text-tertiary;
+}
+
+.empty {
+	margin: 0;
+	font-size: 0.8rem;
+	color: $text-muted;
+}
+
+.pickRow {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem;
+}
+
+.pickBtn {
+	padding: 0.3rem 0.6rem;
+	background: transparent;
+	border: 1px dashed $border-subtle;
+	color: $text-secondary;
+	font-family: $font-family-mono;
+	font-size: 0.8rem;
+	cursor: pointer;
+
+	&:hover,
+	&:focus-visible {
+		border-color: $color-accent;
+		outline: none;
+	}
+
+	&[aria-pressed="true"] {
+		border-style: solid;
+		border-color: $color-accent;
+		color: $color-accent;
+	}
+}

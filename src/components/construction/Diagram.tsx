@@ -36,11 +36,13 @@ export interface DiagramProps {
 	label: string;
 	/** Screen-only cap on the rendered width (CSS length). Default none: fills the container. */
 	maxWidth?: string;
+	/** Set when the drawing holds buttons: it is exposed as a group rather than an image. Default false. */
+	interactive?: boolean;
 	className?: string;
 	children: ReactNode;
 }
 
-export function Diagram({ widthMm, heightMm, label, maxWidth, className = "", children }: DiagramProps) {
+export function Diagram({ widthMm, heightMm, label, maxWidth, interactive = false, className = "", children }: DiagramProps) {
 	const ref = useRef<SVGSVGElement>(null);
 	const [pxPerMm, setPxPerMm] = useState(PX_PER_MM_TRUE_SCALE);
 
@@ -61,7 +63,7 @@ export function Diagram({ widthMm, heightMm, label, maxWidth, className = "", ch
 	return (
 		<svg
 			ref={ref}
-			role="img"
+			role={interactive ? "group" : "img"}
 			aria-label={label}
 			className={`${styles.diagram} ${className}`}
 			viewBox={`0 0 ${widthMm} ${heightMm}`}

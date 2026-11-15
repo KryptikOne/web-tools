@@ -152,7 +152,7 @@ Key utilities in this codebase:
 - `src/hooks/useClipboard.ts` - Clipboard operations with feedback
 - `src/components/SegmentedControl` - Joined radio-button group for mode/tab switches
 - `src/components/UnitConverterPanel` - Live "edit any row, all rows update" unit list driven by `unitDefinitions`
-- `src/components/construction` - Construction tool kit: `UnitAndPrecisionBar`, `DimensionInput` (ft-in-fraction field with optional slider), `RunningList` (mark-out table with step-through mode), `LumberTable`, `Diagram` SVG primitives in mm (`Member`, `DimLine`, `AngleArc`, `Label`) that print at true scale, `PrintDiagrams`, `ShareCalculation`, `NumberField` (count / money / percent field with prefix and unit), `ResultList` (label-value output card), `ConstructionNotes` (actual-size and geometry-only notes). Demo at `/styleguide/construction`
+- `src/components/construction` - Construction tool kit: `UnitAndPrecisionBar`, `DimensionInput` (ft-in-fraction field with optional slider), `RunningList` (mark-out table with step-through mode), `LumberTable`, `Diagram` SVG primitives in mm (`Member`, `DimLine`, `AngleArc`, `Label`) that print at true scale (`interactive` exposes a drawing with buttons as a group), `PrintDiagrams`, `ShareCalculation`, `NumberField` (count / money / percent field with prefix and unit), `ResultList` (label-value output card), `ConstructionNotes` (actual-size and geometry-only notes). Demo at `/styleguide/construction`
 
 **Do not reinvent the wheel.** If a utility exists, use it. If a utility is close but not quite right, extend it rather than duplicating logic elsewhere.
 

@@ -1,0 +1,49 @@
+.pick {
+	cursor: pointer;
+	outline: none;
+
+	&:hover .pickBox,
+	&:focus-visible .pickBox {
+		stroke: var(--color-violet);
+	}
+
+	&:focus-visible .pickBox {
+		stroke-width: 2px;
+	}
+}
+
+.pickBox {
+	fill: var(--bg-primary);
+	stroke: var(--diagram-dim);
+	stroke-width: 1px;
+	stroke-dasharray: 2 1.5;
+	vector-effect: non-scaling-stroke;
+}
+
+.pickText {
+	fill: var(--diagram-stroke);
+	dominant-baseline: middle;
+	font-weight: 600;
+}
+
+.picked {
+	.pickBox {
+		stroke: var(--color-violet);
+		stroke-dasharray: none;
+	}
+
+	.pickText {
+		fill: var(--color-violet);
+	}
+}
+
+@media print {
+	.pickBox {
+		stroke: #000;
+	}
+
+	.pickText,
+	.picked .pickText {
+		fill: #000;
+	}
+}

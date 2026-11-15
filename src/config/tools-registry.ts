@@ -837,6 +837,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		implemented: true,
 	},
 	{
+		id: "right-triangle-calculator",
+		name: "Right Triangle Calculator",
+		description: "Click any side or angle in the diagram to make it an input, enter two values and the rest solves, with pitch and area",
+		seoDescription: "Solve a right triangle from any two sides or a side and an angle by clicking the values in the diagram, with base angle, pitch and area readouts.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/right-triangle-calculator",
+		keywords: ["trig", "trigonometry", "hypotenuse", "pythagoras", "pythagorean", "sides and angles", "rafter length", "stair stringer", "3 4 5", "triangle solver"],
+		implemented: true,
+	},
+	{
 		id: "lumber-calculator",
 		name: "Lumber and Board Feet Calculator",
 		description: "Board feet, lumber price per 1000 bft to per piece, linear to square and cubic feet, nominal to actual sizes",
