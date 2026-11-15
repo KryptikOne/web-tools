@@ -14,6 +14,9 @@ import styles from "./Diagram.module.scss";
  * comes out about 3 mm tall.
  */
 
+/** Rounds trig-derived coordinates so server and browser markup agree to the digit. */
+const r4 = (n: number) => Math.round(n * 1e4) / 1e4;
+
 export const MM = 1;
 
 /** CSS pixels per millimetre at 100% (96 dpi). */
@@ -158,7 +161,7 @@ export function DimLine({ x1, y1, x2, y2, label, offset = 0, extensions, size = 
 	const ay = y1 + ny * offset;
 	const bx = x2 + nx * offset;
 	const by = y2 + ny * offset;
-	let angle = (Math.atan2(dy, dx) * 180) / Math.PI;
+	let angle = r4((Math.atan2(dy, dx) * 180) / Math.PI);
 	let textSide = -1; // label sits above the line in its own frame
 	if (angle > 90 || angle <= -90) {
 		angle += 180;
@@ -232,10 +235,10 @@ export function AngleArc({ cx, cy, radius, startDeg, endDeg, label, size = 12, c
 	const { px } = useDiagramScale();
 	const fs = px(size);
 	const toRad = (d: number) => (d * Math.PI) / 180;
-	const sx = cx + radius * Math.cos(toRad(startDeg));
-	const sy = cy + radius * Math.sin(toRad(startDeg));
-	const ex = cx + radius * Math.cos(toRad(endDeg));
-	const ey = cy + radius * Math.sin(toRad(endDeg));
+	const sx = r4(cx + radius * Math.cos(toRad(startDeg)));
+	const sy = r4(cy + radius * Math.sin(toRad(startDeg)));
+	const ex = r4(cx + radius * Math.cos(toRad(endDeg)));
+	const ey = r4(cy + radius * Math.sin(toRad(endDeg)));
 	const sweep = endDeg - startDeg;
 	const large = Math.abs(sweep) > 180 ? 1 : 0;
 	const dir = sweep >= 0 ? 1 : 0;
@@ -245,8 +248,8 @@ export function AngleArc({ cx, cy, radius, startDeg, endDeg, label, size = 12, c
 		<g className={`${styles.dim} ${className}`}>
 			<path d={`M ${sx} ${sy} A ${radius} ${radius} 0 ${large} ${dir} ${ex} ${ey}`} className={styles.arc} />
 			<text
-				x={cx + lr * Math.cos(mid)}
-				y={cy + lr * Math.sin(mid) + fs / 3}
+				x={r4(cx + lr * Math.cos(mid))}
+				y={r4(cy + lr * Math.sin(mid) + fs / 3)}
 				fontSize={fs}
 				strokeWidth={fs * 0.28}
 				textAnchor="middle"

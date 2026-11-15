@@ -927,6 +927,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		implemented: true,
 	},
 	{
+		id: "rafter-calculator",
+		name: "Common Rafter Calculator",
+		description: "Rafter line length, overall length, plumb and seat cuts, birdsmouth and height above plate from run and pitch, with true-size cut templates",
+		seoDescription: "Common rafter lengths and cuts from run and pitch or angle: line and overall length, plumb and seat cuts, birdsmouth heel and seat, HAP, true-size templates.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/rafter-calculator",
+		keywords: ["rafter", "rafters", "roof", "birdsmouth", "plumb cut", "seat cut", "hap", "ridge", "overhang", "line length", "framing square"],
+		implemented: true,
+	},
+	{
 		id: "lumber-calculator",
 		name: "Lumber and Board Feet Calculator",
 		description: "Board feet, lumber price per 1000 bft to per piece, linear to square and cubic feet, nominal to actual sizes",
