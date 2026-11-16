@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import SegmentedControl from "@/components/SegmentedControl";
 import { UnitAndPrecisionBar, DimensionInput, NumberField, ResultList, RunningList, PrintDiagrams, LumberTable, ShareCalculation, ConstructionNotes } from "@/components/construction";
@@ -286,6 +287,11 @@ export default function WallFraming() {
 								{w}
 							</p>
 						))}
+						{layout && state.rakeAngle > 0 && (
+							<p className={styles.note}>
+								Lengths here are to the stud centre. For long and short points, plate allowances and a full gable end use the <Link href="/tools/gable-studs">gable studs calculator</Link>.
+							</p>
+						)}
 						{layout && state.rakeAngle > 0 && (
 							<table className={`${styles.studTable} mt-4`} aria-label="Stud lengths along the rake">
 								<thead>

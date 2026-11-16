@@ -907,6 +907,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		implemented: true,
 	},
 	{
+		id: "gable-studs",
+		name: "Gable Studs Calculator",
+		description: "Stud lengths under a raked top plate for a full gable end or a single slope: long and short points, common difference, top cut angle, running positions and a true-size cut template",
+		seoDescription: "Gable stud lengths from plate length, pitch or peak height: long and short points, common difference, top cut angle, level and rake positions, cut template.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/gable-studs",
+		keywords: ["gable", "gable end", "gable studs", "raked wall", "rake", "stud lengths", "common difference", "half gable", "shed wall", "lean-to", "framing"],
+		implemented: true,
+	},
+	{
 		id: "tile-calculator",
 		name: "Tile Calculator",
 		description: "How tiles fit a width under seven cut rules with a mark-out list, tiles across and down with boxes and cost, and a quick count from an area",
