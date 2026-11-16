@@ -907,6 +907,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		implemented: true,
 	},
 	{
+		id: "roof-shapes",
+		name: "Skillion, Gambrel and Saltbox Roof Calculator",
+		description: "Rafter lengths, cuts, wall heights, break and ridge heights and roof area for a one-slope skillion, a two-slope gambrel or an off-centre saltbox, with a dimensioned cross section",
+		seoDescription: "Skillion, gambrel and saltbox roof framing: rafter lengths and cuts, wall height difference, break and ridge heights, ridge offset and roof area with a section.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/roof-shapes",
+		keywords: ["skillion", "mono pitch", "lean-to", "shed roof", "gambrel", "barn roof", "saltbox", "roof framing", "rafters", "ridge height", "knee wall"],
+		implemented: true,
+	},
+	{
 		id: "gable-roof",
 		name: "Gable Roof Calculator",
 		description: "Whole gable roof from the building size and pitch: rafter lengths shortened for the ridge, ridge height, rafter count and layout, ridge and fascia lengths, sheathing, area, board feet and cost",
