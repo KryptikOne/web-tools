@@ -453,3 +453,124 @@
 	cursor: pointer;
 	text-decoration: underline;
 }
+
+// ── Guide (explainer below the workspace) ─────────────────────────────────────
+.guide {
+	@include glass-card;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	margin-top: 1.5rem;
+	padding: 1.25rem;
+	font-size: 0.9rem;
+	line-height: 1.55;
+	color: $text-secondary;
+}
+
+.guideTitle {
+	margin: 0;
+	font-size: 1.15rem;
+	font-weight: 600;
+	color: $text-primary;
+}
+
+.guideSubtitle {
+	margin: 0 0 0.4rem;
+	font-size: 0.95rem;
+	font-weight: 600;
+	color: $text-primary;
+}
+
+.guideGrid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+	gap: 1.25rem;
+}
+
+.guideBlock {
+	min-width: 0;
+}
+
+.guideText {
+	margin: 0 0 0.6rem;
+	max-width: 70ch;
+}
+
+.guideList {
+	margin: 0;
+	padding-left: 1.1rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.35rem;
+}
+
+.syntaxTable {
+	display: flex;
+	flex-direction: column;
+	border: 1px solid $border-subtle;
+}
+
+.syntaxHead,
+.syntaxRow {
+	display: grid;
+	grid-template-columns: 6rem minmax(0, 1.4fr) minmax(0, 1fr);
+	gap: 0.75rem;
+	padding: 0.55rem 0.75rem;
+	align-items: start;
+
+	> * {
+		min-width: 0;
+	}
+
+	@media (max-width: 720px) {
+		grid-template-columns: 4.5rem minmax(0, 1fr);
+
+		> :last-child {
+			grid-column: 1 / -1;
+		}
+	}
+}
+
+.syntaxHead {
+	background: $bg-overlay-light;
+	font-size: 0.72rem;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: $text-tertiary;
+}
+
+.syntaxRow {
+	border-top: 1px solid $border-subtle;
+
+	strong {
+		color: $text-primary;
+	}
+}
+
+.syntaxPrefix {
+	display: inline-block;
+	padding: 0.1rem 0.4rem;
+	background: $input-bg;
+	border: 1px solid $border-subtle;
+	font-family: $font-family-mono;
+	font-size: 0.8rem;
+	color: $text-code;
+	white-space: nowrap;
+}
+
+.syntaxExample {
+	margin: 0;
+	padding: 0.4rem 0.6rem;
+	background: $input-bg;
+	font-family: $font-family-mono;
+	font-size: 0.78rem;
+	line-height: 1.5;
+	color: $text-code;
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
+}
+
+.cheatSheetMore {
+	color: $text-tertiary;
+	font-style: italic;
+}

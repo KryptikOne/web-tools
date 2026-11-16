@@ -44,6 +44,16 @@ describe("RecipeTablePage", () => {
 		expect(await axe(container)).toHaveNoViolations();
 	});
 
+	it("explains the table and every line prefix in the guide", async () => {
+		await renderPage();
+		const guide = screen.getByRole("region", { name: "How recipe tables work" });
+		expect(guide).toBeInTheDocument();
+		const syntax = screen.getByRole("table", { name: "Recipe syntax" });
+		for (const name of ["Title.", "Step.", "Ingredient.", "Name a result.", "Use a result or byproduct.", "Byproduct.", "Discard.", "Note."]) {
+			expect(syntax).toHaveTextContent(name);
+		}
+	});
+
 	it("re-renders the table as you type and saves after the debounce", async () => {
 		vi.useFakeTimers();
 		const { store } = await renderPage();

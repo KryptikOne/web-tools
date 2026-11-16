@@ -20,6 +20,7 @@ import {
 } from "@/store/slices/recipesSlice";
 import { decodeShare, parseRecipe, type RecipeView } from "@/lib/recipeUtils";
 import RecipeEditor from "./RecipeEditor";
+import RecipeGuide from "./RecipeGuide";
 import RecipeList from "./RecipeList";
 import RecipeTable from "./RecipeTable";
 import RecipeToolbar from "./RecipeToolbar";
@@ -215,6 +216,8 @@ export default function RecipeTablePage() {
 					</div>
 				</section>
 			</div>
+
+			<RecipeGuide />
 
 			{printing && printRoot && createPortal(<RecipeTable recipe={recipe} view={view} />, printRoot)}
 		</div>

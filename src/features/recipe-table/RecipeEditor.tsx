@@ -74,6 +74,9 @@ export default function RecipeEditor({ text, onChange, errors, readOnly = false 
 							</dd>
 						</div>
 					))}
+					<div>
+						<dt className={styles.cheatSheetMore}>The full guide, with how the table is built and how amounts scale, is at the bottom of the page.</dt>
+					</div>
 				</dl>
 			)}
 
