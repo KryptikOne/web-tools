@@ -49,3 +49,52 @@ describe("runFromSpan", () => {
 		expect(runFromSpan(10, 20)).toBe(0);
 	});
 });
+
+describe("gableRoof", () => {
+	const roof = {
+		buildingWidth: 288,
+		buildingLength: 480,
+		angle: angleFromPitch(6),
+		overhang: 24,
+		overhangBy: "level" as const,
+		rakeOverhang: 12,
+		depth: 7.25,
+		thickness: 1.5,
+		ridgeThickness: 1.5,
+		birdsmouth: 3.5,
+		birdsmouthBy: "seat" as const,
+		wallThickness: 3.5,
+		wallHeight: 96,
+		centers: 16,
+		sheetWidth: 48,
+		sheetLength: 96,
+		costPer1000Bft: 800,
+	};
+
+	it("frames a 24' x 40' gable at 6:12", async () => {
+		const { gableRoof } = await import("@/lib/construction/rafterUtils");
+		const g = gableRoof(roof)!;
+		expect(g.run).toBe(144);
+		expect(g.ridgeShortening).toBeCloseTo(0.8385, 3);
+		expect(g.lineLengthCut).toBeCloseTo(160.997 - 0.8385, 2);
+		expect(g.overallLengthCut).toBeCloseTo(187.83 - 0.8385, 2);
+		expect(g.ridgeTopAbovePlate).toBeCloseTo(78.356, 2);
+		expect(g.raftersPerSide).toBe(31);
+		expect(g.totalRafters).toBe(62);
+		expect(g.ridgeLength).toBe(504);
+		expect(g.fasciaLength).toBe(1008);
+		expect(g.slopeLength).toBeCloseTo(187.83, 2);
+		expect(g.areaPerSide / 144).toBeCloseTo(657.4, 1);
+		expect(g.sheetsPerSide).toBe(4 * 6);
+		expect(g.stockLength).toBe(192);
+		expect(g.rafterBoardFeet).toBeCloseTo(((7.25 * 1.5 * 192) / 144) * 62, 6);
+		expect(g.rafterCost).toBeCloseTo(g.rafterBoardFeet * 0.8, 6);
+	});
+
+	it("takes the overhang along the rafter", async () => {
+		const { gableRoof } = await import("@/lib/construction/rafterUtils");
+		const g = gableRoof({ ...roof, overhangBy: "rafter", overhang: 26.833 })!;
+		expect(g.overhang).toBeCloseTo(24, 2);
+		expect(gableRoof({ ...roof, buildingLength: 0 })).toBeNull();
+	});
+});

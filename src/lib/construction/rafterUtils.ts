@@ -1,9 +1,11 @@
 /**
  * Common rafters: lengths, cuts and the birdsmouth from run, pitch and section. Lengths in inches,
- * angles in degrees. Hip, valley, jack and gable rafters are deliberately not here yet.
+ * angles in degrees. Also the whole gable roof: ridge shortening, rafter layout, sheathing and lumber.
  */
 
 import { angleToPitch, pitchToAngle } from "./pitchUtils";
+import { studLayout, type Stud } from "./framingUtils";
+import { boardFeet, priceLumber } from "./lumberUtils";
 
 const DEG = 180 / Math.PI;
 
@@ -107,3 +109,126 @@ export function runFromSpan(buildingWidth: number, ridgeThickness: number): numb
 
 /** Roof angle from a pitch entered as rise per 12. */
 export const angleFromPitch = pitchToAngle;
+
+// ── Gable roof ───────────────────────────────────────────────────────────────
+
+export interface GableRoofInput {
+	/** Outside of wall to outside of wall */
+	buildingWidth: number;
+	/** Along the ridge, outside of wall to outside of wall */
+	buildingLength: number;
+	angle: number;
+	/** Eave overhang, level or along the rafter */
+	overhang: number;
+	overhangBy: "level" | "rafter";
+	/** Gable end (rake) overhang beyond each end wall, level */
+	rakeOverhang: number;
+	depth: number;
+	thickness: number;
+	ridgeThickness: number;
+	birdsmouth: number;
+	birdsmouthBy: "seat" | "plumb";
+	wallThickness: number;
+	wallHeight: number;
+	centers: number;
+	/** Sheathing sheet size, across the slope and along the ridge */
+	sheetWidth: number;
+	sheetLength: number;
+	costPer1000Bft: number;
+}
+
+export interface GableRoof {
+	run: number;
+	rafter: Rafter;
+	/** Level overhang used for the rafter */
+	overhang: number;
+	/** Taken off the ridge end of the rafter, along its length */
+	ridgeShortening: number;
+	/** Line length and overall length after shortening for the ridge */
+	lineLengthCut: number;
+	overallLengthCut: number;
+	/** Top of the ridge board above the top of the wall plate */
+	ridgeTopAbovePlate: number;
+	/** Ridge board depth that reaches the full plumb cut */
+	ridgeDepthNeeded: number;
+	ridgeLength: number;
+	fasciaLength: number;
+	/** Rafters along one side, their level positions from one end wall */
+	rafters: Stud[];
+	raftersPerSide: number;
+	totalRafters: number;
+	/** Eave to ridge along the roof surface, per side */
+	slopeLength: number;
+	areaPerSide: number;
+	roofArea: number;
+	sheetsPerSide: number;
+	totalSheets: number;
+	/** Stock length each rafter is cut from, to the next 2 ft */
+	stockLength: number;
+	rafterBoardFeet: number;
+	rafterCost: number;
+	warnings: string[];
+}
+
+export function gableRoof(input: GableRoofInput): GableRoof | null {
+	const { buildingWidth, buildingLength, angle, ridgeThickness, depth, thickness, centers, rakeOverhang, sheetWidth, sheetLength } = input;
+	if (!(buildingWidth > 0) || !(buildingLength > 0) || !(angle > 0) || angle >= 90 || !(ridgeThickness >= 0) || !(centers > 0) || !(rakeOverhang >= 0) || !(sheetWidth > 0) || !(sheetLength > 0)) return null;
+	const t = angle / DEG;
+	const cos = Math.cos(t);
+	const run = runFromSpan(buildingWidth, 0);
+	const overhang = input.overhangBy === "level" ? input.overhang : input.overhang * cos;
+	const rafter = commonRafter({ run, angle, overhang, depth, thickness, birdsmouth: input.birdsmouth, birdsmouthBy: input.birdsmouthBy, wallThickness: input.wallThickness, wallHeight: input.wallHeight });
+	if (!rafter) return null;
+	const ridgeShortening = ridgeThickness / 2 / cos;
+	const layout = studLayout({
+		wallLength: buildingLength,
+		studWidth: thickness,
+		studDepth: depth,
+		centers,
+		sheetWidth: 48,
+		startWith: "single",
+		endWith: "single",
+		firstStudOffset: 0,
+		sheetStart: "exterior",
+		orthogonalWalls: false,
+		studHeight: 1,
+		rakeAngle: 0,
+	});
+	if (!layout) return null;
+	const ridgeLength = buildingLength + 2 * rakeOverhang;
+	const slopeLength = (run + overhang) / cos;
+	const areaPerSide = slopeLength * ridgeLength;
+	const across = Math.ceil(slopeLength / sheetWidth - 1e-9);
+	const along = Math.ceil(ridgeLength / sheetLength - 1e-9);
+	const sheetsPerSide = across * along;
+	const stockLength = Math.ceil(rafter.overallLength / 24 - 1e-9) * 24;
+	const totalRafters = layout.count * 2;
+	const section = { width: depth, thickness };
+	const warnings = [...rafter.warnings];
+	const ridgeDepthNeeded = rafter.plumbDepth;
+	if (sheetsPerSide * 2 > 1e5) return null;
+	return {
+		run,
+		rafter,
+		overhang,
+		ridgeShortening,
+		lineLengthCut: rafter.lineLength - ridgeShortening,
+		overallLengthCut: rafter.overallLength - ridgeShortening,
+		ridgeTopAbovePlate: rafter.ridgeAbovePlate,
+		ridgeDepthNeeded,
+		ridgeLength,
+		fasciaLength: 2 * ridgeLength,
+		rafters: layout.studs,
+		raftersPerSide: layout.count,
+		totalRafters,
+		slopeLength,
+		areaPerSide,
+		roofArea: 2 * areaPerSide,
+		sheetsPerSide,
+		totalSheets: 2 * sheetsPerSide,
+		stockLength,
+		rafterBoardFeet: boardFeet(section, stockLength) * totalRafters,
+		rafterCost: priceLumber({ section, lengthIn: stockLength, pieces: totalRafters, costPer1000Bft: input.costPer1000Bft }).totalCost,
+		warnings,
+	};
+}

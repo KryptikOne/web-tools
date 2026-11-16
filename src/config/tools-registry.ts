@@ -907,6 +907,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		implemented: true,
 	},
 	{
+		id: "gable-roof",
+		name: "Gable Roof Calculator",
+		description: "Whole gable roof from the building size and pitch: rafter lengths shortened for the ridge, ridge height, rafter count and layout, ridge and fascia lengths, sheathing, area, board feet and cost",
+		seoDescription: "Gable roof framing from building width, length and pitch: rafter lengths with ridge shortening, ridge height, rafter count, sheathing, area and lumber cost.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/gable-roof",
+		keywords: ["gable", "gable roof", "roof framing", "rafters", "ridge", "ridge board", "roof area", "sheathing", "fascia", "roof pitch", "rafter layout"],
+		implemented: true,
+	},
+	{
 		id: "gable-studs",
 		name: "Gable Studs Calculator",
 		description: "Stud lengths under a raked top plate for a full gable end or a single slope: long and short points, common difference, top cut angle, running positions and a true-size cut template",
