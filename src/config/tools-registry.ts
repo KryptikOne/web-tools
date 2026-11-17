@@ -907,6 +907,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		implemented: true,
 	},
 	{
+		id: "rebar-calculator",
+		name: "Rebar Calculator",
+		description: "Slab grid or footing cage from the cover in: bars each way by spacing or count with positions, laps against the stock length, ties with hooks, total length, weight in lb and kg, stock bars, cost and chairs",
+		seoDescription: "Rebar for a slab grid or footing cage: bars each way from the cover, laps against stock length, ties, total length, weight in lb and kg, cost and chairs.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/rebar-calculator",
+		keywords: ["rebar", "reinforcing", "reinforcement", "bar spacing", "lap", "lap splice", "stirrups", "ties", "footing", "slab", "#4 rebar", "n12", "chairs"],
+		implemented: true,
+	},
+	{
 		id: "block-calculator",
 		name: "Concrete Block Calculator",
 		description: "Blocks per course and courses for a block wall less openings plus waste, half blocks at corners and ends, mortar bags, core fill grout and bags, vertical rebar and cost, with an elevation and a block plan",
