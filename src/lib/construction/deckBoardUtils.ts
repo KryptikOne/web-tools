@@ -71,6 +71,9 @@ export interface DeckBoards {
 	warnings: string[];
 }
 
+/** Rows times pieces per row; beyond this the layout is not a deck anyone marks out */
+export const MAX_PIECES = 20000;
+
 const MODE: Record<BoardLayout, TileFitMode> = { "adjust-gap": "fit-evenly", "rip-last": "flush", "rip-both": "cut-both", "whole-boards": "wall-joint" };
 
 /** Break one row of boards into stock pieces with joints landing on joist centres. */
@@ -99,6 +102,7 @@ export function deckBoards(input: DeckBoardInput): DeckBoards | null {
 	const warnings = [...fit.warnings.map((w) => w.replace(/^Tile/, "Board"))];
 
 	const usable = Math.max(joistCenters, Math.floor(boardLength / joistCenters + 1e-9) * joistCenters);
+	if (fit.count * Math.ceil(fieldLength / usable) > MAX_PIECES) return null;
 	if (usable > boardLength + 1e-9) warnings.push(`A ${boardLength} in board does not reach from one joist to the next`);
 	const firstFor = (i: number) => {
 		if (stagger === "none") return usable;

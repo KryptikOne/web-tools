@@ -169,7 +169,7 @@ export default function DeckBoards() {
 					</section>
 				</div>
 
-				{boards && state.width !== null && state.length !== null && state.border !== null && state.joistCenters !== null && (
+				{boards && boards.count <= 300 && state.width !== null && state.length !== null && state.border !== null && state.joistCenters !== null && (
 					<>
 						<section className={styles.card} aria-labelledby="db-plan">
 							<h2 id="db-plan" className={styles.cardTitle}>

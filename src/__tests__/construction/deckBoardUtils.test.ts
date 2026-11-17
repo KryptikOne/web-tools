@@ -66,5 +66,7 @@ describe("deckBoards", () => {
 	it("rejects a field narrower than a board", () => {
 		expect(deckBoards({ ...base, width: 5 })).toBeNull();
 		expect(deckBoards({ ...base, boardLength: 10 })!.warnings.some((w) => /does not reach/.test(w))).toBe(true);
+		// a shared link cannot ask for millions of pieces
+		expect(deckBoards({ ...base, width: 10000, length: 10000, boardWidth: 5.5, joistCenters: 1, boardLength: 1 })).toBeNull();
 	});
 });
