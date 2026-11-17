@@ -907,6 +907,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		implemented: true,
 	},
 	{
+		id: "curved-molding-calculator",
+		name: "Curved Molding Calculator",
+		description: "Trim or crown round a curved wall or opening: inside and outside radii, developed length, straight segments with end miters and the flat blank to saw a curved face, kerf spacing and crown compound cuts",
+		seoDescription: "Curved molding round a wall or opening: radii, developed length, segment lengths and end miters, the flat blank for a sawn curve, kerf spacing and crown cuts.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/curved-molding-calculator",
+		keywords: ["curved molding", "curved moulding", "curved trim", "curved crown", "segmented", "arch casing", "radius trim", "miter", "spring angle", "kerf"],
+		implemented: true,
+	},
+	{
 		id: "arc-layout-calculator",
 		name: "Arc, Gothic Arch and Oval Layout Calculator",
 		description: "Set out curves on site: an arc by offsets from its chord, equilateral, lancet, drop and Tudor gothic arches with their centres and radii, and ovals by string and pins, offsets or four compass arcs",

@@ -1,0 +1,33 @@
+@use "@/styles/variables" as *;
+
+.band {
+	fill: var(--diagram-ridge);
+	fill-opacity: 0.45;
+	stroke: var(--diagram-stroke);
+	stroke-width: 1.25px;
+	vector-effect: non-scaling-stroke;
+}
+
+.blank {
+	fill: none;
+	stroke: var(--diagram-dim);
+	stroke-width: 1px;
+	stroke-dasharray: 4 2;
+	vector-effect: non-scaling-stroke;
+}
+
+.radius {
+	stroke: var(--diagram-dim);
+	stroke-width: 0.75px;
+	stroke-dasharray: 3 2;
+	vector-effect: non-scaling-stroke;
+}
+
+.centre {
+	fill: $color-accent-secondary;
+}
+
+.num {
+	fill: var(--diagram-stroke);
+	font-weight: 600;
+}
