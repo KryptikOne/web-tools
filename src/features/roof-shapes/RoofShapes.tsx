@@ -10,7 +10,7 @@ import { nominalToActual, formatArea } from "@/lib/construction/imperialUtils";
 import { skillion, skillionAngleFromWalls, gambrel, saltbox, type Skillion, type Gambrel, type Saltbox } from "@/lib/construction/roofShapesUtils";
 import type { Rafter } from "@/lib/construction/rafterUtils";
 import { angleToPitch, formatAngle, formatPitch, pitchToAngle } from "@/lib/construction/pitchUtils";
-import RoofSectionDiagram, { type RoofSectionDiagramProps, type RafterPiece } from "./RoofSectionDiagram";
+import { RoofSectionDiagram, type RoofSectionDiagramProps, type RafterPiece } from "@/components/construction";
 import styles from "./RoofShapes.module.scss";
 
 type Mode = "skillion" | "gambrel" | "saltbox";

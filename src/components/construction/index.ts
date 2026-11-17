@@ -19,3 +19,5 @@ export { default as SpacingDiagram, spacingDrawingScale } from "./SpacingDiagram
 export type { SpacingDiagramProps } from "./SpacingDiagram";
 export { default as StairBalusterDiagram } from "./StairBalusterDiagram";
 export type { StairBalusterDiagramProps } from "./StairBalusterDiagram";
+export { default as RoofSectionDiagram } from "./RoofSectionDiagram";
+export type { RoofSectionDiagramProps, RafterPiece, WallPiece, DimPiece, ArcPiece, TextPiece } from "./RoofSectionDiagram";

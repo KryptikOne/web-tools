@@ -907,6 +907,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		implemented: true,
 	},
 	{
+		id: "hip-roof",
+		name: "Hip Roof Calculator",
+		description: "Equal-pitch hip roof: common, hip and jack rafter lengths with ridge and hip shortening, hip pitch, drop or backing, cheek cuts, jack diminish, ridge and cap lengths, sheathing, area and lumber",
+		seoDescription: "Hip roof framing: common, hip and jack rafter lengths, hip pitch per 17, drop or backing, cheek cut angles, jack diminish, ridge, sheathing, area and lumber.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/hip-roof",
+		keywords: ["hip", "hip roof", "hip rafter", "jack rafter", "jacks", "cheek cut", "side cut", "backing", "hip drop", "diminish", "roof framing", "ridge"],
+		implemented: true,
+	},
+	{
 		id: "roof-shapes",
 		name: "Skillion, Gambrel and Saltbox Roof Calculator",
 		description: "Rafter lengths, cuts, wall heights, break and ridge heights and roof area for a one-slope skillion, a two-slope gambrel or an off-centre saltbox, with a dimensioned cross section",
