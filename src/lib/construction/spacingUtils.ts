@@ -166,3 +166,46 @@ export function computeSpacing(input: SpacingInput): SpacingResult {
 export function runningPositions(result: SpacingResult, ref: MarkReference): number[] {
 	return result.members.map((m) => m[ref]);
 }
+
+// ── Graduated series ─────────────────────────────────────────────────────────
+
+export type GraduationMode = "arithmetic" | "geometric";
+
+/**
+ * `count` openings that fill `total` and grow from the first to the last: arithmetic adds a fixed
+ * `step` each time, geometric multiplies by `ratio`. With no step or ratio given the first opening
+ * is `first` and the series is solved to close on the total. Returns the openings in order.
+ */
+export function graduatedSeries(total: number, count: number, mode: GraduationMode, opts: { step?: number; ratio?: number; first?: number }): number[] | null {
+	const n = Math.floor(count);
+	if (!(total > 0) || n < 1 || n > MAX_MEMBERS) return null;
+	if (n === 1) return [total];
+	if (mode === "arithmetic") {
+		let step: number;
+		if (opts.step !== undefined) step = opts.step;
+		else if (opts.first !== undefined) step = (total - n * opts.first) / ((n * (n - 1)) / 2);
+		else return null;
+		const first = (total - step * ((n * (n - 1)) / 2)) / n;
+		if (first <= 0 || first + step * (n - 1) <= 0) return null;
+		return Array.from({ length: n }, (_, i) => first + i * step);
+	}
+	let ratio: number;
+	if (opts.ratio !== undefined) ratio = opts.ratio;
+	else if (opts.first !== undefined && opts.first > 0 && opts.first < total) {
+		// solve first × (r^n − 1) / (r − 1) = total for r by bisection
+		const f = (r: number) => (Math.abs(r - 1) < 1e-12 ? opts.first! * n : (opts.first! * (Math.pow(r, n) - 1)) / (r - 1)) - total;
+		let lo = 1e-6;
+		let hi = 1e3;
+		if (f(lo) > 0 || f(hi) < 0) return null;
+		for (let i = 0; i < 200; i++) {
+			const mid = (lo + hi) / 2;
+			if (f(mid) > 0) hi = mid;
+			else lo = mid;
+		}
+		ratio = (lo + hi) / 2;
+	} else return null;
+	if (!(ratio > 0)) return null;
+	const sum = Math.abs(ratio - 1) < 1e-12 ? n : (Math.pow(ratio, n) - 1) / (ratio - 1);
+	const first = total / sum;
+	return Array.from({ length: n }, (_, i) => first * Math.pow(ratio, i));
+}

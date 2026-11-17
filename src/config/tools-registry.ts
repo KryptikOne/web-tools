@@ -907,6 +907,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		implemented: true,
 	},
 	{
+		id: "shelf-calculator",
+		name: "Shelf and Drawer Spacing Calculator",
+		description: "Equal, graduated or set shelf and drawer openings inside a carcass with clearances, each opening height, shelf positions from the bottom, an elevation and a true-size story stick",
+		seoDescription: "Space shelves or drawers in a cabinet: equal, graduated by step or ratio, or set heights with the last taking the rest; opening heights, positions, story stick.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/shelf-calculator",
+		keywords: ["shelf", "shelves", "shelf spacing", "drawer", "drawers", "graduated drawers", "cabinet", "carcass", "bookcase", "story stick", "openings"],
+		implemented: true,
+	},
+	{
 		id: "kerf-calculator",
 		name: "Kerf Bending Calculator",
 		description: "Kerf spacing, count and depth to bend a board to a radius or around a half ellipse, with the bend length, arcs, running kerf positions, flat and bent drawings and a true-size layout strip",

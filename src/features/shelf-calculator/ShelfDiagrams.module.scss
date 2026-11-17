@@ -1,0 +1,23 @@
+.stick {
+	fill: var(--diagram-wall);
+	fill-opacity: 0.35;
+	stroke: var(--diagram-stroke);
+	stroke-width: 1px;
+	vector-effect: non-scaling-stroke;
+}
+
+.shelfBand {
+	fill: var(--diagram-tread);
+	fill-opacity: 0.8;
+}
+
+.mark {
+	stroke: var(--diagram-stroke);
+	stroke-width: 1px;
+	vector-effect: non-scaling-stroke;
+}
+
+.num {
+	fill: var(--diagram-stroke);
+	font-weight: 600;
+}
