@@ -1,0 +1,40 @@
+@use "@/styles/variables" as *;
+
+.curve {
+	fill: none;
+	stroke: var(--color-violet);
+	stroke-width: 2px;
+	vector-effect: non-scaling-stroke;
+}
+
+.base {
+	stroke: var(--diagram-stroke);
+	stroke-width: 1.25px;
+	vector-effect: non-scaling-stroke;
+}
+
+.ordinate {
+	stroke: var(--diagram-dim);
+	stroke-width: 0.75px;
+	vector-effect: non-scaling-stroke;
+}
+
+.radius {
+	stroke: var(--diagram-dim);
+	stroke-width: 0.75px;
+	stroke-dasharray: 3 2;
+	vector-effect: non-scaling-stroke;
+}
+
+.centre {
+	fill: $color-accent-secondary;
+}
+
+.point {
+	fill: var(--diagram-stroke);
+}
+
+.num {
+	fill: var(--diagram-stroke);
+	font-weight: 600;
+}

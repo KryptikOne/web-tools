@@ -907,6 +907,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		implemented: true,
 	},
 	{
+		id: "arc-layout-calculator",
+		name: "Arc, Gothic Arch and Oval Layout Calculator",
+		description: "Set out curves on site: an arc by offsets from its chord, equilateral, lancet, drop and Tudor gothic arches with their centres and radii, and ovals by string and pins, offsets or four compass arcs",
+		seoDescription: "Set out an arc by offsets from its chord, gothic arches with their centres and radii, and ovals by string and pins, offsets or four compass arcs, with drawings.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/arc-layout-calculator",
+		keywords: ["arc", "arch", "gothic arch", "tudor arch", "lancet", "oval", "ellipse", "offsets", "chord", "rise", "radius", "string and pins", "four centre", "setting out"],
+		implemented: true,
+	},
+	{
 		id: "golden-ratio-calculator",
 		name: "Diminishing Lengths and Golden Ratio Calculator",
 		description: "Members at set centers meeting a sloping line, each longer or shorter by the same amount, with the cut angle and a lengths list; and the golden section of any length with a rectangle and spiral",
