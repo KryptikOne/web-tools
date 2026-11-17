@@ -60,6 +60,8 @@ const DEFAULTS: BrickState = {
 	pricePerBrick: 0.8,
 };
 
+/** Longest gauge rod drawn: 30 segments of 250 mm, about 24 ft 7 in */
+const MAX_ROD_MM = 7500;
 const UNIT_OPTIONS = [...MASONRY_UNITS.map((u) => ({ value: u.id, label: u.label })), { value: "custom", label: "Custom" }];
 const PATTERN_VALUES = BOND_PATTERNS.map((p) => p.value);
 
@@ -79,14 +81,14 @@ function sanitize(s: Partial<BrickState>): BrickState {
 		minJoint: num(s.minJoint, 0, 5, DEFAULTS.minJoint),
 		maxJoint: num(s.maxJoint, 0, 5, DEFAULTS.maxJoint),
 		by: oneOf(s.by, ["height", "courses"] as const, DEFAULTS.by),
-		targetHeight: num(s.targetHeight, 1, 10000, DEFAULTS.targetHeight),
-		courses: int(s.courses, 1, 2000, DEFAULTS.courses),
+		targetHeight: num(s.targetHeight, 1, 1200, DEFAULTS.targetHeight),
+		courses: int(s.courses, 1, 400, DEFAULTS.courses),
 		sill: num(s.sill, 0, 10000, DEFAULTS.sill),
 		head: num(s.head, 0, 10000, DEFAULTS.head),
-		wallLength: num(s.wallLength, 1, 10000, DEFAULTS.wallLength),
+		wallLength: num(s.wallLength, 1, 2400, DEFAULTS.wallLength),
 		pattern: oneOf(s.pattern, PATTERN_VALUES, DEFAULTS.pattern),
 		fit: oneOf(s.fit, ["adjust-perps", "cut-ends"] as const, DEFAULTS.fit),
-		wallCourses: int(s.wallCourses, 1, 2000, DEFAULTS.wallCourses),
+		wallCourses: int(s.wallCourses, 1, 400, DEFAULTS.wallCourses),
 		wastePercent: num(s.wastePercent, 0, 100, DEFAULTS.wastePercent) ?? DEFAULTS.wastePercent,
 		pricePerBrick: num(s.pricePerBrick, 0, 1000, DEFAULTS.pricePerBrick) ?? DEFAULTS.pricePerBrick,
 	};
@@ -214,7 +216,7 @@ export default function BrickCalculator() {
 												]}
 											/>
 										</div>
-										{state.by === "height" ? <DimensionInput id="bk-target" label="Target height" value={state.targetHeight} onChange={set("targetHeight")} className="w-44" /> : <NumberField id="bk-courses" label="Courses" value={state.courses} onChange={(v) => set("courses")(int(v, 1, 2000, 1))} min={1} max={2000} step={1} className="w-36" />}
+										{state.by === "height" ? <DimensionInput id="bk-target" label="Target height" value={state.targetHeight} onChange={set("targetHeight")} className="w-44" /> : <NumberField id="bk-courses" label="Courses" value={state.courses} onChange={(v) => set("courses")(int(v, 1, 400, 1))} min={1} max={400} step={1} className="w-36" />}
 									</div>
 									<div className="grid grid-cols-2 gap-3">
 										<DimensionInput id="bk-sill" label="Window sill" value={state.sill} onChange={set("sill")} hint="Height to snap to a course; 0 for none" />
@@ -254,7 +256,7 @@ export default function BrickCalculator() {
 										/>
 									</div>
 									<div className="grid grid-cols-3 gap-3">
-										<NumberField id="bk-wall-courses" label="Courses high" value={state.wallCourses} onChange={(v) => set("wallCourses")(int(v, 1, 2000, 1))} min={1} max={2000} step={1} />
+										<NumberField id="bk-wall-courses" label="Courses high" value={state.wallCourses} onChange={(v) => set("wallCourses")(int(v, 1, 400, 1))} min={1} max={400} step={1} />
 										<NumberField id="bk-waste" label="Waste" value={state.wastePercent} onChange={set("wastePercent")} unit="%" min={0} max={100} step="any" />
 										<NumberField id="bk-price" label="Per brick" value={state.pricePerBrick} onChange={set("pricePerBrick")} prefix="$" step="any" />
 									</div>
@@ -280,6 +282,9 @@ export default function BrickCalculator() {
 				{g && state.brickHeight !== null && (
 					<>
 						<RunningList title="Course heights" positions={g.courseHeights} labelFor={(i) => g.openings.find((o) => o.height > 0 && o.course === i + 1)?.label ?? ""} />
+						{g.height * 25.4 > MAX_ROD_MM ? (
+							<p className={styles.note}>The gauge rod is only drawn for heights up to {Math.round(MAX_ROD_MM / 25.4 / 12)} ft; the running list above carries every course.</p>
+						) : (
 						<section className={styles.card} aria-labelledby="bk-rod">
 							<h2 id="bk-rod" className={styles.cardTitle}>
 								Gauge rod
@@ -291,6 +296,7 @@ export default function BrickCalculator() {
 								</div>
 							</PrintDiagrams>
 						</section>
+						)}
 					</>
 				)}
 

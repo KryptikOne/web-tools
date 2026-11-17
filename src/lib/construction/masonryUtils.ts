@@ -51,7 +51,7 @@ export function gauge(input: GaugeInput): Gauge | null {
 		courses = Math.max(1, Math.floor(input.courses));
 		target = courses * nominalGauge;
 	}
-	if (courses > 10000) return null;
+	if (courses > 2000) return null;
 	const nominalHeight = courses * nominalGauge;
 	// the first course sits on a bed joint too: height = courses × (unit + joint)
 	const adjustedJoint = target / courses - h;
