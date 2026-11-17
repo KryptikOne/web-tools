@@ -907,6 +907,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		implemented: true,
 	},
 	{
+		id: "wainscot-calculator",
+		name: "Wainscoting and Shaker Panel Calculator",
+		description: "Stile and rail frames for a flat wall or a stair wall: panel count or width, stile positions level and along the rake, parallelogram panels, end cut angles, a cut list and dimensioned elevations",
+		seoDescription: "Wainscoting and shaker panels on a flat or stair wall: panel widths, stile positions, parallelogram panels on the rake, end cut angles, cut list and elevations.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/wainscot-calculator",
+		keywords: ["wainscoting", "wainscot", "shaker panels", "board and batten", "stiles", "rails", "panel moulding", "stair wall", "picture frame moulding", "chair rail"],
+		implemented: true,
+	},
+	{
 		id: "shelf-calculator",
 		name: "Shelf and Drawer Spacing Calculator",
 		description: "Equal, graduated or set shelf and drawer openings inside a carcass with clearances, each opening height, shelf positions from the bottom, an elevation and a true-size story stick",
