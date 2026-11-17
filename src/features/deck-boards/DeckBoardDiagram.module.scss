@@ -1,0 +1,18 @@
+.outline {
+	fill: none;
+	stroke: var(--diagram-stroke);
+	stroke-width: 1.25px;
+	vector-effect: non-scaling-stroke;
+}
+
+.joist {
+	stroke: var(--diagram-dim);
+	stroke-width: 1px;
+	stroke-dasharray: 3 2;
+	vector-effect: non-scaling-stroke;
+}
+
+.num {
+	fill: var(--diagram-stroke);
+	font-weight: 600;
+}

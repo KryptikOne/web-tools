@@ -907,6 +907,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		implemented: true,
 	},
 	{
+		id: "deck-boards",
+		name: "Deck Board Layout Calculator",
+		description: "Deck board rows across a width with the gap adjusted, the last board ripped, both edges ripped or whole boards, a picture-frame border, joints staggered over the joists, screws, boards to buy and a running list",
+		seoDescription: "Lay out deck boards across a deck: adjust the gap, rip the last or both edge boards, add a picture-frame border, stagger joints over joists, count screws.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/deck-boards",
+		keywords: ["deck", "decking", "deck boards", "board spacing", "picture frame", "stagger", "joists", "rip", "gap", "composite decking", "5/4 deck board"],
+		implemented: true,
+	},
+	{
 		id: "hip-roof",
 		name: "Hip Roof Calculator",
 		description: "Equal-pitch hip roof: common, hip and jack rafter lengths with ridge and hip shortening, hip pitch, drop or backing, cheek cuts, jack diminish, ridge and cap lengths, sheathing, area and lumber",
