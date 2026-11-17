@@ -907,6 +907,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		implemented: true,
 	},
 	{
+		id: "tank-calculator",
+		name: "Tank Volume and Dip Chart Calculator",
+		description: "Capacity and volume at any depth for horizontal, vertical, elliptical and rectangular tanks with dished, hemispherical, cone or dome ends, liquid weight, surface area, a section with the fill level and a printable dip chart",
+		seoDescription: "Volume at any depth for horizontal, vertical, elliptical or rectangular tanks with dished, cone or dome ends in gallons, litres or barrels, with a dip chart.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/tank-calculator",
+		keywords: ["tank", "tank volume", "dip chart", "dipstick", "cylinder volume", "gallons", "litres", "barrels", "water tank", "fuel tank", "horizontal tank", "vertical tank"],
+		implemented: true,
+	},
+	{
 		id: "rebar-calculator",
 		name: "Rebar Calculator",
 		description: "Slab grid or footing cage from the cover in: bars each way by spacing or count with positions, laps against the stock length, ties with hooks, total length, weight in lb and kg, stock bars, cost and chairs",
