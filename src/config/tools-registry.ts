@@ -907,6 +907,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		implemented: true,
 	},
 	{
+		id: "brick-calculator",
+		name: "Brick Gauge and Bond Calculator",
+		description: "Courses to a height with the bed joint that hits it exactly, sills and heads snapped to courses, a true-size gauge rod in printable segments, and bricks per course in stretcher, header, English, Flemish or stack bond with cuts, quantities and mortar",
+		seoDescription: "Brick gauge and bond: courses to a height, the bed joint that hits it exactly, a printable true-size gauge rod, bricks per course in five bonds, mortar, cost.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/brick-calculator",
+		keywords: ["brick", "bricks", "bricklaying", "gauge", "gauge rod", "storey rod", "courses", "bond", "stretcher bond", "flemish bond", "english bond", "perps", "mortar"],
+		implemented: true,
+	},
+	{
 		id: "fence-calculator",
 		name: "Fence Calculator",
 		description: "Post and rail fences with palings, post and panel fences, arched or scalloped paling tops and glass balustrades: posts, rails, palings, panels, concrete, cutting lists, running positions and cost",
