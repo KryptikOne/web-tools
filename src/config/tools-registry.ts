@@ -907,6 +907,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		implemented: true,
 	},
 	{
+		id: "brace-calculator",
+		name: "Bracing Calculator",
+		description: "Diagonal braces across a frame cut to the corners or square-ended with let-in notch positions, and knee braces between a post and beam with end cuts and housings, with true-size end templates",
+		seoDescription: "Diagonal brace lengths and plumb and level end cuts with let-in notch positions, plus knee brace lengths, cut angles and housings, with end cut templates.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/brace-calculator",
+		keywords: ["brace", "bracing", "diagonal brace", "let-in brace", "knee brace", "corner brace", "wind brace", "post and beam", "timber frame", "cut angle"],
+		implemented: true,
+	},
+	{
 		id: "curved-molding-calculator",
 		name: "Curved Molding Calculator",
 		description: "Trim or crown round a curved wall or opening: inside and outside radii, developed length, straight segments with end miters and the flat blank to saw a curved face, kerf spacing and crown compound cuts",
