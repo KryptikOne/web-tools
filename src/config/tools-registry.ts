@@ -907,6 +907,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		implemented: true,
 	},
 	{
+		id: "block-calculator",
+		name: "Concrete Block Calculator",
+		description: "Blocks per course and courses for a block wall less openings plus waste, half blocks at corners and ends, mortar bags, core fill grout and bags, vertical rebar and cost, with an elevation and a block plan",
+		seoDescription: "Concrete block wall quantities: courses, blocks less openings plus waste, half blocks at corners, mortar bags, core fill grout and bags, vertical rebar, cost.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/block-calculator",
+		keywords: ["block", "blocks", "cmu", "concrete block", "cinder block", "block wall", "core fill", "grout", "mortar", "courses", "besser block", "breeze block"],
+		implemented: true,
+	},
+	{
 		id: "brick-calculator",
 		name: "Brick Gauge and Bond Calculator",
 		description: "Courses to a height with the bed joint that hits it exactly, sills and heads snapped to courses, a true-size gauge rod in printable segments, and bricks per course in stretcher, header, English, Flemish or stack bond with cuts, quantities and mortar",

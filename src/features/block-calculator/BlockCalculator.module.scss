@@ -60,3 +60,17 @@
 		outline: none;
 	}
 }
+
+.select {
+	padding: 0.45rem 0.6rem;
+	background: $bg-secondary;
+	border: 1px solid $border-subtle;
+	color: $text-primary;
+	font-size: 0.85rem;
+	max-width: 100%;
+
+	&:focus-visible {
+		border-color: $color-accent;
+		outline: none;
+	}
+}
