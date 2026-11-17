@@ -907,6 +907,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		implemented: true,
 	},
 	{
+		id: "kerf-calculator",
+		name: "Kerf Bending Calculator",
+		description: "Kerf spacing, count and depth to bend a board to a radius or around a half ellipse, with the bend length, arcs, running kerf positions, flat and bent drawings and a true-size layout strip",
+		seoDescription: "Kerf bending: spacing, count and depth of saw kerfs to bend a board to a radius and angle or round a half ellipse, with kerf positions and a printable strip.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/kerf-calculator",
+		keywords: ["kerf", "kerfing", "kerf bending", "bend wood", "curved trim", "bending plywood", "kerf spacing", "ellipse", "arch trim"],
+		implemented: true,
+	},
+	{
 		id: "tank-calculator",
 		name: "Tank Volume and Dip Chart Calculator",
 		description: "Capacity and volume at any depth for horizontal, vertical, elliptical and rectangular tanks with dished, hemispherical, cone or dome ends, liquid weight, surface area, a section with the fill level and a printable dip chart",
