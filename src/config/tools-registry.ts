@@ -907,6 +907,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		implemented: true,
 	},
 	{
+		id: "deck-calculator",
+		name: "Deck Calculator",
+		description: "Whole deck from size, height and ground fall: stumps with their lengths, bearers, joists, board rows, fascia, fasteners and a material list with board feet and cost, plus plan, elevation and running lists",
+		seoDescription: "Deck framing quantities from size, height and ground fall: stump lengths, bearers, joists, deck boards, fascia, fasteners and a material list with cost.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/deck-calculator",
+		keywords: ["deck", "decking", "stumps", "posts", "bearers", "beams", "joists", "deck framing", "ground fall", "deck materials", "deck cost"],
+		implemented: true,
+	},
+	{
 		id: "deck-boards",
 		name: "Deck Board Layout Calculator",
 		description: "Deck board rows across a width with the gap adjusted, the last board ripped, both edges ripped or whole boards, a picture-frame border, joints staggered over the joists, screws, boards to buy and a running list",
