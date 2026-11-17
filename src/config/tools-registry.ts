@@ -907,6 +907,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		implemented: true,
 	},
 	{
+		id: "site-utilities",
+		name: "Angle, Scale and Floor Area Utilities",
+		description: "Three small site tools: degrees, minutes and seconds with adding, normalising and bearings; drawing scales with a printable true-size scale bar; and floor areas of rooms with perimeter and flooring waste",
+		seoDescription: "Degrees to minutes and seconds with bearings, drawing scale conversions with a printable scale bar, and floor areas of rooms with perimeter and flooring waste.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/site-utilities",
+		keywords: ["dms", "degrees minutes seconds", "bearing", "azimuth", "scale", "drawing scale", "1:50", "quarter inch scale", "scale bar", "floor area", "square feet", "room area", "flooring"],
+		implemented: true,
+	},
+	{
 		id: "brace-calculator",
 		name: "Bracing Calculator",
 		description: "Diagonal braces across a frame cut to the corners or square-ended with let-in notch positions, and knee braces between a post and beam with end cuts and housings, with true-size end templates",
