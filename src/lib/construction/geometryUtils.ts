@@ -251,3 +251,83 @@ export function solveArc(known: ArcKnown): ArcResult | null {
 		segmentArea: (r * r * (theta - Math.sin(theta))) / 2,
 	};
 }
+
+// ── Diminishing lengths and the golden ratio ────────────────────────────────
+
+export interface DiminishingInput {
+	/** Length of the first member */
+	firstLength: number;
+	/** Angle of the line the members meet, from level */
+	angle: number;
+	centers: number;
+	by: "count" | "run";
+	count: number;
+	/** Level run the members cover when `by` is "run" */
+	run: number;
+	/** Members get longer or shorter along the run */
+	direction: "longer" | "shorter";
+}
+
+export interface Diminishing {
+	lengths: number[];
+	count: number;
+	/** Change in length from one member to the next */
+	commonDifference: number;
+	/** Cut angle from square where a member meets the raked line */
+	cutAngle: number;
+	/** Level position of each member from the first */
+	positions: number[];
+	/** Length of the raked line covered */
+	rakeLength: number;
+	warnings: string[];
+}
+
+/** Members at set centers meeting a raked line: each is longer (or shorter) than the last by centers × tan(angle). */
+export function diminishingLengths(input: DiminishingInput): Diminishing | null {
+	const { firstLength, angle, centers, direction } = input;
+	if (!(firstLength > 0) || !(angle > 0) || angle >= 90 || !(centers > 0)) return null;
+	const n = input.by === "count" ? Math.floor(input.count) : Math.floor(input.run / centers + 1e-9) + 1;
+	if (n < 1 || n > 1000) return null;
+	const d = centers * Math.tan((angle * Math.PI) / 180) * (direction === "longer" ? 1 : -1);
+	const lengths = Array.from({ length: n }, (_, i) => firstLength + i * d);
+	const warnings: string[] = [];
+	if (lengths.some((l) => l <= 0)) warnings.push("The members run out of length before the end of the run; fewer members or a longer first member");
+	return {
+		lengths,
+		count: n,
+		commonDifference: Math.abs(d),
+		cutAngle: angle,
+		positions: Array.from({ length: n }, (_, i) => i * centers),
+		rakeLength: ((n - 1) * centers) / Math.cos((angle * Math.PI) / 180),
+		warnings,
+	};
+}
+
+export const PHI = (1 + Math.sqrt(5)) / 2;
+
+export interface GoldenRatio {
+	whole: number;
+	long: number;
+	short: number;
+	ratio: number;
+	/** Successive golden divisions of the short part, largest first */
+	nested: number[];
+}
+
+/** Golden section from any one of the whole, the long part or the short part. */
+export function goldenRatio(known: "whole" | "long" | "short", value: number, levels = 5): GoldenRatio | null {
+	if (!(value > 0) || !Number.isFinite(value)) return null;
+	let whole: number;
+	if (known === "whole") whole = value;
+	else if (known === "long") whole = value * PHI;
+	else whole = value * PHI * PHI;
+	const long = whole / PHI;
+	const short = whole - long;
+	const nested: number[] = [];
+	let x = short;
+	for (let i = 0; i < Math.max(0, Math.min(levels, 12)); i++) {
+		x = x / PHI;
+		nested.push(x);
+	}
+	return { whole, long, short, ratio: PHI, nested };
+}

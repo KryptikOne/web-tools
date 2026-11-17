@@ -1,0 +1,62 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "@/styles/utilities" as util;
+
+.container {
+	@extend .container;
+}
+
+.card {
+	@include glass-card;
+	padding: 1rem;
+}
+
+.cardTitle {
+	margin: 0 0 0.5rem;
+	font-size: 0.95rem;
+	font-weight: 600;
+	color: $text-primary;
+}
+
+.label {
+	font-size: 0.8rem;
+	font-weight: 600;
+	color: $text-secondary;
+}
+
+.note {
+	margin: 0 0 0.75rem;
+	font-size: 0.8rem;
+	line-height: 1.45;
+	color: $text-tertiary;
+}
+
+.warn {
+	margin: 0.5rem 0 0;
+	padding: 0.5rem 0.75rem;
+	border-left: 2px solid $color-accent-secondary;
+	font-size: 0.8rem;
+	line-height: 1.45;
+	color: $text-secondary;
+}
+
+.empty {
+	margin: 0;
+	font-size: 0.8rem;
+	color: $text-muted;
+}
+
+.btn {
+	padding: 0.4rem 0.8rem;
+	background: $bg-secondary;
+	border: 1px solid $border-subtle;
+	color: $text-primary;
+	font-size: 0.8rem;
+	cursor: pointer;
+
+	&:hover,
+	&:focus-visible {
+		border-color: $color-accent;
+		outline: none;
+	}
+}

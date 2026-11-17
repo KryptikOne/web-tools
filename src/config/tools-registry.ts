@@ -907,6 +907,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		implemented: true,
 	},
 	{
+		id: "golden-ratio-calculator",
+		name: "Diminishing Lengths and Golden Ratio Calculator",
+		description: "Members at set centers meeting a sloping line, each longer or shorter by the same amount, with the cut angle and a lengths list; and the golden section of any length with a rectangle and spiral",
+		seoDescription: "Diminishing lengths for studs, jacks or pickets under a sloping line, with the common difference and cut angle, and the golden ratio of any length.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/golden-ratio-calculator",
+		keywords: ["golden ratio", "golden section", "phi", "1.618", "diminishing", "common difference", "gable studs", "pickets", "jack rafters", "proportion"],
+		implemented: true,
+	},
+	{
 		id: "wainscot-calculator",
 		name: "Wainscoting and Shaker Panel Calculator",
 		description: "Stile and rail frames for a flat wall or a stair wall: panel count or width, stile positions level and along the rake, parallelogram panels, end cut angles, a cut list and dimensioned elevations",
