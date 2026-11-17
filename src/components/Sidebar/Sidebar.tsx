@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { DocumentTextIcon, SwatchIcon, PhotoIcon, CodeBracketIcon, CalculatorIcon, ArrowsRightLeftIcon, LockClosedIcon, ClockIcon, ShieldCheckIcon, GlobeAltIcon, ChevronRightIcon,
 	CakeIcon,
 	WrenchScrewdriverIcon,
+	ScissorsIcon,
 } from "@heroicons/react/24/outline";
 import { CATEGORIES, CATEGORY_NAMES, getToolsByCategory } from "@/config/tools-registry";
 import { filterToolsByQuery } from "@/lib/toolSearch";
@@ -31,6 +32,7 @@ const CATEGORY_ICONS: Record<ToolCategory, React.ComponentType<React.SVGProps<SV
 	[ToolCategory.NETWORK]: GlobeAltIcon,
 	[ToolCategory.KITCHEN]: CakeIcon,
 	[ToolCategory.CONSTRUCTION]: WrenchScrewdriverIcon,
+	[ToolCategory.WORKSHOP]: ScissorsIcon,
 };
 
 export default function Sidebar() {

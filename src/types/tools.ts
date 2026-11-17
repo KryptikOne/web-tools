@@ -24,6 +24,7 @@ export enum ToolCategory {
 	NETWORK = "network",
 	KITCHEN = "kitchen",
 	CONSTRUCTION = "construction",
+	WORKSHOP = "workshop",
 }
 
 export interface CategoryInfo {
