@@ -907,6 +907,16 @@ export const TOOLS_REGISTRY: Tool[] = [
 		implemented: true,
 	},
 	{
+		id: "fence-calculator",
+		name: "Fence Calculator",
+		description: "Post and rail fences with palings, post and panel fences, arched or scalloped paling tops and glass balustrades: posts, rails, palings, panels, concrete, cutting lists, running positions and cost",
+		seoDescription: "Fence layouts: post and rail with palings and concrete, post and panel with cut panels, arched or scalloped paling lengths, glass balustrade panels and spigots.",
+		category: ToolCategory.CONSTRUCTION,
+		route: "/tools/fence-calculator",
+		keywords: ["fence", "fencing", "posts", "post spacing", "palings", "pickets", "rails", "fence panels", "scalloped fence", "arched fence", "glass balustrade", "spigots", "post holes"],
+		implemented: true,
+	},
+	{
 		id: "deck-calculator",
 		name: "Deck Calculator",
 		description: "Whole deck from size, height and ground fall: stumps with their lengths, bearers, joists, board rows, fascia, fasteners and a material list with board feet and cost, plus plan, elevation and running lists",
