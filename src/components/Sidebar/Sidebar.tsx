@@ -36,7 +36,7 @@ const CATEGORY_ICONS: Record<ToolCategory, React.ComponentType<React.SVGProps<SV
 };
 
 export default function Sidebar() {
-	const [expandedCategories, setExpandedCategories] = useState<Set<ToolCategory>>(new Set(Object.keys(CATEGORIES) as ToolCategory[]));
+	const [expandedCategories, setExpandedCategories] = useState<Set<ToolCategory>>(new Set());
 	const [query, setQuery] = useState("");
 	// Snapshot of expand state captured when search begins, restored when it ends.
 	const preSearchExpanded = useRef<Set<ToolCategory> | null>(null);
